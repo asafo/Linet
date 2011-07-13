@@ -1,0 +1,2109 @@
+# Drorit Translation.
+# This file is distributed under the same license as the Drorit package.
+#
+# Ori Idan <ori@helicontech.co.il>, 2009, 2010.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-17 09:23+0200\n"
+"PO-Revision-Date: 2010-03-17 09:24+0200\n"
+"Last-Translator: Ori Idan <ori@helicontech.co.il>\n"
+"Language-Team: Hebrew <ori@helicontech.co.il>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: UTF-8\n"
+
+#: acctadmin.php:14 acctdisp.php:39 balance.php:37 bankbook.php:9
+#: calendar.php:12 contact.php:12 deposit.php:12 dispmatch.php:9
+#: docnums.php:10 docsadmin.php:18 extmatch.php:9 intmatch.php:9 items.php:12
+#: login.php:374 mprofloss.php:43 opbalance.php:7 openfrmt.php:17
+#: outcome.php:12 owe.php:11 payment.php:33 pcn874.php:10 profloss.php:36
+#: tedit.php:10 tranrep.php:34 vatrep.php:18
+msgid "This operation can not be executed without choosing a business first"
+msgstr "לא ניתן לבצע פעולה זו ללא בחירת חברה"
+
+#: acctadmin.php:88
+msgid "Choose 6111 clause"
+msgstr "בחר סעיף 6111"
+
+#: acctadmin.php:185 contact.php:88
+msgid "Edit account details"
+msgstr "עריכת פרטי חשבון"
+
+#: acctadmin.php:191 contact.php:98
+msgid "New account"
+msgstr "חשבון חדש"
+
+#: acctadmin.php:204
+msgid "Account type"
+msgstr "סוג חשבון"
+
+#: acctadmin.php:211
+msgid "Account name"
+msgstr "שם חשבון"
+
+#: acctadmin.php:216 contact.php:109
+msgid "Payment terms"
+msgstr "תנאי תשלום"
+
+#: acctadmin.php:218 contact.php:111
+msgid "Add + for current +"
+msgstr "הוסף + לתנאי תשלום שוטף +"
+
+#: acctadmin.php:224 balance.php:179 balance.php:190 profloss.php:150
+#: profloss.php:196 profloss.php:216
+msgid "6111 clause"
+msgstr "סעיף 6111"
+
+#: acctadmin.php:236 acctadmin.php:244
+msgid "Recocnized VAT"
+msgstr "מע\"מ מוכר"
+
+#: acctadmin.php:252 contact.php:116
+msgid "Source clearing"
+msgstr "ניכוי במקור"
+
+#: acctadmin.php:256 contact.php:120
+msgid "Valid date"
+msgstr "תוקף אישור"
+
+#: acctadmin.php:262 contact.php:126 contact.php:432
+msgid "Contact"
+msgstr "איש קשר"
+
+#: acctadmin.php:266 contact.php:129
+msgid "Department"
+msgstr "מחלקה"
+
+#: acctadmin.php:271
+msgid "Account number"
+msgstr "מספר חשבון"
+
+#: acctadmin.php:275 contact.php:133 defs.php:302
+msgid "Registration number"
+msgstr "מספר עוסק מורשה"
+
+#: acctadmin.php:280 contact.php:136 contactus.php:34 defs.php:230
+#: login.php:54 login.php:337 login.php:397 login.php:414 support.php:27
+msgid "Email"
+msgstr "דואר אלקטרוני"
+
+#: acctadmin.php:284 acctadmin.php:577 contact.php:140 defs.php:286
+msgid "Phone"
+msgstr "טלפון"
+
+#: acctadmin.php:288 contact.php:143
+msgid "Direct phone"
+msgstr "טלפון ישיר"
+
+#: acctadmin.php:292 contact.php:147
+msgid "Fax"
+msgstr "פקס"
+
+#: acctadmin.php:296 contact.php:151
+msgid "Web site"
+msgstr "אתר אינטרנט"
+
+#: acctadmin.php:300 acctadmin.php:571 contact.php:155 contact.php:433
+#: defs.php:274 docsadmin.php:763 receipt.php:441
+msgid "Address"
+msgstr "כתובת"
+
+#: acctadmin.php:304 acctadmin.php:573 contact.php:159 contact.php:434
+#: defs.php:278 docsadmin.php:771 receipt.php:446
+msgid "City"
+msgstr "עיר"
+
+#: acctadmin.php:308 acctadmin.php:575 contact.php:162 contact.php:435
+#: defs.php:281 docsadmin.php:775 receipt.php:449
+msgid "Zip"
+msgstr "מיקוד"
+
+#: acctadmin.php:313 contact.php:166 docsadmin.php:820
+msgid "Comments"
+msgstr "הערות"
+
+#: acctadmin.php:317 contact.php:33 contact.php:170 contactus.php:36
+#: extmatch.php:380 login.php:418 main.php:208 openfrmt.php:465
+#: receipt.php:386 support.php:29 tedit.php:166
+msgid "Submit"
+msgstr "בצע"
+
+#: acctadmin.php:327 acctadmin.php:400 contact.php:192 contact.php:256
+#: docnums.php:19 docnums.php:56 docsadmin.php:451 items.php:154 items.php:171
+#: login.php:92 login.php:109 login.php:132 login.php:198 outcome.php:201
+#: payment.php:124
+msgid "Demo user is not allowed to update data"
+msgstr "משתמש דוגמה אינו רשאי לעדכן נתונים"
+
+#: acctadmin.php:357 contact.php:222
+msgid "Account name must be specified"
+msgstr "לא צוין שם חשבון"
+
+#: acctadmin.php:483
+msgid "Account with transactions can not be deleted"
+msgstr "לא ניתן למחוק חשבון עם תנועות"
+
+#: acctadmin.php:557
+msgid "Internal number"
+msgstr "מספר פנימי"
+
+#: acctadmin.php:560
+msgid "Name"
+msgstr "שם"
+
+#: acctadmin.php:563
+msgid "Recognized VAT"
+msgstr "מע\"מ מוכר"
+
+#: acctadmin.php:565
+msgid "6111 caluse"
+msgstr "סעיף 6111"
+
+#: acctadmin.php:567
+msgid "6111 description"
+msgstr "תיאור 6111"
+
+#: acctadmin.php:583 balance.php:185 balance.php:193 bankbook.php:220
+#: contact.php:470 owe.php:48 payment.php:334
+msgid "Acc. balance"
+msgstr "יתרה"
+
+#: acctadmin.php:633 edit.inc.php:187 index.php:191 items.php:219
+msgid "Edit"
+msgstr "ערוך"
+
+#: acctadmin.php:636 backup.php:162 contact.php:411 curadmin.php:157
+#: docnums.php:140 edit.inc.php:191 items.php:221 main.php:77
+msgid "Delete"
+msgstr "מחק"
+
+#: acctadmin.php:644 acctdisp.php:380 balance.php:260 balance.php:270
+#: deposit.php:222 docsadmin.php:797 docsadmin.php:931 docsadmin.php:1017
+#: mprofloss.php:160 mprofloss.php:175 mprofloss.php:241 mprofloss.php:255
+#: mprofloss.php:502 mprofloss.php:515 profloss.php:286 profloss.php:295
+#: profloss.php:423 profloss.php:437 receipt.php:376 showdocs.php:202
+#: tranrep.php:394
+msgid "Total"
+msgstr "סה\"כ"
+
+#: acctdisp.php:20 acctdisp.php:167 acctdisp.php:405
+msgid "Display transactions for account"
+msgstr "הצגת תנועות לכרטיס"
+
+#: acctdisp.php:163
+msgid "Transactions report for account"
+msgstr "דו\"ח תנועות לכרטיס"
+
+#: acctdisp.php:171 balance.php:114 dispmatch.php:50 openfrmt.php:434
+#: openfrmt.php:617 printacct.php:159 profloss.php:119 showdocs.php:234
+#: tranrep.php:87
+msgid "From date"
+msgstr "מתאריך"
+
+#: acctdisp.php:173 acctdisp.php:418 balance.php:128 dispmatch.php:64
+#: openfrmt.php:449 openfrmt.php:619 printacct.php:173 profloss.php:133
+#: showdocs.php:250 tranrep.php:101
+msgid "To date"
+msgstr "עד תאריך"
+
+#: acctdisp.php:181 acctdisp.php:202 printacct.php:242 printacct.php:263
+#: tranrep.php:149
+msgid "Transaction"
+msgstr "תנועה"
+
+#: acctdisp.php:183 acctdisp.php:204 contact.php:469 deposit.php:176
+#: printacct.php:244 printacct.php:265
+msgid "Type"
+msgstr "סוג"
+
+#: acctdisp.php:185 acctdisp.php:206 bankbook.php:210 contact.php:32
+#: curadmin.php:116 deposit.php:188 dispmatch.php:139 dispmatch.php:153
+#: docsadmin.php:717 docsadmin.php:892 extmatch.php:320 extmatch.php:414
+#: extmatch.php:460 intmatch.php:229 intmatch.php:267 lasttran.inc.php:59
+#: outcome.php:317 payment.php:246 payment.php:303 printacct.php:246
+#: printacct.php:267 receipt.php:301 receipt.php:416 receipt.php:474
+#: showdocs.php:114 tedit.php:140 tranrep.php:155 tranrep.php:161
+#: tranrep.php:188
+msgid "Date"
+msgstr "תאריך"
+
+#: acctdisp.php:187 acctdisp.php:208 bankbook.php:214 dispmatch.php:137
+#: intmatch.php:231 intmatch.php:269 lasttran.inc.php:65 payment.php:238
+#: payment.php:295 printacct.php:248 printacct.php:269 tedit.php:155
+#: tranrep.php:166 tranrep.php:192
+msgid "Ref. num"
+msgstr "אסמכתא"
+
+#: acctdisp.php:189 acctdisp.php:210 bankbook.php:212 calendar.php:125
+#: calendar.php:177 calendar.php:208 calendar.php:256 dispmatch.php:133
+#: extmatch.php:343 extmatch.php:418 extmatch.php:464 lasttran.inc.php:67
+#: outcome.php:339 payment.php:242 payment.php:299 printacct.php:250
+#: printacct.php:271 tedit.php:159 tranrep.php:170 tranrep.php:196
+msgid "Details"
+msgstr "פרטים"
+
+#: acctdisp.php:191 acctdisp.php:212 printacct.php:252 printacct.php:273
+msgid "Opp. account"
+msgstr "חשבון נגדי"
+
+#: acctdisp.php:193 acctdisp.php:214 balance.php:181 balance.php:191
+#: bankbook.php:216 extmatch.php:351 printacct.php:254 printacct.php:275
+#: tedit.php:35
+msgid "Debit"
+msgstr "חובה"
+
+#: acctdisp.php:195 acctdisp.php:216 balance.php:183 balance.php:192
+#: bankbook.php:218 extmatch.php:353 printacct.php:256 printacct.php:277
+#: tedit.php:37
+msgid "Credit"
+msgstr "זכות"
+
+#: acctdisp.php:197 acctdisp.php:218 opbalance.php:88 printacct.php:258
+#: printacct.php:279
+msgid "Acct. balance"
+msgstr "יתרה"
+
+#: acctdisp.php:220 printacct.php:281
+msgid "Operations"
+msgstr "פעולות"
+
+#: acctdisp.php:237 acctdisp.php:241 drorit.inc.php:156 printacct.php:293
+#: printacct.php:297
+msgid "Openning balance"
+msgstr "יתרות פתיחה"
+
+#: acctdisp.php:357
+msgid "Edit/Storeno"
+msgstr "עריכה/סטורנו"
+
+#: acctdisp.php:365 tranrep.php:414
+msgid "Click here to download report"
+msgstr "לחץ כאן להורדת הקובץ"
+
+#: acctdisp.php:369 balance.php:298 mprofloss.php:567 openfrmt.php:599
+#: profloss.php:496 tranrep.php:418
+msgid "Right click and choose 'save as...'"
+msgstr "להורדת הקובץ לחץ כפתור ימני ובחר שמור בשם"
+
+#: acctdisp.php:395 balance.php:281 docsadmin.php:1051 mprofloss.php:553
+#: openfrmt.php:658 printacct.php:202 printacct.php:449 printdoc.php:244
+#: profloss.php:479 tranrep.php:431
+msgid "Print"
+msgstr "הדפס"
+
+#: acctdisp.php:415
+msgid "From date: "
+msgstr "מתאריך:"
+
+#: acctdisp.php:422 bankbook.php:192 dispmatch.php:79 showdocs.php:178
+msgid "Display"
+msgstr "הצג"
+
+#: additem.php:10 docsadmin.php:319
+msgid "Add item"
+msgstr "הוסף פריט"
+
+#: additem.php:67 items.php:35
+msgid "Choose income account"
+msgstr "בחר חשבון הכנסות"
+
+#: additem.php:75 items.php:43
+msgid "0% VAT"
+msgstr "מע\"מ 0%"
+
+#: additem.php:78 items.php:46
+msgid "100% VAT"
+msgstr "מע\"מ 100%"
+
+#: additem.php:94 calendar.php:326 docsadmin.php:30 items.php:62
+msgid "NIS"
+msgstr "ש\"ח"
+
+#: additem.php:112 items.php:93
+msgid "New item"
+msgstr "פריט חדש"
+
+#: additem.php:118 items.php:99 items.php:203
+msgid "Income account"
+msgstr "חשבון הכנסות"
+
+#: additem.php:124 items.php:105 items.php:201
+msgid "Item name"
+msgstr "שם פריט"
+
+#: additem.php:128 items.php:109
+msgid "Supplier cat. num."
+msgstr "מספר קטלוגי ספק"
+
+#: additem.php:132 additem.php:172 items.php:113 items.php:205
+msgid "Unit price"
+msgstr "מחיר יחידה"
+
+#: additem.php:136 curadmin.php:134 docsadmin.php:795 docsadmin.php:929
+#: items.php:117
+msgid "Currency"
+msgstr "מטבע"
+
+#: additem.php:142 bankbook.php:294 curadmin.php:169 curadmin.php:190
+#: defs.php:354 docnums.php:146 edit.inc.php:288 items.php:123 login.php:363
+#: opbalance.php:100 outcome.php:359 payment.php:263
+msgid "Update"
+msgstr "עדכן"
+
+#: additem.php:168
+msgid "Item number"
+msgstr "מספר פריט"
+
+#: additem.php:170 docsadmin.php:789 docsadmin.php:923
+msgid "Description"
+msgstr "תיאור"
+
+#: additem.php:175
+msgid "Close window"
+msgstr "סגור חלון"
+
+#: backup.php:43
+msgid "Data backup"
+msgstr "גיבוי נתונים"
+
+#: backup.php:61
+msgid "Backuping table"
+msgstr "מגבה טבלה"
+
+#: backup.php:66
+msgid "Backup done"
+msgstr "הגיבוי בוצע בהצלחה"
+
+#: backup.php:68
+msgid "Click here to download backup file"
+msgstr "לחץ כאן להורדת קובץ הגיבוי למחשב האישי"
+
+#: backup.php:80
+msgid "File deleted successfully"
+msgstr "הקובץ נמחק בהצלחה"
+
+#: backup.php:107
+msgid "Error transfering file or empty file"
+msgstr "שגיאה בהעברת קובץ או קובץ ריק"
+
+#: backup.php:128
+msgid "Data restored successfully"
+msgstr "הנתונים שוחזרו בהצלחה"
+
+#: backup.php:135
+msgid "Restore data from backup"
+msgstr "שחזור נתונים מגיבוי"
+
+#: backup.php:139
+msgid "Backup file"
+msgstr "קובץ גיבוי"
+
+#: backup.php:142 balance.php:143 extmatch.php:160 printacct.php:187
+#: profloss.php:153 tranrep.php:115 vatrep.php:193
+msgid "Execute"
+msgstr "בצע"
+
+#: backup.php:148
+msgid "Choose file from server"
+msgstr "בחר קובץ מהשרת"
+
+#: backup.php:152
+msgid "File"
+msgstr "קובץ"
+
+#: backup.php:154 curadmin.php:138 items.php:207 showdocs.php:124
+msgid "Actions"
+msgstr "פעולות"
+
+#: backup.php:160
+msgid "Restore"
+msgstr "שחזר"
+
+#: balance.php:17 balance.php:99 balance.php:108
+msgid "Balance report"
+msgstr "מאזן"
+
+#: balance.php:161 profloss.php:171
+msgid "For period"
+msgstr "לתקופה"
+
+#: balance.php:177 balance.php:189 deposit.php:186 extmatch.php:349
+#: intmatch.php:211 mprofloss.php:156 mprofloss.php:171 opbalance.php:86
+#: profloss.php:187 profloss.php:208 tedit.php:33 tranrep.php:157
+#: tranrep.php:163 tranrep.php:190
+msgid "Account"
+msgstr "חשבון"
+
+#: balance.php:287 mprofloss.php:556 mprofloss.php:563 profloss.php:485
+#: profloss.php:492 tranrep.php:434
+msgid "File export"
+msgstr "יצוא לקובץ"
+
+#: balance.php:294
+msgid "Click here to download"
+msgstr "לחץ כאן להורדת הקובץ"
+
+#: bankbook.php:115
+msgid "Invalid date at line: "
+msgstr "תאריך לא תקין בשורה:"
+
+#: bankbook.php:166
+msgid "Bank papers input"
+msgstr "הזנת דפי בנק"
+
+#: bankbook.php:176 dispmatch.php:35 extmatch.php:145
+msgid "Choose bank account"
+msgstr "בחירת חשבון בנק"
+
+#: bankbook.php:291
+msgid "Prev. page"
+msgstr "דף קודם"
+
+#: bankbook.php:298
+msgid "Next page"
+msgstr "דף הבא"
+
+#: calendar.php:115
+msgid "Pay supplier"
+msgstr "לשלם לספק"
+
+#: calendar.php:120 calendar.php:172 calendar.php:203 calendar.php:251
+#: outcome.php:334
+msgid "Reference"
+msgstr "אסמכתא"
+
+#: calendar.php:129 calendar.php:181 calendar.php:212 calendar.php:260
+#: calendar.php:285 calendar.php:304 contact.php:350 contact.php:372
+#: deposit.php:190 dispmatch.php:135 dispmatch.php:149 extmatch.php:420
+#: extmatch.php:466 intmatch.php:233 intmatch.php:271 lasttran.inc.php:71
+#: payment.php:229 profloss.php:209 receipt.php:476 tranrep.php:177
+msgid "Sum"
+msgstr "סכום"
+
+#: calendar.php:168 drorit.inc.php:136 payment.php:206 payment.php:276
+msgid "Supplier payment"
+msgstr "תשלום לספק"
+
+#: calendar.php:248 menu.inc.php:25 payment.php:198
+msgid "VAT payment"
+msgstr "תשלום מע\"מ"
+
+#: calendar.php:283
+msgid "To customer"
+msgstr "ללקוח"
+
+#: calendar.php:288 contact.php:352
+msgid "Including VAT"
+msgstr "כולל מע\"מ"
+
+#: calendar.php:321 drorit.inc.php:134
+msgid "Cheque deposit"
+msgstr "הפקדת שיק"
+
+#: calendar.php:324 support.php:58
+msgid "From: "
+msgstr "מ"
+
+#: calendar.php:326
+msgid "Total of"
+msgstr "סך של"
+
+#: calendar.php:337
+msgid "Contact with"
+msgstr "קשר עם"
+
+#: calendar.php:351
+msgid "Jan."
+msgstr "ינואר"
+
+#: calendar.php:351
+msgid "Feb."
+msgstr "פברואר"
+
+#: calendar.php:351 mprofloss.php:35 vatrep.php:10
+msgid "March"
+msgstr "מרץ"
+
+#: calendar.php:351
+msgid "Apr."
+msgstr "אפריל"
+
+#: calendar.php:352 mprofloss.php:36 vatrep.php:11
+msgid "May"
+msgstr "מאי"
+
+#: calendar.php:352 mprofloss.php:36 vatrep.php:11
+msgid "June"
+msgstr "יוני"
+
+#: calendar.php:352 mprofloss.php:36 vatrep.php:11
+msgid "July"
+msgstr "יולי"
+
+#: calendar.php:352
+msgid "Aug."
+msgstr "אוגוסט"
+
+#: calendar.php:352
+msgid "Sep."
+msgstr "ספטמבר"
+
+#: calendar.php:352
+msgid "Oct."
+msgstr "אוקטובר"
+
+#: calendar.php:352
+msgid "Nov."
+msgstr "נובמבר"
+
+#: calendar.php:352
+msgid "Dec."
+msgstr "דצמבר"
+
+#: calendar.php:516
+msgid "Events for date"
+msgstr "אירועים לתארך"
+
+#: contact.php:84
+msgid "Edit customer details"
+msgstr "עריכת פרטי לקוח"
+
+#: contact.php:86
+msgid "Edit supplier details"
+msgstr "עריכת פרטי ספק"
+
+#: contact.php:94 contact.php:465
+msgid "Add customer"
+msgstr "הוספת לקוח"
+
+#: contact.php:96 contact.php:466
+msgid "Add supplier"
+msgstr "הוספת ספק"
+
+#: contact.php:105
+msgid "Company name"
+msgstr "שם חברה"
+
+#: contact.php:329
+msgid "Activity history"
+msgstr "הסטורית פעילות"
+
+#: contact.php:331
+msgid "Business documents"
+msgstr "מסמכים עסקיים"
+
+#: contact.php:363 deposit.php:178 docnums.php:115 docsadmin.php:1027
+#: drorit.inc.php:94 drorit.inc.php:132 main.php:282 menu.inc.php:19
+#: menu.inc.php:34 receipt.php:217
+msgid "Receipt"
+msgstr "קבלה"
+
+#: contact.php:378
+msgid "Contact history"
+msgstr "הסטורית קשר"
+
+#: contact.php:431 docsadmin.php:744 openfrmt.php:613 receipt.php:437
+msgid "Company"
+msgstr "חברה"
+
+#: contact.php:436 showdocs.php:266
+msgid "Search"
+msgstr "חפש"
+
+#: contact.php:463 showdocs.php:112
+msgid "Num"
+msgstr "מס'"
+
+#: contact.php:491
+msgid "Customers/Suppliers managmenet"
+msgstr "ניהול לקוחות\\ספקים"
+
+#: contact.php:533 docsadmin.php:710 owe.php:46 receipt.php:412
+#: showdocs.php:116
+msgid "Customer"
+msgstr "לקוח"
+
+#: contact.php:553 contact.php:581
+msgid "Transactions"
+msgstr "תנועות"
+
+#: contact.php:561 lasttran.inc.php:61 outcome.php:276 payment.php:217
+#: payment.php:332
+msgid "Supplier"
+msgstr "ספק"
+
+#: contactus.php:15
+msgid "If you don't specify email, we will not be able to answer"
+msgstr "אם לא תציין דואר אלקטרוני לא נוכל לענות לך"
+
+#: contactus.php:23 support.php:65
+msgid "Message sent to drorit team"
+msgstr "ההודעה נשלחה למערכת דרורית"
+
+#: contactus.php:25 support.php:67
+msgid "We will do our best to answer you shortly"
+msgstr "נשתדל לענות לך בהקדם"
+
+#: contactus.php:27 login.php:161 login.php:191 support.php:69
+msgid "Click here to continue"
+msgstr "לחץ כאן להמשך"
+
+#: contactus.php:33 defs.php:244 login.php:57 login.php:341 support.php:26
+msgid "Full name"
+msgstr "שם מלא"
+
+#: contactus.php:35 support.php:28
+msgid "Message"
+msgstr "הודעה"
+
+#: contactus.php:61 menu.inc.php:54
+msgid "Contact us"
+msgstr "צור קשר"
+
+#: curadmin.php:25
+msgid "Drorit Free accounting software - Currency rate management"
+msgstr "דרורית הנהלת חשבונות חופשית - ניהול מטבעות"
+
+#: curadmin.php:109 menu.inc.php:12
+msgid "Currency rates"
+msgstr "שערי מטבע"
+
+#: curadmin.php:136 curadmin.php:185
+msgid "Sign"
+msgstr "סמל"
+
+#: curadmin.php:140
+msgid "Rate"
+msgstr "שער"
+
+#: curadmin.php:174
+msgid "Add currency"
+msgstr "הוסף מטבע"
+
+#: curadmin.php:181
+msgid "Currency name"
+msgstr "שם מטבע"
+
+#: dbarchart.php:32 menu.inc.php:16 mprofloss.php:162 mprofloss.php:178
+#: profloss.php:203 profloss.php:220 tranrep.php:198
+msgid "Income"
+msgstr "הכנסות"
+
+#: dbarchart.php:33 main.php:286 menu.inc.php:21 menu.inc.php:22
+#: mprofloss.php:432 mprofloss.php:437 profloss.php:370 profloss.php:374
+#: tranrep.php:204
+msgid "Outcome"
+msgstr "הוצאות"
+
+#: defs.php:20
+msgid "Prefix must be english only with no spaces"
+msgstr "קידומת חברה חייבת להיות באותיות אנגליות בלבד ללא רווחים"
+
+#: defs.php:25
+msgid "Business name not specified"
+msgstr "לא צוין שם עסק"
+
+#: defs.php:30
+msgid "Full name not specified"
+msgstr "לא צוין שם מלא"
+
+#: defs.php:35
+msgid "No email entered"
+msgstr "לא הוכנס דואר אלקטרוני"
+
+#: defs.php:40
+msgid "No password entered"
+msgstr "לא הוכנסה ססמה"
+
+#: defs.php:45 login.php:171 login.php:209
+msgid "Passwords are not equal"
+msgstr "ססמאות אינן זהות"
+
+#: defs.php:62
+msgid "Creating new user"
+msgstr "יצירת משתמש חדש"
+
+#: defs.php:66
+msgid "New user created succesfully"
+msgstr "המשתמש החדש נוצר בהצלחה"
+
+#: defs.php:78
+msgid "User password updated"
+msgstr "ססמת משתמש עודכנה"
+
+#: defs.php:101
+msgid "Business added succesfully"
+msgstr "העסק נוסף בהצלחה"
+
+#: defs.php:111
+msgid "Error registering to system"
+msgstr "תקלה בהרשמה למערכת"
+
+#: defs.php:120 support.php:81
+msgid "Hello"
+msgstr "שלום"
+
+#: defs.php:123
+msgid "Your registration to drorit is completed"
+msgstr "הרשמתך לתוכנת דרורית הושלמה"
+
+#: defs.php:126
+msgid "Click"
+msgstr "לחץ"
+
+#: defs.php:127
+msgid "here to connect"
+msgstr "כאן להתחברות"
+
+#: defs.php:173
+msgid "Details succesfully updated"
+msgstr "הנתונים עודכנו בהצלחה"
+
+#: defs.php:187
+msgid "Can not execute this operation without logging in to system"
+msgstr "לא ניתן לבצע פעולה זו ללא התחברות למערכת"
+
+#: defs.php:194
+msgid "Entering new business"
+msgstr "הכנסת פרטי עסק"
+
+#: defs.php:234 login.php:60 login.php:346 login.php:400
+msgid "Password"
+msgstr "ססמה"
+
+#: defs.php:239
+msgid "Password verify"
+msgstr "אמות ססמה"
+
+#: defs.php:250
+msgid "Prefix: "
+msgstr "קידומת:"
+
+#: defs.php:258
+msgid "Edit business details"
+msgstr "עריכת פרטי עסק"
+
+#: defs.php:262
+msgid "General definitions"
+msgstr "הגדרות כלליות"
+
+#: defs.php:266
+msgid "Business name"
+msgstr "שם עסק"
+
+#: defs.php:270
+msgid "Manager name"
+msgstr "שם מנהל"
+
+#: defs.php:291
+msgid "Cellular"
+msgstr "סלולרי"
+
+#: defs.php:298
+msgid "Definitions for tax"
+msgstr "הגדרות לצרכי מס"
+
+#: defs.php:307
+msgid "Tax rep. period"
+msgstr "דיווח מקדמות"
+
+#: defs.php:311 defs.php:329
+msgid "Monthly"
+msgstr "חודשי"
+
+#: defs.php:313 defs.php:336
+msgid "BiMonthly"
+msgstr "דו חודשי"
+
+#: defs.php:319
+msgid "Tax percent"
+msgstr "אחוז מקדמות"
+
+#: defs.php:325
+msgid "VAT report"
+msgstr "דיווח מע\"מ"
+
+#: defs.php:340
+msgid "VAT percent"
+msgstr "אחוז מע\"מ"
+
+#: defs.php:370 func.inc.php:151 login.php:429
+msgid "We advise to use this software with Firefox browser"
+msgstr "מומלץ להשתמש בתוכנה זו עם דפדפן פיירפוקס"
+
+#: defs.php:372 func.inc.php:153 login.php:431
+msgid "To install press the logo on the left"
+msgstr "להתקנה לחץ על הלוגו מימין"
+
+#: defs.php:374 func.inc.php:155 login.php:433
+msgid "For more information"
+msgstr "לפרטים נוספים"
+
+#: defs.php:375 func.inc.php:156 login.php:434
+msgid "Click here"
+msgstr "לחץ כאן"
+
+#: demoreg.php:48
+msgid "You have registered in the past to the demo version"
+msgstr "נרשמת בעבר לגרסת ההדגמה"
+
+#: demoreg.php:50
+msgid "Login to software using this email with no password"
+msgstr "להתחברות נוספת יש להכניס את כתובת המייל ללא ססמה"
+
+#: demoreg.php:52
+msgid "Click here to login"
+msgstr "לחץ כאן להתחברות"
+
+#: deposit.php:76
+msgid "Cheque, credit and cash deposit"
+msgstr "הפקדת שיקים, מזומנים וסליקת אשראי"
+
+#: deposit.php:83
+msgid "Bank account not defined"
+msgstr "לא הוגדר חשבון בנק"
+
+#: deposit.php:89
+msgid "Deposit date not defined"
+msgstr "לא הוגדר תאריך הפקדה"
+
+#: deposit.php:97
+msgid "Bank refnum must be filled"
+msgstr "יש למלא אסמכתא בבנק"
+
+#: deposit.php:103
+msgid "Nothing to deposit"
+msgstr "לא נבחרו סכומים להפקדה"
+
+#: deposit.php:143
+msgid "Deposit executed successfully"
+msgstr "ההפקדה בוצעה בהצלחה"
+
+#: deposit.php:149
+msgid "Bank account"
+msgstr "חשבון בנק"
+
+#: deposit.php:152
+msgid "Deposit date"
+msgstr "תאריך הפקדה"
+
+#: deposit.php:168
+msgid "Bank refnum"
+msgstr "אסמכתא בבנק"
+
+#: deposit.php:180
+msgid "Refnum"
+msgstr "אסמכתא"
+
+#: deposit.php:182 receipt.php:468
+msgid "Bank"
+msgstr "בנק"
+
+#: deposit.php:184 receipt.php:470
+msgid "Branch"
+msgstr "סניף"
+
+#: deposit.php:228 main.php:284
+msgid "Deposit"
+msgstr "הפקדות"
+
+#: dispmatch.php:20
+msgid "Display bank reconciliations"
+msgstr "הצגת התאמות בנק"
+
+#: dispmatch.php:121 extmatch.php:399
+msgid "External page transactions"
+msgstr "תנועות בדף חיצוני"
+
+#: dispmatch.php:124 extmatch.php:402
+msgid "Internal bank account transactions"
+msgstr "תנועות בכרטיס בנק"
+
+#: dispmatch.php:151 extmatch.php:416 extmatch.php:462
+msgid "Ref. num."
+msgstr "אסמכתא"
+
+#: dispmatch.php:155 extmatch.php:458 intmatch.php:227 intmatch.php:265
+#: tedit.php:125
+msgid "Tran. type"
+msgstr "סוג תנועה"
+
+#: dispmatch.php:233
+msgid "Open reconciliations"
+msgstr "פתח התאמות"
+
+#: docnums.php:86
+msgid "Business documents definitions"
+msgstr "הגדרות למסמכים עסקיים"
+
+#: docnums.php:91
+msgid "Base numbers"
+msgstr "מספרי בסיס"
+
+#: docnums.php:95 drorit.inc.php:84 menu.inc.php:29
+msgid "Proforma"
+msgstr "חשבון עסקה"
+
+#: docnums.php:98 drorit.inc.php:86 menu.inc.php:30
+msgid "Delivery doc."
+msgstr "ת. משלוח"
+
+#: docnums.php:102 drorit.inc.php:88 drorit.inc.php:128 main.php:280
+#: menu.inc.php:17 menu.inc.php:31
+msgid "Invoice"
+msgstr "חשבונית"
+
+#: docnums.php:105 drorit.inc.php:90
+msgid "Credit invoice"
+msgstr "חשבונית זיכוי"
+
+#: docnums.php:110 drorit.inc.php:92
+msgid "Return document"
+msgstr "תעודת החזרה"
+
+#: docnums.php:120
+msgid "Document layout"
+msgstr "עיצוב מסמכים"
+
+#: docnums.php:124
+msgid "Header"
+msgstr "כותרת עילית"
+
+#: docnums.php:129
+msgid "Footer"
+msgstr "כותרת תחתית"
+
+#: docnums.php:134
+msgid "Logo"
+msgstr "לוגו"
+
+#: docsadmin.php:285
+msgid "Choose customer"
+msgstr "בחר לקוח"
+
+#: docsadmin.php:317
+msgid "Choose item"
+msgstr "בחר פריט"
+
+#: docsadmin.php:516 docsadmin.php:583
+msgid "Income account not defined"
+msgstr "חשבון הכנסות לא הוגדר"
+
+#: docsadmin.php:658 docsadmin.php:1040 login.php:80
+msgid "Create"
+msgstr "צור"
+
+#: docsadmin.php:663
+msgid "Document type not defined"
+msgstr "לא נבחר סוג מסמך"
+
+#: docsadmin.php:678
+msgid "Copy proforma"
+msgstr "העתק חשבון עסקה"
+
+#: docsadmin.php:685
+msgid "Copy delivery doc."
+msgstr "העתק ת. משלוח"
+
+#: docsadmin.php:699
+msgid "Copy invoice"
+msgstr "העתק חשבונית"
+
+#: docsadmin.php:714
+msgid "New customer"
+msgstr "לקוח חדש"
+
+#: docsadmin.php:748 docsadmin.php:995
+msgid "To be paid until"
+msgstr "לתשלום עד"
+
+#: docsadmin.php:767 docsadmin.php:898
+msgid "Order number"
+msgstr "מספר הזמנה"
+
+#: docsadmin.php:778 openfrmt.php:615 receipt.php:310 receipt.php:452
+msgid "Reg. num"
+msgstr "עוסק מורשה"
+
+#: docsadmin.php:787
+msgid "Item"
+msgstr "פריט"
+
+#: docsadmin.php:791 docsadmin.php:925
+msgid "Qty."
+msgstr "כמות"
+
+#: docsadmin.php:793 docsadmin.php:927
+msgid "Price"
+msgstr "מחיר"
+
+#: docsadmin.php:832 docsadmin.php:1044
+msgid "Next"
+msgstr "הבא"
+
+#: docsadmin.php:845
+msgid "No document type chosen"
+msgstr "לא נבחר סוג מסמך"
+
+#: docsadmin.php:853
+msgid "No customer was chosen"
+msgstr "לא נבחר לקוח"
+
+#: docsadmin.php:867 extmatch.php:189 outcome.php:208 payment.php:152
+msgid "Invalid date"
+msgstr "תאריך לא תקין"
+
+#: docsadmin.php:888 printacct.php:210 receipt.php:297
+msgid "To"
+msgstr "לכבוד"
+
+#: docsadmin.php:915 printdoc.php:136
+msgid "Source"
+msgstr "מקור"
+
+#: docsadmin.php:933
+msgid "Total NIS"
+msgstr "סה\"כ ש\"ח"
+
+#: docsadmin.php:946
+msgid "No item was chosen on line: "
+msgstr "לא נבחר פריט בשורה:"
+
+#: docsadmin.php:970
+msgid "Set rate"
+msgstr "קבע שער עדכני"
+
+#: docsadmin.php:989
+msgid "Total for VAT"
+msgstr "סה\"כ חייב מע\"מ"
+
+#: docsadmin.php:1001
+msgid "No vat total"
+msgstr "סה\"כ פטור ממע\"מ"
+
+#: docsadmin.php:1009 drorit.inc.php:138 outcome.php:349 tranrep.php:173
+#: tranrep.php:179
+msgid "VAT"
+msgstr "מע\"מ"
+
+#: drorit.inc.php:4
+msgid "Drorit - Free accounting software"
+msgstr "דרורית - הנהלת חשבונות חופשית"
+
+#: drorit.inc.php:12
+msgid "Customers"
+msgstr "לקוחות"
+
+#: drorit.inc.php:14
+msgid "Suppliers"
+msgstr "ספקים"
+
+#: drorit.inc.php:16 tranrep.php:146
+msgid "Outcomes"
+msgstr "הוצאות"
+
+#: drorit.inc.php:18 tranrep.php:144
+msgid "Incomes"
+msgstr "הכנסות"
+
+#: drorit.inc.php:20
+msgid "Authorities"
+msgstr "רשויות"
+
+#: drorit.inc.php:22
+msgid "Liabilities"
+msgstr "התחיבויות"
+
+#: drorit.inc.php:24
+msgid "Equity"
+msgstr "הון עצמי"
+
+#: drorit.inc.php:26
+msgid "Buys"
+msgstr "קניות"
+
+#: drorit.inc.php:28
+msgid "Banks"
+msgstr "בנקים"
+
+#: drorit.inc.php:30 drorit.inc.php:161
+msgid "Cash"
+msgstr "מזומנים"
+
+#: drorit.inc.php:32
+msgid "financing expenses"
+msgstr "הוצאות מימון"
+
+#: drorit.inc.php:34
+msgid "Stocks"
+msgstr "נירות ערך"
+
+#: drorit.inc.php:36
+msgid "Assets"
+msgstr "רכוש קבוע"
+
+#: drorit.inc.php:126
+msgid "Manual"
+msgstr "רשום ידני"
+
+#: drorit.inc.php:130
+msgid "Supplier invoice"
+msgstr "חשבונית ספק"
+
+#: drorit.inc.php:140
+msgid "Storeno"
+msgstr "סטונו"
+
+#: drorit.inc.php:142 extmatch.php:132
+msgid "Bank reconciliation"
+msgstr "התאמת בנקים"
+
+#: drorit.inc.php:144 receipt.php:372 receipt.php:494
+msgid "Source tax"
+msgstr "ניכוי במקור"
+
+#: drorit.inc.php:146
+msgid "Transaction pattern"
+msgstr "תבנית תנועה"
+
+#: drorit.inc.php:148
+msgid "Manual invoice"
+msgstr "חשבונית ידנית"
+
+#: drorit.inc.php:150
+msgid "Manual receipt"
+msgstr "קבלה ידנית"
+
+#: drorit.inc.php:152
+msgid "Tax prepayment"
+msgstr "מקדמות מס הכנסה"
+
+#: drorit.inc.php:154
+msgid "Salary"
+msgstr "משכורת"
+
+#: drorit.inc.php:159
+msgid "No units"
+msgstr "ללא יחידות"
+
+#: drorit.inc.php:159
+msgid "work hours"
+msgstr "שעות עבודה"
+
+#: drorit.inc.php:159
+msgid "units"
+msgstr "יחידות"
+
+#: drorit.inc.php:159
+msgid "liter"
+msgstr "ליטר"
+
+#: drorit.inc.php:159
+msgid "gram"
+msgstr "גרם"
+
+#: drorit.inc.php:159
+msgid "Kilo gram"
+msgstr "קילוגרם"
+
+#: drorit.inc.php:159
+msgid "Meter"
+msgstr "מטר"
+
+#: drorit.inc.php:162
+msgid "Cheque"
+msgstr "שיק"
+
+#: drorit.inc.php:163
+msgid "Credit card"
+msgstr "כרטיס אשראי"
+
+#: drorit.inc.php:164
+msgid "Bank transfer"
+msgstr "העברה בנקאית"
+
+#: drorit.inc.php:167
+msgid "No credit"
+msgstr "ללא אשראי"
+
+#: drorit.inc.php:168
+msgid "Isracard"
+msgstr "ישראכרט"
+
+#: drorit.inc.php:169
+msgid "Cal"
+msgstr "כא\"ל"
+
+#: drorit.inc.php:170
+msgid "Diners"
+msgstr "דיינרס"
+
+#: drorit.inc.php:171
+msgid "American express"
+msgstr "אמריקן אקספרס"
+
+#: drorit.inc.php:172
+msgid "Leumi card"
+msgstr "לאומי כרד"
+
+#: edit.inc.php:67
+msgid "Select module"
+msgstr "בחר מודול"
+
+#: edit.inc.php:135
+msgid "Choose page"
+msgstr "בחר דף"
+
+#: edit.inc.php:138 edit.inc.php:201 edit.php:40
+msgid "New page"
+msgstr "דף חדש"
+
+#: edit.inc.php:198 edit.php:23
+msgid "Add page"
+msgstr "הוסף דף"
+
+#: edit.inc.php:242
+msgid "Identifying name"
+msgstr "שם מזהה"
+
+#: edit.inc.php:260
+msgid "Title"
+msgstr "כותרת"
+
+#: edit.inc.php:267
+msgid "Module"
+msgstr "מודול"
+
+#: edit.inc.php:271
+msgid "Parameters"
+msgstr "פרמטרים"
+
+#: edit.inc.php:284
+msgid "Keep editing"
+msgstr "השאר בעריכה"
+
+#: edit.php:10
+msgid "Manage content pages"
+msgstr "ניהול דפי תוכן"
+
+#: extmatch.php:28
+msgid "Choose account"
+msgstr "בחירת חשבון"
+
+#: extmatch.php:209
+msgid "Unbalanced transaction"
+msgstr "תנועה לא מאוזנת"
+
+#: extmatch.php:216
+msgid "No account specified"
+msgstr "לא נבחר חשבון"
+
+#: extmatch.php:310
+msgid "Unbalanced reconciliation, please create balancing transaction"
+msgstr "התאמה לא מאוזנת, יש ליצור תנועה מאזנת"
+
+#: extmatch.php:336
+msgid "Ref. num. 1"
+msgstr "אסמכתא 1"
+
+#: extmatch.php:339
+msgid "Ref. num. 2"
+msgstr "אסמכתא 2"
+
+#: extmatch.php:498 intmatch.php:303
+msgid "Reconciliate"
+msgstr "התאמה"
+
+#: index.php:308
+msgid "No identifying name specidied"
+msgstr "לא נבחר שם מזהה"
+
+#: index.php:316
+msgid "Invalid identifying name"
+msgstr "שם מזהה לא תקין"
+
+#: index.php:405
+msgid "This module can not be used without logging in"
+msgstr "לא ניתן להפעיל מודול זה ללא התחברות לתוכנה"
+
+#: index.php:407
+msgid "Login to drorit"
+msgstr "חיבור למערכת"
+
+#: index.php:419
+msgid "Module not implemented yet"
+msgstr "מודול לא קיים"
+
+#: index.php:469
+msgid "Log in to system"
+msgstr "התחבר למערכת"
+
+#: index.php:474
+msgid "Logout"
+msgstr "יציאה"
+
+#: index.php:490
+msgid "Select company"
+msgstr "בחר חברה"
+
+#: index.php:495
+msgid "Content management"
+msgstr "ניהול תוכן"
+
+#: intmatch.php:28 intmatch.php:316 opbalance.php:39
+msgid "Select account"
+msgstr "בחר חשבון"
+
+#: intmatch.php:114
+msgid "Accounts reconciliations"
+msgstr "התאמת כרטיסים"
+
+#: intmatch.php:171
+msgid "Unbalanced reconciliation"
+msgstr "התאמה לא מאוזנת"
+
+#: intmatch.php:204
+msgid "No account chosen"
+msgstr "לא נבחר חשבון"
+
+#: intmatch.php:219
+msgid "Debit transactions"
+msgstr "תנועות בחובה"
+
+#: intmatch.php:222
+msgid "Credit transactions"
+msgstr "תנועות בזכות"
+
+#: intmatch.php:324
+msgid "Select"
+msgstr "בחר"
+
+#: items.php:87
+msgid "Edit item"
+msgstr "ערוך פריט"
+
+#: items.php:137
+msgid "Items for business documents"
+msgstr "פריטים למסמכים עסקיים"
+
+#: items.php:194
+msgid "Existing items"
+msgstr "פריטים קיימים"
+
+#: lasttran.inc.php:54
+msgid "Last outcomes"
+msgstr "הוצאות אחרונות"
+
+#: lasttran.inc.php:57
+msgid "Num."
+msgstr "מספר"
+
+#: lasttran.inc.php:63
+msgid "Outcome acc."
+msgstr "חשבון הוצאות"
+
+#: lasttran.inc.php:69
+msgid "Before VAT"
+msgstr "לפני מע\"מ"
+
+#: login.php:50 menu.inc.php:15
+msgid "Add user"
+msgstr "הוסף משתמש"
+
+#: login.php:63 login.php:349
+msgid "Verify password"
+msgstr "אימות ססמה"
+
+#: login.php:103
+msgid "Name succesfully deleted"
+msgstr "השם נמחק בהצלחה"
+
+#: login.php:143
+msgid "Email already exists"
+msgstr "דואר אלקטרוני קיים במערכת"
+
+#: login.php:159
+msgid "User added to business"
+msgstr "המשתמש הוסף לחברה"
+
+#: login.php:189
+msgid "User successfully added"
+msgstr "המשתמש עודכן בהצלחה"
+
+#: login.php:228
+msgid "User successfully updated"
+msgstr "המשתמש עודכן בהצלחה"
+
+#: login.php:238
+msgid "No user with this email"
+msgstr "אין משתמש עם דואר אלקטרוני זה"
+
+#: login.php:247
+msgid "New password for Drorit accounting software"
+msgstr "ססמה חדשה לתוכנת דרורית"
+
+#: login.php:252
+msgid "Your new drorit password is: "
+msgstr "ססמתך החדשה לתוכנת דרורית היא:"
+
+#: login.php:256
+msgid "Password sent to email"
+msgstr "הססמה החדשה נשלחה לדואר האלקטרוני"
+
+#: login.php:279
+msgid "Incorrect email or password"
+msgstr "דואר אלקטרוני או ססמה לא נכונים"
+
+#: login.php:310
+msgid "You have succesfully entered the system"
+msgstr "נכנסת בהצלחה למערכת"
+
+#: login.php:333
+msgid "Edit user details"
+msgstr "עריכת פרטי משתמש"
+
+#: login.php:392
+msgid "Registered users login"
+msgstr "כניסה למשתמשים רשומים"
+
+#: login.php:403 menu.inc.php:57
+msgid "Login"
+msgstr "כניסה"
+
+#: login.php:412
+msgid "I forgot my password"
+msgstr "שכחתי ססמה"
+
+#: main.php:48
+msgid "No companies for this user"
+msgstr "אין חברות למשתמש זה"
+
+#: main.php:62
+msgid "Choose business to work on"
+msgstr "בחר חברה לעבודה"
+
+#: main.php:84
+msgid "Add new business"
+msgstr "הוסף חברה חדשה"
+
+#: main.php:181
+msgid "Begin date"
+msgstr "תאריך תחילה"
+
+#: main.php:195
+msgid "End date"
+msgstr "תאריך סיום"
+
+#: main.php:218
+msgid "Business details (NIS)"
+msgstr "נתונים עסקיים"
+
+#: main.php:227 tranrep.php:202
+msgid "Total income"
+msgstr "סה\"כ הכנסות"
+
+#: main.php:233 tranrep.php:208
+msgid "Total outcome"
+msgstr "סה\"כ הוצאות"
+
+#: main.php:240
+msgid "Total profit"
+msgstr "סה\"כ רווח"
+
+#: main.php:244
+msgid "Total loss"
+msgstr "סה\"כ הפסד"
+
+#: main.php:255
+msgid "Total customers"
+msgstr "סה\"כ לקוחות"
+
+#: main.php:263
+msgid "Total suppliers"
+msgstr "סה\"כ ספקים"
+
+#: main.php:278
+msgid "Short cuts"
+msgstr "קיצורי דרך"
+
+#: main.php:288 menu.inc.php:24
+msgid "Payment"
+msgstr "תשלומים"
+
+#: main.php:291 menu.inc.php:10
+msgid "Contacts"
+msgstr "אנשי קשר"
+
+#: main.php:306
+msgid "Events according to date"
+msgstr "אירועים לפי תאריך"
+
+#: menu.inc.php:6 menu.inc.php:56
+msgid "Main"
+msgstr "דף ראשי"
+
+#: menu.inc.php:7
+msgid "Bussines details"
+msgstr "עריכת פרטי עסק"
+
+#: menu.inc.php:8
+msgid "Accounts"
+msgstr "חשבונות"
+
+#: menu.inc.php:9
+msgid "Business docs"
+msgstr "מסמכים עסקיים"
+
+#: menu.inc.php:11
+msgid "Items"
+msgstr "פריטים"
+
+#: menu.inc.php:13 opbalance.php:57
+msgid "Openning balances"
+msgstr "יתרות פתיחה"
+
+#: menu.inc.php:14
+msgid "Edit user"
+msgstr "ערוך פרטי משתמש"
+
+#: menu.inc.php:18 menu.inc.php:35 showdocs.php:41 showdocs.php:161
+msgid "Invoice receipt"
+msgstr "חשבונית מס קבלה"
+
+#: menu.inc.php:20
+msgid "Bank deposits"
+msgstr "הפקדות בנק"
+
+#: menu.inc.php:23
+msgid "Asstes"
+msgstr "רכוש קבוע"
+
+#: menu.inc.php:26
+msgid "Nat. Ins. payment"
+msgstr "תשלום ביטוח לאומי"
+
+#: menu.inc.php:28
+msgid "Bussiness docs"
+msgstr "מסמכים עסקיים"
+
+#: menu.inc.php:32
+msgid "Credit inv."
+msgstr "חשבונית זיכוי"
+
+#: menu.inc.php:33
+msgid "Return doc."
+msgstr "תעודת החזרה"
+
+#: menu.inc.php:36
+msgid "Print docs."
+msgstr "הדפסת מסמכים עסקיים"
+
+#: menu.inc.php:37
+msgid "Reports"
+msgstr "דוחות"
+
+#: menu.inc.php:38
+msgid "Incomes outcomes"
+msgstr "הכנסות והוצאות"
+
+#: menu.inc.php:39
+msgid "Customers owes"
+msgstr "לקוחות חייבים"
+
+#: menu.inc.php:40 mprofloss.php:525 mprofloss.php:538
+msgid "Profit & loss"
+msgstr "רווח והפסד"
+
+#: menu.inc.php:41
+msgid "Monthly Prof. & loss"
+msgstr "רווח והפסד חודשי"
+
+#: menu.inc.php:42
+msgid "VAT calculation"
+msgstr "חישוב מע\"מ"
+
+#: menu.inc.php:43
+msgid "Balance"
+msgstr "מאזן"
+
+#: menu.inc.php:44
+msgid "Reconciliations"
+msgstr "התאמות"
+
+#: menu.inc.php:45
+msgid "Bank docs entry"
+msgstr "הכנסת דפי בנק"
+
+#: menu.inc.php:46
+msgid "Bank recon."
+msgstr "התאמת בנקים"
+
+#: menu.inc.php:47
+msgid "Show recon."
+msgstr "הצג התאמות"
+
+#: menu.inc.php:48
+msgid "Accts. recon."
+msgstr "התאמת כרטיסים"
+
+#: menu.inc.php:49
+msgid "Backups"
+msgstr "גיבויים"
+
+#: menu.inc.php:50
+msgid "Open docs"
+msgstr "קבצים פתוחים למס הכנסה"
+
+#: menu.inc.php:51
+msgid "General backup"
+msgstr "גיבוי כללי"
+
+#: menu.inc.php:52
+msgid "Backup restore"
+msgstr "שחזור גיבוי"
+
+#: menu.inc.php:53 support.php:76
+msgid "Support"
+msgstr "תמיכה"
+
+#: menu.inc.php:55
+msgid "Demo"
+msgstr "הדגמה"
+
+#: mprofloss.php:19 mprofloss.php:142
+msgid "Profit & loss per month"
+msgstr "רווח והפסד לפי חודש"
+
+#: mprofloss.php:35 vatrep.php:10
+msgid "January"
+msgstr "ינואר"
+
+#: mprofloss.php:35 vatrep.php:10
+msgid "February"
+msgstr "פברואר"
+
+#: mprofloss.php:35 vatrep.php:10
+msgid "April"
+msgstr "אפריל"
+
+#: mprofloss.php:36 vatrep.php:11
+msgid "August"
+msgstr "אוגוסט"
+
+#: mprofloss.php:36 vatrep.php:11
+msgid "September"
+msgstr "ספטמבר"
+
+#: mprofloss.php:37 vatrep.php:12
+msgid "October"
+msgstr "אוקטובר"
+
+#: mprofloss.php:37 vatrep.php:12
+msgid "November"
+msgstr "נובמבר"
+
+#: mprofloss.php:37 vatrep.php:12
+msgid "December"
+msgstr "דצמבר"
+
+#: mprofloss.php:146
+msgid "For year"
+msgstr "לשנת"
+
+#: opbalance.php:74
+msgid "Openning balances updated"
+msgstr "יתרות פתיחה עודכנו"
+
+#: opbalance.php:81
+msgid "Select year"
+msgstr "בחר שנה"
+
+#: openfrmt.php:430
+msgid "Export open format files for tax authorities"
+msgstr "יצוא קבצים במבנה אחיד עבור מס הכנסה"
+
+#: openfrmt.php:590
+msgid "Link to file"
+msgstr "קישור לקובץ"
+
+#: openfrmt.php:611
+msgid "Create open format files"
+msgstr "הפקת קבצים במבנה אחיד"
+
+#: openfrmt.php:621
+msgid "Open format files created successfully"
+msgstr "ביצוע ממשק פתוח הסתיים בהצלחה"
+
+#: openfrmt.php:624
+msgid "Records types details"
+msgstr "פירוט סוגי רשומות"
+
+#: openfrmt.php:627
+msgid "Total records"
+msgstr "סה\"כ רשומות"
+
+#: openfrmt.php:628
+msgid "Record description"
+msgstr "תיאור רשומה"
+
+#: openfrmt.php:629
+msgid "Record code"
+msgstr "קוד רשומה"
+
+#: openfrmt.php:631
+msgid "Opening record"
+msgstr "רשומת פתיחה"
+
+#: openfrmt.php:635
+msgid "Transactions in accounting"
+msgstr "תנועות בהנהלת חשבונות"
+
+#: openfrmt.php:638
+msgid "Account in accounting"
+msgstr "כרטיס בהנהלת חשבונות"
+
+#: openfrmt.php:641
+msgid "Document header"
+msgstr "כותרת מסמך"
+
+#: openfrmt.php:644
+msgid "Document details"
+msgstr "פרטי מסמך"
+
+#: openfrmt.php:647
+msgid "Receipts details"
+msgstr "פרטי קבלות"
+
+#: openfrmt.php:650
+msgid "End record"
+msgstr "רשומת סיום"
+
+#: outcome.php:115 payment.php:94 payment.php:280
+msgid "Choose supplier"
+msgstr "בחר ספק"
+
+#: outcome.php:141
+msgid "Choose outcome"
+msgstr "בחר סעיף הוצאה"
+
+#: outcome.php:149
+msgid "Credited VAT"
+msgstr "מע\"מ מוכר"
+
+#: outcome.php:165 payment.php:138
+msgid "No supplier was chosen"
+msgstr "לא נבחר ספק"
+
+#: outcome.php:194
+msgid "No outcome account was chosen"
+msgstr "לא נבחר חשבון הוצאות"
+
+#: outcome.php:225
+msgid "Asset outcome registered"
+msgstr "הוצאה זו כבר נרשמה"
+
+#: outcome.php:229
+msgid "Outcome registered"
+msgstr "הוצאה נרשמה"
+
+#: outcome.php:249
+msgid "Validate registration of asset outcome"
+msgstr "אישור רישום רכוש קבוע"
+
+#: outcome.php:253
+msgid "Validate registration of outcome"
+msgstr "אישור רישום הוצאה"
+
+#: outcome.php:256
+msgid "Check the details and press update"
+msgstr "בדוק את הפרטים ולחץ עדכן"
+
+#: outcome.php:263
+msgid "Registration of asset outcome"
+msgstr "רישום רכוש קבוע"
+
+#: outcome.php:267
+msgid "Registration of outcome"
+msgstr "רישום הוצאה"
+
+#: outcome.php:282
+msgid "Define new supplier"
+msgstr "הגדר ספק חדש"
+
+#: outcome.php:289
+msgid "Asset outcome account"
+msgstr "סעיף רכוש קבוע"
+
+#: outcome.php:293
+msgid "Outcome account"
+msgstr "חשבון הוצאות"
+
+#: outcome.php:305
+msgid "Define new assets account"
+msgstr "הגדר סעיף רכוש קבוע חדש"
+
+#: outcome.php:310
+msgid "Define new outcome account"
+msgstr "הגדר סעיף הוצאה חדש"
+
+#: outcome.php:344
+msgid "Sum before VAT"
+msgstr "סכום לפני מע\"מ"
+
+#: outcome.php:354
+msgid "Sum including VAT"
+msgstr "כולל מע\"מ"
+
+#: owe.php:40
+msgid "Customers owing money"
+msgstr "לקוחות חייבים"
+
+#: payment.php:53 payment.php:233 payment.php:290
+msgid "Payment type"
+msgstr "אמצאי תשלום"
+
+#: payment.php:145
+msgid "No payment method selected"
+msgstr "לא נבחר אמצאי תשלום"
+
+#: payment.php:166
+msgid "Payment executed successfully"
+msgstr "התשלום נרשם בהצלחה"
+
+#: payment.php:202
+msgid "National insurance payment"
+msgstr "תשלום ביטוח לאומי"
+
+#: payment.php:208
+msgid "Check data and press update to register payment"
+msgstr "בדוק את הפרטים ולחץ עדכן"
+
+#: payment.php:286
+msgid "Total payment"
+msgstr "תשלום מע\"מ"
+
+#: payment.php:327
+msgid "Suppliers accounts"
+msgstr "חשבונות ספקים"
+
+#: printacct.php:209
+msgid "Print accounts from"
+msgstr "הדפס חשבונות מ"
+
+#: printacct.php:216
+msgid "Accounts of"
+msgstr "כרטסת"
+
+#: printacct.php:235
+msgid "Transactions for account"
+msgstr "תנועות לחשבון"
+
+#: printacct.php:434
+msgid "To download report click here"
+msgstr "להורדת הדוח לחץ כאן"
+
+#: printacct.php:438
+msgid "Right click file name and choose Save as..."
+msgstr "להורדת הקובץ לחץ כפתור ימני ובחר שמור בשם"
+
+#: printdoc.php:139 showdocs.php:184
+msgid "Copy"
+msgstr "העתק"
+
+#: profloss.php:18 profloss.php:103
+msgid "Profit and loss report"
+msgstr "דוח רווח והפסד"
+
+#: profloss.php:148
+msgid "Show percent"
+msgstr "הצג אחוזים"
+
+#: profloss.php:189
+msgid "Sum NIS"
+msgstr "סכום ש\"ח"
+
+#: profloss.php:192 profloss.php:212
+msgid "Percent"
+msgstr "אחוז"
+
+#: profloss.php:445
+msgid "Profit"
+msgstr "רווח"
+
+#: profloss.php:452
+msgid "Loss"
+msgstr "הפסד"
+
+#: receipt.php:144
+msgid "-- Select customer --"
+msgstr "-- בחר לקוח --"
+
+#: receipt.php:220
+msgid "Already registered"
+msgstr "כבר נרשמה"
+
+#: receipt.php:315
+msgid "Receipt number"
+msgstr "קבלה מספר"
+
+#: receipt.php:407
+msgid "Receipts"
+msgstr "הפקת קבלות"
+
+#: receipt.php:462
+msgid "Payment method"
+msgstr "אמצאי תשלום"
+
+#: receipt.php:464
+msgid "Credit company"
+msgstr "חברת אשראי"
+
+#: receipt.php:466
+msgid "Number"
+msgstr "מספר"
+
+#: receipt.php:472
+msgid "Account no."
+msgstr "מספר חשבון"
+
+#: receipt.php:500
+msgid "Continue"
+msgstr "המשך"
+
+#: showdocs.php:33
+msgid "Select document type"
+msgstr "בחר סוג מסמך"
+
+#: showdocs.php:57
+msgid "Select all"
+msgstr "בחר הכל"
+
+#: showdocs.php:71
+msgid "Document type must be chosen"
+msgstr "לא נבחר סוג מסמך"
+
+#: showdocs.php:110 showdocs.php:222
+msgid "Doc. type"
+msgstr "סוג מסמך"
+
+#: showdocs.php:119
+msgid "No VAT sum"
+msgstr "סכום לפני מע\"מ"
+
+#: showdocs.php:122
+msgid "Total sum"
+msgstr "סכום כולל"
+
+#: showdocs.php:218
+msgid "Search business document"
+msgstr "חיפוש מסמכים עסקיים"
+
+#: showdocs.php:228
+msgid "Select customer"
+msgstr "בחר לקוח"
+
+#: support.php:25
+msgid "Subject"
+msgstr "נושא"
+
+#: support.php:59
+msgid "Regarding company"
+msgstr "לגבי חברה"
+
+#: tedit.php:63
+msgid "Storeno transaction registered"
+msgstr "תנועת ביטול נרשמה"
+
+#: tedit.php:88
+msgid "Transaction updated"
+msgstr "התנועה עודכנה בהצלחה"
+
+#: tedit.php:116
+msgid "Edit transaction"
+msgstr "ערוך תנועה"
+
+#: tedit.php:121
+msgid "Transaction number"
+msgstr "מספר תנועה"
+
+#: tedit.php:130
+msgid "Debit account"
+msgstr "חשבון חובה"
+
+#: tedit.php:135
+msgid "Credit account"
+msgstr "חשבון זכות"
+
+#: tedit.php:163
+msgid "Storeno transaction"
+msgstr "רישום סטורנו"
+
+#: tranrep.php:18 tranrep.php:60
+msgid "Income outcome report"
+msgstr "ספר הכנסות והוצאות"
+
+#: tranrep.php:168
+msgid "Customer//Supplier"
+msgstr "לקוחות\\ספקים"
+
+#: tranrep.php:175 tranrep.php:181
+msgid "Inc. VAT"
+msgstr "כולל מע\"מ"
+
+#: tranrep.php:186
+msgid "Tran."
+msgstr "תנועה"
+
+#: tranrep.php:194
+msgid "Customer/Supplier"
+msgstr "לקוח\\ספק"
+
+#: tranrep.php:200
+msgid "Income VAT"
+msgstr "מע\"מ תקבולים"
+
+#: tranrep.php:206
+msgid "Outcome VAT"
+msgstr "מע\"מ תשלומים"
+
+#: vatrep.php:175 vatrep.php:220
+msgid "VAT report for period"
+msgstr "דוח מע\"מ לתקופה"
+
+#: vatrep.php:181
+msgid "Calculate VAT report for month"
+msgstr "צור דוח מע\"מ לחודשים"
+
+#~ msgid "Create & print"
+#~ msgstr "רשום והדפס"
+
+#~ msgid "Page does not exist"
+#~ msgstr "דף לא קיים"
+
+#~ msgid "Choose business"
+#~ msgstr "בחר חברה"
+
+#~ msgid "Choose"
+#~ msgstr "בחירה"
+
+#, fuzzy
+#~ msgid "For perdiod"
+#~ msgstr "לתקופה"
+
+#~ msgid "No contacts matching query"
+#~ msgstr "אין אנשי קשר מתאימים לשאילתה"
+
+#~ msgid "S"
+#~ msgstr "א"
+
+#~ msgid "M"
+#~ msgstr "ב"
+
+#~ msgid "W"
+#~ msgstr "ד"
+
+#~ msgid "F"
+#~ msgstr "ו"

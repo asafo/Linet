@@ -1,0 +1,253 @@
+<?PHP
+/*
+ | Receipts
+ | This module is part of Freelance accounting system
+ | Written for Shay Harel by Ori Idan helicon technologies Ltd.
+ */
+global $prefix, $accountstbl, $companiestbl, $supdocstbl;
+global $paymentarr;
+global $creditcompanies;
+
+if(!isset($prefix) || ($prefix == '')) {
+	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
+	return;
+}
+
+$query = "SELECT vat FROM $companiestbl WHERE prefix='$prefix'";
+$result = DoQuery($query, "income.php");
+$line = mysql_fetch_array($result, MYSQL_NUM);
+$vat = $line[0];
+
+?>
+<script type="text/javascript">
+function TypeSelChange() {
+	var i = document.receipt.payment.selectedIndex;
+	
+	if(i == 3) {
+		document.getElementById('crd').style.display = 'block';
+	}
+	else {
+		document.getElementById('crd').style.display = 'none';
+	}
+}
+
+function calcTotal() {
+	var notaxsum = document.receipt.notaxsum.value;
+	var tax = document.receipt.tax.value;
+	
+	document.receipt.sum.value = parseFloat(notaxsum) - parseFloat(tax);
+}
+
+</script>
+
+<?PHP
+function PrintCustomerSelect($def) {
+	global $accountstbl;
+	global $prefix;
+	
+	$t = CUSTOMER;
+	$query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' AND type='$t'  ORDER BY company ASC";
+	$result = DoQuery($query, "income.php");
+	print "<select name=\"customer\">\n";
+	print "<option value=\"__NULL__\">-- בחר לקוח --</option>\n";
+	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
+		$n = $line[0];
+		$company = $line[1];
+		if($n == $def)
+			print "<option value=\"$n\" selected>$company</option>\n";
+		else
+			print "<option value=\"$n\">$company</option>\n";
+	}
+	print "</select>\n";
+}
+
+function PrintPaymentSelect($def) {
+	global $paymentarr;
+
+	print "<select name=\"payment\" onchange=\"TypeSelChange()\">\n";
+	foreach($paymentarr as $n => $v) {
+		if($n == $def)
+			print "<option value=\"$n\" selected>$v</option>\n";
+		else
+			print "<option value=\"$n\">$v</option>\n";
+	}
+	print "</select>\n";
+}
+
+function PrintCreditSelect($def, $payment) {
+	global $creditcompanies;
+	
+	if($payment == 3)
+		print "<select name=\"creditcomp\" id=\"crd\" style=\"display:block\">\n";
+	else
+		print "<select name=\"creditcomp\" id=\"crd\" style=\"display:none\">\n";
+	foreach($creditcompanies as $n => $v) {
+		if($n == $def)
+			print "<option value=\"$n\" selected>$v</option>\n";
+		else
+			print "<option value=\"$n\">$v</option>\n";
+	}
+	print "</select>\n";
+}
+
+function GetAccountName($val) {
+	global $accountstbl;
+	global $prefix;
+
+	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
+	$result = DoQuery($query, "GetAccountName");
+	$line = mysql_fetch_array($result, MYSQL_NUM);
+	return $line[0];
+}
+			
+$step = isset($_GET['step']) ? $_GET['step'] : 0;
+if($step > 0) {
+	
+	$customer = $_POST['customer'];
+	if($customer == "__NULL__") {
+		ErrorReport("לא נבחר לקוח");
+		return;
+	}
+	$refnum = $_POST['refnum'];
+	$details = $_POST['details'];
+	if(isset($_POST['date'])) {
+		$dtmysql = FormatDate($_POST['date'], "dmy", "mysql");
+		$dt = FormatDate($dtmysql, "mysql", "dmy");
+	}
+	else {
+		$dtmysel = date("Y-m-d");
+		$dt = FormatDate($dtmysql, "mysql", "dmy");
+	}
+	$payment = $_POST['payment'];
+	$creditcomp = $_POST['creditcomp'];
+	$ref2 = $_POST['refnum2'];
+	$notaxsum = $_POST['notaxsum'];
+	$tax = $_POST['tax'];
+	$sum = $notaxsum - $tax;
+}
+if($step == 2) {
+	if($name == 'demo') {
+		print "<h1>משתמש דוגמה אינו רשאי לעדכן נתונים</h1>\n";
+		return;
+	}
+
+	/* This is the actual data handling */
+	if($sum > 0.01) {	/* Write transactions of receipt */
+		if($payment == 0) {
+			ErrorReport("לא נבחר אמצאי תשלום");
+			return;
+		}
+		// Transaction 1 זכות הלקוח בסכום לפני ניכוי במקור
+		$tnum = Transaction(0, MANRECEIPT, $customer, $refnum, '', $dt, $details, $notaxsum);
+		// Transaction 2 חובת ניכוי במקור מלקוחות
+		$t2 = $tax * -1.0;
+		$tnum = Transaction($tnum, MANRECEIPT, CUSTTAX, $refnum, '', $dt, $details, $t2);
+		// Transaction 3 חובת קופה
+		$t3 = $sum * -1.0;
+		switch($payment) {
+			case 1:
+				$tnum = Transaction($tnum, MANRECEIPT, CHEQUE, $ref2, '', $dt, $details, $t3);
+				break;
+			case 2:
+				$tnum = Transaction($tnum, MANRECEIPT, CASH, $refnum, '', $dt, $details, $t3);
+				break;
+			case 3:
+				$tnum = Transaction($tnum, MANRECEIPT, CREDIT, $ref2, $creditcomp, $dt, $details, $t3);
+				break;
+		}
+		$total = $sum + $t2 + $t3;
+		$tnum = Transaction($tnum, MANRECEIPT, ROUNDING, $refnum, '', $dt, $details, $total);
+	}
+	$step = 0;
+	print "<h1>התשלום נרשם בהצלחה</h1>\n";
+	$step = 0;
+	$refnum = '';
+	$details = '';
+	$payment = 0;
+	$creditcomp = 0;
+	$ref2 = '';
+	$notaxsum = 0;
+	$tax = 0;
+	$sum = 0;
+}
+print "<div class=\"righthalf\">\n";
+if($step == 1) {
+	print "<div class=\"caption_out\"><div class=\"caption\">";
+	print "<b>אישור רישום קבלה</b>\n";
+	print "</div></div>\n";
+	print "<h2>יש לבדוק את הפרטים וללחוץ עדכן בשנית על מנת לבצע את הרישום</h2>\n";
+	$nextstep = 2;
+}
+else if($step == 0) {
+	print "<div class=\"caption_out\"><div class=\"caption\">";
+	print "<b>קבלה</b>\n";
+	print "</div></div>\n";
+	$customer == "__NULL__";
+	$nextstep = 1;
+	$tax = 0;
+}
+
+print "<form name=\"receipt\" action=\"?module=receipts&step=$nextstep\" method=\"post\">\n";
+print "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
+print "<td>\n";
+print "לקוח: </td><td>\n";
+PrintCustomerSelect($customer);
+print "</td>\n";
+print "</tr><tr>\n";
+print "<td>סכום לפני ניכוי מס: </td>\n";
+print "<td><input type=\"text\" name=\"notaxsum\" value=\"$notaxsum\" size=\"10\"></td>\n";
+print "</tr><tr>\n";
+
+print "<td>ניכוי במקור: </td>\n";
+print "<td><input type=\"text\" name=\"tax\" size=\"10\" value=\"$tax\" onblur=\"calcTotal()\"></td>\n";
+print "</tr><tr>\n";
+
+print "<td>סכום לאחר ניכוי מס: </td>\n";
+print "<td><input type=\"text\" name=\"sum\" size=\"10\" value=\"$sum\"></td>\n";
+print "</tr><tr>\n";
+
+print "<td>מספר קבלה: </td>\n";
+print "<td><input type=\"text\" name=\"refnum\" size=\"10\" value=\"$refnum\"></td>\n";
+print "</tr><tr>\n";
+
+print "<td>תאריך: </td>\n";
+print "<td><input type=\"text\" name=\"date\" size=\"7\" value=\"$dt\">\n";
+?>
+<script language="JavaScript">
+	new tcal ({
+		// form name
+		'formname': 'receipt',
+		// input name
+		'controlname': 'date'
+	});
+
+</script>
+<?PHP
+print "</td>\n";
+print "</tr><tr>\n";
+
+print "<td>פרטים: </td>\n";
+print "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\"></td>\n";
+print "</tr><tr>\n";
+
+print "<td>אמצאי תשלום: </td>\n";
+print "<td>\n";
+PrintPaymentSelect($payment);
+PrintCreditSelect($creditcomp, $payment);
+// print "</div>\n";
+print "</tr><tr>\n";
+
+print "<td>אסמכתא: </td>\n";
+print "<td><input type=\"text\" name=\"refnum2\" value=\"$ref2\" size=\"15\"></td>\n";
+print "</tr><tr>\n";
+
+print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"עדכן\">\n";
+print "</td></tr>\n";
+print "</table>\n";
+print "</form>\n";
+print "</div>\n";
+print "<div class=\"lefthalf\">\n";
+ShowText('receipts');
+print "</div>\n";
+?>
+

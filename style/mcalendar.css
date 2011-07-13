@@ -1,0 +1,92 @@
+/* calendar icon */
+img.tcalIcon {
+	cursor: pointer;
+	margin-left: 1px;
+	vertical-align: middle;
+}
+/* calendar container element */
+div#mcal {
+	width:205px;
+	max-width:210px;
+	padding: 2px 0 0 0;
+}
+/* all tables in calendar */
+div#mcal table {
+	width: 100%;
+	border: 1px solid silver;
+	border-collapse: collapse;
+	background-color: white;
+}
+/* navigation table */
+div#mcal table.ctrl {
+	border-bottom: 0;
+}
+/* navigation buttons */
+div#mcal table.ctrl td {
+	width: 15px;
+	height: 20px;
+}
+/* month year header */
+div#mcal table.ctrl th {
+	background-color: white;
+	color: black;
+	border: 0;
+}
+/* week days header */
+div#mcal th {
+	border: 1px solid silver;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 3px 0;
+	font-family: tahoma, verdana, arial;
+	font-size: 10px;
+	background-color: gray;
+	color: white;
+}
+/* date cells */
+div#mcal td {
+	border: 0;
+	border-collapse: collapse;
+	text-align: center;
+	padding: 2px 0;
+	font-family: tahoma, verdana, arial;
+	font-size: 11px;
+	width: 22px;
+}
+/* date highlight
+   in case of conflicting settings order here determines the priority from least to most important */
+div#mcal td.othermonth {
+	color: silver;
+}
+div#mcal td.weekend {
+	background-color: #ACD6F5;
+}
+div#mcal td.today {
+	border: 1px solid red;
+}
+div#mcal td.selected {
+	background-color: #FFB3BE;
+}
+/* iframe element used to suppress windowed controls in IE5/6 */
+iframe#tcalIF {
+	position: absolute;
+	visibility: hidden;
+	z-index: 98;
+	border: 0;
+}
+/* transparent shadow */
+div#tcalShade {
+	position: absolute;
+	visibility: hidden;
+	z-index: 99;
+}
+div#tcalShade table {
+	border: 0;
+	border-collapse: collapse;
+	width: 100%;
+}
+div#tcalShade table td {
+	border: 0;
+	border-collapse: collapse;
+	padding: 0;
+}

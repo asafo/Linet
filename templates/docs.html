@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<title>~title~</title>
+~head~
+</head>
+<body dir="rtl">
+	<br>
+	~header~
+	<table border="0" style="text-align:right;">
+		<!--<tr>
+			<td width="50"></td>
+			<td width="188"></td>
+			<td width="60"></td>
+			<td width="100"></td>
+			<td width="180"></td>
+		</tr>-->
+		<tr>
+			<td width=50 style="text-align:top;">לכבוד:</td>
+			<td width=300>~docs:company~<br />
+	~docs:address~<br />
+	~docs:city~~docs:zip~<br />
+	ח.פ/ע.מ:~docs:vatnum~<br />
+<br />
+<br />
+תאריך הפקת  ~doctype~: ~docs:issue_date~<br />
+תאריך אחרון לתשלום : ~docs:due_date~
+			</td>
+			<td width=170>
+<!--~company~<br />-->
+				<!--<div align=center><br />
+					~address~ <br />
+					~zip~ ~city~<br />
+					טלפון: ~phone~<br />
+					פקס: ~cellular~<br />
+					ע.מ : ~regnum~<br />
+				</div>-->
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+			<center>
+				<div align=center><h1>~doctype~ מספר ~docnum~ ~copy~</h1></div>
+				<table border="1" style="text-align:right;">
+					<tr>
+						<th width="370">תיאור</th>
+						<th width="60">כמות</th>
+						<th width="60">מחיר</th>
+						<th width="60">סה"כ</th>
+					</tr>
+
+					~docdetails:description:1~
+					~docdetails:qty:1~
+					~docdetails:unit_price:1~
+					~docdetails:price:1~
+
+					~docdetails:description:2~
+					~docdetails:qty:2~
+					~docdetails:unit_price:2~
+					~docdetails:price:2~
+
+					~docdetails:description:3~
+					~docdetails:qty:3~
+					~docdetails:unit_price:3~
+					~docdetails:price:3~
+
+					~docdetails:description:4~
+					~docdetails:qty:4~
+					~docdetails:unit_price:4~
+					~docdetails:price:4~
+
+					~docdetails:description:5~
+					~docdetails:qty:5~
+					~docdetails:unit_price:5~
+					~docdetails:price:5~
+
+					~docdetails:description:6~
+					~docdetails:qty:6~
+					~docdetails:unit_price:6~
+					~docdetails:price:6~
+
+					~docdetails:description:7~
+					~docdetails:qty:7~
+					~docdetails:unit_price:7~
+					~docdetails:price:7~
+
+					~docdetails:description:8~
+					~docdetails:qty:8~
+					~docdetails:unit_price:8~
+					~docdetails:price:8~
+
+					~docdetails:description:9~
+					~docdetails:qty:9~
+					~docdetails:unit_price:9~
+					~docdetails:price:9~
+
+					~docdetails:description:10~
+					~docdetails:qty:10~
+					~docdetails:unit_price:10~
+					~docdetails:price:10~
+
+					~docdetails:description:11~
+					~docdetails:qty:11~
+					~docdetails:unit_price:11~
+					~docdetails:price:11~
+
+					~docdetails:description:12~
+					~docdetails:qty:12~
+					~docdetails:unit_price:12~
+					~docdetails:price:12~
+
+					<tr>
+						<td width="370" style="border-style: hidden;"></td>
+						<td width="120" colspan="2">סה"כ חייב מע"מ</td>
+						<td width="60">~docs:sub_total~</td>
+					</tr>
+					<tr>
+				
+						<td width="370" border=0 style="border-style: hidden;"></td>
+						<td width="120" border=0 colspan="2">סה"כ פטור ממע"מ</td>
+						<td width="60" border=0>~docs:novat_total~</td>
+					</tr>
+					<tr>
+						<td width="370" style="border-style: hidden;"></td>
+						<td width="120" colspan="2">מע"מ: </td>
+						<td width="60">~docs:vat~</td>
+					</tr>
+					<tr>
+						<td width="370" style="border-style: hidden;"></td>
+						<td width="120" colspan="2">סה"כ לתשלום: </td>
+						<td width="60">~docs:total~</td>
+					</tr>
+					
+					<tr>
+					<td colspan="4" width="550">
+							<div align=center>
+מוצרים שסופקו/יסופקו ללקוח נשארים בבעלות ארי בן חור- מחשוב מהיר עד לפירעון מלא של החשבון.<br />
+תנאי תשלום:העברה בנקאית או המחאה לפירעון תוך 30 יום מיום הפקת חשבונית.<br />
+מחשוב מהיר זכאית להפיק חשבונית עם סיום העבודה/אספקת המוצרים.<br />
+			</div>
+					</td>
+					</tr>
+				</table>
+			<br />
+	
+			</center>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">הערות: ~docs:comments~</td>
+		</tr>
+	</table>
+	~footer~
+</body>
+</html>
