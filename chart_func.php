@@ -1,4 +1,4 @@
-<?PHP	
+﻿<?PHP	
 if(!function_exists(colorHex)) {
 	function colorHex($img, $HexColorString) 
 	{

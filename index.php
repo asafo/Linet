@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Drorit accounting system version 2.0
  | Written by Ori Idan
@@ -17,7 +17,7 @@ if(isset($_GET['cookie'])) {
 		setcookie($name, $val, $t);
 	}
 }
-include('i18n.inc.php');
+include('include/i18n.inc.php');
 
 
 if(isset($_GET['begin']) && isset($_GET['end'])) {
@@ -46,10 +46,11 @@ else if($action == 'unsel') {
 header('Content-type: text/html;charset=UTF-8');
 
 include('config.inc.php');
-include('linet.inc.php');
-include('func.inc.php');
-include('edit.inc.php');
-include('menu.inc.php');
+include('include/core.inc.php');
+include('include/version.inc.php');
+include('include/func.inc.php');
+include('include/edit.inc.php');
+include('include/menu.inc.php');
 
 $name = isset($_COOKIE['name']) ? $_COOKIE['name'] : '';
 $data = isset($_COOKIE['data']) ? $_COOKIE['data'] : '';

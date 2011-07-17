@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Edit trnasaction for Freelance accounting.
  | Written by Ori Idan September 2009 

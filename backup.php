@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | backup script for Drorit accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2009

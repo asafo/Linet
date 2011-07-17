@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Account report module for Freelance accounting system.
  | Written by Ori Idan July 2009

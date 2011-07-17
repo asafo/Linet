@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Dual bars bar chart.
  | Written by Ori Idan for freelnace accounting software.

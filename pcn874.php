@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*Written By Adam BH pcn874 for linet*/
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $chequestbl, $receiptstbl, $creditcompanies, $docstbl, $itemstbl;
 global $bkrecnum, $regnum, $mainid, $softregnum, $softwarename, $Version, $softwaremakerregnum, $softwaremaker;

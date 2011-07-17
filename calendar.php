@@ -1,4 +1,4 @@
-<?
+﻿<?
 /*
  | Calendar functions for freelance accounting system
  | Written by: Ori Idan

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 global $abspath;
 global $tinymcepath;
 global $lang;

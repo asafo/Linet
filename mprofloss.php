@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:רווח והפסד חדשי
 /*
  | Monthly Profit & Loss report for Drorit accounting system

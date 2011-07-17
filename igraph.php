@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Income graph for freelnace accounting.
  | Written by Ori Idan, September 2009

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /* Internal links dialog for freelance accounting system */
 include('config.inc.php');
 

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Define accounts from ASCII text
  | Written for Drorit Accounting system by Ori Idan

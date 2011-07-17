@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | personalization module for freelance accouting system.
  | This module will allow you to change the color scheme and logo.

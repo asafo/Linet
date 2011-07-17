@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | ShowDocs
  | Show documents list and allow viewing and printing.

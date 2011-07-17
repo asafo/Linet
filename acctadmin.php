@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:חשבונות
 /*
  | account administration module for Drorit accounting system

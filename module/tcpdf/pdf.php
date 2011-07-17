@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require('tcpdf.php');
 // Xavier Nicolay 2004
 // Version 1.01

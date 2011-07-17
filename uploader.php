@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if(isset($_POST['upload']) && $_FILES['uploadedfile']['size'] > 0)
 {
 $fileName = $_FILES['uploadedfile']['name'];

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Definitions module for Drorit
  | Written by: Ori Idan.

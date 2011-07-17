@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Print open format report
  | Written by Ori Idan for freelance accounting software

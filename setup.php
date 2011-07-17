@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Drorit accounting system
  | Written by Ori Idan Helicon technologies Ltd.

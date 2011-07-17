@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:ראשי
 /*
  | Drorit accounting system main page

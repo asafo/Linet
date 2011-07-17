@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Support module for Drorit accounting system
  | Written by Ori Idan helicon technologies Ltd.

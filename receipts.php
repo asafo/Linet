@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Receipts
  | This module is part of Freelance accounting system

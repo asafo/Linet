@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Contact list manager for Drorit ver. 2
  | Written by: Ori Idan December 2009

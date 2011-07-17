@@ -34,7 +34,7 @@ xmlhttp.send();
 </script>
 </head>
 	<body onload="loadDoc(1)">
-		<form action="index.php" method="POST">
+		<form action="index.php" method="post">
 			<input type="hidden" name="step" value="1">
 		</form>
 		<div id="haed">

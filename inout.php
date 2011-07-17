@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Create transactions report (תקבולים תשלומים)
  | This is part of Freelance accounting system.

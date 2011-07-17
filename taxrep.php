@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | TAX calculatin script for Freelance accounting system
  | Written by Ori Idan

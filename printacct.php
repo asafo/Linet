@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:הדפסת כרטסת
 /*
  | Display transactions for all accounts

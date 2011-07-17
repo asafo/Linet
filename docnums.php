@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | docnums
  | This module is part of Drorit accounting system

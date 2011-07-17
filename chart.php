@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /************************************************************************
 * AT Pie Chart developed by the ATokar.net Developer Team               *
 * This copyright must remain intact.                                    *

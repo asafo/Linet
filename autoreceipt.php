@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | docsadmin
  | Business document module for freelance

@@ -2,10 +2,10 @@
 /*update writen by Adam BH*/
 include '../../config.inc.php';
 $sversion=getVersion();
-$steps = array( 1 => 'בדיקת גירסה',
-				2 => 'גיבויי',
-				3 => 'עדכון',
-				4  => 'סיום');
+$steps = array( 1 => '׳‘׳“׳™׳§׳× ׳’׳™׳¨׳¡׳”',
+				2 => '׳’׳™׳‘׳•׳™׳™',
+				3 => '׳¢׳“׳›׳•׳�',
+				4  => '׳¡׳™׳•׳�');
 $allowcancel=true;
 
 $step=1;
@@ -26,20 +26,20 @@ if(!empty($name) && ($name != '')) {
 else{
 	$loggedin = 0;
 	print _("You must be loged in to update linet")."<br />";
-	print '<a href="../../">חזור ללינט</a>';
+	print '<a href="../../">׳—׳–׳•׳¨ ׳�׳�׳™׳ ׳˜</a>';
 	$step=0;
 	$nextStep=0;
 	}
 //print $name.$data;
 //print $step<>count($steps);
 /*load page*/
-$title="עדכון לינט: ".$steps[$step];
+$title="׳¢׳“׳›׳•׳� ׳�׳™׳ ׳˜: ".$steps[$step];
 	
 if (($step==1)&&(isset($_GET['non']))){
-	$changelog=getFile('changelog', $sversion)
+	$changelog=getFile('changelog', $sversion);
 	$nextStep=2;
 	print "Welcome to linet Update Wizard youre version is: ".$version."<br /> The Most Recent Version is: ".$sversion."<br />It is recomnded thet youll update to lataset version<br />";
-	print $changelog.'<br />';//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>הבא</a>";//bla
+	print $changelog.'<br />';//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
 	print '<br /><a href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
 	}else{
 	$content=_("Working Please Wait");
@@ -71,8 +71,8 @@ if (($step==2)&&(isset($_GET['non']))){
 			print "Unable to Write in the backup folder chek permsions.<br />";
 			$nextStep=0;
 		}
-		if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">הבא</a>';
-		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>הבא</a>";//bla
+		if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">׳”׳‘׳�</a>';
+		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
 }
 /*update*/
 if (($step==3)&&(isset($_GET['non']))){
@@ -147,13 +147,13 @@ if (($step==3)&&(isset($_GET['non']))){
 	fclose($log);
 	$nextStep=4;
 	if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
-	//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>הבא</a>";//bla
+	//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
 }
 /*end*/
 if (($step==4)&&(isset($_GET['non']))){
 print "Linet Has Been Updated you can review the ";
 print '<a href="../../tmp/updatelog'.date('dmY').'.txt">logs here.</a><br />';
-print '<a href="../../">חזרה ללינט</a>';
+print '<a href="../../">׳—׳–׳¨׳” ׳�׳�׳™׳ ׳˜</a>';
 }
 
 

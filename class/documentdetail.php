@@ -1,39 +1,54 @@
 <?
 class documentDetail{
-	public $arr;
-	private $_table='';
+	//public $arr;
+	private $_table;
 	private $_prefix;
 	
-	public function newDetial($array){
+	public function newDetial(){
+		$array=get_object_vars($this);
+		unset($array['_table']);
+		unset($array['_prefix']);
 		$array['prefix']=$this->_prefix;
 			if (isset($array['num']))
 					if (inseretSql($array,$this->_table))
-						return $newnum;
+						return true;
 					else
-						return $false;
+						return false;
 	}
-	public function getDetials($id){
+	public function getDetials(){
 		$cond['prefix']=$this->_prefix;
-		$cond['num']=$id;
-		return selectSql($cond,$this->_table);
+		$cond['num']=$this->num;
+		$arr;
+		$list=selectSql($cond,$this->_table);
+		if ($list){
+			foreach ($list as $row){
+				$bla=new documentDetail;
+				foreach($row as $key=>$value)
+					$bla->{$key}= $value;
+				$arr[]=$bla;
+			}
+			return $arr;
+		}
+		return false;
 	}
 	public function updateDetials($array){
 		//rellay ugly need some work in th nir fuetre
 		//if (!is_null($this->getItem($array['num'])))
 		//	return updateSql($cond,$array,$this->_table);
-		deleteDetials($array);
-		foreach ($array as $detial){
-			//if (isset($detial['num'])) {
-				$detial['num']=$this->_prefix;
-				newDetial($detial);
-				
-			//}
+		$a=new documentDetail();
+		$a->num=$this->num;
+		if ($a->deleteDetials()){
+			foreach ($array as $detial){
+				//$a=new documentDetail;
+				if (!$detial->newDetial()) return false;
+			}
+			return true;
 		}
-		return true
+		return false;
 	}
-	public function deleteDetials($id){
+	public function deleteDetials(){
 		$cond['prefix']=$this->_prefix;
-		$cond['num']=$id;
+		$cond['num']=$this->num;
 		return deleteSql($cond,$this->_table);
 	}
 	public function __construct(){
@@ -42,9 +57,10 @@ class documentDetail{
 		$this->_table = $docdetailstbl;
 		$this->_prefix = $prefix;
 		$values=listCol($this->_table);
-		foreach ($values as $value) $this->arr[$value['Field']]='';
+		//foreach ($values as $value) $this->arr[$value['Field']]='';
+		foreach($values as $value)
+			$this->{$value['Field']}= '';
 		return $this;
 	}
 }
-
 ?>

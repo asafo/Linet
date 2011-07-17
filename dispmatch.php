@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Bank transaction match display script for Drorit Free accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2004

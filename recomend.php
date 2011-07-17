@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Recommend to a friend module for Freelance accounting system
  | Written by Ori Idan September 2009

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 // header('Content-type: text/html;charset=UTF-8');
 /*
  | login handling script for Drorit free accounting software
@@ -318,25 +318,96 @@ if($action == 'dologin') {
 if($action == 'edituser') {
 	global $levelsarr, $name;
 	global $logintbl;
-	
 	//adam test area
-	require('class/user.php');
-	$usr=new user;
-	//print_r($usr->arr);
-	$newuser=$usr->arr;
-	$newuser['name']='adam2314@gmail.com';
-    $newuser['fullname']='Adam bh';
-	$newuser['password']='qwe123';
+	/*user test*/
+	
+	//require('class/user.php');
+	//$usr=new user;
+	//$usr->name='adam23146@gmail.com';
+    //$usr->fullname='Adam bh';
+	//$usr->password='qwe123';
+	//print(';'.$usr->newUser().';');
+	//$usr->fullname='Adambba bh';
+	//print(';'.$usr->updateUser().';;');
+	//$usr->getUser();
+	//print_r($usr);
+	//print(';;'.$usr->deleteUser().';');
 	
 	
-	print($usr->newUser($newuser));
-	$newuser['fullname']='Adambba bh';
-	print($usr->updateUser($newuser));
-	print($usr->getUser('adam2314@gmail.com'));
-	print($usr->deleteUser('adam2314@gmail.com'));
-	//exit;
+	/* item test */
+	/*
+	require('class/item.php');
+	$item=new item;
+
 	
+	$item->account ='220'; 
+	$item->name ='new item';
+	$item->unit ='Meters';
+	$item->extcatnum ='';
+	$item->manufacturer ='20111';
+	$item->defprice ='40';
+	$item->currency =0;
+	$item->ammount=14;
+	print(';'.$item->newItem($newitem).';');
+	$item->num ='2';
+	$item->name ='updatedbla';
+	$item->defprice ='450';
+	//$item->getItem();
+	//print_r($item);
+	print(';'.$item->updateItem().';');
+	$item->num ='11';
+	print(';'.$item->deleteItem().';');
+	*/
+	
+	/* Account test */
+	/*require('class/account.php');
+	$acc=new account;
+	$acc->num ='1';
+	$acc->getAccount();
+	
+    $acc->pay_terms ='60';
+    $acc->company ='לקוח חדיש';
+	print(';'.$acc->newAccount().';');
+	$acc->num ='210';
+	$acc->vatnum ='300777778';
+	$acc->zip ='90210';
+	print(';'.$acc->updateAccount().';');
+	print(';'.$acc->deleteAccount().';');*/
+	
+	/* Document test */
+	/*require('class/document.php');
+	$doc=new document;
+	//$newdoc=$doc->arr;
+	//print_r($newdoc);
+	//print_r($doc);
+	$doc->num=15;
+	$doc->getDocument();
+	//print_r($doc);
+	$doc->company='zuzu lifa';
+	$doc->doctype ='3';
+	$doc->account ='201';
+	$doc->issue_date ='2011-05-23'; 
+	$doc->due_date ='2011-05-23';
+	$doc->sub_total ='0.00';
+	$doc->novat_total ='20000.00';
+	$doc->total ='20000.00';
+	$doc->printed ='0';
+	$doc->comments ='';
+	$doc->vtiger ='0';
+	$doc->docdetials[0]->description='description';
+	$doc->docdetials[0]->cat_num=5;
+	//print(';'.$doc->newDocument().';');
+	
+	//print(';'.$doc->newDocument($newdoc).';');
+	$doc->num=10;
+	//$doc->getDocument();
+	$doc->company='just zuzu without the lifa';
+	$doc->docdetials[0]->description='descr12iption';
+	//print(';'.$doc->updateDocument().';');
+	$doc->num=11;
+	//print(';'.$doc->deleteDocument().';');*/
 	//end adam
+	
 	$query = "SELECT * FROM $logintbl WHERE name='$name'";
 //	print "Query: $query<br>\n";
 	$result = DoQuery($query, "login, edit");
@@ -441,19 +512,7 @@ else {
 	print "<div class=\"lefthalf1\">\n";
 	ShowText('drorit');
 
-	/* firefox affiliate code */
-	print "<br><br><table border=\"0\" dir=\"$dir\"><tr><td>\n";
-	print "<a href='http://www.mozilla.com/en-US/?from=sfx&amp;uid=96935&amp;t=438'><img src='http://sfx-images.mozilla.org/affiliates/Buttons/Firefox3.5/96x31_blue.png' alt='Spread Firefox Affiliate Button' border='0' /></a>\n";
-	print "</td><td valign=\"top\">\n";
-	$l = _("We advise to use this software with Firefox browser");
-	print "$l<br>\n";
-	$l = _("To install press the logo on the left");
-	print "$l<br>\n";
-	$l = _("For more information");
-	$l1 = _("Click here");
-	print "$l <a href=\"id=firefox\">$l1</a>\n";
-	print "</td></tr></table>\n";
-
+	
 	print "</div>\n";
 }
 

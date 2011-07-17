@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Create transactions report
  | This is part of Drorit accounting system.
@@ -21,7 +21,6 @@ if(!isset($module)) {
 }
 $text='';
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
-print 'help';
 /* open window script */
 if(isset($module)) {
 	print "<script type=\"text/javascript\">\n";
@@ -326,7 +325,7 @@ if($step >= 1) {
 				$text.= "<tr class=\"otherline\">\n";
 				$e = 0;
 			}
-			else $text.=
+			else {
 				$text.= "<tr>\n";
 				$e = 1;
 			}

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | monthly Supplier report for Freelance accounting system
  | Written by Ori Idan August 2009

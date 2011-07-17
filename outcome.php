@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Outcome
  | Outcome module for Drorit accounting system

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:קבלות
 /*
  | receipts module for Drorit
@@ -18,7 +18,7 @@ global $creditarr;
 global $banksarr;
 
 $step = isset($_GET['step']) ? $_GET['step'] : $step;
-
+if (isset($_GET['step'])) $step=$_GET['step']; else $step=0;
 // print "module: $module<br>\n";
 
 ?>
@@ -141,26 +141,7 @@ if($module == 'receipt') {
 		}
 		return $n + 1;
 	}
-
-	function PrintCustomerSelect($defaccount) {
-		global $CompArray;
-	
-		$text= "<select name=\"account\" onchange=\"SetCustomer()\">\n";
-		$l = _("-- Select customer --");
-		$text.= "<option value=\"0\">$l</option>\n";
-		if(is_array($CompArray)) {
-			foreach ($CompArray as $num => $company) {
-				$text.= "<option value=\"$num\" ";
-				if($defaccount == $num)
-					$text.= "selected";
-				$text.= ">$company</option>\n";
-			}
-		}
-		$text.= "</select>\n";
-		return $text;
-	}
 }
-
 if(!function_exists(PrintPaymentType)) {
 	function PrintPaymentType($type) {
 		global $paymenttype;

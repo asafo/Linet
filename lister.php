@@ -1,4 +1,4 @@
-<?
+﻿<?
 
 if(isset($_GET['term']))
 	$letters = $_GET['term'];

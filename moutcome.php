@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | monthly Supplier report for Freelance accounting system
  | Written by Ori Idan August 2009
@@ -14,7 +14,7 @@ if(!isset($module)) {
 
 
 	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	$reptitle = "הוצאות לפי ספק וחודש";
+	$reptitle = "׳”׳•׳¦׳�׳•׳× ׳�׳₪׳™ ׳¡׳₪׳§ ׳•׳—׳•׳“׳©";
 	include('printhead.inc.php');
 	print $header;
 	
@@ -30,11 +30,11 @@ else {
 
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 
-$montharr = array('ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט',
-	'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר');
+$montharr = array('׳™׳ ׳•׳�׳¨', '׳₪׳‘׳¨׳•׳�׳¨', '׳�׳¨׳¥', '׳�׳₪׳¨׳™׳�', '׳�׳�׳™', '׳™׳•׳ ׳™', '׳™׳•׳�׳™', '׳�׳•׳’׳•׳¡׳˜',
+	'׳¡׳₪׳˜׳�׳‘׳¨', '׳�׳•׳§׳˜׳•׳‘׳¨', '׳ ׳•׳‘׳�׳‘׳¨', '׳“׳¦׳�׳‘׳¨');
 	
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
+	print "<h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳‘׳—׳™׳¨׳× ׳¢׳¡׳§</h1>\n";
 	return;
 }
 
@@ -96,20 +96,20 @@ if(!isset($module)) {
 	print "<h1>$str</h1>\n";	
 }
 
-print "<br><h1>הוצאות לפי חודש</h1>\n";
+print "<br><h1>׳”׳•׳¦׳�׳•׳× ׳�׳₪׳™ ׳—׳•׳“׳©</h1>\n";
 if($filerep) {
 	$filename = "tmp/moutcome.cvs";
 	$fd = fopen($filename, "w");
 	foreach($montharr as $m)
 		fwrite($fd, ",\"$m\"");
-	fwrite($fd, ",סהכ\n");
+	fwrite($fd, ",׳¡׳”׳›\n");
 }
 else {
 	print "<table border=\"0\" style=\"margin-right:8px\"><tr class=\"tblhead\">\n";
-	print "<td style=\"width:8em\">סעיף הוצאה&nbsp;</td>\n";
+	print "<td style=\"width:8em\">׳¡׳¢׳™׳£ ׳”׳•׳¦׳�׳”&nbsp;</td>\n";
 	foreach($montharr as $m)
 		print "<td style=\"width:4em\">$m</td>\n";
-	print "<td>סה\"כ</td>\n";
+	print "<td>׳¡׳”\"׳›</td>\n";
 	print "</tr>\n";
 }
 
@@ -119,5 +119,6 @@ $result = DoQuery($query, "moutcome.php");
 $tp = 0;
 $e = 0;
 $sumarr = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {}
 
+?>

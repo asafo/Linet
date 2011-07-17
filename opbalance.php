@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Opening balance module for Drorit
  | 

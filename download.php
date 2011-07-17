@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 $file_path = $_GET['file'];
 $asfname = $_GET['name'];
 

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Get last rows from transactions tbl
  */

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Accounting documents handling script for Drorit Free accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2004
@@ -300,6 +300,5 @@ if($LastLine >= ($start + ($linesperpage-1))) {
 	print "<input type=\"button\" value=\"$l\" onclick=\"document.location='index.php?module=bankbook&amp;start=$next&amp;account=$account'\">\n";
 }
 print "</tr>";
-print "</table>\n";
+print "</table>\n</form>";
 ?>
-</form>

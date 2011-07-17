@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 include('config.inc.php');
 include('func.inc.php');
 global $companiestbl;

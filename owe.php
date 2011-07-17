@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:לקוחות חייבים
 /*
  | Customers owing money report for Drorit accounting system

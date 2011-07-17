@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Supplier payment module for Freelance accounting software
  | Written by Ori Idan for Shay Harel

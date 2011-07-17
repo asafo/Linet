@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ************** Begin Top-Left Header **************
 // Address
 $default_font='helvetica';

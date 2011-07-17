@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Currency administration utility for Drorit free accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2004

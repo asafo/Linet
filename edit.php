@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Edit content pages for Drorit accounting system 
  | Written by Ori Idan December 2009

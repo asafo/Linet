@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*********************************************************************************
 ** The contents of this file are subject to the vtiger CRM Public License Version 1.0
  * ("License"); You may not use this file except in compliance with the License
@@ -11,8 +11,7 @@
 
 
 
-function get_pdf($html,$docnum,$user,$mail,$phone)
-{
+function get_pdf($html,$docnum,$user,$mail,$phone){
 	require_once('module/tcpdf/pdf.php');
 	require_once('module/tcpdf/pdfconfig.php');
 
@@ -26,7 +25,7 @@ function get_pdf($html,$docnum,$user,$mail,$phone)
 	$imageBlock=array("10","3","60","20");
 	$logo_name='img/logo.jpg';
 	$pdf->addImage( $logo_name, $imageBlock);
-	////////////////////////////////////////////////
+	//////////////////////////////////////////////
 	// set some language dependent data:
 	$lg = Array();
 	$lg['a_meta_charset'] = 'UTF-8';
@@ -42,7 +41,7 @@ function get_pdf($html,$docnum,$user,$mail,$phone)
 	//ob_end_clean();
 	//$pdf->Output('Invoice.pdf','D');
 	require_once('templates/header.php');
-	//add footer
+	////add footer
 	require_once('templates/footer.php');
 	return $pdf;
 }

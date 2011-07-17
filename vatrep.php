@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:חישוב מע"מ
 /*
  | VAT calculatin script for Freelance accounting system

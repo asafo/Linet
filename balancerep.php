@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Profit & Loss report for Freelance accounting system
  | Written by Ori Idan July 2009

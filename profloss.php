@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:דו"ח רווח והפסד
 /*
  | Profit & Loss report for Freelance accounting system

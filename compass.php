@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | compass:
  | This is part of freelance accounting system.

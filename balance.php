@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Balance report for Drorit accounting system
  | Written by Ori Idan July 2009

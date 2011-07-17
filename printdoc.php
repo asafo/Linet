@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | PrintDoc
  | Printing business document module for linet accounting system.
@@ -12,10 +12,10 @@ if (!$print_win==1)
  header('Content-type: text/html;charset=UTF-8');
 
 include('config.inc.php');
-include('linet.inc.php');
-include('func.inc.php');
-include('i18n.inc.php');
-//print $dir.$iface_lang;
+include('include/core.inc.php');
+include('include/func.inc.php');
+include('include/i18n.inc.php');
+
 
 
 $DocType[1] = _("Proforma");
@@ -286,26 +286,28 @@ while(!feof($file)) {
 	$str = fgets($file);
 	$new = preg_replace_callback("/~[^\x20|^~]*~/", "TemplateReplace", $str);
 	if (substr_count($new,'</body')>=1) $found=false;
-	if(!$print_win)	print "$new";
-	if ($found)	$bla=$bla.$new;
+	if(!$print_win==1)	print("$new");
+	if ($found)	$bla.=$new;
 	if (substr_count($new,'<body dir="rtl">')>=1) $found=true;
 }
 
 //$bla=$bla.'</body></html>';
 //echo 'start world <br>'.$bla.'end world!<br>';
+//ob_end_clean();
 require_once("module/invoice/CreatePDF.php");
 $pdf=get_pdf($bla,$docnum,$user,$mail,$phone);
-
+//print($dir.$iface_lang);
 global $path;
 $filepath=$path.'/tmp/tmp.pdf';//adam: full file path here
 //$pdf->Output($filepath,'F'); //added file name to make it work in IE, also forces the download giving the user the option to save
 //print '<a href="tmp/Invoice.pdf">PDF</a><br>fighting all dune!<br>';
-//$pdf->Output('Invoice.pdf','D'); //added file name to make it work in IE, also forces the download giving the user the option to save
+ob_end_clean();
+$pdf->Output('Invoice.pdf','D'); //added file name to make it work in IE, also forces the download giving the user the option to save
 
 
 	
 	
-if(!$print_win) {
+if(!$print_win==1) {
 	print "<div style=\"width:100%;text-align:center\">\n";
 	$l = _("Print");
 	print "<form><input type=\"button\" value=\"$l\" ";

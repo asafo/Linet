@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | EmailDoc
  | Send document URL by email

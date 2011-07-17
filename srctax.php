@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Customer source tax report for Freelance accounting system
  | Written by Ori Idan September 2009

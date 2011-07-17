@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 //M:הצגת תנועות לכרטיס
 /*
  | Display transactions for card

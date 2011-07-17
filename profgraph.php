@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Monthly profit and loss graph
  | Written for Freelance accounting system by Ori Idan November 2009

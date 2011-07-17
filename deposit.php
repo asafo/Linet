@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Incoming cheques handling script for Drorit Free accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2004

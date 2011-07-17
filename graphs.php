@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | show graphs
  | This module is part of Freelance accounting system

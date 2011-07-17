@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Add item
  | Add a new item script. to be called from business document script of linet accounting system
