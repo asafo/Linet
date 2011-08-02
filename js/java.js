@@ -48,7 +48,7 @@ function addEvent(last) {
 	r.appendChild(cf);
 	
 	ni.appendChild(r);
-	$( "#AC"+num ).autocomplete({source: "index.php?action=lister&data=items",});
+	$( "#AC"+num ).autocomplete({source: "index.php?action=lister&data=items&jsoncallback=?"});
 }
  
 function removeElement(divNum) {
@@ -59,7 +59,7 @@ function removeElement(divNum) {
 
 function addDatePicker(name,value){
 		$.datepicker.setDefaults( $.datepicker.regional["he"] );
-		$(name).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true,});
+		$(name).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});
 		$(name).datepicker( "option", "dateFormat", "dd-mm-yy" );
 		$(name).val(value);
 }

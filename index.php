@@ -1,4 +1,4 @@
-﻿<?PHP
+<?PHP
 /*
  | Drorit accounting system version 2.0
  | Written by Ori Idan
@@ -17,8 +17,10 @@ if(isset($_GET['cookie'])) {
 		setcookie($name, $val, $t);
 	}
 }
+
 include('include/i18n.inc.php');
 
+//print(md5('Replay'));
 
 if(isset($_GET['begin']) && isset($_GET['end'])) {
 	$begindmy = $_GET['begin'];
@@ -43,7 +45,7 @@ else if($action == 'unsel') {
 	unset($_GET['action']);
 	$module = 'main';
 }
-header('Content-type: text/html;charset=UTF-8');
+//header('Content-type: text/html;charset=UTF-8');
 
 include('config.inc.php');
 include('include/core.inc.php');
@@ -51,7 +53,6 @@ include('include/version.inc.php');
 include('include/func.inc.php');
 include('include/edit.inc.php');
 include('include/menu.inc.php');
-
 $name = isset($_COOKIE['name']) ? $_COOKIE['name'] : '';
 $data = isset($_COOKIE['data']) ? $_COOKIE['data'] : '';
 $name = isset($_GET['name']) ? $_GET['name'] : $name;
@@ -64,11 +65,7 @@ if(isset($_COOKIE['company'])) {
 }
 $prefix = isset($_GET['company']) ? $_GET['company'] : $prefix;
 
-$stdheader = <<<BLK
-
-
-BLK;
-
+$stdheader = '';
 $abspath = GetURI();
 if(!isset($tinymcepath))
 	$tinimcepath = $abspath;
@@ -136,17 +133,18 @@ if ($action=='lister'){
 	}
 
 
-if (isset($_COOKIE['needcheak'])) $needcheak=false; else $needcheak=true;
-if (isset($_COOKIE['sversion'])) $sVersion=$_COOKIE['sversion']; else $sVersion=getVersion(); 
-$updatepop=false;
-if ($needcheak){
-		$sVersion=getVersion();
+if (isset($_COOKIE['cheaked'])) {$cheaked=true;} else {$cheaked=false;}
+if (isset($_COOKIE['sversion'])) {$sVersion=$_COOKIE['sversion'];} else {$sVersion=getVersion(); }
+$_SESSION['updatepop']=false;
+//print 'help'.$_COOKIE['cheaked'];
+if (!$cheaked){
+		//$sVersion=getVersion();
 	if($version<$sVersion){
-		$updatepop=true;
-		setcookie('needcheak', false, time() + 24 * 3600);//die;
+		$_SESSION['updatepop']=true;
+		setcookie('cheaked', 12, time() + 24 * 3600);//die;
 		setcookie('sversion', $sVersion, time() + 24 * 3600);//die;
 	}else{
-		if($version!=$sVersion){
+		if($sVersion=='-1'){
 			print 'Unable To Connect Update Server';
 			//die;
 		}
@@ -155,12 +153,13 @@ if ($needcheak){
 
 /* Make sure we have a valid company and set $title */
 if(isset($prefix)) {
-	$query = "SELECT companyname,template FROM $companiestbl WHERE prefix='$prefix'";
+	$query = "SELECT companyname,template,logo FROM $companiestbl WHERE prefix='$prefix'";
 	$result = DoQuery($query, "main");
 	if(mysql_num_rows($result)) {
 		$line = mysql_fetch_array($result, MYSQL_ASSOC);
 		$title = $line['companyname'];
 		$template = $line['template'];
+		$logo=$line['logo'];
 	}
 	else
 		unset($prefix);
@@ -189,17 +188,29 @@ if($template == '') {
 /*
 
 */
+
+function url_exists($url) {
+    $hdrs = @get_headers($url);
+    //print_r($hdr);
+    return is_array($hdrs) ? preg_match('/^HTTP\\/\\d+\\.\\d+\\s+2\\d\\d\\s+.*$/',$hdrs[0]) : false;
+} 
 function getVersion(){
 	global $updatesrv;
 	//print $updatesrv.'?GetLateset';
-	if ($fp = fopen($updatesrv.'?GetLateset', 'r')) {
-   $content = fread($fp, 1024);
+	if (url_exists($updatesrv.'?GetLateset')){
+		$fp = fopen($updatesrv.'?GetLateset', 'r');
+		$content = fread($fp, 1024);
+		return $content;
+	}else{
+		return -1;
+	}
+   
    // keep reading until there's nothing left
    /*while ($line = fread($fp, 1024)) {
       $content .= $line;
    }*/
-   return $content;
-}
+   
+
 }
 /*
  | GetPost
@@ -232,7 +243,7 @@ function ShowText($id,$print=true) {
 	if($module != 'text')
 		if(($module != 'text') && EditAble($id)) {
 			$l = _("Edit");
-			$text.= "<span class=\"text1\"><a href=\"?id=$id&amp;action=edit\">$l</a></span><br>\n";
+			$text.= "<span class=\"text1\"><a href=\"?id=$id&amp;action=edit\">$l</a></span><br />\n";
 		}
 	$query = "SELECT contents,subject FROM $articlestbl WHERE id='$id' AND lang='$lang'";
 	$result = DoQuery($query, "ShowText");
@@ -470,7 +481,7 @@ function TemplateReplace($r) {
 
 	$p = str_replace('~', '', $r[0]);
 	if($p == 'header') {
-		print "$stdheader\n";
+		//print "$stdheader\n";
 		if($module == 'text') {
 			if(($action != 'edit') && ($action != 'add'))
 				return '';
@@ -480,11 +491,11 @@ function TemplateReplace($r) {
 	}
 	else if($p =='updatepop'){
 		//global 
-		$updatepop=false;//rethink
-		if ($updatepop) {
+		//$updatepop=true;//rethink
+		if ($_SESSION['updatepop']) {
 			print '
-			<div id="dialog-confirm" title="'._("Update Alert").'">
-				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>'._("There is a new update for Linet:").'</p>
+			<div id="dialog-confirm" title="'._("הודעת עדכון").'">
+				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>'._("ישנו עדכון עבור לינט:").'</p>
 			</div>
 			<script>
 				$(function() {
@@ -492,11 +503,11 @@ function TemplateReplace($r) {
 					$( "#dialog-confirm" ).dialog({
 						resizable: false,height:140,modal: true,
 						buttons: {
-							"'._("Update now").'": function() {
+							"'._("עדכן עכשיו").'": function() {
 								$( this ).dialog( "close" );
 								window.location.replace("module/update/");
 							},
-							"'._("No Thanks").'": function() {
+							"'._("לא תודה").'": function() {
 								$( this ).dialog( "close" );
 							}
 						}
@@ -506,7 +517,7 @@ function TemplateReplace($r) {
 		}
 		global $version,$sVersion;
 		if($version<$sVersion){
-			print 'Must <a href="module/update">Update</a> Please!';
+			print 'עבודה בגירסה לא <a href="module/update">עדכנית!</a>';
 		}
 	}
 	else if($p == 'text') {
@@ -537,6 +548,8 @@ function TemplateReplace($r) {
 	}
 	else if($p == 'recomendfirefox')
 		return RecomendFirefox();
+	else if($p == 'isoc')
+		return '<div class="isoc"><a href="http://www.isoc.org.il"><img src="img/isoc.jpg" alt="isoc logo" /></a>הפרויקט נתמך על ידי איגוד האינטרנט הישראלי </div>';	
 	else if($p == 'username') {
 		$name1 = isset($_GET['name']) ? $_GET['name'] : $_COOKIE['name'];
 		$name1 = urldecode($name1);
@@ -602,12 +615,12 @@ $file = fopen($template, "r");
 if(!$file) {
 	print "Unable to open: $template<BR>\n";
 }
-
+//print 'we start';
 while(!feof($file)) {
 	$str = fgets($file, 1024);
 	
 	$new = preg_replace_callback("/~[^\x20|^~]*~/", "TemplateReplace", $str);
-	print "$new";
+	print $new;
 }
 fclose($file);
 

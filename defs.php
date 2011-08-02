@@ -137,11 +137,14 @@ if($action == 'defupdate') {
 	$companyname = htmlspecialchars($_POST['companyname'], ENT_QUOTES);
 	$manager = htmlspecialchars($_POST['manager'], ENT_QUOTES);
 	$regnum = htmlspecialchars($_POST['regnum'], ENT_QUOTES);
-	$logo = htmlspecialchars($_POST['logo'], ENT_QUOTES);
+	//$logo = htmlspecialchars($_POST['logo'], ENT_QUOTES);
 	//$regnum = "511923740";//adam ERR chek wtf?!
 	if($regnum != $_POST['regnum']) {
 		print "Not equal <br>\n";
 	}
+
+
+	
 	$address = htmlspecialchars($_POST['address'], ENT_QUOTES);
 	$city = htmlspecialchars($_POST['city'], ENT_QUOTES);
 	$zip = htmlspecialchars($_POST['zip'], ENT_QUOTES);
@@ -168,11 +171,13 @@ if($action == 'defupdate') {
 	$query .= "taxrep='$taxrep', \n";
 	$query .= "vat='$vat', \n";
 	$query .= "vatrep='$vatrep' \n";
+	//$query .= "logo='{$data}' \n";
 	$query .= "WHERE prefix='$prefix'";
 /*	print "<div dir=\"ltr\">\n";
 	$qstr = nl2br($query);
 	print "Query: $qstr<br>\n";
 	print "</div>\n"; */
+	//print $query;
 	$result = DoQuery($query, "defs.php");
 	$l = _("Details succesfully updated");
 	print "<h1>$l</h1>\n";
@@ -193,14 +198,14 @@ if(!$line) {
 //		print "<br><br><h1>לא ניתן לבצע פעולה זו ללא התחברות למערכת</h1>\n";
 		return;
 	}
-	$text.= "<form action=\"?module=defs&amp;action=defsubmit\" method=post>\n";
+	$text.= "<form action=\"?module=defs&amp;action=defsubmit\" method=\"post\" enctype=\"multipart/form-data\">\n";
 //	print "<div class=\"caption_out\"><div class=\"caption\">";
 	$haeder = _("Entering new business");
 	//print "<h3>$l</h3>\n<br>\n";
 //	print "<h3>הגדרת חברה חדשה</h3>\n<br>\n";
 }
 else {
-	$text.= "<form action=\"?module=defs&amp;action=defupdate\" method=\"post\">\n";
+	$text.= "<form action=\"?module=defs&amp;action=defupdate\" method=\"post\" enctype=\"multipart/form-data\">\n";
 	$companyname = $line['companyname'];
 	$manager = $line['manager'];
 	$regnum = $line['regnum'];
@@ -296,14 +301,16 @@ $l = _("Cellular");
 $text.= "<td>$l: </td>\n";
 $text.= "<td><input type=\"text\" name=\"cellular\" value=\"$cellular\"></td>\n";
 //adam:logo
-$text.= "</tr><tr>\n";
-$l = _("Logo");
-$text.= "<td>$l: </td>\n";
-$text.= "<td>";
-$text.= "<form enctype=\"multipart/form-data\" action=\"uploader.php\" method=\"POST\">
-<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"900000\" />
-<input name=\"uploadedfile\" type=\"file\" value=\"$logo\"/><br />
-<input type=\"submit\" value=\"Upload File\" /></form>"."</td>\n";
+//$text.= "</tr><tr>\n";
+//$l = _("Logo");
+//$text.= "<td>$l: </td>\n";
+//$text.= "<td>";
+//if (isnull($logo)) {
+//$text.= "<input name=\"logofile\" type=\"file\" /><br />"."</td>\n";
+//}else{
+//$text.='<img src="index.php?action=lister&data=logo" alt="logo" /><a href="">שנה לוגו</a>';	
+	
+//}
 //adam:logo
 $text.= "</tr>\n";
 $text.= "</table>\n";

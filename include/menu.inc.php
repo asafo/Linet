@@ -61,4 +61,3 @@ $MainMenu = array('main' => _("Main") . "|module=main",
 );
 
 ?>
-

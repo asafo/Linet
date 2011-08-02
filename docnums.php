@@ -33,6 +33,11 @@ if($action == 'update') {
 	$size = (int)$_FILES['logo']['size'];
 	if($size > 0) {	/* we have a file */
 		$tmpname = $_FILES['logo']['tmp_name'];
+		
+	       // $name = $_FILES['logofile']['name'];
+	       // $mime = $_FILES['logofile']['type'];
+	       //print 'a['.$size.']b['.$name.']c['.$mime;
+	   if (file_exists($tmpname)){   
 		$orgname = $_FILES['logo']['name'];
 		/* find extension */
 		$offset = strrpos($orgname, '.');
@@ -40,7 +45,14 @@ if($action == 'update') {
 		$ext = substr($orgname, $offset);
 		$logo = "$prefix.$ext";
 //		print "logo: $logo<br>\n";
-		move_uploaded_file($tmpname, "pics/$logo");
+		
+		move_uploaded_file($tmpname, "img/logo/$logo");
+		//$img = base64_encode($img); 
+
+	   }else{ 
+	   	print 'error';
+	   }
+
 	}
 
 	$query = "UPDATE $companiestbl SET num1='$num1', num2='$num2', num3='$num3', ";
@@ -49,7 +61,9 @@ if($action == 'update') {
 	if($logo != '')
 		$query .= ", logo='$logo' ";
 	$query .= "WHERE prefix='$prefix'";
+	//print $query;
 	DoQuery($query, "docnums.php");
+	
 }
 if($action == 'logodel') {
 	if($name == 'demo') {
@@ -61,7 +75,7 @@ if($action == 'logodel') {
 	$result = DoQuery($query, 'docnums');
 	$line = mysql_fetch_array($result, MYSQL_ASSOC);
 	$logo = $line['logo'];
-	unlink("pics/$logo");
+	unlink("img/logo/$logo");
 	$query = "UPDATE $companiestbl SET logo='' WHERE prefix='$prefix'";
 	DoQuery($query, 'docnums');
 }
@@ -136,7 +150,7 @@ $text.= "<td colspan=\"2\" valign=\"top\">$l: </td>\n";
 $text.= "<td colspan=\"2\" valign=\"top\"><input type=\"file\" name=\"logo\" value=\"\"></td>\n";
 if($logo) {
 	$text.= "</tr><tr>\n";
-	$text.= "<td colspan=\"3\" align=\"center\"><img src=\"/pics/$logo\" alt=\"$l\" width=\"100px\"></td>\n";
+	$text.= "<td colspan=\"3\" align=\"center\"><img src=\"img/logo/$logo\" alt=\"$l\" width=\"100px\"></td>\n";
 	$l1 = _("Delete");
 	$text.= "<td><input type=\"button\" value=\"$l1 $l\" ";
 	$text.= "onClick=\"window.location.href='?module=docnums&amp;action=logodel'\"></td>\n";

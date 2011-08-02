@@ -168,7 +168,7 @@ if(!$account) {
 
 	/* Choose account */
 	$text.= "<form name=\"choosebank\" method=\"get\">\n";
-	$text.= "<input type=\"hidden\" name=\"module\" value=\"bankbook\">\n";
+	$text.= "<input type=\"hidden\" name=\"module\" value=\"bankbook\"/>\n";
 	$text.= "<div class=\"formtbl\" style=\"padding-right:10px;font-size:16px\">\n";
 	$t = BANKS;
 	$query = "SELECT num,company FROM $accountstbl WHERE type='$t' AND prefix='$prefix'";
@@ -185,12 +185,12 @@ if(!$account) {
 				$text.= "checked";
 			$i++;
 //			print ">&nbsp;$acctname</td></tr>\n";
-			$text.= ">&nbsp;$acctname\n";
+			$text.= "/>&nbsp;$acctname\n";
 		}
 	}
-	$text.= "<br>\n";
+	$text.= "<br />\n";
 	$l = _("Display");
-	$text.= "<div style=\"text-align:center\"><br><input type=submit value=\"$l\"></div>\n";
+	$text.= "<div style=\"text-align:center\"><br><input type=submit value=\"$l\" /></div>\n";
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -268,19 +268,19 @@ for($i = 0; $i < $linesperpage; $i++) {
 	else
 		print "&nbsp;</td>\n";
 	if($num == 0)
-		print "<td><input type=\"text\" class=\"num\" name=\"num[]\" value=\"\" size=\"4\" readonly></td>\n";
+		print "<td><input type=\"text\" class=\"num\" name=\"num[]\" value=\"\" size=\"4\" readonly=\"readonly\" /></td>\n";
 	else
-		print "<td><input type=\"text\" class=\"num\" name=\"num[]\" value=\"$num\" size=\"4\" readonly></td>\n";
-	print "<td><input type=\"text\" class=\"date\" name=\"date[]\" value=\"$date\" size=\"9\"></td>\n";
+		print "<td><input type=\"text\" class=\"num\" name=\"num[]\" value=\"$num\" size=\"4\" readonly=\"readonly\" /></td>\n";
+	print "<td><input type=\"text\" class=\"date\" name=\"date[]\" value=\"$date\" size=\"9\" /></td>\n";
 	$lastdate = '';	/* last date should be printed only once */
 	
-	print "<td><input type=\"text\"  name=\"details[]\" value=\"$details\" size=\"20\"></td>\n";
-	print "<td><input type=\"text\"  name=\"refnum[]\" size=\"10\" value=\"$refnum\"></td>\n";
-	print "<td><input type=\"text\" dir=\"ltr\" class=\"debit\" name=\"debit[]\" onblur=\"DebitChange($i)\" size=\"6\" value=\"$debit\"></td>\n";
-	print "<td><input type=\"text\" dir=\"ltr\" class=\"credit\" name=\"credit[]\" onblur=\"CreditChange($i)\" size=\"6\" value=\"$credit\"></td>\n";
+	print "<td><input type=\"text\"  name=\"details[]\" value=\"$details\" size=\"20\" /></td>\n";
+	print "<td><input type=\"text\"  name=\"refnum[]\" size=\"10\" value=\"$refnum\" /></td>\n";
+	print "<td><input type=\"text\" dir=\"ltr\" class=\"debit\" name=\"debit[]\" onblur=\"DebitChange($i)\" size=\"6\" value=\"$debit\" /></td>\n";
+	print "<td><input type=\"text\" dir=\"ltr\" class=\"credit\" name=\"credit[]\" onblur=\"CreditChange($i)\" size=\"6\" value=\"$credit\" /></td>\n";
 	if($num == ($start + 1))
 		$total = $line['total'];
-	print "<td><input type=\"text\" dir=\"ltr\" class=\"total\" readonly name=\"total[]\" size=\"6\" value=\"$total\"></td>\n";
+	print "<td><input type=\"text\" dir=\"ltr\" class=\"total\" readonly=\"readonly\" name=\"total[]\" size=\"6\" value=\"$total\" /></td>\n";
 	print "</tr>\n";
 }
 print "<tr><td colspan=\"8\" align=\"center\">\n";
@@ -290,15 +290,15 @@ if($start > 1) {
 	else
 		$prev = 0;
 	$l = _("Prev. page");
-	print "<input type=\"button\" value=\"$l\" onclick=\"document.location='index.php?module=bankbook&amp;start=$prev&amp;account=$account'\">&nbsp;\n";
+	print "<input type=\"button\" value=\"$l\" onclick=\"document.location='index.php?module=bankbook&amp;start=$prev&amp;account=$account'\" />&nbsp;\n";
 }
 $l = _("Update");
-print "&nbsp;<input type=\"submit\" value=\"$l\">&nbsp;&nbsp;\n";
+print "&nbsp;<input type=\"submit\" value=\"$l\" />&nbsp;&nbsp;\n";
 if($LastLine >= ($start + ($linesperpage-1))) {
 	$next = $start + ($linesperpage-1);
 	$l = _("Next page");
-	print "<input type=\"button\" value=\"$l\" onclick=\"document.location='index.php?module=bankbook&amp;start=$next&amp;account=$account'\">\n";
+	print "<input type=\"button\" value=\"$l\" onclick=\"document.location='index.php?module=bankbook&amp;start=$next&amp;account=$account'\" />\n";
 }
-print "</tr>";
+print "</td></tr>";
 print "</table>\n</form>";
 ?>

@@ -1,4 +1,6 @@
-<?
+<?php
+$updatesrv ='http://82.80.233.231';//http://localhost/server/';
+
 $articlestbl = "articles";
 $picstbl = "pics";
 $companiestbl = "companies";
@@ -33,31 +35,31 @@ $title = $softwarenameheb;
 
 // Account types 
 $AcctType[0] = _("Customers");
-// $AcctType[0] = 'ì÷åçåú';
+// $AcctType[0] = '×œ×§×•×—×•×ª';
 $AcctType[1] = _("Suppliers");
-// $AcctType[1] = 'ñô÷éí';
+// $AcctType[1] = '×¡×¤×§×™×';
 $AcctType[2] = _("Outcomes");
-// $AcctType[2] = 'äåöàåú äðäìä åëììéåú';
+// $AcctType[2] = '×”×•×¦××•×ª ×”× ×”×œ×” ×•×›×œ×œ×™×•×ª';
 $AcctType[3] = _("Incomes");
-// $AcctType[3] = 'äëðñåú';
+// $AcctType[3] = '×”×›× ×¡×•×ª';
 $AcctType[4] = _("Authorities");
-// $AcctType[4] = 'îåñãåú';
+// $AcctType[4] = '×ž×•×¡×“×•×ª';
 $AcctType[5] = _("Liabilities");
-// $AcctType[5] = 'äúçéáåéåú';
+// $AcctType[5] = '×”×ª×—×™×‘×•×™×•×ª';
 $AcctType[6] = _("Equity");
-// $AcctType[6] = 'äåï òöîé';
+// $AcctType[6] = '×”×•×Ÿ ×¢×¦×ž×™';
 $AcctType[7] = _("Buys");
-// $AcctType[7] = '÷ðéåú';
+// $AcctType[7] = '×§× ×™×•×ª';
 $AcctType[8] = _("Banks");
-// $AcctType[8] = 'áð÷éí';
+// $AcctType[8] = '×‘× ×§×™×';
 $AcctType[9] = _("Cash");
-// $AcctType[9] = 'îæåîðéí';
+// $AcctType[9] = '×ž×–×•×ž× ×™×';
 $AcctType[10] = _("financing expenses");
-// $AcctType[10] = 'äåöàåú îéîåï';
+// $AcctType[10] = '×”×•×¦××•×ª ×ž×™×ž×•×Ÿ';
 $AcctType[11] = _("Stocks");
-// $AcctType[11] = 'ðé"ò';
+// $AcctType[11] = '× ×™"×¢';
 $AcctType[12] = _("Assets");
-// $AcctType[12] = 'øëåù ÷áåò';
+// $AcctType[12] = '×¨×›×•×© ×§×‘×•×¢';
 
 define("CUSTOMER", 0);
 define("SUPPLIER", 1);
@@ -75,47 +77,47 @@ define("ASSETS", 12);
 define("CONTACT", 20);
 
 // Predefined accounts 
-define("BUYVAT", 1);	// îò"î úùåîåú
-define("ASSETVAT", 2);	// îò"î úùåîåú öéåã åðëñéí
-define("SELLVAT", 3);	// îò"î òñ÷àåú
-define("PAYVAT", 4);	// îò"î çå"æ
-define("OUTCOMECLEAR", 5);	// ðéëåé áî÷åø îñô÷éí
-define("ROUNDING", 6);		// òéâåì ñëåîéí
-define("CHEQUE", 7);	// ÷åôú ùé÷éí
-define("CUSTTAX", 8);	// ðéëåé áî÷åø îì÷åçåú
-define("OPENBALANCE", 9);	// éúøåú ôúéçä
-define("ACCTCASH", 10);	// ÷åôú îæåîðéí
-define("CREDIT", 11);	// ÷åôú àùøàé
-define("DEPOSITS", 12);	// ô÷ãåðåú
-define("PRETAX", 13);	// îñ äëðñä î÷ãîåú
-define("NATINSPAY", 14);	// áéèåç ìàåîé çå"æ
-define("NATINS", 15);	// áéèåç ìàåîé
-define("IRS", 16);	// îñ äëðñä
-define("EQOUTCOME", 17);	// ùååé ùéîåù
-define("SALARY", 18);	// îùëåøåú
-define("PRETAX", 105); // î÷ãîåú îñ äëðñä
-define("OPEN_STOCK", 106);	// îìàé ôúéçä
-define("BUY_STOCK", 107);	// ÷ðéåú
-define("CLOSE_STOCK", 108);	// îìàé ñâéøä
-define("GENOUTCOME", 109); // äåöàåú ùåðåú
-define("EMPLOYEESALARY", 110);	// òåáãéí çå"æ
-define("CARGAS", 111);	// ãì÷
-define("COMMUNICATION", 112);	// ú÷ùåøú 
-define("GENCUSTOMER", 113);	// ì÷åçåú ùåðéí
-define("GENSUPPLIER", 114);	// ñô÷éí ùåðéí
+define("BUYVAT", 1);	// ×ž×¢"×ž ×ª×©×•×ž×•×ª
+define("ASSETVAT", 2);	// ×ž×¢"×ž ×ª×©×•×ž×•×ª ×¦×™×•×“ ×•× ×›×¡×™×
+define("SELLVAT", 3);	// ×ž×¢"×ž ×¢×¡×§××•×ª
+define("PAYVAT", 4);	// ×ž×¢"×ž ×—×•"×–
+define("OUTCOMECLEAR", 5);	// × ×™×›×•×™ ×‘×ž×§×•×¨ ×ž×¡×¤×§×™×
+define("ROUNDING", 6);		// ×¢×™×’×•×œ ×¡×›×•×ž×™×
+define("CHEQUE", 7);	// ×§×•×¤×ª ×©×™×§×™×
+define("CUSTTAX", 8);	// × ×™×›×•×™ ×‘×ž×§×•×¨ ×ž×œ×§×•×—×•×ª
+define("OPENBALANCE", 9);	// ×™×ª×¨×•×ª ×¤×ª×™×—×”
+define("ACCTCASH", 10);	// ×§×•×¤×ª ×ž×–×•×ž× ×™×
+define("CREDIT", 11);	// ×§×•×¤×ª ××©×¨××™
+define("DEPOSITS", 12);	// ×¤×§×“×•× ×•×ª
+define("PRETAX", 13);	// ×ž×¡ ×”×›× ×¡×” ×ž×§×“×ž×•×ª
+define("NATINSPAY", 14);	// ×‘×™×˜×•×— ×œ××•×ž×™ ×—×•"×–
+define("NATINS", 15);	// ×‘×™×˜×•×— ×œ××•×ž×™
+define("IRS", 16);	// ×ž×¡ ×”×›× ×¡×”
+define("EQOUTCOME", 17);	// ×©×•×•×™ ×©×™×ž×•×©
+define("SALARY", 18);	// ×ž×©×›×•×¨×•×ª
+define("PRETAX", 105); // ×ž×§×“×ž×•×ª ×ž×¡ ×”×›× ×¡×”
+define("OPEN_STOCK", 106);	// ×ž×œ××™ ×¤×ª×™×—×”
+define("BUY_STOCK", 107);	// ×§× ×™×•×ª
+define("CLOSE_STOCK", 108);	// ×ž×œ××™ ×¡×’×™×¨×”
+define("GENOUTCOME", 109); // ×”×•×¦××•×ª ×©×•× ×•×ª
+define("EMPLOYEESALARY", 110);	// ×¢×•×‘×“×™× ×—×•"×–
+define("CARGAS", 111);	// ×“×œ×§
+define("COMMUNICATION", 112);	// ×ª×§×©×•×¨×ª 
+define("GENCUSTOMER", 113);	// ×œ×§×•×—×•×ª ×©×•× ×™×
+define("GENSUPPLIER", 114);	// ×¡×¤×§×™× ×©×•× ×™×
 
 $DocType[1] = _("Proforma");
-// $DocType[1] = 'çùáåï òñ÷ä';
+// $DocType[1] = '×—×©×‘×•×Ÿ ×¢×¡×§×”';
 $DocType[2] = _("Delivery doc.");
-// $DocType[2] = 'ú. îùìåç';
+// $DocType[2] = '×ª. ×ž×©×œ×•×—';
 $DocType[3] = _("Invoice");
-// $DocType[3] = 'çùáåðéú îñ';
+// $DocType[3] = '×—×©×‘×•× ×™×ª ×ž×¡';
 $DocType[4] = _("Credit invoice");
-// $DocType[4] = 'çùáåðéú æéëåé';
+// $DocType[4] = '×—×©×‘×•× ×™×ª ×–×™×›×•×™';
 $DocType[5] = _("Return document");
-// $DocType[5] = 'úòåãú äçæøä';
+// $DocType[5] = '×ª×¢×•×“×ª ×”×—×–×¨×”';
 $DocType[6] = _("Receipt");
-// $DocType[6] = '÷áìä';
+// $DocType[6] = '×§×‘×œ×”';
 $DocType[7] = _("Quote");//adam:
 $DocType[8] = _("Sales Order");
 
@@ -132,12 +134,12 @@ define("CLOSED", 1);
 
 // Predefined types of transactions
 define("MANUAL", 0);
-define("INVOICE", 1);	// çùáåðéú
-define("SUPINV", 2);	// çùáåðéú ñô÷
-define("RECEIPT", 3);	// ÷áìä
+define("INVOICE", 1);	// ×—×©×‘×•× ×™×ª
+define("SUPINV", 2);	// ×—×©×‘×•× ×™×ª ×¡×¤×§
+define("RECEIPT", 3);	// ×§×‘×œ×”
 define("CHEQUEDEPOSIT", 4);
 define("SUPPLIERPAYMENT", 5);
-define("VAT", 6);	// îò"î
+define("VAT", 6);	// ×ž×¢"×ž
 define("STORENO", 7);
 define("BANKMATCH", 8);
 define("SRCTAX", 9);
@@ -149,85 +151,85 @@ define("TRAN_SALARY", 15);
 define("OPBALANCE", 16);
 
 $TranType[0] = _("Manual");
-// $TranType[0] = 'øùåí éãðé';
+// $TranType[0] = '×¨×©×•× ×™×“× ×™';
 $TranType[1] = _("Invoice");
-// $TranType[1] = 'çùáåðéú';
+// $TranType[1] = '×—×©×‘×•× ×™×ª';
 $TranType[2] = _("Supplier invoice");
-// $TranType[2] = 'çùáåðéú ñô÷';
+// $TranType[2] = '×—×©×‘×•× ×™×ª ×¡×¤×§';
 $TranType[3] = _("Receipt");
-// $TranType[3] = '÷áìä';
+// $TranType[3] = '×§×‘×œ×”';
 $TranType[4] = _("Cheque deposit");
-// $TranType[4] = 'äô÷ãú ùé÷';
+// $TranType[4] = '×”×¤×§×“×ª ×©×™×§';
 $TranType[5] = _("Supplier payment");
-// $TranType[5] = 'úùìåí ìñô÷';
+// $TranType[5] = '×ª×©×œ×•× ×œ×¡×¤×§';
 $TranType[6] = _("VAT");
-// $TranType[6] = 'îò\"î';
+// $TranType[6] = '×ž×¢\"×ž';
 $TranType[7] = _("Storeno");
-// $TranType[7] = 'ñèåøðå';
+// $TranType[7] = '×¡×˜×•×¨× ×•';
 $TranType[8] = _("Bank reconciliation");
-// $TranType[8] = 'äúàîú áð÷';
+// $TranType[8] = '×”×ª××ž×ª ×‘× ×§';
 $TranType[9] = _("Source tax");
-// $TranType[9] = 'ðéëåé áî÷åø';
+// $TranType[9] = '× ×™×›×•×™ ×‘×ž×§×•×¨';
 $TranType[10] = _("Transaction pattern");
-// $TranType[10] = 'úáðéú úðåòä';
+// $TranType[10] = '×ª×‘× ×™×ª ×ª× ×•×¢×”';
 $TranType[11] = _("Manual invoice");
-// $TranType[11] = 'çùáåðéú éãðéú';
+// $TranType[11] = '×—×©×‘×•× ×™×ª ×™×“× ×™×ª';
 $TranType[13] = _("Manual receipt");
-// $TranType[13] = '÷áìä éãðéú';
+// $TranType[13] = '×§×‘×œ×” ×™×“× ×™×ª';
 $TranType[14] = _("Tax prepayment");
-// $TranType[14] = 'îñ äëðñä î÷ãîåú';
+// $TranType[14] = '×ž×¡ ×”×›× ×¡×” ×ž×§×“×ž×•×ª';
 $TranType[15] = _("Salary");
-// $TranType[15] = 'îùëåøú';
+// $TranType[15] = '×ž×©×›×•×¨×ª';
 $TranType[16] = _("Openning balance");
 
-// $UnitArr = array('ììà éçéãåú', 'ùòåú òáåãä', 'éçéãåú', 'ìéèø', 'âøí', '÷éìåâøí', 'îèø');
+// $UnitArr = array('×œ×œ× ×™×—×™×“×•×ª', '×©×¢×•×ª ×¢×‘×•×“×”', '×™×—×™×“×•×ª', '×œ×™×˜×¨', '×’×¨×', '×§×™×œ×•×’×¨×', '×ž×˜×¨');
 $UnitArr = array(_("No units"), _("work hours"), _("units"), _("liter"), _("gram"), _("Kilo gram"), _("Meter"));
 
 $paymenttype = array(
 		//1 => _("Cash"), 
-		1 => _("îæåîï"), 
+		1 => _("×ž×–×•×ž×Ÿ"), 
 		//2 => _("Cheque"),
-		2 => _("ö'÷"),
+		2 => _("×¦'×§"),
 		//3 => _("Credit card"),
-		3 => _("ëøèéñ àùøàé"),
+		3 => _("×›×¨×˜×™×¡ ××©×¨××™"),
 		//4 => _("Bank transfer")
-		4 => _("äòáøä áð÷àéú")
+		4 => _("×”×¢×‘×¨×” ×‘× ×§××™×ª")
 	);
 
 $creditcompanies = array(
 		//0 => _("No credit"),
-		0 => _("àéï àùøàé"),
+		0 => _("××™×Ÿ ××©×¨××™"),
 		//1 => _("Isracard"),
-		1 => _("éùøà÷àøã"),
+		1 => _("×™×©×¨××§××¨×“"),
 		//2 => _("Cal"),
-		2 => _("÷àì"),
+		2 => _("×§××œ"),
 		//3 => _("Diners"),
-		3 => _("ãééðøñ"),
+		3 => _("×“×™×™× ×¨×¡"),
 		//4 => _("American express"),
-		4 => _("àîøé÷ï à÷ñôøñ"),
+		4 => _("××ž×¨×™×§×Ÿ ××§×¡×¤×¨×¡"),
 		//6 => _("Leumi card")
-		6 => _("ìàåîé ÷àøã")
+		6 => _("×œ××•×ž×™ ×§××¨×“")
 		);
 
-$banksarr = array(10 => 'ìàåîé',
-	12 => 'ôåòìéí',
-	20 => 'îæøçé èôçåú',
-	11 => 'áð÷ ãéñ÷åðè ìéùøàì',
-	01 => 'éååèøééã',
-	99 => 'éùøàì',
-	14 => 'àåöø äçééì',
+$banksarr = array(10 => '×œ××•×ž×™',
+	12 => '×¤×•×¢×œ×™×',
+	20 => '×ž×–×¨×—×™ ×˜×¤×—×•×ª',
+	11 => '×‘× ×§ ×“×™×¡×§×•× ×˜ ×œ×™×©×¨××œ',
+	01 => '×™×•×•×˜×¨×™×™×“',
+	99 => '×™×©×¨××œ',
+	14 => '××•×¦×¨ ×”×—×™×™×œ',
 /*
-áð÷ àâåã ìéùøàì-13
-áð÷ äîæøçé äîàåçã-20
-áð÷ àîøé÷àé éùøàì-24
-áð÷ äáéðìàåîé äøàùåï ìéùøàì-31
-áð÷ éäá-04
-áð÷ ñôðåú-08
-áð÷ îøëðúéì ãéñ÷åðè-17
-áð÷ ëììé ìéùøàì-26
-áð÷ ÷åðèéððèì ìéùøàì-28
-áð÷ òåìîé ìäù÷òåú-47
-ñéèé áð÷ - 22 */
+×‘× ×§ ××’×•×“ ×œ×™×©×¨××œ-13
+×‘× ×§ ×”×ž×–×¨×—×™ ×”×ž××•×—×“-20
+×‘× ×§ ××ž×¨×™×§××™ ×™×©×¨××œ-24
+×‘× ×§ ×”×‘×™× ×œ××•×ž×™ ×”×¨××©×•×Ÿ ×œ×™×©×¨××œ-31
+×‘× ×§ ×™×”×‘-04
+×‘× ×§ ×¡×¤× ×•×ª-08
+×‘× ×§ ×ž×¨×›× ×ª×™×œ ×“×™×¡×§×•× ×˜-17
+×‘× ×§ ×›×œ×œ×™ ×œ×™×©×¨××œ-26
+×‘× ×§ ×§×•× ×˜×™× × ×˜×œ ×œ×™×©×¨××œ-28
+×‘× ×§ ×¢×•×œ×ž×™ ×œ×”×©×§×¢×•×ª-47
+×¡×™×˜×™ ×‘× ×§ - 22 */
 );
 
 ?>

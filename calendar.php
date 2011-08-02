@@ -398,18 +398,19 @@ function calendar($d, $m, $y) {
 	/* previous year link */
 	$py = $y - 1;
 	$calendar_html .= "<tr><td><a href=\"?module=$module&amp;d=$d&amp;m=$m&amp;y=$py\">";
-	$calendar_html .= "<img src=\"img/prev_year.gif\" style=\"border:none\" alt=\"prev_year\"></a></td>\n";
+	$calendar_html .= "<img src=\"img/prev_year.gif\" style=\"border:none\" alt=\"prev_year\" /></a></td>\n";
 	/* calculate previous month link */
 	$pd = $d;
 	$pm = $m - 1;
 	if($pm == 0) {
 		$py = $y - 1;
+		
 		$pm = 12;
 	}
 	else
 		$py = $y;
 	$purl = "?module=$module&amp;d=$pd&amp;m=$pm&amp;y=$py";
-	$calendar_html .= "<td><a href=\"$purl\">&nbsp;<img src=\"img/prev_mon.gif\" style=\"border:none\" alt=\"prev_month\">&nbsp;</a></td>\n";
+	$calendar_html .= "<td><a href=\"$purl\">&nbsp;<img src=\"img/prev_mon.gif\" style=\"border:none\" alt=\"prev_month\" />&nbsp;</a></td>\n";
 	$calendar_html .= "<td colspan=\"3\" style=\"border:none\">\n";
 /*	$calendar_html .= "<table border=\"0\"><tr>";
 	$calendar_html .= "<td>$year</td>\n";
@@ -428,10 +429,10 @@ function calendar($d, $m, $y) {
 	else
 		$ny = $y;
 	$nurl = "?module=$module&amp;d=$nd&amp;m=$nm&amp;y=$ny";
-	$calendar_html .= "<td><a href=\"$nurl\">&nbsp;<img src=\"img/next_mon.gif\" alt=\"next_month\" style=\"border:none\">&nbsp;</a></td>";
+	$calendar_html .= "<td><a href=\"$nurl\">&nbsp;<img src=\"img/next_mon.gif\" alt=\"next_month\" style=\"border:none\" />&nbsp;</a></td>";
 	$ny = $y + 1;
 	$calendar_html .= "<td><a href=\"?module=$module&amp;d=$d&amp;m=$m&amp;y=$ny\">";
-	$calendar_html .= "<img src=\"img/next_year.gif\" alt=\"next_year\" style=\"border:none\"></a></td>\n";
+	$calendar_html .= "<img src=\"img/next_year.gif\" alt=\"next_year\" style=\"border:none\" /></a></td>\n";
 	$calendar_html .= "</tr><tr>";
 	for($i = 0; $i < 7; $i++) {
 		if($lang != 'he')

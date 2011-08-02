@@ -1,4 +1,4 @@
-#accounts for Drorit
+﻿#accounts for Drorit
 #Accounts use constants defined in drorit.inc.php
 AUTHORITIES,BUYVAT,מע"מ תשומות
 AUTHORITIES,ASSETVAT,מע"מ תשומות ציוד ונכסים

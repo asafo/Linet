@@ -1,11 +1,13 @@
 <?php
 /*update writen by Adam BH*/
 include '../../config.inc.php';
+include '../../include/core.inc.php';
+include '../../include/version.inc.php';
 $sversion=getVersion();
-$steps = array( 1 => '׳‘׳“׳™׳§׳× ׳’׳™׳¨׳¡׳”',
-				2 => '׳’׳™׳‘׳•׳™׳™',
-				3 => '׳¢׳“׳›׳•׳�',
-				4  => '׳¡׳™׳•׳�');
+$steps = array( 1 => 'בדיקת גירסה',
+				2 => 'גיבויי',
+				3 => 'עדכון',
+				4  => 'סיום');
 $allowcancel=true;
 
 $step=1;
@@ -19,37 +21,54 @@ if($step<>count($steps)){
 }else{
 	$nextStep=0;
 }
-if(!empty($name) && ($name != '')) {
-	$loggedin = 1;
+$loggedin=false;
+if(!empty($name) && ($name != ''))  {
+	//$loggedin = 1;
+	//$name = urldecode($name);
+	global $permissionstbl;
 	$name = urldecode($name);
+	$query = "SELECT * FROM $permissionstbl WHERE name='$name' AND company='*'";
+	$link = mysql_connect($host,$user,$pswd);
+	mysql_select_db($database,$link);
+	$result = mysql_query($query);
+	//print($query);
+	if ($row=mysql_fetch_array($result,MYSQL_ASSOC)){
+	//print_r($row);
+	
+		$loggedin = true;}
+	else {
+		if (isset($_GET['non']))
+			print 'למשתמש אין הרשאה לעדכון אנא פנה למנהל המערכת על מנת לבצע עדכון';
+		
+	}
 }
 else{
-	$loggedin = 0;
-	print _("You must be loged in to update linet")."<br />";
-	print '<a href="../../">׳—׳–׳•׳¨ ׳�׳�׳™׳ ׳˜</a>';
+	//$loggedin = 0;
+	if (isset($_GET['non']))
+		print _("אתה חייב להיכנס למערכת על מנת לבצע עדכון")."<br />".'<a href="../../">חזור ללינט</a>';
+	//print ;
 	$step=0;
 	$nextStep=0;
 	}
 //print $name.$data;
 //print $step<>count($steps);
 /*load page*/
-$title="׳¢׳“׳›׳•׳� ׳�׳™׳ ׳˜: ".$steps[$step];
-	
+$title="עדכון לינט: ".$steps[$step];
+if ($loggedin){
 if (($step==1)&&(isset($_GET['non']))){
-	$changelog=getFile('changelog', $sversion);
 	$nextStep=2;
-	print "Welcome to linet Update Wizard youre version is: ".$version."<br /> The Most Recent Version is: ".$sversion."<br />It is recomnded thet youll update to lataset version<br />";
-	print $changelog.'<br />';//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
-	print '<br /><a href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
+	print "ברוך הבא לאשף העדכון של לינט גירסת המערכת שלך: ".$version."<br /> הגרסה העדכנית ביותר: ".$sversion."<br />מומלץ לעדכן את המערכת";
+	//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>הבא</a>";//bla
+	print '<br /><a href="javascript:loadDoc('.$nextStep.')">'._("הבא").'</a>';
 	}else{
-	$content=_("Working Please Wait");
+	$content=_("אנא המתן");
 }
 /*backup*/
 if (($step==2)&&(isset($_GET['non']))){
 	include 'Backup.php';
 	if (is_writeable($path."/backup")){
-			print "Backing up files and data base it is highly recomnded thet you will download the files and save them in a known place before each update.<br />";
-			print "Saving Files<br />";
+			print "מגבה מערכת ומסד נתונים אני מבקשים לשמור עותק מקומי של הגיבויי לפני כל עדכון.<br />";
+			print "מגבה קבצי מערכת<br />";
 			/*delete old files*/
 			if ($handle = opendir($path."/backup")) {
 				while (false !== ($file = readdir($handle))) {
@@ -60,26 +79,26 @@ if (($step==2)&&(isset($_GET['non']))){
 			}
 			//unlink($myFile);
 			Zip($path."/", $path.'/backup/files'.date('dmY').'.zip');
-			print "Done<br />";
-			print "<a href=../../backup/files".date('dmY').".zip>Download The Zip</a><br />";
-			print "Dumping Data Base<br />";
+			print "סיים<br />";
+			print "<a href=../../backup/files".date('dmY').".zip>הורד קבצי מערכת</a><br />";
+			print "מגבה מסד נתונים<br />";
 			$bkfile = $path.'/backup/db'.date('dmY').'.sql';//'.date('Ymd').'
 			dbBackup($bkfile);
-			print "Done<br />";
-			print "<a href=../../backup/db".date('dmY').".sql>Download The DataBase</a><br />";
+			print "סיים<br />";
+			print "<a href=../../backup/db".date('dmY').".sql>הורד מסד נתונים</a><br />";
 		}else{
-			print "Unable to Write in the backup folder chek permsions.<br />";
+			print "תקלה: בדוק הרשאות מערכת קבצים לתקייה backup.<br />";
 			$nextStep=0;
 		}
-		if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">׳”׳‘׳�</a>';
-		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
+		if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">הבא</a>';
+		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>הבא</a>";//bla
 }
 /*update*/
 if (($step==3)&&(isset($_GET['non']))){
-	print "Get Update File list.<br />";
+	print "מבקש רשימת קבצים לעדכון.<br />";
 	$nextStep=0;
 	
-	print "Cheking File Permisions.<br />";
+	print "בוחן הרשאות.<br />";
 	$logfile=$path."/tmp/updatelog".date('dmY').'.txt';
 	if (permisionChk($logfile)){
 		$log = fopen($logfile, 'w') or die("can't open file");
@@ -88,7 +107,7 @@ if (($step==3)&&(isset($_GET['non']))){
 		$safty=true;
 	}else{
 		$safty=false;
-		print "Unable To log wont update.<br />";
+		print "תקלה: לא ניתן לכתוב קובץ LOG.<br />";
 	}
 	foreach ($updatefile as $value){
 		$value=$path."/".$value;
@@ -96,20 +115,20 @@ if (($step==3)&&(isset($_GET['non']))){
 		
 		}else{
 				$safty=false;
-				print "-Chek write permision for: ".$value." or the folder.<br />";
+				print "-אנא בדוק אישורי כתיבה עבור: ".$value.".<br />";
 			}
 	}
 
 	if ($safty){//update all the files
-		print "Done Cheking Permisons. <br />Start Updating Files:<br />";
+		print "סיים בדיקת הרשאות. <br />התחלת עדכון קבצים:<br />";
 		foreach ($updatefile as $value){
 			//log: trying to ge file
-			fwrite($log, "-Get file:".$value."\n");
+			fwrite($log, "-מבקש קובץ:".$value."\n");
 			$file=getFile($value,$sversion);
 			$value=$path."/".$value;
 			//log: writing file
 			
-			print "+Writing: $value<br />";
+			print "+כותב קובץ: $value<br />";
 			$fh = fopen($value, 'w') or die("can't open file");
 			fwrite($log, "+Wrote file: ".$value."\n");
 			
@@ -119,7 +138,7 @@ if (($step==3)&&(isset($_GET['non']))){
 		}
 		//log:end
 		fwrite($log, "finshed updating files"."\n");
-		print "Done Updating Files.<br />";
+		print "סיים כתיבת קבצים.<br />";
 		/*update db*/
 		$command=getSQL();
 		if($command<>''){
@@ -146,16 +165,16 @@ if (($step==3)&&(isset($_GET['non']))){
 	fwrite($log, "End Loging: ".date('d/m/y H:m')."\n");
 	fclose($log);
 	$nextStep=4;
-	if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
-	//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
+	if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">'._("הבא").'</a>';
+	//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>הבא</a>";//bla
 }
 /*end*/
 if (($step==4)&&(isset($_GET['non']))){
-print "Linet Has Been Updated you can review the ";
-print '<a href="../../tmp/updatelog'.date('dmY').'.txt">logs here.</a><br />';
-print '<a href="../../">׳—׳–׳¨׳” ׳�׳�׳™׳ ׳˜</a>';
+print "לינט עודכנה בהצלחה אפש לראות את יומן העדכון ";
+print '<a href="../../tmp/updatelog'.date('dmY').'.txt">פה.</a><br />';
+print '<a href="../../">חזרה ללינט</a>';
 }
-
+}
 
 
 /*documenet*/
@@ -188,7 +207,7 @@ function getFile($fileName, $version){
 	}
 	//$filelist=explode('<br />',$content);
 	//$a=array_pop($filelist);
-	return $content;
+	return base64_decode($content);
 }
 function getVersion(){
 	global $updatesrv;

@@ -11,10 +11,14 @@
 
 
 
-function get_pdf($html,$docnum,$user,$mail,$phone){
+function get_pdf($html,$docnum,$user,$mail,$phone,$logo){
 	require_once('module/tcpdf/pdf.php');
 	require_once('module/tcpdf/pdfconfig.php');
 
+	
+	//global $logo;
+	
+	
 	$pdf = new PDF( 'P', 'mm', 'A4' );
 	$pdf->Open();
 
@@ -23,7 +27,7 @@ function get_pdf($html,$docnum,$user,$mail,$phone){
 
 	$pdf->AddPage();
 	$imageBlock=array("10","3","60","20");
-	$logo_name='img/logo.jpg';
+	$logo_name=$logo;
 	$pdf->addImage( $logo_name, $imageBlock);
 	//////////////////////////////////////////////
 	// set some language dependent data:

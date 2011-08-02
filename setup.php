@@ -28,7 +28,7 @@ h2 {font-size: 18; font-weight:bold; font-family: arial, sans-serif; color: navy
 
 <?PHP
 include('config.inc.php');
-
+include('include/core.inc.php');
 print "user: $user<br>\n";
 print "pswd: $pswd<br>\n";
 $link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");

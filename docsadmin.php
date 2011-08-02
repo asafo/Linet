@@ -1,4 +1,4 @@
-﻿<?PHP
+<?PHP
 //M:ניהול מסמכים עסקיים
 /*
  | docsadmin
@@ -6,7 +6,7 @@
  | Written by Ori Idan November 2009
  | Written by Adam Ben Hour 2011
  */
-global $prefix, $accountstbl, $companiestbl, $supdocstbl, $itemstbl;
+global $logo, $prefix, $accountstbl, $companiestbl, $supdocstbl, $itemstbl;
 global $docstbl, $docdetailstbl, $currencytbl;
 global $CompArray;
 global $CurrArray;
@@ -55,7 +55,7 @@ $step = isset($_GET['step']) ? (int)$_GET['step'] : $step;
 <script>
     $(document).ready(function() {
         $( "#AC" ).autocomplete({
-		 source: "index.php?action=lister&data=items",
+		 source: "index.php?action=lister&amp;data=items",
         });
     });
 </script>
@@ -109,7 +109,7 @@ function SetPartDetails(index) {
 	//	document.write('Hello World!');
 	if(cat_num == -1) {
 <?PHP
-		print "\tvar url1 = 'additem.php?prefix=$prefix&index='\n";
+		print "\tvar url1 = 'additem.php?prefix=$prefix&amp;index='\n";
 		print "\tvar url = url1 + index;\n";
 		print "\twindow.open(url, 'additem', 'height=300,width=500');\n";
 		print "\treturn;\n";
@@ -609,7 +609,7 @@ if($step == 3) {	/* final step, put data in tables */
 		}
 	}
 /*	print "<script type=\"text/javascript>";
-	print "PrintDocument(\"docprint.php?win=1&doctype=$doctype&docnum=$docnum\");\n";
+	print "PrintDocument(\"docprint.php?win=1&amp;doctype=$doctype&amp;docnum=$docnum\");\n";
 	print "</script>\n"; */
 }
 if($step == 4) {	/* copy document */
@@ -674,18 +674,18 @@ if($step == 0) {	/* First step, select document type and customer */
 		$invisible = "class=\"para\"";
 	$text.= "<div id=\"toinvoice\" $invisible>\n";
 	$text.= "<form name=\"form3\" action=\"?module=showdocs&amp;step=2\" method=\"post\" style=\"display:inline\">\n";
-	$text.= "<input type=\"hidden\" name=\"doctype\" value=\"1\">\n";
-	$text.= "<input type=\"hidden\" name=\"targetdoc\" value=\"3\">\n";
-	$text.= "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
+	$text.= "<input type=\"hidden\" name=\"doctype\" value=\"1\" />\n";
+	$text.= "<input type=\"hidden\" name=\"targetdoc\" value=\"3\" />\n";
+	$text.= "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
 	$l = _("Copy proforma");
-	$text.= "<input type=\"submit\" value=\"$l\">\n";
+	$text.= "<input type=\"submit\" value=\"$l\" />\n";
 	$text.= "</form>\n";
 	$text.= "<form name=\"form4\" action=\"?module=showdocs&amp;step=2\" method=\"post\" style=\"display:inline\">\n";
-	$text.= "<input type=\"hidden\" name=\"doctype\" value=\"2\">\n";
-	$text.= "<input type=\"hidden\" name=\"targetdoc\" value=\"3\">\n";
-	$text.= "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
+	$text.= "<input type=\"hidden\" name=\"doctype\" value=\"2\" />\n";
+	$text.= "<input type=\"hidden\" name=\"targetdoc\" value=\"3\" />\n";
+	$text.= "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
 	$l = _("Copy delivery doc.");
-	$text.= "<input type=\"submit\" value=\"$l\">\n";
+	$text.= "<input type=\"submit\" value=\"$l\" />\n";
 	$text.= "</form>\n";
 	$text.= "</div>\n";
 	if($targetdoc == DOC_CREDIT)
@@ -695,24 +695,24 @@ if($step == 0) {	/* First step, select document type and customer */
 	$text.= "<div id=\"tocredit\" $invisible>\n";
 	$text.= "<table border=\"0\" width=\"90%\"><tr><td width=\"10%\">\n";
 	$text.= "<form name=\"form5\" action=\"?module=showdocs&amp;step=2\" method=\"post\">\n";
-	$text.= "<input type=\"hidden\" name=\"doctype\" value=\"3\">\n";
-	$text.= "<input type=\"hidden\" name=\"targetdoc\" value=\"4\">\n";
-	$text.= "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
+	$text.= "<input type=\"hidden\" name=\"doctype\" value=\"3\" />\n";
+	$text.= "<input type=\"hidden\" name=\"targetdoc\" value=\"4\" />\n";
+	$text.= "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
 	$l = _("Copy invoice");
-	$text.= "<input type=\"submit\" value=\"$l\">\n";
+	$text.= "<input type=\"submit\" value=\"$l\" />\n";
 	$text.= "</form>\n</td></tr></table>\n";
 	$text.= "</div>\n";
 	
 	/* main form */
 	$text.= "<div style=\"margin:5px\">\n";
 	$text.= "<form name=\"form1\" action=\"?module=docsadmin&amp;step=1\" method=\"post\">\n";
-	$text.= "<input type=\"hidden\" name=\"fromnum\" value=\"$docnum\">\n";
-	$text.= "<input type=\"hidden\" name=\"fromdoc\" value=\"$doctype\">\n";
+	$text.= "<input type=\"hidden\" name=\"fromnum\" value=\"$docnum\" />\n";
+	$text.= "<input type=\"hidden\" name=\"fromdoc\" value=\"$doctype\" />\n";
 	$text.= "<table border=\"0\" width=\"100%\" align=\"center\" class=\"formtbl\"><tr>\n";
 	$l = _("Customer");
 	$text.= "<td style=\"width:70%\">$l: \n";
 	$text.= PrintCustomerSelect($account);
-	$text.= "<input type=\"hidden\" name=\"type\" value=\"$targetdoc\">\n";
+	$text.= "<input type=\"hidden\" name=\"type\" value=\"$targetdoc\" />\n";
 	$l = _("New customer");
 	$text.= "<a href=\"?module=acctadmin&amp;type=0&amp;ret=docsadmin&amp;targetdoc=$targetdoc\">$l</a>\n";
 	$text.= "</td>\n";
@@ -727,19 +727,19 @@ if($step == 0) {	/* First step, select document type and customer */
 	else
 		$valdate = FormatDate($valdate, "mysql", "dmy");
 
-	$text.= "<input type=\"text\" id=\"idate\" name=\"idate\" value=\"$valdate\" size=\"8\">\n";
+	$text.= "<input type=\"text\" id=\"idate\" name=\"idate\" value=\"$valdate\" size=\"8\" />\n";
 	$text.= "</td>\n";
 //	print "<INPUT type=hidden name=valdate value=\"$valdate\">\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Company");
 	$text.= "<td style=\"width:70%\">$l: \n";
 //	$company = htmlspecialchars($company);
-	$text.= "<input type=\"text\" name=\"company\" size=\"40\" value=\"$company\"></td>\n";
+	$text.= "<input type=\"text\" name=\"company\" size=\"40\" value=\"$company\" /></td>\n";
 	$l = _("To be paid until");
 	$text.= "<td>$l: \n";
-	$text.= "<input type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$due_date\" size=\"8\">\n";
+	$text.= "<input type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$due_date\" size=\"8\" />\n";
 	$text.= '
-<script>
+<script type="text/javascript">
 	addDatePicker("#idate","'.$valdate.'");
 	addDatePicker("#due_date","'.$due_date.'");
 </script>
@@ -748,23 +748,23 @@ if($step == 0) {	/* First step, select document type and customer */
 	$l = _("Address");
 	$text.= "<td colspan=\"1\">$l: \n";
 //	$address = htmlspecialchars($address);
-	$text.= "<input type=\"text\" name=\"address\" size=\"50\" value=\"$address\"></TD>\n";
+	$text.= "<input type=\"text\" name=\"address\" size=\"50\" value=\"$address\" /></td>\n";
 	$l = _("Order number");
 	$text.= "<td>$l: \n";
-	$text.= "<input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"8\"></td>\n";
+	$text.= "<input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"8\" /></td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("City");
 	$text.= "<td colspan=\"4\">$l: \n";
 //	$city = htmlspecialchars($city);
-	$text.= "<input type=\"text\" name=\"city\" value=\"$city\">&nbsp;&nbsp;\n";
+	$text.= "<input type=\"text\" name=\"city\" value=\"$city\" />&nbsp;&nbsp;\n";
 	$l = _("Zip");
 	$text.= "$l: \n";
-	$text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\">\n";
+	$text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\" />\n";
 	$l = _("Reg. num");
 	$text.= "$l: ";
-	$text.= "<input type=\"text\" name=\"vatnum\" value=\"$vatnum\" size=\"8\">\n";
+	$text.= "<input type=\"text\" name=\"vatnum\" value=\"$vatnum\" size=\"8\" />\n";
 	$text.= "</td></tr><tr><td colspan=\"2\" align=\"center\">\n";
-	$text.= "<br>\n";
+	$text.= "<br />\n";
 	//adam:
 	$text.= '<input type="hidden" value="0" id="theValue" />';
 	/* Now the real part of an invoice, the details part.. */
@@ -785,26 +785,26 @@ if($step == 0) {	/* First step, select document type and customer */
 		$text.= "<td>$l</td>\n";
 	$text.= "</tr>\n";
 	$text.= "</table>\n";
-	$text.= '<script>addEvent()</script>';
+	$text.= '<script type="text/javascript">addEvent()</script>';
 	$text.= "<a href=\"javascript:addEvent();\">Add</a>\n";
-	$text.= "</tr><tr>\n";
+	$text.= "</td></tr><tr>\n";
 	$text.= "<td colspan=\"2\">\n";
-	$text.= "<br>\n";
+	$text.= "<br />\n";
 	$l = _("Comments");
 	$text.= "$l: \n";
-	$text.= "<TEXTAREA name=\"comments\"  cols=\"80\" rows=\"4\">$comments</textarea></td>\n";
+	$text.= "<textarea name=\"comments\"  cols=\"80\" rows=\"4\">$comments</textarea></td>\n";
 	$text.= "</tr><tr>\n";
 	$opt = isset($_GET['option']) ? $_GET['option'] : '';
 	if($opt == 'receipt') {
 		$text.= "<td colspan=\"2\" align=\"center\">\n";
-		$text.= "<input type=\"hidden\" name=\"option\" value=\"$opt\">\n";
+		$text.= "<input type=\"hidden\" name=\"option\" value=\"$opt\" />\n";
 		require('receipt.php');
 		$text.= "</td></tr><tr>\n";
 	}
 	
 	$l = _("Next");
-	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l >>>\"></td>\n";
-	$text.= "</table>\n";
+	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l >>>\" /></td>\n";
+	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	$text.= "</div>\n";
 	createForm($text,$header,'',850);
@@ -857,35 +857,35 @@ if($step > 0) {
 
 	print "<div style=\"border:1px solid;width:90%;margin:5px\">\n";
 	print "<form action=\"?module=docsadmin\" method=\"post\">\n"; /* step will be defined later as _POST */
-	print "<input type=\"hidden\" name=\"fromdoc\" value=\"$fromdoc\">\n";
-	print "<input type=\"hidden\" name=\"fromnum\" value=\"$fromnum\">\n";
+	print "<input type=\"hidden\" name=\"fromdoc\" value=\"$fromdoc\" />\n";
+	print "<input type=\"hidden\" name=\"fromnum\" value=\"$fromnum\" />\n";
 	print "<table border=\"0\" width=\"100%\" align=\"center\" class=\"formtbl\"><tr>\n";
 	$l = _("To");
 	print "<td style=\"width:10%\">$l: </td>\n";
-	print "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
-	print "<td style=\"width:60%\">$company <input type=\"hidden\" name=\"company\" value=\"$company\"></td>\n";
+	print "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
+	print "<td style=\"width:60%\">$company <input type=\"hidden\" name=\"company\" value=\"$company\" /></td>\n";
 	$l = _("Date");
 	print "<td style=\"width:10%\">$l: </td>\n";
-	print "<td>$date <input type=\"hidden\" name=\"idate\" value=\"$date\"></td>\n";
+	print "<td>$date <input type=\"hidden\" name=\"idate\" value=\"$date\" /></td>\n";
 	print "</tr><tr>\n";
 	print "<td>&nbsp;</td>\n";	/* empty column */
-	print "<td>$address <input type=\"hidden\" name=\"address\" value=\"$address\"></td>\n";
+	print "<td>$address <input type=\"hidden\" name=\"address\" value=\"$address\" /></td>\n";
 	$l = _("Order number");
 	print "<td>$l: </td>\n";
-	print "<td>$refnum <input type=\"hidden\" name=\"refnum\" value=\"$refnum\"></td>\n";
+	print "<td>$refnum <input type=\"hidden\" name=\"refnum\" value=\"$refnum\" /></td>\n";
 	print "</tr><tr>\n";
 	print "<td>&nbsp;</td>\n";	/* empty column */
 	print "<td>$city $zip</td>\n";
-	print "<input type=\"hidden\" name=\"city\" value=\"$city\"><input type=\"hidden\" name=\"zip\" value=\"$zip\">\n";
+	print "<input type=\"hidden\" name=\"city\" value=\"$city\" /><input type=\"hidden\" name=\"zip\" value=\"$zip\" />\n";
 	print "</tr><tr>\n";
-	print "<input type=\"hidden\" name=\"type\" value=\"$doctype\">\n";
+	print "<input type=\"hidden\" name=\"type\" value=\"$doctype\" />\n";
 	$t = $DocType[$doctype];
 	print "<td colspan=\"3\" align=\"center\"><h1 style=\"text-align:center\">$t ";
 	if(!$docnum)	
 		$n = GetNextDocNum($doctype);
 	else
 		$n = $docnum;
-	print "<input type=\"hidden\" name=\"docnum\" value=\"$n\">\n";
+	print "<input type=\"hidden\" name=\"docnum\" value=\"$n\" />\n";
 	print "$n</h1></td>\n";
 	$l = _("Source");
 	print "<td><h1>$l</h1></td>\n";
@@ -926,30 +926,30 @@ if($step > 0) {
 		}
 		$needvat = NeedVat($cat);		/* check if this account needs VAT */
 		print "<tr>\n";
-		print "<input type=\"hidden\" name=\"cat_num[]\" value=\"$cat\">\n";
+		print "<input type=\"hidden\" name=\"cat_num[]\" value=\"$cat\" />\n";
 		$desc = $description[$i];
 		$desc = htmlspecialchars($desc, ENT_QUOTES);
-		print "<td>$desc <input type=\"hidden\" name=\"description[]\" value=\"$desc\"></td>\n";
+		print "<td>$desc <input type=\"hidden\" name=\"description[]\" value=\"$desc\" /></td>\n";
 		$q = (int)$qty[$i];
-		print "<td>$q <input type=\"hidden\" name=\"qty[]\" value=\"$q\">\n";
+		print "<td>$q <input type=\"hidden\" name=\"qty[]\" value=\"$q\" />\n";
 //		PrintUnits($cat_num);
 		print "</td>\n";
-		print "<td>$unit_price[$i] <input type=\"hidden\" name=\"unit_price[]\" value=\"$unit_price[$i]\"></td>\n";
+		print "<td>$unit_price[$i] <input type=\"hidden\" name=\"unit_price[]\" value=\"$unit_price[$i]\" /></td>\n";
 		$currnum = (int)$currency[$i];
 		$sign = GetCurrencySymbol($currnum);
-		print "<td>$sign <input type=\"hidden\" name=\"currency[]\" value=\"$currnum\"></td>\n";
-		print "<td>$p <input type=\"hidden\" name=\"price[]\" value=\"$p\"></td>\n";
+		print "<td>$sign <input type=\"hidden\" name=\"currency[]\" value=\"$currnum\" /></td>\n";
+		print "<td>$p <input type=\"hidden\" name=\"price[]\" value=\"$p\" /></td>\n";
 		$nisprice = CalcNISPrice($p, $currnum, "$year-$month-$day");
 		if(($p != 0) && ($nisprice == 0) ) {	/* we don't have rate... */
 			if(!($currdone[$currnum])) {
 				$l = _("Set rate");
-				print "<td><input type=\"button\" value=\"$l\" onclick=OpenRatesWin('$day-$month-$year')></td>\n";
+				print "<td><input type=\"button\" value=\"$l\" onclick=OpenRatesWin('$day-$month-$year') /></td>\n";
 				$currdone[$currnum] = 1;
 				$nextstep = 1;
 			}
 		}
 		else {
-			print "<td>$nisprice <input type=\"hidden\" name=\"nisprice[]\" value=\"$nisprice\"></td>\n";
+			print "<td>$nisprice <input type=\"hidden\" name=\"nisprice[]\" value=\"$nisprice\" /></td>\n";
 			if($needvat)
 				$vattotal += $nisprice;
 			else
@@ -963,28 +963,28 @@ if($step > 0) {
 	print "<tr><td colspan=\"2\">&nbsp;</td>\n";	/* space column */
 	$l = _("Total for VAT");
 	print "<td colspan=\"3\">$l: </td>\n";
-	print "<INPUT type=hidden name=\"sub_total\" value=\"$vattotal\">\n";
+	print "<input type=hidden name=\"sub_total\" value=\"$vattotal\" />\n";
 	print "<td>$vattotal</td></tr>\n";
 	print "<tr><td colspan=\"2\">\n";
 	if($due_date) {
 		$l = _("To be paid until");
 		print "$l: \n";
-		print "<input type=\"hidden\" name=\"due_date\" value=\"$due_date\">\n";
+		print "<input type=\"hidden\" name=\"due_date\" value=\"$due_date\" />\n";
 		print "$due_date\n";
 	}
 	print "</td>\n";
 	$l = _("No vat total");
 	print "<td colspan=\"3\">$l: </td>\n";
 	$novattotal = round($novattotal, 2);
-	print "<input type=\"hidden\" name=\"novat_total\" value=\"$novattotal\">\n";
+	print "<input type=\"hidden\" name=\"novat_total\" value=\"$novattotal\" />\n";
 	print "<td>$novattotal</td>\n";
 	print "<tr><td colspan=\"5\">&nbsp;</td></tr>\n";	/* empty space line */
 	print "<tr><td colspan=\"2\">$comments</td>\n";
-	print "<input type=\"hidden\" name=\"comments\" value=\"$comments\">\n";
+	print "<input type=\"hidden\" name=\"comments\" value=\"$comments\" />\n";
 	$l = _("VAT");
 	print "<td colspan=\"3\">$l: </td>\n";
 	$vat = CalcVAT($vattotal);
-	print "<input type=\"hidden\" name=\"vat\" value=\"$vat\">\n";
+	print "<input type=\"hidden\" name=\"vat\" value=\"$vat\" />\n";
 	print "<td>$vat</td>\n";
 	print "</tr>\n";
 	
@@ -992,7 +992,7 @@ if($step > 0) {
 	$l = _("Total");
 	print "<td colspan=\"3\">$l: </td>\n";
 	$totalpayment = round($vattotal + $vat + $novattotal, 0);
-	print "<input type=\"hidden\" name=\"total\" value=\"$totalpayment\">\n";
+	print "<input type=\"hidden\" name=\"total\" value=\"$totalpayment\" />\n";
 	print "<td>$totalpayment</td>\n";
 	print "</tr>\n";
 	print "</table>\n";
@@ -1001,7 +1001,7 @@ if($step > 0) {
 	if($opt == 'receipt') {
 		$l = _("Receipt");
 		print "<h1>$l: </h1>\n";
-		print "<input type=\"hidden\" name=\"option\" value=\"receipt\">\n";
+		print "<input type=\"hidden\" name=\"option\" value=\"receipt\" />\n";
 		$refnum = $docnum;
 		require('receipt.php');
 	}
@@ -1010,22 +1010,22 @@ if($step > 0) {
 	if(!$nextstep)
 		$nextstep = 3;
 	if($step < 3) {
-		print "<input type=\"hidden\" name=\"step\" value=\"$nextstep\">\n";
+		print "<input type=\"hidden\" name=\"step\" value=\"$nextstep\" />\n";
 		if($nextstep == 3) {
 			$l = _("Create & print");
-			print "<input type=\"submit\" value=\"$l\">\n";
+			print "<input type=\"submit\" value=\"$l\" />\n";
 		}
 		else {
 			$l = _("Next");
-			print "<input type=\"submit\" value=\"$l >>>\">\n";
+			print "<input type=\"submit\" value=\"$l >>>\" />\n";
 		}
 	}
 	else {	/* show email form or print */
-		print "<input type=\"hidden\" name=\"step\" value=\"5\">\n";
+		print "<input type=\"hidden\" name=\"step\" value=\"5\" />\n";
 //		print "<input type=\"submit\" value=\"שלח בדואר אלקטרוני\">\n";
 		$l = _("Print");
 		print "<input type=\"button\" value=\"$l\" ";
-		print "onclick=\"window.open('printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix&amp;print_win=1', 'printwin', 'width=800,height=600,scrollbar=yes')\">\n";
+		print "onclick=\"window.open('printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix&amp;print_win=1', 'printwin', 'width=800,height=600,scrollbar=yes')\" />\n";
 	}		
 //	print "step: $step, nextstep: $nextstep\n";
 	print "</td></tr>\n</table>\n";

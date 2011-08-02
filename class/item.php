@@ -67,6 +67,7 @@ class item{
 		//print $itemtbl;
 		$this->_table = $itemstbl;
 		$this->_prefix = $prefix;
+		//print '['.$prefix.']';
 		$values=listCol($this->_table);
 		//foreach ($values as $value) $this->arr[$value['Field']]='';
 		foreach($values as $value)

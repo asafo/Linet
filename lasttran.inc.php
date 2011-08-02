@@ -52,7 +52,7 @@ function GetOppositAccount($num, $sum) {
 }
 
 $l = _("Last outcomes");
-print "<h3>$l</h3><br>\n";
+print "<h3>$l</h3><br />\n";
 print "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
 $l = _("Num.");
 print "<td style=\"width:2.5em\">$l</td>\n";

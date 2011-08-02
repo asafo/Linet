@@ -59,6 +59,16 @@ $stdheader = <<<STDHEAD
 <script type="text/javascript">function PrintWin() {window.open('printdoc.php?doctype=$doctype&docnum=$docnum&prefix=$prefix&print_win=1', 'PrintWin', 'width=800,height=600,scrollbar=yes');}</script>
 STDHEAD;
 
+$query = "SELECT logo FROM $companiestbl WHERE prefix='$prefix'";
+	$result = DoQuery($query, "printdoc.php");
+	$line = mysql_fetch_array($result, MYSQL_NUM);
+	if($line[0])
+		$logo = "img/logo/".$line[0];
+	else
+		//$template = "docstemplate.html";
+		$logo = "img/logo.jpg";
+
+//$logo
 $ln = 0;	/* line number for multilines queries */
 $lasttbl = '';	/* last table in query */
 $docref = 0;
@@ -295,7 +305,7 @@ while(!feof($file)) {
 //echo 'start world <br>'.$bla.'end world!<br>';
 //ob_end_clean();
 require_once("module/invoice/CreatePDF.php");
-$pdf=get_pdf($bla,$docnum,$user,$mail,$phone);
+$pdf=get_pdf($bla,$docnum,$user,$mail,$phone,$logo);
 //print($dir.$iface_lang);
 global $path;
 $filepath=$path.'/tmp/tmp.pdf';//adam: full file path here

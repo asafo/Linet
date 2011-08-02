@@ -364,6 +364,7 @@ if($action == 'edituser') {
 	$acc=new account;
 	$acc->num ='1';
 	$acc->getAccount();
+	print_r($acc);
 	
     $acc->pay_terms ='60';
     $acc->company ='לקוח חדיש';
@@ -417,6 +418,7 @@ if($action == 'edituser') {
 	$fullname = stripslashes($line['fullname']);
 	$level = $line['level'];
 	$email = $line['email'];
+	$hash=$line['hash'];
 	
 	print "<br>\n";
 	print "<div class=\"form righthalf1\">\n";
@@ -431,14 +433,17 @@ if($action == 'edituser') {
 	$l = _("Full name");
 	print "<tr><td>$l: </td>\n";
 	print "<td>\n";
-	print "<input type=\"hidden\" name=\"uname\" value=\"$name\">\n";
-	print "<input type=\"text\" name=\"fullname\" value=\"$fullname\"></td></tr>\n";
+	print "<input type=\"hidden\" name=\"uname\" value=\"$name\" />\n";
+	print "<input type=\"text\" name=\"fullname\" value=\"$fullname\" /></td></tr>\n";
 	$l = _("Password");
 	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"password\" name=\"password\"></td></tr>\n";
+	print "<td><input type=\"password\" name=\"password\" /></td></tr>\n";
 	$l = _("Verify password");
 	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"password\" name=\"verpassword\"></td></tr>\n";
+	print "<td><input type=\"password\" name=\"verpassword\" /></td></tr>\n";
+	$l = _("מפתח תוכנה");
+	print "<tr><td>$l: </td>\n";
+	print "<td><font>$hash</font></td></tr>\n";
 /*	print "<tr><td>הרשאות: </td>\n";
 	print "<td>\n";
 	print "<select name=\"level\">\n";

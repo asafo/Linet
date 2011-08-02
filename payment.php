@@ -195,7 +195,7 @@ if($step == 1) {
 	$refnum = GetPost('refnum');
 	$comment = GetPost('comment');
 	
-	print "<br><div class=\"form righthalf1\">\n";
+	print "<br /><div class=\"form righthalf1\">\n";
 	if($opt == 'vat') {
 		$l = _("VAT payment");
 		print "<h3>$l</h3>\n";
@@ -221,7 +221,7 @@ if($step == 1) {
 	print "<td>\n";
 	if($opt != '') {
 		$str = GetAccountName($supplier);
-		print "<input type=\"hidden\" name=\"supplier\" value=\"$supplier:0\">\n";
+		print "<input type=\"hidden\" name=\"supplier\" value=\"$supplier:0\" />\n";
 		print "$str\n";
 	}
 	else
@@ -230,7 +230,7 @@ if($step == 1) {
 	print "</tr><tr>\n";
 	$l = _("Sum");
 	print "<td>$l: </td>";
-	print "<td><input type=\"text\" name=\"total\" value=\"$total\" size=\"7\"></td>\n";
+	print "<td><input type=\"text\" name=\"total\" value=\"$total\" size=\"7\" /></td>\n";
 	print "</tr><tr>\n";
 	$l = _("Payment type");
 	print "<td valign=\"top\">$l: </td><td>";
@@ -239,17 +239,17 @@ if($step == 1) {
 	print "</tr><tr>\n";
 	$l = _("Ref. num");
 	print "<td>$l: </td>";
-	print "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\"></td>\n";
+	print "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" /></td>\n";
 	print "</tr><tr>\n";
 	$l = _("Details");
 	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" name=\"comment\" value=\"$comment\"></td>\n";
+	print "<td><input type=\"text\" name=\"comment\" value=\"$comment\" /></td>\n";
 	print "</tr><tr>\n";
 	$l = _("Date");
 	print "<td>$l: </td>";
 	if($dt == '')
 		$dt = date("d-m-Y");
-	print "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\">\n";
+	print "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
 ?>
 <script type="text/javascript">
 	addDatePicker("#date","<?print "$dt"; ?>");
@@ -258,7 +258,7 @@ if($step == 1) {
 	print "</td>\n";
 	print "</tr><tr>\n";
 	$l = _("Update");
-	print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+	print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
 	print "</tr></table>\n";
 	print "</form>\n";
 	print "</div>\n";
@@ -267,7 +267,7 @@ if($step == 1) {
 	print "</div>\n";
 	return;
 }
-print "<br>\n";
+print "<br />\n";
 // print "<br>\n";
 print "<div class=\"form righthalf1\">\n";
 $l = _("Supplier payment");
@@ -282,7 +282,7 @@ print "</td>\n";
 print "</tr><tr>\n";
 $l = _("Total payment");
 print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"total\" size=\"7\"></td>\n";
+print "<td><input type=\"text\" name=\"total\" size=\"7\" /></td>\n";
 print "</tr>\n";
 $l = _("Payment type");
 print "<tr><td valign=\"top\">$l: </td>";
@@ -291,24 +291,22 @@ PrintPaymentSelect(0);
 print "</td></tr><tr><td>";
 $l = _("Ref. num");
 print "$l: </td>";
-print "<td><input type=\"text\" name=\"refnum\"></td>\n";
+print "<td><input type=\"text\" name=\"refnum\" /></td>\n";
 print "</tr><tr>\n";
 $l = _("Details");
 print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"comment\" value=\"\"></td>\n";
+print "<td><input type=\"text\" name=\"comment\" value=\"\" /></td>\n";
 print "</tr><tr><td>";
 $l = _("Date");
 print "$l: </td>";
 $dt = date("d-m-Y");
-print "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\">\n";
+print "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
 ?>
-<script type="text/javascript">
-		addDatePicker("#date","<?print "$dt"; ?>");
-</script>
+<script type="text/javascript">addDatePicker("#date","<?print "$dt"; ?>");</script>
 <?PHP
 print "</td></tr>\n";
 
-print "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\"המשך\"></td>\n";
+print "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\"המשך\" /></td>\n";
 print "</tr></table>\n";
 print "</form>\n";
 print "</div>\n";
@@ -319,7 +317,7 @@ $result = DoQuery($query, "payment.php");
 print "<div class=\"form\">";
 $l = _("Suppliers accounts");
 print "<h3>$l</h3> \n";
-print "<br>\n";
+print "<br />\n";
 print "<table border=\"0\" dir=\"rtl\" cellpadding=\"5px\" cellspacing=\"5px\" width=\"100%\">\n";
 print "<tr class=\"tblhead\">\n";
 $l = _("Supplier");

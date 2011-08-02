@@ -150,7 +150,7 @@ if(!function_exists(PrintPaymentType)) {
 		foreach($paymenttype as $num => $v) {
 			$text.= "<option value=\"$num\" ";
 			if($type == $num)
-				$text.= "selected";
+				$text.= "selected=\"selected\"";
 			$text.= ">$v</option>\n";
 		}
 		$text.= "</select>\n";
@@ -162,9 +162,9 @@ if(!function_exists(PrintPaymentType)) {
 		
 		$text= "<select name=\"creditcompany[]\">\n";
 		foreach($creditcompanies as $num => $v) {
-			$text.= "<option value=$num ";
+			$text.= "<option value=\"$num\" ";
 			if($c == $num)
-				$text.= "selected";
+				$text.= "selected=\"selected\"";
 			$text.= ">$v</option>\n";
 		}
 		$text.= "</select>\n";
@@ -285,27 +285,27 @@ if($step > 0) {
 		print "<table border=\"0\" width=\"100%\" align=\"center\" class=\"formtbl\"><tr>\n";
 		$l = _("To");
 		print "<td style=\"width:10%\">$l: </td>\n";
-		print "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
-		print "<td style=\"width:60%\">$company <input type=\"hidden\" name=\"company\" value=\"$company\"></td>\n";
+		print "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
+		print "<td style=\"width:60%\">$company <input type=\"hidden\" name=\"company\" value=\"$company\" /></td>\n";
 		$l = _("Date");
 		print "<td style=\"width:10%\">$l: </td>\n";
-		print "<td>$due_date <input type=\"hidden\" name=\"due_date\" value=\"$due_date\"></td>\n";
+		print "<td>$due_date <input type=\"hidden\" name=\"due_date\" value=\"$due_date\" /></td>\n";
 		print "</tr><tr>\n";
 		print "<td>&nbsp;</td>\n";	/* empty column */
-		print "<td>$address <input type=\"hidden\" name=\"address\" value=\"$address\"></td>\n";
+		print "<td>$address <input type=\"hidden\" name=\"address\" value=\"$address\" /></td>\n";
 		print "</tr><tr>\n";
 		print "<td>&nbsp;</td>\n";	/* empty column */
 		print "<td>$city $zip \n";
 		$l = _("Reg. num");
 		print "$l: $vatnum</td>\n";
-		print "<input type=\"hidden\" name=\"city\" value=\"$city\"><input type=\"hidden\" name=\"zip\" value=\"$zip\">\n";
-		print "<input type=\"hidden\" name=\"vatnum\" value=\"$vatnum\">\n";
+		print "<input type=\"hidden\" name=\"city\" value=\"$city\" /><input type=\"hidden\" name=\"zip\" value=\"$zip\" />\n";
+		print "<input type=\"hidden\" name=\"vatnum\" value=\"$vatnum\" />\n";
 		print "</tr><tr>\n";
 		$l = _("Receipt number");
 		print "<td colspan=\"4\" align=\"center\"><h1 style=\"text-align:center\">$l: \n";
 		print "$refnum </h1></td>\n";
-		print "<input type=\"hidden\" name=\"refnum\" value=\"$refnum\">\n";
-		print "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
+		print "<input type=\"hidden\" name=\"refnum\" value=\"$refnum\" />\n";
+		print "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
 		print "</tr><tr>\n";
 		print "</tr><tr><td colspan=\"4\" align=\"center\">\n";
 	}
@@ -332,35 +332,35 @@ if($step > 0) {
 		$t = $type[$index];
 		$ts = $paymenttype[$t];
 		print "$ts ";
-		print "<input type=\"hidden\" name=\"ptype[]\" value=\"$t\">\n";
+		print "<input type=\"hidden\" name=\"ptype[]\" value=\"$t\" />\n";
 		print "</td><td>\n";
 		$t = $creditcompany[$index];
 		$ts = $creditcompanies[$t];
-		print "$ts <input type=\"hidden\" name=\"creditcompany[]\" value=\"$t\">\n";
+		print "$ts <input type=\"hidden\" name=\"creditcompany[]\" value=\"$t\" />\n";
 		print "</td>\n";
 		$cn = htmlspecialchars($cheque_num[$index], ENT_QUOTES);
 		print "<td>$cn</td>\n";
-		print "<input type=\"hidden\" name=\"cheque_num[]\" value=\"$cn\">\n";
+		print "<input type=\"hidden\" name=\"cheque_num[]\" value=\"$cn\" />\n";
 		$bn = $bank[$index];
 //		print_r($banksarr);
 		$bs = $banksarr[$bn];
 		print "<td>$bn - $bs</td>\n";
-		print "<input type=\"hidden\" name=\"bank[]\" value=\"$bank[$index]\">\n";
+		print "<input type=\"hidden\" name=\"bank[]\" value=\"$bank[$index]\" />\n";
 		print "<td>$branch[$index]</td>\n";
-		print "<input type=\"hidden\" name=\"branch[]\" value=\"$branch[$index]\">\n";
+		print "<input type=\"hidden\" name=\"branch[]\" value=\"$branch[$index]\" />\n";
 		print "<td>$cheque_acct[$index]</td>\n";
-		print "<input type=\"hidden\" name=\"cheque_acct[]\" value=\"$cheque_acct[$index]\">\n";
+		print "<input type=\"hidden\" name=\"cheque_acct[]\" value=\"$cheque_acct[$index]\" />\n";
 		print "<td>$date[$index]</td>\n";
-		print "<input type=\"hidden\" name=\"date[]\" value=\"$date[$index]\">\n";
+		print "<input type=\"hidden\" name=\"date[]\" value=\"$date[$index]\" />\n";
 		print "<td>$val</td>\n";
-		print "<input type=\"hidden\" name=\"sum[]\" value=\"$val\">\n";
+		print "<input type=\"hidden\" name=\"sum[]\" value=\"$val\" />\n";
 		print "</tr>\n";
 		$total_sum += $val;
 	}
 	print "<tr><td colspan=\"6\" >&nbsp;</td>\n";
 	$l = _("Source tax");
 	print "<td>$l: </td>\n";
-	print "<td>$src_tax<input type=\"hidden\" name=\"src_tax\" value=\"$src_tax\"></td></tr>\n";
+	print "<td>$src_tax<input type=\"hidden\" name=\"src_tax\" value=\"$src_tax\" /></td></tr>\n";
 	print "<tr><td colspan=\"6\">&nbsp;</td>\n";		/* spacer */
 	$l = _("Total");
 	print "<td><b>$l: </b></td>\n";
@@ -373,13 +373,13 @@ if($step > 0) {
 		print "<tr><td colspan=\"4\" align=\"center\">\n";
 		if($step < 3) {
 			$l = _("Submit");
-			print "<input type=\"submit\" value=\"$l\">\n";
+			print "<input type=\"submit\" value=\"$l\" />\n";
 		}
 		else {	/* show email form or print */
 //			print "<input type=\"button\" value=\"שלח בדואר אלקטרוני\" ";
 //			print "onclick=\"window.location.href='?module=emaildoc&doctype=$doctype&docnum=$docnum'\">\n";
 			print "&nbsp;&nbsp;<input type=\"button\" value=\"הדפס\" ";
-			print "onclick=\"window.open('printdoc.php?doctype=$doctype&docnum=$docnum&prefix=$prefix&print_win=1', 'printwin', 'width=800,height=600,scrollbar=yes')\">\n";
+			print "onclick=\"window.open('printdoc.php?doctype=$doctype&docnum=$docnum&prefix=$prefix&print_win=1', 'printwin', 'width=800,height=600,scrollbar=yes')\" />\n";
 		}
 
 		print "</td></tr>\n";
@@ -396,7 +396,7 @@ if($step == 0) {
 		$haeder = _("Receipts");
 		//$text.= "<div class=\"form\"><h3>$l</h3>\n";
 
-		$text.= "<form name=\"form1\" action=\"?module=receipt&amp;step=1\" method=post>\n";
+		$text.= "<form name=\"form1\" action=\"?module=receipt&amp;step=1\" method=\"post\">\n";
 		$text.= "<table border=\"0\" width=\"80%\" align=\"center\" class=\"formtbl\">\n";
 		$l = _("Customer");
 		$text.= "<tr><td width=\"70%\">$l: \n";
@@ -408,7 +408,7 @@ if($step == 0) {
 		$valdate = date('d-m-Y');
 		$due_date = $valdate;
 
-		$text.= "<input type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$valdate\" size=\"8\">\n";
+		$text.= "<input type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$valdate\" size=\"8\" />\n";
 $text.='<script type="text/javascript">addDatePicker("#due_date","'.$valdate.'");</script>';
 
 		$text.= "</td>\n";
@@ -416,22 +416,22 @@ $text.='<script type="text/javascript">addDatePicker("#due_date","'.$valdate.'")
 		$text.= "</tr><tr>\n";
 		$l = _("Company");
 		$text.= "<td colspan=\"2\">$l: \n";
-		$text.= "<input type=\"text\" name=\"company\" size=\"40\" value=\"$company\"></td>\n";
+		$text.= "<input type=\"text\" name=\"company\" size=\"40\" value=\"$company\" /></td>\n";
 		$text.= "</tr><tr>\n";
 		$l = _("Address");
 		$text.= "<td colspan=\"2\">$l: \n";
 		$address = htmlspecialchars($address);
-		$text.= "<input type=\"text\" name=\"address\" size=\"50\" value=\"$address\"></td>\n";
+		$text.= "<input type=\"text\" name=\"address\" size=\"50\" value=\"$address\" /></td>\n";
 		$text.= "</tr><tr>\n";
 		$l = _("City");
 		$text.= "<td colspan=\"4\">$l: \n";
-		$text.= "<input type=\"text\" name=\"city\" value=\"$city\">&nbsp;&nbsp;\n";
+		$text.= "<input type=\"text\" name=\"city\" value=\"$city\" />&nbsp;&nbsp;\n";
 		$l = _("Zip");
 		$text.= "$l: \n";
-		$text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"6\">\n";
+		$text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"6\" />\n";
 		$l = _("Reg. num");
 		$text.= "$l: \n";
-		$text.= "<input type=\"text\" name=\"vatnum\" value=\"$vatnum\" size=\"8\">\n";
+		$text.= "<input type=\"text\" name=\"vatnum\" value=\"$vatnum\" size=\"8\" />\n";
 		$text.= "</td>\n";
 		$text.= "</tr><tr><td colspan=\"2\" align=\"center\">\n";
 		
@@ -463,22 +463,22 @@ $text.='<script type="text/javascript">addDatePicker("#due_date","'.$valdate.'")
 		$text.= "</td><td class=\"crdhide\">\n";
 		$text.=PrintCreditCompany(0);
 		$text.= "</td>\n";
-		$text.= "<td><input type=\"text\" name=\"cheque_num[]\" size=\"8\"></td>\n";
-		$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"bank[]\" size=\"3\"></td>\n";
-		$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"branch[]\" size=\"3\"></td>\n";
-		$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"cheque_acct[]\" size=\"8\"></td>\n";
-		$text.= "<td><input type=\"text\" name=\"date[]\" size=\"7\"></td>\n";
-		$text.= "<td><input type=\"text\" class=\"sum\" name=\"sum[]\" size=\"6\"></td>\n";
+		$text.= "<td><input type=\"text\" name=\"cheque_num[]\" size=\"8\" /></td>\n";
+		$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"bank[]\" size=\"3\" /></td>\n";
+		$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"branch[]\" size=\"3\" /></td>\n";
+		$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"cheque_acct[]\" size=\"8\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"date[]\" size=\"7\" /></td>\n";
+		$text.= "<td><input type=\"text\" class=\"sum\" name=\"sum[]\" size=\"6\" /></td>\n";
 		$text.= "</tr>\n";
 	}
 	$l = _("Source tax");
 	$text.= "<tr><td colspan=\"7\" align=\"left\">$l: </td>\n";
-	$text.= "<td><input type=\"text\" name=\"src_tax\" size=\"6\"></td>\n";
+	$text.= "<td><input type=\"text\" name=\"src_tax\" size=\"6\" /></td>\n\t</tr>";
 	$text.= "</table>\n";
 	if($module == 'receipt') {
 		$text.= "</td></tr>\n";
 		$l = _("Continue");
-		$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+		$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
 		$text.= "</table>\n";
 		$text.= "</form>\n";
 		createForm($text,$haeder,'',800);

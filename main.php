@@ -44,7 +44,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 		print "prefix: $prefix<br>\n";
 	} */
 	if($n == 0) {
-		print "<br>\n";
+		print "<br />\n";
 		$l = _("No companies for this user");
 		print "<h1>$l</h1>\n";
 		return;
@@ -57,7 +57,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$n = mysql_num_rows($result);
 			// print "n: $n<br>\n";
 		}
-		print "<br>\n";
+		print "<br />\n";
 		print "<div class=\"righthalf1\">\n";
 		$l = _("Choose business to work on");
 		print "<h3>$l</h3>\n";
@@ -83,7 +83,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 		if($superuser) {
 			$l = _("Add new business");
 //			print "<br><br><a href=\"?module=defs\">הגדרת חברה חדשה</a><br>\n";
-			print "<br><br><a href=\"?module=defs\">$l</a><br>\n";
+			print "<br /><br /><a href=\"?module=defs\">$l</a><br />\n";
 		}
 		print "</div>\n";
 		print "</div>\n";
@@ -176,16 +176,16 @@ print "<td valign=\"middle\">\n";
 $begindmy = isset($_GET['begin']) ? $_GET['begin'] : date("1-1-Y");
 $enddmy = isset($_GET['end']) ? $_GET['end'] : date("d-m-Y");
 print "<form action=\"\" name=\"main\" method=\"get\">\n";
-print "<input type=\"hidden\" name=\"module\" value=\"main\">\n";
-print "<br><table dir=\"$dir\" style=\"height:100%\"><tr>\n";
+print "<input type=\"hidden\" name=\"module\" value=\"main\" />\n";
+print "<br /><table dir=\"$dir\" style=\"height:100%\"><tr>\n";
 $l = _("Begin date");
 print "<td>&nbsp;&nbsp;$l: </td>\n";
-print "<td><input type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindmy\" size=\"7\">\n";
+print "<td><input type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindmy\" size=\"7\" />\n";
 
 print "&nbsp;&nbsp;</td>\n";
 $l = _("End date");
 print "<td>$l: </td>\n";
-print "<td><input type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\">\n";
+print "<td><input type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\" />\n";
 ?>
 <script type="text/javascript">
 	addDatePicker("#begin","<?print $begindmy; ?>");
@@ -193,7 +193,7 @@ print "<td><input type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\
 	
 </script>
 <?PHP
-print "&nbsp;&nbsp;</td><td><input type=\"submit\" value=\"בצע\"></td>\n";
+print "&nbsp;&nbsp;</td><td><input type=\"submit\" value=\"בצע\" /></td>\n";
 print "</tr></table>\n";
 print "</form>\n";
 print "</td></tr></table>\n";
@@ -213,7 +213,7 @@ $text.= "<table class=\"hovertbl1\">\n";
 //NewRow();
 $n = number_format($income);
 $l = _("Total income");
-$text.= "<tr><td style=\"width:7.5em;font-weigh:normal;font-size:14px;\"><a href=\"?module=acctadmin&amp;type=3&amp;option=rep\">$l</a></td>";
+$text.= "<tr><td style=\"width:7.5em;font-weigh:normal;font-size:14px;\" ><a href=\"?module=acctadmin&amp;type=3&amp;option=rep\">$l</a></td>";
 $text.= "<td style=\"color:black;font-weight:normal;font-size:14px;\" >$n</td></tr>\n";
 //NewRow();
 $o = $outcome * -1.0;
@@ -244,7 +244,7 @@ $n = number_format($t);
 $l = _("Total customers");
 $text.= "<td style=\"font-weight:normal;font-size:14px;\"><a href=\"?module=acctadmin&amp;type=0&amp;option=rep\">$l</a></td><td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td>\n";
 $text.= "</tr>\n";
-NewRow();
+$text.='<tr>';
 $t = GetGroupTotal(SUPPLIER, $begin, $end);
 if($t < 0.0)
 	$t *= -1.0;
@@ -254,8 +254,8 @@ $text.= "<td style=\"font-weight:normal;font-size:14px;\"><a href=\"?module=acct
 $text.= "</tr></table>\n";
 
 CreateProfitGraph($income, $outcome, $profit);
-$text.= "<br>\n";
-$text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px\">\n";
+$text.= "<br />\n";
+$text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px\" />\n";
 createForm($text,$haeder,"maindiv",210);
 ?>
 		
@@ -278,12 +278,7 @@ $l = _("Contacts");
 $text.= "<div class=\"shortcut\"><a href=\"?module=contact\">$l</a></div>\n";
 $text.="<div class=\"sysmsg\">".ShowText('sysmsg',false)."</div>";
 createForm($text,$haeder,"shortsdiv",345);
-?>
 
-
-
-<link rel="stylesheet" type="text/css" href="style/mcalendar.css" >
-<?PHP
 $haeder = _("Events according to date");
 
 require('calendar.php');

@@ -298,7 +298,7 @@ $text.=PrintOutcomeSelect($outcome);
 /* print "(מע\"מ מוכר: "; */
 if(!isset($pvat))
 	$pvat = 100;
-$text.= "<input type=\"hidden\" name=\"pvat\" value=\"$pvat\" size=\"3\">\n";
+$text.= "<input type=\"hidden\" name=\"pvat\" value=\"$pvat\" size=\"3\" />\n";
 if($step == 0) {
 	if($opt == 'asset') {
 		$t = ASSETS;
@@ -316,46 +316,38 @@ $text.= "<tr>\n";
 
 $l = _("Date");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"date\" size=\"7\" value=\"$dt\">\n";
-$text.='
-<script type="text/javascript">
-	new tcal ({
-		// form name
-		\'formname\': \'outcome\',
-		// input name
-		\'controlname\': \'date\'
-	});
-</script>';
+$text.= "<td><input id=\"date\" type=\"text\" name=\"date\" size=\"7\" />\n";
+$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
 $text.= "</td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Reference");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"15\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"15\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Details");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Sum before VAT");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"novattotal\" value=\"$novattotal\" dir=\"ltr\" size=\"10\" onblur=\"CalcTotal()\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"novattotal\" value=\"$novattotal\" dir=\"ltr\" size=\"10\" onblur=\"CalcTotal()\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("VAT");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"vat\" size=\"10\" dir=\"ltr\" value=\"$tvat\" readonly></td>\n";
+$text.= "<td><input type=\"text\" name=\"vat\" size=\"10\" dir=\"ltr\" value=\"$tvat\" readonly=\"readonly\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Sum including VAT");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"total\" size=\"10\" dir=\"ltr\" value=\"$total\" onblur=\"CalcVAT()\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"total\" size=\"10\" dir=\"ltr\" value=\"$total\" onblur=\"CalcVAT()\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Update");
-$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\">\n";
+$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" />\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";

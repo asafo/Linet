@@ -1,4 +1,4 @@
-﻿<?PHP
+<?PHP
 /*
  | I18N initialization
  | Written by: Ori Idan
@@ -45,8 +45,4 @@ setlocale(LC_ALL, $iface_lang);
 textdomain($txt_domain);
 bindtextdomain($txt_domain, "./locale");
 bind_textdomain_codeset($txt_domain, 'UTF-8');
-
-
-
-
 ?>

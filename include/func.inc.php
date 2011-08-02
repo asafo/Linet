@@ -1,16 +1,16 @@
-﻿<?PHP
+<?PHP
 /*
  | Auxiliary functions for freelance
  */
 function PrintCustomerSelect($defaccount) {	
-	$text="<input type=\"text\"  name=\"account\" id=\"acc\" class=\"cat_num\" name=\"cat_num[]\" onblur=\"SetCustomer()\" >\n";
-	$text.='<script>$(document).ready(function() {$( "#acc" ).autocomplete({source: "index.php?action=lister&data=acc&type=0",});});</script>';
+	$text="<input type=\"text\"  id=\"acc\" class=\"cat_num\" name=\"account\" onblur=\"SetCustomer()\" />\n";//name=\"cat_num[]\"
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=acc&type=0&jsoncallback=?\'});});</script>';
 	return $text;
 }
 function ErrorReport($str) {
 	print "<H1>$str</H1>\n";
-	print "<H2>לחץ על חזור ותקן את השגיאה</H2>\n";
-	print "<form><input type=\"button\" value=\"חזור\" onclick=\"history.back()\"></form>\n";
+	print "<H2>׳�׳—׳¥ ׳¢׳� ׳—׳–׳•׳¨ ׳•׳×׳§׳� ׳�׳× ׳”׳©׳’׳™׳�׳”</H2>\n";
+	print "<form><input type=\"button\" value=\"׳—׳–׳•׳¨\" onclick=\"history.back()\"></form>\n";
 }
 
 /*
@@ -57,7 +57,7 @@ function DoQuery($query, $debugstr) {
 	else
 		$result = mysql_query($query);
 	if(!$result) {
-		print "$debugstr Query: $query<br>\n";
+		print "$debugstr Query: $query<br />\n";
 		echo mysql_error();
 		exit;
 	}
@@ -111,7 +111,7 @@ function Transaction($tnum, $type, $acct, $ref1, $ref2, $date, $details, $sum) {
 	$query = "INSERT INTO $transactionstbl VALUES ('$prefix', '$tnum', '$type', '$acct', '$ref1', '$ref2', '$date', '$details', '$sum', '0')";
 	$result = mysql_query($query);
 	if(!$result) {
-		echo "Transaction $tnum write error: <BR>\n";
+		echo "Transaction $tnum write error: <br />\n";
 		echo mysql_error();
 		exit;
 	}
@@ -150,10 +150,10 @@ function RecomendFirefox() {
 	$str = '';
 	/* firefox affiliate code */
 	$str = "<table border=\"0\" dir=\"$dir\"><tr><td>\n";
-	$str .= "<a href='http://www.mozilla.org/firefox?WT.mc_id=aff_en02&WT.mc_ev=click'><img src='http://www.mozilla.org/contribute/buttons/110x32arrow_g.png' alt='Firefox Download Button' border='0' /></a>\n";
+	$str .= "<a href='http://www.mozilla.org/firefox?WT.mc_id=aff_en02&amp;WT.mc_ev=click'><img src='http://www.mozilla.org/contribute/buttons/110x32arrow_g.png' alt='Firefox Download Button' border='0' /></a>\n";
 	$str .= "</td><td valign=\"top\">\n";
 	$l = _("We advise to use this software with Firefox browser");
-	$str .= "$l<br>\n";
+	$str .= "$l<br />\n";
 	$l = _("To install press the logo on the left");
 	$str .= "$l \n";
 	$l = _("For more information");
@@ -171,7 +171,7 @@ $newform='
 		<div class="up" style="width:'.$width.'px; float:right;"></div>
 		
 		
-		<div class="up side" style="clear: right; float:right;"><img src="img/formright.png"></div>
+		<div class="up side" style="clear: right; float:right;"><img src="img/formright.png" alt="formright"  /></div>
 		<div style="
 		background-image: url(img/formmenu.png);
 		background-repeat: repeat-x;
@@ -184,7 +184,7 @@ $newform='
 		text-align: center; 
 		width:'.($width-12).'px;"
 		>'.$haeder.'</div>
-		<div class="up side"  style="float:right;"><img src="img/formleft.png"></div>
+		<div class="up side"  style="float:right;"><img src="img/formleft.png" alt="formleft" /></div>
 		
 		<div class="up side" style="clear: right; float:right;"></div>
 		<div class="cont" style="width:'.$width.'px; float:right;">
@@ -237,7 +237,7 @@ function EditAcct($num, $type) {
 	if($num) {
 		$haeder = _("Edit account details");
 		//print "<h3>$l</h3>\n";
-//		print "<h3>עריכת פרטי כרטיס</h3>";
+//		print "<h3>׳¢׳¨׳™׳›׳× ׳₪׳¨׳˜׳™ ׳›׳¨׳˜׳™׳¡</h3>";
 		$text.= "<form name=\"acct\" action=\"?module=acctadmin&amp;action=updateacct&amp;num=$num\" method=\"post\">\n";
 	}
 	else {
@@ -369,7 +369,7 @@ function EditAcct($num, $type) {
 	$text.= "<td colspan=\"3\"><textarea name=\"comments\" rows=\"3\" cols=\"40\">$comments</textarea></td>\n";
 	$text.= "</tr><tr><td colspan=\"5\" align=\"center\">";
 	$l = _("Submit");
-	$text.= "<br><input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.= "<br /><input type=\"submit\" value=\"$l\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	if(!$num)
@@ -380,24 +380,14 @@ function EditAcct($num, $type) {
 function maxSql($cond,$max,$tablename){
 	$tablename=sqlText($tablename);
 	$max=sqlText($max);
-	//foreach ($cond as &$value) $value="'".sqlText($value)."'";
-	//if (isset($cond['password'])) $cond['password']="PASSWORD(".$cond['password'].")";
-	//$beforelast=count($cond)-1;
-	//$dnoc=array_keys($cond);
-	//$con='';
-	//for ($i=0; $i<$beforelast; ++$i){
-	//	$con.=array_shift($dnoc)."=".array_shift($cond).") AND (";
-	//}
-	//$con.=array_shift($dnoc)."=".array_shift($cond).");";
-	//$con='';
 	foreach($cond as $key=>$value){
 		$value="'".sqlText($value)."'";
 		if ($key=='password') $value="PASSWORD(".$value.")";
 		$con.="(".$key."=".$value.") AND";
 	}
-	$con=substr($data,0,-3);
+	$con=substr($con,0,-3);
 	$sql = "SELECT MAX($max) FROM $tablename WHERE $con";
-	//print $sql;
+	print $sql;
 	$result = mysql_query($sql);
 	if(!$result) {
 		echo mysql_error();
@@ -419,7 +409,7 @@ function inseretSql($array,$tablename){
 	$fildes=implode(",", array_keys($array));
 	$sql = "INSERT INTO $tablename ($fildes) ";
 	$sql .= "VALUES ($data)";
-	//print $sql;
+	print $sql;
 	$result = mysql_query($sql);
 	if(!$result) {
 		echo mysql_error();
@@ -443,9 +433,9 @@ function updateSql($cond,$array,$tablename){
 	foreach($array as $key=>$value){
 		$value="'".sqlText($value)."'";
 		if ($key=='password') $value="PASSWORD(".$value.")";
-		$data.="(".$key."=".$value.") AND";
+		$data.=$key."=".$value." ,";
 	}
-	$data=substr($data,0,-3);
+	$data=substr($data,0,-1);
 	$sql = "UPDATE $tablename SET $data WHERE $con";
 	//print $sql;
 	$result = mysql_query($sql);
@@ -457,11 +447,11 @@ function updateSql($cond,$array,$tablename){
 		return true;
 	}
 }
-function selectSql($cond,$tablename,$fields=NULL){
+function selectSql($cond,$tablename,$fields=NULL,$date=null,$sort=null){
 	if  (is_null($fields)){
 		$data='*';
 	}else{
-		foreach ($fields as &$value) $value="'".sqlText($value)."'";
+		foreach ($fields as &$value) $value=sqlText($value);
 		$data=implode(",", $fields);
 	}
 	$tablename=sqlText($tablename);
@@ -472,8 +462,17 @@ function selectSql($cond,$tablename,$fields=NULL){
 		if ($key=='password') $value="PASSWORD(".$value.")";
 		$con.="(".$key."=".$value.") AND";
 	}
+	if  (!is_null($date)){
+		$con.= " ((date>=DATE('".sqlText($date['min'])."')) AND (date<=DATE('".sqlText($date['max'])."'))) AND";
+	}
 	$con=substr($con,0,-3);
-
+	if  (!is_null($sort)){
+		//'ORDER BY `prefix` ASC'
+		foreach ($fields as &$value) $value="'".sqlText($value)."'";
+		$sorts=implode(" ASC,", $sort);
+		$sorts= "ORDER BY ".$sorts.' ASC';
+		$con.=$sorts;
+	}
 	$sql = "SELECT $data FROM $tablename WHERE $con";
 	//print $sql;
 	$result = mysql_query($sql);
@@ -517,7 +516,7 @@ function listCol($tablename){
 	$query = "SHOW columns FROM $tablename";
 	$result = mysql_query($query);
 	if(!$result) {
-		echo "Table $tablename dosn't exsists <BR>\n";
+		echo "Table $tablename dosn't exsists <br />\n";
 		echo mysql_error();
 		exit;
 	}
