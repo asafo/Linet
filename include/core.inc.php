@@ -1,6 +1,32 @@
 <?php
 $updatesrv ='http://82.80.233.231';//http://localhost/server/';
 
+$table["articles"]="articles";
+$table["pics"] = "pics";
+$table["companies"] = "companies";
+$table["contacthist"] = "contacthist";
+$table["login"] = "login";
+$table["premissions"] = "premissions";
+$table["currency"] = "currency";
+$table["rates"] = "rates";
+$table["accounts"] = "accounts";
+$table["contacts"] = "contacts";
+$table["docs"] = "docs";
+$table["docdetails"] = "docdetails";
+$table["catalog"] = "catalog";
+$table["transactions"] = "transactions";
+$table["supdocs"] = "supdocs";
+$table["supdocdetails"] = "supdocdetails";
+$table["receipts"] = "receipts";
+$table["bankbook"] = "bankbook";
+$table["cheques"] = "cheques";
+$table["tranpatt"] = "tranpatt";
+$table["tranrep"] = "tranrep";
+$table["stat"] = "items";
+$table["articles"] = "stat";
+$table["openformat"] ="openformat";
+$table["openformattype"]="openformattype";
+
 $articlestbl = "articles";
 $picstbl = "pics";
 $companiestbl = "companies";

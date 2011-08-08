@@ -27,28 +27,32 @@ global $num_D110;
 global $num_C100;
 global $num_B110;
 global $num_B100;
-
-
+/*
 function utf8_to_windows1255($utf8) {
     $windows1255 = "";
     $chars = preg_split("//",$utf8);
-    for ($i = 1; $i < count($chars) - 1; $i += 2) {
+    for ($i=1; $i<count($chars)-1; $i++) {
         $prefix = ord($chars[$i]);
         $suffix = ord($chars[$i+1]);
-//        print ("<p>$prefix $suffix");
-        if ($prefix == 215)
+        //print ("<p>$prefix $suffix");
+        if ($prefix==215) {
             $windows1255 .= chr($suffix+80);
-        else if ($prefix == 214)
+            $i++;
+        }
+        elseif ($prefix==214) {
             $windows1255 .= chr($suffix+16);
-        else
+            $i++;
+        }
+        else {
             $windows1255 .= $chars[$i];
+        }
     }
     return $windows1255;
-} 
-/*
+} //*/
+
 function utf8_to_windows1255($utf8) {
 	return iconv("utf-8", "windows-1255", $utf8);
-}*///adam:
+}//*///adam:
 
 function TranslateDocumentType($doctype) {
 	$DocTypeArr = array(DOC_PROFORMA => 300, DOC_ORDER => 100, DOC_DELIVERY => 200, DOC_INVOICE => 305, 
@@ -171,6 +175,7 @@ function ExportDocuments($bkmvdata, $bkrecnum, $mainid, $regnum, $begindate, $en
 
 	$query = "SELECT * FROM $docstbl WHERE prefix='$prefix' AND ";
 	$query .= "issue_date>='$begindate' AND issue_date<='$enddate'";
+	//print $query;
 	$result = DoQuery($query, "ExportDocuments");
 	$numdocs = mysql_num_rows($result);
 	$n = 0;
@@ -456,9 +461,12 @@ $text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");
 else if($step == 1) {
 	$b = $_POST['begindate'];
 	$e = $_POST['enddate'];
-	$begindate = FormatDate($b, "d-m-Y", "mysql");
-	$enddate = FormatDate($e, "dmY", "mysql");
 
+	//$begindate = FormatDate($b, "d-m-Y", "mysql");
+	//$enddate = FormatDate($e, "d-m-Y", "mysql");
+	
+	$begindate = strftime('%Y-%m-%d',strtotime($b));
+	$enddate = strftime('%Y-%m-%d',strtotime($e));
 	/* The actual work begins... */
 	/* store current working directory */
 	$cwd = getcwd();
@@ -518,7 +526,7 @@ else if($step == 1) {
 	$str = sprintf("A100%09d%09d%015u&OF1.31&%50s\r\n", $bkrecnum, $regnum, $mainid, ' ');
 	fwrite($bkmvdata, $str);
 	$bkrecnum++;
-	
+
 	/* Now go over documents and generate document head and document details records */
 	$bkrecnum = ExportDocuments($bkmvdata, $bkrecnum, $mainid, $regnum, $begindate, $enddate);
 //	print "Documents: $bkrecnum<br>\n";
