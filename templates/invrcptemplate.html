@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+<link rel="stylesheet" type="text/css" href="style/freelance.css" />
+<link rel="stylesheet" type="text/css" href="style/yawiki.css" />
+<style type="text/css">
+.top {
+	text-align:center;
+}
+.contents {
+	border:1px solid;
+	width:90%;
+	margin:5px;
+}
+</style>
+<title>~title~</title>
+~header~
+</head>
+<body>
+<div class="top">
+~logo~
+</div>
+<div id="wrapper">
+<div style="width:100%; font-size:24px;font-family: Arial, Helvetica, sans-serif;text-align:center">
+~company~<br>
+~address~<br>
+~city~ ~zip~<br>
+~phone~&nbsp;
+~cellular~<br>
+~dealer~: ~regnum~<br>
+</div>
+
+<div class="contents">
+<table border="0" width="100%" dir="rtl">
+<tr>
+<td style="width:10%;text-align:right">לכבוד: </td>
+<td style="width:60%;text-align:right">~docs:company~</td>
+<td style="width:10%">תאריך: </td>
+<td style="text-align:right">~docs:issue_date~</td>
+</tr><tr>
+<td>&nbsp;</td>
+<td style="text-align:right">~docs:address~</td>
+<td>מס ע"מ: </td><td>~regnum~</td>
+</tr><tr>
+<td>&nbsp;</td>
+<td>~docs:city~ &nbsp; ~docs:zip~</td>
+<td style="text-align:right">~docs:refnum~</td>
+</tr><tr>
+<td colspan="3" align="center"><h1 style="text-align:center">
+~doctype~ ~docnum~
+</h1></td>
+<td><h1>~copy~</h1></td>
+</tr><tr><td colspan="4">
+<div style="border:1px solid;width:100%">
+<table dir="rtl" border="1" width="100%">
+<tr class="tblhead">
+<td style="width:70%">תיאור</td>
+<td style="width:4em">כמות</td>
+<td style="width:5em">מחיר</td>
+<td>סה\"כ</td>
+</tr><tr>
+<td>~docdetails:description:1~</td>
+<td>~docdetails:qty:1~</td>
+<td>~docdetails:unit_price:1~</td>
+<td>~docdetails:price:1~</td>
+</tr><tr>
+<td>~docdetails:description:2~</td>
+<td>~docdetails:qty:2~</td>
+<td>~docdetails:unit_price:2~</td>
+<td>~docdetails:price:2~</td>
+</tr><tr>
+<td>~docdetails:description:3~</td>
+<td>~docdetails:qty:3~</td>
+<td>~docdetails:unit_price:3~</td>
+<td>~docdetails:price:3~</td>
+</tr><tr>
+<td>~docdetails:description:4~</td>
+<td>~docdetails:qty:4~</td>
+<td>~docdetails:unit_price:4~</td>
+<td>~docdetails:price:4~</td>
+</tr><tr>
+<tr><td colspan="4">&nbsp;</td>
+</tr><tr>
+<td>&nbsp;</td>
+<td colspan="2">סה"כ חייב מע"מ</td>
+<td>~docs:sub_total~</td>
+</tr><tr>
+<td>לתשלום עד: ~docs:due_date~</td>
+<td colspan="2">סה"כ פטור ממע"מ</td>
+<td>~docs:novat_total~</td>
+</tr><tr>
+<td colspan="4">&nbsp;</td>
+</tr><tr>
+<td>~docs:comments~</td>
+<td colspan="2">מע"מ: </td>
+<td>~docs:vat~</td>
+</tr><tr>
+<td>&nbsp;</td>
+<td colspan="2">סה"כ לתשלום: </td>
+<td>~docs:total~</td>
+</tr>
+</table>
+</div>
+<h1 style="text-align:right;direction:rtl">קבלה</h1>
+<table border="0">
+<tr class="tblhead">
+<td style="width:7em">אמצאי תשלום </td>
+<td style="width:6em">חברת אשראי&nbsp;</td>
+<td style="width:8em">אסמכתא\\מס' שיק</td>
+<td style="width:12em">בנק&nbsp;</td>
+<td style="width:3em">סניף&nbsp;</td>
+<td style="width:6em">מס' חשבון&nbsp;</td>
+<td style="width:6em">תאריך&nbsp;</td>
+<td>סכום</td></tr>
+<tr>
+<td>~cheques:type:1~</td>
+<td>~cheques:creditcompany:1~</td>
+<td>~cheques:cheque_num:1~</td>
+<td>~cheques:bank:1~</td>
+<td>~cheques:branch:1~</td>
+<td>~cheques:cheque_acct:1~</td>
+<td>~cheques:cheque_date:1~</td>
+<td>~cheques:sum:1~</td>
+</tr><tr>
+<td>~cheques:type:2~</td>
+<td>~cheques:creditcompany:2~</td>
+<td>~cheques:cheque_num:2~</td>
+<td>~cheques:bank:2~</td>
+<td>~cheques:branch:2~</td>
+<td>~cheques:cheque_acct:2~</td>
+<td>~cheques:cheque_date:2~</td>
+<td>~cheques:sum:2~</td>
+</tr><tr>
+<td>~cheques:type:3~</td>
+<td>~cheques:creditcompany:3~</td>
+<td>~cheques:cheque_num:3~</td>
+<td>~cheques:bank:3~</td>
+<td>~cheques:branch:3~</td>
+<td>~cheques:cheque_acct:3~</td>
+<td>~cheques:cheque_date:3~</td>
+<td>~cheques:sum:3~</td>
+</tr><tr>
+<td colspan="6" >&nbsp;</td>
+<td>ניכוי במקור: </td>
+<td>~receipts:src_tax~</td>
+</tr><tr>
+<td colspan="6" >&nbsp;</td>
+<td><b>סה"כ</b></td>
+<td>~receipts:sum~</td>
+</tr>
+</table>
+</td></tr>
+</table>
+
+<!--</table>-->
+</div>
+</div>
+</body>
+</html>
