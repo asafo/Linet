@@ -1,0 +1,6 @@
+#!/bin/sh
+ftp -n <website> <<END_SCRIPT
+user <username> <password>
+cd www
+put $1
+END_SCRIPT
