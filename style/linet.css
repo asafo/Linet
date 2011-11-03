@@ -84,7 +84,7 @@ a.Surtcut{
 	background-image: url(../img/ShurtcutBtn.png);
 	width: 155px; height: 36px;
 	padding-top:16px;
-	
+	font-size:16px;
 	display: inline-block;
 	color:black;
 	margin-bottom: 5px;
