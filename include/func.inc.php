@@ -19,8 +19,8 @@ function PrintSelect($defaccount,$type){
 }
 function ErrorReport($str) {
 	print "<H1>$str</H1>\n";
-	print "<H2>לחץ על חזור ותקן את השגיאה</H2>\n";
-	print "<form><input type=\"button\" value=\"חזור\" onclick=\"history.back()\"></form>\n";
+	print "<H2>׳�׳—׳¥ ׳¢׳� ׳—׳–׳•׳¨ ׳•׳×׳§׳� ׳�׳× ׳”׳©׳’׳™׳�׳”</H2>\n";
+	print "<form><input type=\"button\" value=\"׳—׳–׳•׳¨\" onclick=\"history.back()\"></form>\n";
 }
 function newWindow($text,$href,$width,$height){
 	$text= "<a href=\"$href\" onClick=\"window.open('$href','newAccount','width=$width,height=$height,menubar=no,status=no,directories=no,toolbar=no,location=no,resizable=no'); return false;\" target=\"_blank\"\">$text</a>\n";
@@ -200,9 +200,9 @@ function RecomendFirefox() {
 	global $dir;
 	global $id;
 	
-	$str = '';
+	$str = '<div class="firefox">';
 	/* firefox affiliate code */
-	$str = "<table border=\"0\" dir=\"$dir\"><tr><td>\n";
+	$str .= "<table border=\"0\" dir=\"$dir\"><tr><td>\n";
 	$str .= "<a href='http://www.mozilla.org/firefox?WT.mc_id=aff_en02&amp;WT.mc_ev=click'><img src='img/firefox.png' alt='Firefox Download Button' border='0' /></a>\n";
 	$str .= "</td><td valign=\"top\">\n";
 	$l = _("We advise to use this software with Firefox browser");
@@ -212,10 +212,33 @@ function RecomendFirefox() {
 	$l = _("For more information");
 	$l1 = _("Click here");
 	$str .= "$l <a href=\"?id=firefox\">$l1</a>\n";
-	$str .= "</td></tr></table>\n";
+	$str .= "</td></tr></table>\n</div>";
 	
 	return $str;
 
+}
+function isocDiv(){
+	
+	$text='<div class="isoc">
+		<table cellpadding="13">
+			<tr>
+				<td>
+					'._('Linet accounting Project is<br /> suported by the ISOC-IL').'
+				</td>
+				<td>
+					<a href="http://www.isoc.org.il"><img src="img/isoc_logo.png" alt="isoc logo" /></a>
+				</td>
+			</tr>
+		</table>
+		</div>';
+	return $text;
+}
+function osiDiv(){
+	
+	$text='<div class="osi">
+					<img src="img/osi_logo2.png" alt="osi logo2" /><img src="img/osi_logo.png" alt="osi logo" />
+		</div>';
+	return $text;
 }
 function createForm($text,$haeder,$sClass,$width=200,$height=480,$logo=null){
 	if(isset($logo))$haeder="<img src=\"$logo\" alt=\"$logo\" />".$haeder;
@@ -283,7 +306,7 @@ function EditAcct($num, $type,$smallprint=false) {
 	if($num) {
 		$haeder = _("Edit account details");
 		//print "<h3>$l</h3>\n";
-//		print "<h3>׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ³ֲ·׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ³ג€”׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢ ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ³ֲ·׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¡</h3>";
+//		print "<h3>׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ³ײ²ֲ·׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ»׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ³ײ²ֲ·׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ»׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¡</h3>";
 		$text.= "<form name=\"acct\" action=\"?module=acctadmin&amp;action=updateacct&amp;num=$num\" method=\"post\">\n";
 	}
 	else {

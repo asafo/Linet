@@ -3,40 +3,49 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="style/linet.css" >
+<script type="text/javascript" src='js/jquery.min.js'></script>
 <!-- link calendar files  -->
 <title>~title~</title>
 <!-- ~header~ -->
+
+
+<script type="text/javascript">
+$(document).ready(function() { 
+    $("#btnfrgt").click(function() { 
+        $("#forgat").show('slow');
+        $("#login").hide(2000);
+    }); 
+    $("#btncancel").click(function() { 
+        $("#login").show('slow');
+        $("#forgat").hide(2000);
+    }); 
+    
+}); 
+
+
+
+</script>
 </head>
 	<body>
 		<div id="wrapper">
 			<div class="headerA">
 				<div id ="logo">
-						<img src="img/logo.png" alt="drorit logo">
+						<img src="img/logo.png" alt="linet logo">
 				</div> <!-- div logo end -->
-			<div id ="right_hdr">
-					<h1>~title~</h1>
+				<div id ="right_hdr">
 					<div id="logindata" dir="rtl">
-					<a href="?lang=en">
-					<img src="us_flag.gif" height="15px" border="0" alt="us_flag">אנגלית
-					</a>
+						<a href="?lang=en"><img src="img/us_flag.gif" height="15px" border="0" alt="us_flag">אנגלית</a>
 					</div>
 				</div> <!--right_hdr end--> 
 			</div><!--headerA end-->
-			<div class="headerD">
-			</div> 
-			~MainMenu~
+			
 			<div id="contents" dir="rtl">
 			~text~
 			</div><!--contents  end-->
-			<div class="copyright">
-				<div class="innercopyright">	
- 			   <a href="http://validator.w3.org/check?uri=referer"><img
-        		src="http://www.w3.org/Icons/valid-html401-blue" border="0"
-        		alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
-				</div>
-				<div class="innercopyright">
+			<div class="footer">
+				~isoc~
 				~recomendfirefox~
-				</div>	
+				~osi~
 			</div>
 
 		</div><!--div wrapper  end-->

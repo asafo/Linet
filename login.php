@@ -64,7 +64,7 @@ function AddUser() {
 	print "<tr><td>$l: </td>\n";
 	print "<td><input type=\"password\" name=\"verpassword\"></td></tr>\n";
 //	print "<tr>\n";
-/*	print "<td>הרשאות: </td>\n";
+/*	print "<td>׳”׳¨׳©׳�׳•׳×: </td>\n";
 	print "<td>\n";
 	print "<select name=level>\n";
 	foreach($levelsarr as $key => $val) {
@@ -288,7 +288,7 @@ if($action == 'dologin') {
 /*	$line = mysql_fetch_array($result, MYSQL_NUM);
 	if($line[1] != '') {
 	//	print_r($line);
-		print "<h1>משתמש לא סיים את תהליך ההרשמה</h1>\n";
+		print "<h1>׳�׳©׳×׳�׳© ׳�׳� ׳¡׳™׳™׳� ׳�׳× ׳×׳”׳�׳™׳� ׳”׳”׳¨׳©׳�׳”</h1>\n";
 		return;
 	} */
 	
@@ -368,7 +368,7 @@ if($action == 'edituser') {
 	print_r($acc);
 	
     $acc->pay_terms ='60';
-    $acc->company ='לקוח חדיש';
+    $acc->company ='׳�׳§׳•׳— ׳—׳“׳™׳©';
 	print(';'.$acc->newAccount().';');
 	$acc->num ='210';
 	$acc->vatnum ='300777778';
@@ -447,7 +447,7 @@ if($action == 'edituser') {
 	$l = _("App Key");
 	print "<tr><td>$l: </td>\n";
 	print "<td><font>$hash</font></td></tr>\n";
-/*	print "<tr><td>הרשאות: </td>\n";
+/*	print "<tr><td>׳”׳¨׳©׳�׳•׳×: </td>\n";
 	print "<td>\n";
 	print "<select name=\"level\">\n";
 	foreach($levelsarr as $key => $val) {
@@ -484,44 +484,52 @@ if($n == 0) {	/* Special case, no users in system */
 	AddUser();
 }
 else {
-	print "<br />\n";
-	print "<div class=\"form righthalf1\" style=\"padding-right:30px\">\n";
+	
+	$text="";
 //	print "<div class=\"caption_out\"><div class=\"caption\">\n<h3>";
 	$l = _("Registered users login");
-	print "<h3>$l</h3>";
+	$text.= "<h3>$l</h3>";
 //	print "</h3></div></div>\n";
-	print "<form action=\"index.php?action=dologin\" method=\"post\">\n";
-	print "<table border=\"0\" dir=\"$dir\" cellpadding=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	$text.=  "<div id=\"login\"><form action=\"index.php?action=dologin\" method=\"post\">\n";
+	$text.=  "<table border=\"0\" dir=\"$dir\" cellpadding=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("Email");
-	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" name=\"name\"></td></tr>\n";
+	$text.=  "<td>$l: <br />";
+	$text.=  "<input type=\"text\" name=\"name\"></td></tr>\n";
 	$l = _("Password");
-	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"password\" name=\"password\"></td>\n";
+	$text.=  "<tr><td>$l: <br />";
+	$text.=  "<input type=\"password\" name=\"password\"></td>\n";
 	$l = _("Login");
-	print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
-	print "</table>\n";
-	print "</form>\n";
-	print "<br />\n";
-	print "<form action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
-	print "<table dir=\"$dir\" class=\"formtbl\" width=\"100%\"><tr>\n";
-	print "<td colspan=\"2\">";
-	
+	$text.=  "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
+	$text.=  "</table>\n";
 	$l = _("I forgot my password");
-	print "<h2>$l</h2></td></tr>\n";
-	$l = _("Email");
-	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"text\" name=\"email\"></td>\n";
-	print "</tr><tr>\n";
-	$l = _("Submit");
-	print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
-	print "</tr></table></form>\n";
-	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('drorit');
+	$text.='<a href="#" id="btnfrgt">'.$l.'</a>';
+	$text.=  "</form>\n</div>";
+	$text.=  "<br />\n";
 
 	
-	print "</div>\n";
+	$text.="<div id=\"forgat\">";
+	$l = _("Cancel");
+	$text.='<a href="#" id="btncancel">'.$l.'</a>';
+	$text.=  "<form action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
+		$text.=  "<table dir=\"$dir\" class=\"formtbl\" width=\"100%\">\n";
+	//$text.=  "<td colspan=\"2\">";
+	
+	//$text.=  "<h2>$l</h2></td></tr>\n";
+	$l = _("Email");
+	$text.=  "<tr><td>$l: </td>\n";
+	$text.=  "<td><input type=\"text\" name=\"email\"></td>\n";
+	$text.=  "</tr><tr>\n";
+	$l = _("Submit");
+	$text.=  "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
+	$text.=  "</tr></table></form>\n";
+	$text.="</div>";
+	$haeder=_("Login");
+	createForm($text, $haeder, '',300,300,'img/icon_login.png');
+	/*print "<div class=\"lefthalf1\">\n";
+	ShowText('linet');
+
+	
+	print "</div>\n";*/
 }
 
 ?>

@@ -542,8 +542,10 @@ function TemplateReplace($r) {
 	}
 	else if($p == 'recomendfirefox')
 		return RecomendFirefox();
-	else if($p == 'isoc')
-		return '<div class="isoc"><a href="http://www.isoc.org.il"><img src="img/isoc_logo.png" alt="isoc logo" /></a><br />'._('This software is supported by ISOC').'</div>';	
+	else if($p == 'isoc')	
+		return isocDiv();
+	else if($p == 'osi')
+		return osiDiv();
 	else if($p == 'username') {
 		$name1 = isset($_GET['name']) ? $_GET['name'] : $_COOKIE['name'];
 		$name1 = urldecode($name1);
