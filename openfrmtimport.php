@@ -404,7 +404,7 @@ if ($_REQUEST['step']==2){
 		//print $query."<br />";
 	}
 	print _("Data Import Complted Sucsesfuly");
-	$l=_("Finsh");
+	$l=_("Finish");
 	print "<a href=\"index.php?action=unsel\">$l</a>";
 }
 

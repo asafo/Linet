@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linet 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-01 19:08+0200\n"
-"PO-Revision-Date: 2011-11-01 19:08+0200\n"
-"Last-Translator: AdamBen Hour <adam@speedcomp.co.il>\n"
+"POT-Creation-Date: 2011-11-06 23:44+0200\n"
+"PO-Revision-Date: 2011-11-06 23:47+0200\n"
+"Last-Translator: Adam Ben Hour <adam@speedcomp.co.il>\n"
 "Language-Team: Hebrew <adam@speedcomp.co.il>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,7 +88,7 @@ msgid "Doc. type"
 msgstr "סוג מסמך"
 
 #: Y:\linet1.3/showdocs.php:110
-#: Y:\linet1.3/contact.php:340
+#: Y:\linet1.3/contact.php:338
 msgid "Num"
 msgstr "מס'"
 
@@ -99,7 +99,7 @@ msgstr "תאריך"
 
 #: Y:\linet1.3/showdocs.php:114
 #: Y:\linet1.3/owe.php:46
-#: Y:\linet1.3/contact.php:436
+#: Y:\linet1.3/contact.php:434
 msgid "Customer"
 msgstr "לקוח"
 
@@ -162,7 +162,7 @@ msgid "Customers owing money"
 msgstr "לקוחות חייבים"
 
 #: Y:\linet1.3/owe.php:48
-#: Y:\linet1.3/contact.php:347
+#: Y:\linet1.3/contact.php:345
 #: Y:\linet1.3/acctadmin.php:430
 msgid "Acc. balance"
 msgstr "יתרה"
@@ -181,10 +181,10 @@ msgstr "הוסף משתמש"
 
 #: Y:\linet1.3/login.php:54
 #: Y:\linet1.3/login.php:432
-#: Y:\linet1.3/login.php:495
-#: Y:\linet1.3/login.php:512
+#: Y:\linet1.3/login.php:497
+#: Y:\linet1.3/login.php:520
 msgid "Email"
-msgstr "דואר אלקטרוני"
+msgstr "דואל"
 
 #: Y:\linet1.3/login.php:57
 #: Y:\linet1.3/login.php:436
@@ -193,14 +193,14 @@ msgstr "שם מלא"
 
 #: Y:\linet1.3/login.php:60
 #: Y:\linet1.3/login.php:441
-#: Y:\linet1.3/login.php:498
+#: Y:\linet1.3/login.php:500
 msgid "Password"
-msgstr "ססמה"
+msgstr "סיסמא"
 
 #: Y:\linet1.3/login.php:63
 #: Y:\linet1.3/login.php:444
 msgid "Verify password"
-msgstr "אימות ססמה"
+msgstr "אימות סיסמא"
 
 #: Y:\linet1.3/login.php:80
 msgid "Create"
@@ -281,18 +281,27 @@ msgid "App Key"
 msgstr "מפתח תוכנה"
 
 #: Y:\linet1.3/login.php:490
-msgid "Registered users login"
-msgstr "כניסה למשתמשים רשומים"
+msgid "Dear Custmer,"
+msgstr "לקוח יקר,"
 
-#: Y:\linet1.3/login.php:501
+#: Y:\linet1.3/login.php:492
+msgid "Entrance is only for registerd users"
+msgstr "הכניסה למערכת למשתמשים רשומים בלבד"
+
+#: Y:\linet1.3/login.php:503
+#: Y:\linet1.3/login.php:528
 msgid "Login"
 msgstr "כניסה"
 
-#: Y:\linet1.3/login.php:510
+#: Y:\linet1.3/login.php:506
 msgid "I forgot my password"
-msgstr "שכחתי ססמה"
+msgstr "שכחתי סיסמא"
 
-#: Y:\linet1.3/login.php:516
+#: Y:\linet1.3/login.php:513
+msgid "Cancel"
+msgstr "ביטול"
+
+#: Y:\linet1.3/login.php:524
 #: Y:\linet1.3/contact.php:34
 msgid "Submit"
 msgstr "בצע"
@@ -390,33 +399,31 @@ msgstr "עיר"
 msgid "Zip"
 msgstr "מיקוד"
 
-#: Y:\linet1.3/contact.php:346
+#: Y:\linet1.3/contact.php:344
 msgid "Type"
 msgstr "סוג"
 
-#: Y:\linet1.3/contact.php:350
+#: Y:\linet1.3/contact.php:348
 msgid "Add customer"
 msgstr "הוספת לקוח"
 
-#: Y:\linet1.3/contact.php:353
+#: Y:\linet1.3/contact.php:351
 msgid "Add supplier"
 msgstr "הוספת ספק"
 
-#: Y:\linet1.3/contact.php:377
-#, fuzzy
+#: Y:\linet1.3/contact.php:375
 msgid "Customers managmenet"
-msgstr "ניהול לקוחות\\ספקים"
+msgstr "ניהול לקוחות"
 
-#: Y:\linet1.3/contact.php:379
-#, fuzzy
+#: Y:\linet1.3/contact.php:377
 msgid "Suppliers managmenet"
-msgstr "ניהול לקוחות\\ספקים"
+msgstr "ניהול ספקים"
 
-#: Y:\linet1.3/contact.php:437
+#: Y:\linet1.3/contact.php:435
 msgid "Supplier"
 msgstr "ספק"
 
-#: Y:\linet1.3/contact.php:447
+#: Y:\linet1.3/contact.php:445
 msgid "Transactions"
 msgstr "תנועות"
 
@@ -544,7 +551,7 @@ msgstr "תנועה"
 #: Y:\linet1.3/printacct.php:251
 #: Y:\linet1.3/printacct.php:272
 #: Y:\linet1.3/lasttran.inc.php:65
-#: Y:\linet1.3/bankbook.php:352
+#: Y:\linet1.3/bankbook.php:347
 msgid "Ref. num"
 msgstr "אסמכתא"
 
@@ -554,7 +561,7 @@ msgstr "אסמכתא"
 #: Y:\linet1.3/printacct.php:274
 #: Y:\linet1.3/outcome.php:341
 #: Y:\linet1.3/lasttran.inc.php:67
-#: Y:\linet1.3/bankbook.php:350
+#: Y:\linet1.3/bankbook.php:345
 msgid "Details"
 msgstr "פרטים"
 
@@ -571,7 +578,7 @@ msgstr "חשבון נגדי"
 #: Y:\linet1.3/printacct.php:278
 #: Y:\linet1.3/balance.php:173
 #: Y:\linet1.3/balance.php:183
-#: Y:\linet1.3/bankbook.php:354
+#: Y:\linet1.3/bankbook.php:349
 msgid "Debit"
 msgstr "חובה"
 
@@ -581,7 +588,7 @@ msgstr "חובה"
 #: Y:\linet1.3/printacct.php:280
 #: Y:\linet1.3/balance.php:175
 #: Y:\linet1.3/balance.php:184
-#: Y:\linet1.3/bankbook.php:356
+#: Y:\linet1.3/bankbook.php:351
 msgid "Credit"
 msgstr "זכות"
 
@@ -962,7 +969,7 @@ msgstr "לא הוכנס דואר אלקטרוני"
 
 #: Y:\linet1.3/defs.php:42
 msgid "No password entered"
-msgstr "לא הוכנסה ססמה"
+msgstr "לא הוכנסה סיסמא"
 
 #: Y:\linet1.3/defs.php:64
 msgid "Creating new user"
@@ -974,7 +981,7 @@ msgstr "המשתמש החדש נוצר בהצלחה"
 
 #: Y:\linet1.3/defs.php:79
 msgid "User password updated"
-msgstr "ססמת משתמש עודכנה"
+msgstr "סיסמת משתמש עודכנה"
 
 #: Y:\linet1.3/defs.php:103
 msgid "Business added succesfully"
@@ -1014,7 +1021,7 @@ msgstr "הכנסת פרטי עסק"
 
 #: Y:\linet1.3/defs.php:251
 msgid "Password verify"
-msgstr "אמות ססמה"
+msgstr "אמות סיסמא"
 
 #: Y:\linet1.3/defs.php:270
 msgid "Edit business details"
@@ -1045,9 +1052,8 @@ msgid "Registration number"
 msgstr "מספר עוסק מורשה"
 
 #: Y:\linet1.3/defs.php:331
-#, fuzzy
 msgid "Accounting Type"
-msgstr "סוג חשבון"
+msgstr "סוגי חשבונות"
 
 #: Y:\linet1.3/defs.php:335
 msgid "One Sided"
@@ -1099,35 +1105,35 @@ msgstr "לפרטים נוספים"
 msgid "Click here"
 msgstr "לחץ כאן"
 
-#: Y:\linet1.3/bankbook.php:191
+#: Y:\linet1.3/bankbook.php:189
 msgid "Invalid date at line: "
 msgstr "תאריך לא תקין בשורה:"
 
-#: Y:\linet1.3/bankbook.php:280
+#: Y:\linet1.3/bankbook.php:276
 msgid "Unkown file format"
 msgstr ""
 
-#: Y:\linet1.3/bankbook.php:285
+#: Y:\linet1.3/bankbook.php:281
 msgid "Import Complted!"
 msgstr "ייבוא הושלם"
 
-#: Y:\linet1.3/bankbook.php:294
+#: Y:\linet1.3/bankbook.php:289
 msgid "Bank papers input"
 msgstr "הזנת דפי בנק"
 
-#: Y:\linet1.3/bankbook.php:304
+#: Y:\linet1.3/bankbook.php:299
 msgid "Choose bank account"
 msgstr "בחירת חשבון בנק"
 
-#: Y:\linet1.3/bankbook.php:336
+#: Y:\linet1.3/bankbook.php:331
 msgid "Import bank book from Hashvsvet file(tnout.dat):"
 msgstr "יבא תנועת חשבון בנק מקובץ חשבשבת(tnout.dat)"
 
-#: Y:\linet1.3/bankbook.php:429
+#: Y:\linet1.3/bankbook.php:424
 msgid "Prev. page"
 msgstr "דף קודם"
 
-#: Y:\linet1.3/bankbook.php:436
+#: Y:\linet1.3/bankbook.php:431
 msgid "Next page"
 msgstr "דף הבא"
 
@@ -1157,8 +1163,8 @@ msgstr "תאריך סיום"
 
 #: Y:\linet1.3/openfrmtimport.php:47
 #: Y:\linet1.3/openfrmtimport.php:386
-#: Y:\linet1.3/docsadmin.php:938
-#: Y:\linet1.3/docsadmin.php:1219
+#: Y:\linet1.3/docsadmin.php:839
+#: Y:\linet1.3/docsadmin.php:1132
 msgid "Next"
 msgstr "הבא"
 
@@ -1167,8 +1173,8 @@ msgid "Data Import Complted Sucsesfuly"
 msgstr "הנתונים יובאו בהצלחה"
 
 #: Y:\linet1.3/openfrmtimport.php:407
-msgid "Finsh"
-msgstr ""
+msgid "Finish"
+msgstr "סיום"
 
 #: Y:\linet1.3/openfrmtimport.php:415
 msgid "Select type"
@@ -1184,8 +1190,8 @@ msgstr "קבלה מספר"
 
 #: Y:\linet1.3/receipt.php:361
 #: Y:\linet1.3/receipt.php:474
-#: Y:\linet1.3/docsadmin.php:927
-#: Y:\linet1.3/docsadmin.php:1197
+#: Y:\linet1.3/docsadmin.php:828
+#: Y:\linet1.3/docsadmin.php:1098
 msgid "Source tax"
 msgstr "ניכוי במקור"
 
@@ -1194,32 +1200,32 @@ msgid "Receipts"
 msgstr "הפקת קבלות"
 
 #: Y:\linet1.3/receipt.php:442
-#: Y:\linet1.3/docsadmin.php:892
+#: Y:\linet1.3/docsadmin.php:791
 msgid "Payment method"
 msgstr "אמצאי תשלום"
 
 #: Y:\linet1.3/receipt.php:444
-#: Y:\linet1.3/docsadmin.php:894
+#: Y:\linet1.3/docsadmin.php:793
 msgid "Credit company"
 msgstr "חברת אשראי"
 
 #: Y:\linet1.3/receipt.php:446
-#: Y:\linet1.3/docsadmin.php:896
+#: Y:\linet1.3/docsadmin.php:795
 msgid "Number"
 msgstr "מספר"
 
 #: Y:\linet1.3/receipt.php:448
-#: Y:\linet1.3/docsadmin.php:898
+#: Y:\linet1.3/docsadmin.php:797
 msgid "Bank"
 msgstr "בנק"
 
 #: Y:\linet1.3/receipt.php:450
-#: Y:\linet1.3/docsadmin.php:900
+#: Y:\linet1.3/docsadmin.php:799
 msgid "Branch"
 msgstr "סניף"
 
 #: Y:\linet1.3/receipt.php:452
-#: Y:\linet1.3/docsadmin.php:902
+#: Y:\linet1.3/docsadmin.php:801
 msgid "Account no."
 msgstr "מספר חשבון"
 
@@ -1231,161 +1237,164 @@ msgstr "המשך"
 msgid "Manage content pages"
 msgstr "ניהול דפי תוכן"
 
-#: Y:\linet1.3/index.php:342
+#: Y:\linet1.3/index.php:348
 msgid "No identifying name specidied"
 msgstr "לא נבחר שם מזהה"
 
-#: Y:\linet1.3/index.php:350
+#: Y:\linet1.3/index.php:356
 msgid "Invalid identifying name"
 msgstr "שם מזהה לא תקין"
 
-#: Y:\linet1.3/index.php:437
+#: Y:\linet1.3/index.php:443
 msgid "This module can not be used without logging in"
 msgstr "לא ניתן להפעיל מודול זה ללא התחברות לתוכנה"
 
-#: Y:\linet1.3/index.php:439
+#: Y:\linet1.3/index.php:445
 msgid "Login to Linet"
 msgstr "חיבור למערכת"
 
-#: Y:\linet1.3/index.php:450
+#: Y:\linet1.3/index.php:456
 msgid "Module not implemented yet"
 msgstr "מודול לא קיים"
 
-#: Y:\linet1.3/index.php:483
+#: Y:\linet1.3/index.php:489
 msgid "Update Notice"
 msgstr "עדכון"
 
-#: Y:\linet1.3/index.php:484
+#: Y:\linet1.3/index.php:490
 msgid "You are working on an old Version of Linet you must update"
 msgstr "אתה עובד בגירסה ישנה של לינט שמחייבת עדכון"
 
-#: Y:\linet1.3/index.php:492
+#: Y:\linet1.3/index.php:498
 msgid "Update Now"
 msgstr "עדכן עכשיו"
 
-#: Y:\linet1.3/index.php:496
+#: Y:\linet1.3/index.php:502
 msgid "no thanks"
 msgstr "לא תודה"
 
-#: Y:\linet1.3/index.php:506
+#: Y:\linet1.3/index.php:512
 msgid "Working in a "
 msgstr "עבודה ב"
 
-#: Y:\linet1.3/index.php:507
+#: Y:\linet1.3/index.php:513
 msgid "OLD Version"
 msgstr "גרסה ישנה"
 
-#: Y:\linet1.3/index.php:529
+#: Y:\linet1.3/index.php:535
 msgid "Log in to system"
 msgstr "התחבר למערכת"
 
-#: Y:\linet1.3/index.php:533
+#: Y:\linet1.3/index.php:539
 msgid "Logout"
 msgstr "יציאה"
 
-#: Y:\linet1.3/index.php:540
-msgid "This software is supported by ISOC"
-msgstr "תוכנה זו נתמכת על ידי ארגון האינטרנט הישראלי"
-
-#: Y:\linet1.3/index.php:550
+#: Y:\linet1.3/index.php:558
 msgid "Select company"
 msgstr "בחר חברה"
 
-#: Y:\linet1.3/index.php:555
+#: Y:\linet1.3/index.php:563
 msgid "Content management"
 msgstr "ניהול תוכן"
 
-#: Y:\linet1.3/docsadmin.php:550
-#: Y:\linet1.3/docsadmin.php:674
+#: Y:\linet1.3/docsadmin.php:468
+#: Y:\linet1.3/docsadmin.php:577
 msgid "Income account not defined"
 msgstr "חשבון הכנסות לא הוגדר"
 
-#: Y:\linet1.3/docsadmin.php:756
+#: Y:\linet1.3/docsadmin.php:655
 msgid "Document type not defined"
 msgstr "לא נבחר סוג מסמך"
 
-#: Y:\linet1.3/docsadmin.php:771
+#: Y:\linet1.3/docsadmin.php:670
 msgid "Copy proforma"
 msgstr "העתק חשבונית עסקה"
 
-#: Y:\linet1.3/docsadmin.php:778
+#: Y:\linet1.3/docsadmin.php:677
 msgid "Copy delivery doc."
 msgstr "העתק ת. משלוח"
 
-#: Y:\linet1.3/docsadmin.php:792
+#: Y:\linet1.3/docsadmin.php:691
 msgid "Copy invoice"
 msgstr "העתק חשבונית"
 
-#: Y:\linet1.3/docsadmin.php:807
+#: Y:\linet1.3/docsadmin.php:706
 msgid "New customer"
 msgstr "לקוח חדש"
 
-#: Y:\linet1.3/docsadmin.php:830
-#: Y:\linet1.3/docsadmin.php:1104
+#: Y:\linet1.3/docsadmin.php:729
+#: Y:\linet1.3/docsadmin.php:1005
 msgid "To be paid until"
 msgstr "לתשלום עד"
 
-#: Y:\linet1.3/docsadmin.php:844
-#: Y:\linet1.3/docsadmin.php:1006
+#: Y:\linet1.3/docsadmin.php:743
+#: Y:\linet1.3/docsadmin.php:907
 msgid "Order number"
 msgstr "מספר הזמנה"
 
-#: Y:\linet1.3/docsadmin.php:864
+#: Y:\linet1.3/docsadmin.php:763
 msgid "New Item"
 msgstr "פריט חדש"
 
-#: Y:\linet1.3/docsadmin.php:869
+#: Y:\linet1.3/docsadmin.php:768
 msgid "Item"
 msgstr "פריט"
 
-#: Y:\linet1.3/docsadmin.php:873
-#: Y:\linet1.3/docsadmin.php:1034
+#: Y:\linet1.3/docsadmin.php:772
+#: Y:\linet1.3/docsadmin.php:935
 msgid "Qty."
 msgstr "כמות"
 
-#: Y:\linet1.3/docsadmin.php:875
-#: Y:\linet1.3/docsadmin.php:1036
+#: Y:\linet1.3/docsadmin.php:774
+#: Y:\linet1.3/docsadmin.php:937
 msgid "Price"
 msgstr "מחיר"
 
-#: Y:\linet1.3/docsadmin.php:935
-#: Y:\linet1.3/func.inc.php:367
+#: Y:\linet1.3/docsadmin.php:836
 msgid "Comments"
 msgstr "הערות"
 
-#: Y:\linet1.3/docsadmin.php:953
+#: Y:\linet1.3/docsadmin.php:854
 msgid "No document type chosen"
 msgstr "לא נבחר סוג מסמך"
 
-#: Y:\linet1.3/docsadmin.php:961
+#: Y:\linet1.3/docsadmin.php:862
 msgid "No customer was chosen"
 msgstr "לא נבחר לקוח"
 
-#: Y:\linet1.3/docsadmin.php:1023
+#: Y:\linet1.3/docsadmin.php:924
 msgid "Source"
 msgstr "מקור"
 
-#: Y:\linet1.3/docsadmin.php:1042
+#: Y:\linet1.3/docsadmin.php:943
 msgid "Total NIS"
 msgstr "סה\"כ ש\"ח"
 
-#: Y:\linet1.3/docsadmin.php:1055
+#: Y:\linet1.3/docsadmin.php:956
 msgid "No item was chosen on line: "
 msgstr "לא נבחר פריט בשורה:"
 
-#: Y:\linet1.3/docsadmin.php:1079
+#: Y:\linet1.3/docsadmin.php:980
 msgid "Set rate"
 msgstr "קבע שער עדכני"
 
-#: Y:\linet1.3/docsadmin.php:1098
+#: Y:\linet1.3/docsadmin.php:999
 msgid "Total for VAT"
 msgstr "סה\"כ חייב מע\"מ"
 
-#: Y:\linet1.3/docsadmin.php:1110
+#: Y:\linet1.3/docsadmin.php:1011
 msgid "No vat total"
 msgstr "סה\"כ פטור ממע\"מ"
 
-#: Y:\linet1.3/docsadmin.php:1215
+#: Y:\linet1.3/docsadmin.php:1120
+msgid "Back"
+msgstr "חזור"
+
+#: Y:\linet1.3/docsadmin.php:1121
+msgid "The sum of the invoice and the recipet is not the same"
+msgstr ""
+
+#: Y:\linet1.3/docsadmin.php:1127
 msgid "Create & print"
 msgstr "רשום והדפס"
 
@@ -1394,18 +1403,23 @@ msgid "Display bank reconciliations"
 msgstr "הצגת התאמות בנק"
 
 #: Y:\linet1.3/dispmatch.php:104
+#: Y:\linet1.3/extmatch.php:402
 msgid "External page transactions"
 msgstr "תנועות בדף חיצוני"
 
 #: Y:\linet1.3/dispmatch.php:107
+#: Y:\linet1.3/extmatch.php:405
 msgid "Internal bank account transactions"
 msgstr "תנועות בכרטיס בנק"
 
 #: Y:\linet1.3/dispmatch.php:134
+#: Y:\linet1.3/extmatch.php:419
+#: Y:\linet1.3/extmatch.php:465
 msgid "Ref. num."
 msgstr "אסמכתא"
 
 #: Y:\linet1.3/dispmatch.php:138
+#: Y:\linet1.3/extmatch.php:461
 msgid "Tran. type"
 msgstr "סוג תנועה"
 
@@ -1483,63 +1497,6 @@ msgstr "דצמבר"
 #: Y:\linet1.3/calendar.php:529
 msgid "Events for date"
 msgstr "אירועים לתארך"
-
-#: Y:\linet1.3/func.inc.php:238
-msgid "Edit account details"
-msgstr "עריכת פרטי חשבון"
-
-#: Y:\linet1.3/func.inc.php:244
-msgid "New account"
-msgstr "חשבון חדש"
-
-#: Y:\linet1.3/func.inc.php:258
-msgid "Account type"
-msgstr "סוג חשבון"
-
-#: Y:\linet1.3/func.inc.php:265
-msgid "Account name"
-msgstr "שם חשבון"
-
-#: Y:\linet1.3/func.inc.php:270
-msgid "Payment terms"
-msgstr "תנאי תשלום"
-
-#: Y:\linet1.3/func.inc.php:272
-msgid "Add + for current +"
-msgstr "הוסף + לתנאי תשלום שוטף +"
-
-#: Y:\linet1.3/func.inc.php:290
-#: Y:\linet1.3/func.inc.php:298
-msgid "Recocnized VAT"
-msgstr "מע\"מ מוכר"
-
-#: Y:\linet1.3/func.inc.php:306
-msgid "Source clearing"
-msgstr "ניכוי במקור"
-
-#: Y:\linet1.3/func.inc.php:310
-msgid "Valid date"
-msgstr "תוקף אישור"
-
-#: Y:\linet1.3/func.inc.php:320
-msgid "Department"
-msgstr "מחלקה"
-
-#: Y:\linet1.3/func.inc.php:325
-msgid "Account number"
-msgstr "מספר חשבון"
-
-#: Y:\linet1.3/func.inc.php:342
-msgid "Direct phone"
-msgstr "טלפון ישיר"
-
-#: Y:\linet1.3/func.inc.php:346
-msgid "Fax"
-msgstr "פקס"
-
-#: Y:\linet1.3/func.inc.php:350
-msgid "Web site"
-msgstr "אתר אינטרנט"
 
 #: Y:\linet1.3/backup.php:46
 msgid "Data backup"
@@ -1783,7 +1740,7 @@ msgid "Refnum"
 msgstr "אסמכתא"
 
 #: Y:\linet1.3/deposit.php:226
-#: Y:\linet1.3/main.php:271
+#: Y:\linet1.3/main.php:157
 msgid "Deposit"
 msgstr "הפקדות"
 
@@ -1869,39 +1826,43 @@ msgstr "בחר חברה לעבודה"
 msgid "Add new business"
 msgstr "הוסף חברה חדשה"
 
-#: Y:\linet1.3/main.php:206
-msgid "Business details (NIS)"
-msgstr "נתונים עסקיים"
-
-#: Y:\linet1.3/main.php:229
-msgid "Total profit"
-msgstr "סה\"כ רווח"
-
-#: Y:\linet1.3/main.php:233
-msgid "Total loss"
-msgstr "סה\"כ הפסד"
-
-#: Y:\linet1.3/main.php:245
-msgid "Total customers"
-msgstr "סה\"כ לקוחות"
-
-#: Y:\linet1.3/main.php:253
-msgid "Total suppliers"
-msgstr "סה\"כ ספקים"
-
-#: Y:\linet1.3/main.php:264
+#: Y:\linet1.3/main.php:151
 msgid "Short cuts"
 msgstr "קיצורי דרך"
 
-#: Y:\linet1.3/main.php:275
+#: Y:\linet1.3/main.php:161
 msgid "Payment"
 msgstr "תשלומים"
 
-#: Y:\linet1.3/main.php:278
+#: Y:\linet1.3/main.php:164
 msgid "Contacts"
 msgstr "אנשי קשר"
 
-#: Y:\linet1.3/main.php:283
+#: Y:\linet1.3/main.php:169
+msgid "Business details (NIS)"
+msgstr "נתונים עסקיים"
+
+#: Y:\linet1.3/main.php:194
+msgid "Go"
+msgstr ""
+
+#: Y:\linet1.3/main.php:217
+msgid "Total profit"
+msgstr "סה\"כ רווח"
+
+#: Y:\linet1.3/main.php:221
+msgid "Total loss"
+msgstr "סה\"כ הפסד"
+
+#: Y:\linet1.3/main.php:233
+msgid "Total customers"
+msgstr "סה\"כ לקוחות"
+
+#: Y:\linet1.3/main.php:241
+msgid "Total suppliers"
+msgstr "סה\"כ ספקים"
+
+#: Y:\linet1.3/main.php:250
 msgid "Events according to date"
 msgstr "אירועים לפי תאריך"
 
@@ -1944,7 +1905,6 @@ msgstr "לשנת"
 
 #: Y:\linet1.3/mprofloss.php:528
 #: Y:\linet1.3/mprofloss.php:541
-#: Y:\linet1.3/include/menu.inc.php:69
 msgid "Profit & loss"
 msgstr "רווח והפסד"
 
@@ -1992,11 +1952,6 @@ msgstr "הזמנת מכירות"
 msgid "Invoice receipt"
 msgstr "חשבונית מס קבלה"
 
-#: Y:\linet1.3/include/menu.inc.php:40
-#: Y:\linet1.3/include/menu.inc.php:46
-msgid "Parchace Order"
-msgstr "הזמנת רכש"
-
 #: Y:\linet1.3/include/menu.inc.php:41
 msgid "Print docs."
 msgstr "הדפסת מסמכים עסקיים"
@@ -2004,6 +1959,10 @@ msgstr "הדפסת מסמכים עסקיים"
 #: Y:\linet1.3/include/menu.inc.php:45
 msgid "Manage Suppliers"
 msgstr "ניהול ספקים"
+
+#: Y:\linet1.3/include/menu.inc.php:46
+msgid "Parchace Order"
+msgstr "הזמנת רכש"
 
 #: Y:\linet1.3/include/menu.inc.php:47
 msgid "inseret Buisness outcome"
@@ -2104,6 +2063,67 @@ msgstr "אודות"
 #: Y:\linet1.3/include/menu.inc.php:86
 msgid "Bag Report"
 msgstr "דווח על באג"
+
+#: Y:\linet1.3/include/func.inc.php:226
+msgid "Linet accounting Project is<br /> suported by the ISOC-IL"
+msgstr ""
+
+#: Y:\linet1.3/include/func.inc.php:307
+msgid "Edit account details"
+msgstr "עריכת פרטי חשבון"
+
+#: Y:\linet1.3/include/func.inc.php:313
+msgid "New account"
+msgstr "חשבון חדש"
+
+#: Y:\linet1.3/include/func.inc.php:330
+msgid "Account type"
+msgstr "סוג חשבון"
+
+#: Y:\linet1.3/include/func.inc.php:337
+msgid "Account name"
+msgstr "שם חשבון"
+
+#: Y:\linet1.3/include/func.inc.php:342
+msgid "Payment terms"
+msgstr "תנאי תשלום"
+
+#: Y:\linet1.3/include/func.inc.php:344
+msgid "Add + for current +"
+msgstr "הוסף + לתנאי תשלום שוטף +"
+
+#: Y:\linet1.3/include/func.inc.php:362
+#: Y:\linet1.3/include/func.inc.php:370
+msgid "Recocnized VAT"
+msgstr "מע\"מ מוכר"
+
+#: Y:\linet1.3/include/func.inc.php:378
+msgid "Source clearing"
+msgstr "ניכוי במקור"
+
+#: Y:\linet1.3/include/func.inc.php:382
+msgid "Valid date"
+msgstr "תוקף אישור"
+
+#: Y:\linet1.3/include/func.inc.php:392
+msgid "Department"
+msgstr "מחלקה"
+
+#: Y:\linet1.3/include/func.inc.php:397
+msgid "Account number"
+msgstr "מספר חשבון"
+
+#: Y:\linet1.3/include/func.inc.php:414
+msgid "Direct phone"
+msgstr "טלפון ישיר"
+
+#: Y:\linet1.3/include/func.inc.php:418
+msgid "Fax"
+msgstr "פקס"
+
+#: Y:\linet1.3/include/func.inc.php:422
+msgid "Web site"
+msgstr "אתר אינטרנט"
 
 #: Y:\linet1.3/include/core.inc.php:63
 msgid "Customers"
@@ -2249,22 +2269,16 @@ msgid "Version Verify"
 msgstr ""
 
 #: Y:\linet1.3/module/update/index.php:8
-#, fuzzy
 msgid "Backup"
-msgstr "גיבויים"
-
-#: Y:\linet1.3/module/update/index.php:10
-msgid "Finish"
-msgstr ""
+msgstr "גיבוי"
 
 #: Y:\linet1.3/module/update/index.php:48
 msgid "You Must login to Update the system"
 msgstr ""
 
 #: Y:\linet1.3/module/update/index.php:56
-#, fuzzy
 msgid "Linet Update: "
-msgstr "עדכן"
+msgstr "עידכון לינט:"
 
 #: Y:\linet1.3/module/update/index.php:60
 msgid "Welcome To Linet update wizard your system version is: "
@@ -2287,9 +2301,8 @@ msgid "Backup system and database, it is heighly advised to save a local copy of
 msgstr ""
 
 #: Y:\linet1.3/module/update/index.php:71
-#, fuzzy
 msgid "Backuping system files"
-msgstr "מגבה טבלה"
+msgstr "מגבה מערכת קבצים"
 
 #: Y:\linet1.3/module/update/index.php:82
 msgid "Finished"
@@ -2307,6 +2320,12 @@ msgstr ""
 #: Y:\linet1.3/module/update/look.php:47
 msgid "ביטול עדכון"
 msgstr ""
+
+#~ msgid "Registered users login"
+#~ msgstr "כניסה למשתמשים רשומים"
+
+#~ msgid "This software is supported by ISOC"
+#~ msgstr "תוכנה זו נתמכת על ידי ארגון האינטרנט הישראלי"
 
 #~ msgid "Asstes"
 #~ msgstr "נכסים"

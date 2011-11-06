@@ -141,7 +141,7 @@ a.Surtcut:hover{
 
 #logo {
 	float: left;
-    left: 40%;
+    left: 45%;
     position: relative;
     top: 40%;
 }
@@ -482,11 +482,19 @@ height:57px;
 	/*height: 10px;
 	 width: 300px;*/
 	}
+#login{
+	text-align: center;
+	}
+#login form table{ margin: auto;text-align:right;}
 .form{
 	text-align:right;
 	 display: inline-block;
 	padding-right: 15px;
 	padding-top: 10px;
+	}
+	.login{
+	margin-top:80px;
+	
 	}
 /*
 .up{

@@ -487,11 +487,13 @@ else {
 	
 	$text="";
 //	print "<div class=\"caption_out\"><div class=\"caption\">\n<h3>";
-	$l = _("Registered users login");
+	$l = _("Dear Custmer,");
 	$text.= "<h3>$l</h3>";
+	$l = _("Entrance is only for registerd users");
+	$text.= "$l";
 //	print "</h3></div></div>\n";
 	$text.=  "<div id=\"login\"><form action=\"index.php?action=dologin\" method=\"post\">\n";
-	$text.=  "<table border=\"0\" dir=\"$dir\" cellpadding=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"100px\"><tr>\n";
 	$l = _("Email");
 	$text.=  "<td>$l: <br />";
 	$text.=  "<input type=\"text\" name=\"name\"></td></tr>\n";
@@ -524,7 +526,7 @@ else {
 	$text.=  "</tr></table></form>\n";
 	$text.="</div>";
 	$haeder=_("Login");
-	createForm($text, $haeder, '',300,300,'img/icon_login.png');
+	createForm($text, $haeder, 'login',400,300,'img/icon_login.png');
 	/*print "<div class=\"lefthalf1\">\n";
 	ShowText('linet');
 
