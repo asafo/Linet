@@ -1,5 +1,5 @@
 <?PHP
-//M:׳¨׳�׳©׳™
+//M:׳³ֲ¨׳³ן¿½׳³ֲ©׳³ג„¢
 /*
  | Linet accounting system main page
  */
@@ -82,7 +82,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 		print "</ul>\n";
 		if($superuser) {
 			$l = _("Add new business");
-//			print "<br><br><a href=\"?module=defs\">׳”׳’׳“׳¨׳× ׳—׳‘׳¨׳” ׳—׳“׳©׳”</a><br>\n";
+//			print "<br><br><a href=\"?module=defs\">׳³ג€�׳³ג€™׳³ג€�׳³ֲ¨׳³ֳ— ׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€� ׳³ג€”׳³ג€�׳³ֲ©׳³ג€�</a><br>\n";
 			print "<br /><br /><a href=\"?module=defs\">$l</a><br />\n";
 		}
 		print "</div>\n";
@@ -164,7 +164,7 @@ $text.= "<a href=\"?module=payment\" class=\"Surtcut\">$l</a>\n<br />";
 $l = _("Contacts");
 $text.= "<a href=\"?module=contact\" class=\"Surtcut\">$l</a>\n<br />";
 $text.="<div class=\"sysmsg\">".ShowText('sysmsg',false)."</div>";
-createForm($text,$haeder,"shortsdiv",190,null,'img/logo_shurtcuts.png');
+createForm($text,$haeder,"shortsdiv",180,null,'img/icon_shurtcuts.png');
 
 $haeder = _("Business details (NIS)");
 //print "<br />$l\n";
@@ -190,7 +190,7 @@ $l = _("End date");
 $text.= "$l: \n";
 $text.= "<input type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\" />\n";
 $text.='<script type="text/javascript">	addDatePicker("#begin","'.$begindmy.'");addDatePicker("#end","'.$enddmy.'");</script>';
-//print "&nbsp;&nbsp;<input type=\"submit\" value=\"׳‘׳¦׳¢\" />\n";
+//print "&nbsp;&nbsp;<input type=\"submit\" value=\"׳³ג€˜׳³ֲ¦׳³ֲ¢\" />\n";
 $l=_('Go');
 $text.= "</td></tr></table><a href='javascript:document.main.submit();' class='btn'>$l</a>";
 //print "</tr></table>\n";
@@ -245,11 +245,11 @@ $text.= "</tr></table>\n";
 CreateProfitGraph($income, $outcome, $profit);
 //$text.= "<br />\n";
 $text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px; float:left;\" />\n";
-createForm($text,$haeder,"maindiv",460,null,'img/logo_detiales.png');
+createForm($text,$haeder,"maindiv",460,null,'img/icon_detiales.png');
 
 $haeder = _("Events according to date");
 
 require('calendar.php');
-createForm($text,$haeder,"caldiv",280,null,'img/logo_cel.png');
+createForm($text,$haeder,"caldiv",280,null,'img/icon_cel.png');
 ?>
 

@@ -493,13 +493,13 @@ else {
 	$text.= "$l";
 //	print "</h3></div></div>\n";
 	$text.=  "<div id=\"login\"><form action=\"index.php?action=dologin\" method=\"post\">\n";
-	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"100px\"><tr>\n";
+	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"200px\"><tr>\n";
 	$l = _("Email");
 	$text.=  "<td>$l: <br />";
-	$text.=  "<input type=\"text\" name=\"name\"></td></tr>\n";
+	$text.=  "<input type=\"text\" name=\"name\" size=\"30\" /></td></tr>\n";
 	$l = _("Password");
 	$text.=  "<tr><td>$l: <br />";
-	$text.=  "<input type=\"password\" name=\"password\"></td>\n";
+	$text.=  "<input type=\"password\" name=\"password\" size=\"30\" /></td>\n";
 	$l = _("Login");
 	$text.=  "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
 	$text.=  "</table>\n";
@@ -510,20 +510,20 @@ else {
 
 	
 	$text.="<div id=\"forgat\">";
-	$l = _("Cancel");
-	$text.='<a href="#" id="btncancel">'.$l.'</a>';
-	$text.=  "<form action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
+		$text.=  "<form action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
 		$text.=  "<table dir=\"$dir\" class=\"formtbl\" width=\"100%\">\n";
 	//$text.=  "<td colspan=\"2\">";
 	
 	//$text.=  "<h2>$l</h2></td></tr>\n";
 	$l = _("Email");
 	$text.=  "<tr><td>$l: </td>\n";
-	$text.=  "<td><input type=\"text\" name=\"email\"></td>\n";
+	$text.=  "<td><input type=\"text\" name=\"email\" size=\"30\" /></td>\n";
 	$text.=  "</tr><tr>\n";
 	$l = _("Submit");
 	$text.=  "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
 	$text.=  "</tr></table></form>\n";
+	$l = _("Cancel");
+	$text.='<a href="#" id="btncancel">'.$l.'</a>';
 	$text.="</div>";
 	$haeder=_("Login");
 	createForm($text, $haeder, 'login',400,300,'img/icon_login.png');

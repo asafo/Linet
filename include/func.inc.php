@@ -19,8 +19,10 @@ function PrintSelect($defaccount,$type){
 }
 function ErrorReport($str) {
 	print "<H1>$str</H1>\n";
-	print "<H2>׳�׳—׳¥ ׳¢׳� ׳—׳–׳•׳¨ ׳•׳×׳§׳� ׳�׳× ׳”׳©׳’׳™׳�׳”</H2>\n";
-	print "<form><input type=\"button\" value=\"׳—׳–׳•׳¨\" onclick=\"history.back()\"></form>\n";
+	$l=_("To correct the mistake hit back");
+	print "<H2>$l</H2>\n";
+	$l=_("Back");
+	print "<form><input type=\"button\" value=\"$l\" onclick=\"history.back()\"></form>\n";
 }
 function newWindow($text,$href,$width,$height){
 	$text= "<a href=\"$href\" onClick=\"window.open('$href','newAccount','width=$width,height=$height,menubar=no,status=no,directories=no,toolbar=no,location=no,resizable=no'); return false;\" target=\"_blank\"\">$text</a>\n";
@@ -203,7 +205,7 @@ function RecomendFirefox() {
 	$str = '<div class="firefox">';
 	/* firefox affiliate code */
 	$str .= "<table border=\"0\" dir=\"$dir\"><tr><td>\n";
-	$str .= "<a href='http://www.mozilla.org/firefox?WT.mc_id=aff_en02&amp;WT.mc_ev=click'><img src='img/firefox.png' alt='Firefox Download Button' border='0' /></a>\n";
+	$str .= "<a href='http://www.mozilla.org/firefox?WT.mc_id=aff_en02&amp;WT.mc_ev=click'><img src='img/logo_firefox.png' alt='Firefox Download Button' border='0' /></a>\n";
 	$str .= "</td><td valign=\"top\">\n";
 	$l = _("We advise to use this software with Firefox browser");
 	$str .= "$l<br />\n";
@@ -226,7 +228,7 @@ function isocDiv(){
 					'._('Linet accounting Project is<br /> suported by the ISOC-IL').'
 				</td>
 				<td>
-					<a href="http://www.isoc.org.il"><img src="img/isoc_logo.png" alt="isoc logo" /></a>
+					<a href="http://www.isoc.org.il"><img src="img/logo_isoc.png" alt="isoc logo" /></a>
 				</td>
 			</tr>
 		</table>
@@ -236,14 +238,14 @@ function isocDiv(){
 function osiDiv(){
 	
 	$text='<div class="osi">
-					<img src="img/osi_logo2.png" alt="osi logo2" /><img src="img/osi_logo.png" alt="osi logo" />
+					<img src="img/logo_osi2.png" alt="logo osi2" /><img src="img/logo_osi.png" alt="osi logo" />
 		</div>';
 	return $text;
 }
 function createForm($text,$haeder,$sClass,$width=200,$height=480,$logo=null){
-	if(isset($logo))$haeder="<img src=\"$logo\" alt=\"$logo\" />".$haeder;
-	if(!isset($height))$height=480;
-	$newform='
+	if(isset($logo))$logo="<img src=\"$logo\" alt=\"$logo\" />";else $logo='';
+	if(!isset($height))$height=500;
+	/*$newform='
 	<div class="form '.$sClass.'" style="width:'.$width.'px;">
 		<div class="ftr"><img src="img/ftr.png" alt="formright"  /></div>
 		<div class="ftc" style="width:'.($width-30).'px;">'.$haeder.'</div>
@@ -258,7 +260,33 @@ function createForm($text,$haeder,$sClass,$width=200,$height=480,$logo=null){
 		<div class="fbr"><img src="img/fbr.png" alt="formright" /></div>
 		<div class="fbc" style="width:'.($width-30).'px;"></div>
 		<div class="fbl"><img src="img/fbl.png" alt="formleft" /></div>
-	</div>';
+	</div>';//*/
+	
+	
+	
+	$newform='
+	<table class="form '.$sClass.'" style="width:'.$width.'px;">
+		<tr>
+			<td class="ftr"><img src="img/ftr.png" alt="formright"  /></td>
+			<td class="ftc" style="width:'.($width-30).'px;">'.$logo.'<p>'.$haeder.'</p></td>
+			<td class="ftl"><img src="img/ftl.png" alt="formleft" /></td>
+		</tr>
+		<tr>
+			<td class="fcr"></td>
+			<td class="fcc" style="width:'.($width-40).'px;height:'.($height-140).'px;">
+				'.$text.'
+			</td>
+			<td class="fcl"></td>
+		</tr>
+		<tr>
+		<td class="fbr"><img src="img/fbr.png" alt="formright" /></td>
+		<td class="fbc" style="width:'.($width-30).'px;"></td>
+		<td class="fbl"><img src="img/fbl.png" alt="formleft" /></td>
+		</tr>
+	</table>
+	
+	
+	';
 
 	print $newform;
 }

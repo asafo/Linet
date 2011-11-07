@@ -20,32 +20,32 @@ if($action == 'defsubmit') {
 		//ErrorReport(_("Prefix must be english only with no spaces"));
 		$prefix=sha1(rand());
 		
-//		ErrorReport("יש להכניס קידומת חברה באנגלית ללא רווחים");
+//		ErrorReport("׳™׳© ׳�׳”׳›׳ ׳™׳¡ ׳§׳™׳“׳•׳�׳× ׳—׳‘׳¨׳” ׳‘׳�׳ ׳’׳�׳™׳× ׳�׳�׳� ׳¨׳•׳•׳—׳™׳�");
 		//return;
 	}
 	if($companyname == '') {
 		ErrorReport(_("Business name not specified"));
-//		ErrorReport("לא צוין שם עסק");
+//		ErrorReport("׳�׳� ׳¦׳•׳™׳� ׳©׳� ׳¢׳¡׳§");
 		return;
 	}
 	if($fullname == '') {
 		ErrorReport(_("Full name not specified"));
-//		ErrorReport("לא צוין שם מלא");
+//		ErrorReport("׳�׳� ׳¦׳•׳™׳� ׳©׳� ׳�׳�׳�");
 		return;
 	}
 	if($email == '') {
 		ErrorReport(_("No email entered"));
-//		ErrorReport("לא הוכנס דואר אלקטרוני");
+//		ErrorReport("׳�׳� ׳”׳•׳›׳ ׳¡ ׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™");
 		return;
 	}
 	if($passwd == '') {
 		ErrorReport(_("No password entered"));
-//		ErrorReport("לא הוכנסה סיסמה");
+//		ErrorReport("׳�׳� ׳”׳•׳›׳ ׳¡׳” ׳¡׳™׳¡׳�׳”");
 		return;
 	}	
 	if($passwd != $verpasswd) {
 		ErrorReport(_("Passwords are not equal"));
-//		ErrorReport("ססמאות אינן זהות");
+//		ErrorReport("׳¡׳¡׳�׳�׳•׳× ׳�׳™׳ ׳� ׳–׳”׳•׳×");
 		return;
 	}
 
@@ -66,7 +66,7 @@ if($action == 'defsubmit') {
 	//	if(!$resend)
 		$l = _("New user created succesfully");
 		print "<h2>$l</h2>\n";
-			print "<h2>המשתמש החדש נוצר בהצלחה.</h2>\n";
+			print "<h2>׳”׳�׳©׳×׳�׳© ׳”׳—׳“׳© ׳ ׳•׳¦׳¨ ׳‘׳”׳¦׳�׳—׳”.</h2>\n";
 	}
 	else {
 		$line = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -78,7 +78,7 @@ if($action == 'defsubmit') {
 			print "<h2>";
 			$l = _("User password updated");
 			print "$l";
-//			print "ססמת משתמש עודכנה";
+//			print "׳¡׳¡׳�׳× ׳�׳©׳×׳�׳© ׳¢׳•׳“׳›׳ ׳”";
 			print "</h2>\n";
 		}
 	}
@@ -102,7 +102,7 @@ if($action == 'defsubmit') {
 	DoQuery($query, "defs.php");
 	$l = _("Business added succesfully");
 	print "<h2>$l</h2>\n";
-//	print "<h2>החברה נוספה בהצלחה</h2>\n";
+//	print "<h2>׳”׳—׳‘׳¨׳” ׳ ׳•׳¡׳₪׳” ׳‘׳”׳¦׳�׳—׳”</h2>\n";
 	return;	
 }
 if($action == 'register') {
@@ -112,7 +112,7 @@ if($action == 'register') {
 	if(mysql_num_rows($result) == 0) {
 		_("Error registering to system");
 		print "<h1>$l</h1>\n";
-//		print "<h1>תקלה בהרשמה למערכת</h1>\n";
+//		print "<h1>׳×׳§׳�׳” ׳‘׳”׳¨׳©׳�׳” ׳�׳�׳¢׳¨׳›׳×</h1>\n";
 		return;
 	}
 	$line = mysql_fetch_array($result, MYSQL_NUM);
@@ -121,20 +121,20 @@ if($action == 'register') {
 	DoQuery($query, "defs.php");
 	$l = _("Hello");
 	print "<h1>$l $fullname</h1>\n";
-//	print "<h1>שלום $fullname</h1>\n";
+//	print "<h1>׳©׳�׳•׳� $fullname</h1>\n";
 	$l = _("Your registration to drorit is completed");
 	print "<h1>$l</h1>\n";
-//	print "<h1>הרשמתך למערכת דרורית הושלמה</h1>\n";
+//	print "<h1>׳”׳¨׳©׳�׳×׳� ׳�׳�׳¢׳¨׳›׳× ׳“׳¨׳•׳¨׳™׳× ׳”׳•׳©׳�׳�׳”</h1>\n";
 	$l1 = _("Click");
 	$l2 = _("here to connect");
 	print "<h2>$l1 <a href=\"?action=login\">$l</a></h2>\n";
-;;	print "<h2>לחצ\\י <a href=\"?action=login\">כאן להתחברות</a></h2>\n";
+;;	print "<h2>׳�׳—׳¦\\׳™ <a href=\"?action=login\">׳›׳�׳� ׳�׳”׳×׳—׳‘׳¨׳•׳×</a></h2>\n";
 	return;
 }
 if($action == 'defupdate') {
 //	print_r($_POST);
 	if($name == 'demo') {
-		print "<h1>משתמש דוגמה אינו רשאי לעדכן נתונים</h1>\n";
+		print "<h1>׳�׳©׳×׳�׳© ׳“׳•׳’׳�׳” ׳�׳™׳ ׳• ׳¨׳©׳�׳™ ׳�׳¢׳“׳›׳� ׳ ׳×׳•׳ ׳™׳�</h1>\n";
 		return;
 	}
 	$companyname = htmlspecialchars($_POST['companyname'], ENT_QUOTES);
@@ -184,7 +184,7 @@ if($action == 'defupdate') {
 	$result = DoQuery($query, "defs.php");
 	$l = _("Details succesfully updated");
 	print "<h1>$l</h1>\n";
-//	print "<h1>הנתונים עודכנו בהצלחה</h1>\n";
+//	print "<h1>׳”׳ ׳×׳•׳ ׳™׳� ׳¢׳•׳“׳›׳ ׳• ׳‘׳”׳¦׳�׳—׳”</h1>\n";
 }
 
 $text='';
@@ -198,14 +198,14 @@ if(!$line) {
 	if(!$superuser) {
 		$l = _("Can not execute this operation without logging in to system");
 		$text.= "<br><br><h1>$l</h1>\n";
-//		print "<br><br><h1>לא ניתן לבצע פעולה זו ללא התחברות למערכת</h1>\n";
+//		print "<br><br><h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳”׳×׳—׳‘׳¨׳•׳× ׳�׳�׳¢׳¨׳›׳×</h1>\n";
 		return;
 	}
 	$text.= "<form action=\"?module=defs&amp;action=defsubmit\" method=\"post\" enctype=\"multipart/form-data\">\n";
 //	print "<div class=\"caption_out\"><div class=\"caption\">";
 	$haeder = _("Entering new business");
 	//print "<h3>$l</h3>\n<br>\n";
-//	print "<h3>הגדרת חברה חדשה</h3>\n<br>\n";
+//	print "<h3>׳”׳’׳“׳¨׳× ׳—׳‘׳¨׳” ׳—׳“׳©׳”</h3>\n<br>\n";
 }
 else {
 	$text.= "<form action=\"?module=defs&amp;action=defupdate\" method=\"post\" enctype=\"multipart/form-data\">\n";
@@ -241,27 +241,27 @@ if(!$editdata) {
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr><td>\n";
 	$l = _("Email");
 	$text.= "$l: </td>";
-//	print "דואר אלקטרוני: </td>";
+//	print "׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™: </td>";
 	$text.= "<td><input type=\"text\" name=\"email\" value=\"\" dir=\"ltr\"></td>\n";
 	$l = _("Password");
 	$text.= "</tr><tr><td>$l: </td>\n";
-//	print "</tr><tr><td>סיסמה: </td>\n";
+//	print "</tr><tr><td>׳¡׳™׳¡׳�׳”: </td>\n";
 	$text.= "<td><input type=\"password\" name=\"passwd\" value=\"\"></td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Password verify");
 	$text.= "<td>$l: </td>\n";
-//	print "<td>אימות סיסמה: </td>\n";
+//	print "<td>׳�׳™׳�׳•׳× ׳¡׳™׳¡׳�׳”: </td>\n";
 	$text.= "<td><input type=\"password\" name=\"verpasswd\" value=\"\"></td></tr>\n";
 	$text.= "<tr>\n";
 	$l = _("Full name");
 	$text.= "<td>$l: </td>\n";
-//	print "<td>שם מלא: </td>\n";
+//	print "<td>׳©׳� ׳�׳�׳�: </td>\n";
 	
 	$text.= "<td><input type=\"text\" name=\"fullname\" value=\"\"></td></tr>\n";
 	//$text.= "<tr>\n";
 	//$l = _("Prefix: ");
 	//$text.= "<td>$l: </td>\n";
-//	print "<td>קידומת חברה: </td>\n";
+//	print "<td>׳§׳™׳“׳•׳�׳× ׳—׳‘׳¨׳”: </td>\n";
 	//$text.= "<td><input type=\"text\" name=\"prefix\" value=\"\" dir=\"ltr\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "<br />\n";
@@ -273,7 +273,7 @@ if($editdata) {
 $text.= "<table dir=\"$dir\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 $l = _("General definitions");
 $text.= "<td colspan=\"2\"><b>$l: </b></td>\n";
-// print "<td colspan=\"2\"><b>הגדרות כלליות: </b></td>\n";
+// print "<td colspan=\"2\"><b>׳”׳’׳“׳¨׳•׳× ׳›׳�׳�׳™׳•׳×: </b></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Business name");
 $text.= "<td>$l: </td>\n";
@@ -292,12 +292,12 @@ $text.= "<td>$l: </td>\n";
 $text.= "<td><input type=\"text\" name=\"city\" value=\"$city\" size=\"10\">&nbsp;&nbsp;\n";
 $l = _("Zip");
 $text.= "$l: \n";
-// print "מיקוד: \n";
+// print "׳�׳™׳§׳•׳“: \n";
 $text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\"></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Phone");
 $text.= "<td>$l: </td>\n";
-// print "<td>טלפון: </td>\n";
+// print "<td>׳˜׳�׳₪׳•׳�: </td>\n";
 $text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\"></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Cellular");
@@ -311,7 +311,7 @@ $text.= "<td><input type=\"text\" name=\"cellular\" value=\"$cellular\"></td>\n"
 //if (isnull($logo)) {
 //$text.= "<input name=\"logofile\" type=\"file\" /><br />"."</td>\n";
 //}else{
-//$text.='<img src="index.php?action=lister&data=logo" alt="logo" /><a href="">שנה לוגו</a>';	
+//$text.='<img src="index.php?action=lister&data=logo" alt="logo" /><a href="">׳©׳ ׳” ׳�׳•׳’׳•</a>';	
 	
 //}
 //adam:logo
@@ -325,12 +325,12 @@ $text.= "</tr><tr>\n";
 $text.= "<td>\n";
 $l = _("Registration number");
 $text.= "$l: \n";
-// print "מספר עוסק: \n";
+// print "׳�׳¡׳₪׳¨ ׳¢׳•׳¡׳§: \n";
 $text.= "<td><input type=\"text\" name=\"regnum\" value=\"$regnum\" size=\"8\"></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Accounting Type");
 $text.= "<td>$l: </td>\n";
-// print "<td> דיווח מקדמות: </td>\n";
+// print "<td> ׳“׳™׳•׳•׳— ׳�׳§׳“׳�׳•׳×: </td>\n";
 $text.= "<td><select name=\"bidi\">\n";
 $l = _("One Sided");
 $text.= "<option value=\"1\">$l</option>\n";
@@ -340,7 +340,7 @@ $text.= "</select></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Tax rep. period");
 $text.= "<td>$l: </td>\n";
-// print "<td> דיווח מקדמות: </td>\n";
+// print "<td> ׳“׳™׳•׳•׳— ׳�׳§׳“׳�׳•׳×: </td>\n";
 $text.= "<td><select name=\"taxrep\">\n";
 $l = _("Monthly");
 $text.= "<option value=\"1\">$l</option>\n";
@@ -352,13 +352,13 @@ else
 $text.= "</select></td>\n";
 $l = _("Tax percent");
 $text.= "<td>$l: </td>\n";
-// print "<td>מקדמות מס הכנסה: </td>\n";
+// print "<td>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”: </td>\n";
 $text.= "<td><input type=\"text\" name=\"tax\" value=\"$tax\" size=\"5\"></td>\n";
 $text.= "</tr><tr>\n";
 $text.= "<td>\n";
 $l = _("VAT report");
 $text.= "$l: </td>\n";
-// print "דיווח מע\"מ: </td>\n";
+// print "׳“׳™׳•׳•׳— ׳�׳¢\"׳�: </td>\n";
 $text.= "<td><select name=\"vatrep\">\n";
 $l = _("Monthly");
 $text.= "<option value=\"1\">$l</option>\n";
@@ -373,21 +373,21 @@ $text.= "</option>\n";
 $text.= "</select></td>\n";
 $l = _("VAT percent");
 $text.= "<td>$l: </td>\n";
-// print "<td>אחוז מע\"מ: ";
+// print "<td>׳�׳—׳•׳– ׳�׳¢\"׳�: ";
 $text.= "<td><input type=\"text\" name=\"vat\" value=\"$vat\" size=\"5\"></td>\n";
 $text.= "</tr>\n";
 /*
 if(!$editdata) {
 	print "<tr><td colspan=\"4\">\n";
-	print "<input type=\"checkbox\" name=\"read\">קראתי ואני מסכים\\ה ל";
-	print "<a href=\"?id=conditions\">תנאי השימוש</a><br>\n";
+	print "<input type=\"checkbox\" name=\"read\">׳§׳¨׳�׳×׳™ ׳•׳�׳ ׳™ ׳�׳¡׳›׳™׳�\\׳” ׳�";
+	print "<a href=\"?id=conditions\">׳×׳ ׳�׳™ ׳”׳©׳™׳�׳•׳©</a><br>\n";
 	print "</td></tr>\n";
 
 } */
 $text.= "<tr><td colspan=\"4\" align=\"center\">\n";
 $l = _("Update");
 $text.= "<br><input type=\"submit\" value=\"$l\">&nbsp;&nbsp;";
-// print "<input type=\"button\" onclick=\"parent.location='index.php?module=defs'\" value=\"בטל שינויים\">\n";
+// print "<input type=\"button\" onclick=\"parent.location='index.php?module=defs'\" value=\"׳‘׳˜׳� ׳©׳™׳ ׳•׳™׳™׳�\">\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
@@ -396,9 +396,9 @@ createForm($text,$haeder,"righthalf1",410);
 
 print "<div class=\"lefthalf1\">\n";
 ShowText('defs');
-if(!$editdata) {
+/*if(!$editdata) {
 	print "<br><br><table border=\"0\" dir=\"$dir\"><tr><td>\n";
-	/* firefox affiliate code */
+	// firefox affiliate code 
 	print "<a href='http://www.mozilla.com/en-US/?from=sfx&amp;uid=96935&amp;t=438'><img src='http://sfx-images.mozilla.org/affiliates/Buttons/Firefox3.5/96x31_blue.png' alt='Spread Firefox Affiliate Button' border='0' /></a>\n";
 	print "</td><td valign=\"top\">\n";
 	$l = _("We advise to use this software with Firefox browser");
@@ -408,11 +408,11 @@ if(!$editdata) {
 	$l = _("For more information");
 	$l1 = _("Click here");
 	print "$l <a href=\"id=firefox\">$l1</a>\n";
-//	print "מומלץ להשתמש בתוכנה עם דפדפן פיירפוקס<br>\n";
-//	print "להתקנה לחץ על הלוגו, לפרטים נוספים לחץ ";
-//	print "<a href=\"?id=firefox\">כאן</a>\n";
+//	print "׳�׳•׳�׳�׳¥ ׳�׳”׳©׳×׳�׳© ׳‘׳×׳•׳›׳ ׳” ׳¢׳� ׳“׳₪׳“׳₪׳� ׳₪׳™׳™׳¨׳₪׳•׳§׳¡<br>\n";
+//	print "׳�׳”׳×׳§׳ ׳” ׳�׳—׳¥ ׳¢׳� ׳”׳�׳•׳’׳•, ׳�׳₪׳¨׳˜׳™׳� ׳ ׳•׳¡׳₪׳™׳� ׳�׳—׳¥ ";
+//	print "<a href=\"?id=firefox\">׳›׳�׳�</a>\n";
 	print "</td></tr></table>\n";
-}
+}//*/
 print "</div>\n";	/* close left half */
 print "<br>\n";
 

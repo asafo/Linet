@@ -462,7 +462,7 @@ function TemplateReplace($r) {
 	global $title, $cssfile, $small_logo;
 	global $Version, $softwarenameheb;
 	global $top, $sub;
-	global $name, $prefix, $lang;
+	global $name, $prefix, $lang,$logo;
 	global $MainMenu;
 	global $module;
 	global $stdheader, $action;
@@ -524,6 +524,8 @@ function TemplateReplace($r) {
 		return $cssfile;
 	else if($p == 'logo')
 		return $small_logo;
+	else if($p=='complogo')
+		return '<img src="img/logo/'.$logo.'" alt="Company Logo" />';
 	else if($p == 'version') {
 		return $Version;
 	}
@@ -537,7 +539,7 @@ function TemplateReplace($r) {
 		}
 		else {
 			$l = _("Logout");
-			return "<a href=\"index.php?action=disconnect\">$l</a>\n";
+			return "<a href=\"index.php?action=disconnect\"><img src=\"img/icon_logout.png\" alt=\"icon logout\" />$l</a>\n";
 		}
 	}
 	else if($p == 'recomendfirefox')
@@ -566,21 +568,9 @@ function TemplateReplace($r) {
 		}
 		return "$username\n";
 	}
-//	print "loggedin: $loggedin<br>\n";
-/*	if(!$loggedin || $simulatenolog) {	// not logged in, act as CMS
-		$query = "SELECT subject FROM $articlestbl WHERE id='$p'";
-//		print "Query: $query<BR>\n";
-		$result = DoQuery($query, "TemplateReplace");
-		$line = mysql_fetch_array($result, MYSQL_NUM);
-		$d = $line[0];
-		if($simulatenolog)
-			return "<a href=\"${base}?id=$p&amp;nonlogin=1\">$d</a>\n";
-		else
-			return "<a href=\"${base}?id=$p\">$d</a>\n";
-	}*/
+
 	else if($p=='MainMenu') {
 		include_once 'include/menu.inc.php';
-		//return print_r($MainMenu,true);
 		return $str;
 	}
 	else if($MainMenu[$p]) {
