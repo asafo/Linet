@@ -1,5 +1,5 @@
 <?PHP
-//M:׳ ׳™׳”׳•׳� ׳�׳¡׳�׳›׳™׳� ׳¢׳¡׳§׳™׳™׳�
+//M:׳³ֲ ׳³ג„¢׳³ג€�׳³ג€¢׳³ן¿½ ׳³ן¿½׳³ֲ¡׳³ן¿½׳³ג€÷׳³ג„¢׳³ן¿½ ׳³ֲ¢׳³ֲ¡׳³ֲ§׳³ג„¢׳³ג„¢׳³ן¿½
 /*
  | docsadmin
  | Business document module for Linet
@@ -87,7 +87,7 @@ function addItem(last) {
 	var cd = document.createElement('td');
 	var ce = document.createElement('td');
 	var cf = document.createElement('td');
-	
+	var cg = document.createElement('td');
 	r.setAttribute("id",trIdName);
 	
 	ca.innerHTML = "<input type=\"text\" id=\"AC"+num+"\" class=\"cat_num\" name=\"cat_num[]\" onblur=\"SetPartDetails("+num+")\" size=\"10\"/>\n";
@@ -95,14 +95,15 @@ function addItem(last) {
 	cc.innerHTML ="<input type=\"text\" id=\"QTY"+num+"\" class=\"qty\" name=\"qty[]\" size=\"4\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("QTY",num,1);
 	cd.innerHTML ="<input type=\"text\" id=\"UNT"+num+"\" class=\"unit_price\" name=\"unit_price[]\" size=\"8\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("UNT",num,10);
 	ce.innerHTML ="<select class=\"currency\" id=\"CUR"+num+"\" name=\"currency[]\"><option value=\"0\">NIS</option></select>";
-	cf.innerHTML ="<input type=\"text\" id=\"PRICE"+num+"\" class=\"price\" name=\"price[]\" size=\"8\" /><a href=\"javascript:;\" onclick=\"removeElement(\'"+trIdName+"\')\">Remove</a>";
-
+	cf.innerHTML ="<input type=\"text\" id=\"PRICE"+num+"\" class=\"price\" name=\"price[]\" size=\"8\" />";
+	cg.innerHTML="<a href=\"javascript:;\" onclick=\"removeElement(\'"+trIdName+"\')\" class=\"btnremove\"></a>";
 	r.appendChild(ca);
 	r.appendChild(cb);
 	r.appendChild(cc);
 	r.appendChild(cd);
 	r.appendChild(ce);
 	r.appendChild(cf);
+	r.appendChild(cg);
 	
 	ni.appendChild(r);
 	$( "#AC"+num ).autocomplete({source: "index.php?action=lister&data=items&jsoncallback=?"});
@@ -436,7 +437,7 @@ if($step == 3) {	/* final step, put data in tables */
 		$query = "INSERT INTO $docstbl VALUES(NULL, '$prefix', ";
 		$query .= "'$doctype', '$docnum', '$account', '$company', '$address', '$city', '$zip', '$vatnum', ";
 		$query .= "'$refnum', '$issue_date', '$due_date', ";
-		$query .= "'$sub_total', '$novat_total', '$vat', '$total', '$src_tax', '0', '0', '$comments',0,'$curuser->id')";
+		$query .= "'$sub_total', '$novat_total', '$vat', '$total', '$src_tax', '0', '0', '$comments','$curuser->id')";
 		$result = DoQuery($query, "step3");
 		$num = mysql_insert_id();
 		
@@ -555,7 +556,7 @@ if($step == 3) {	/* final step, put data in tables */
 		//print ";$doctype;";
 		if(($doctype == DOC_INVOICE) || ($doctype == DOC_CREDIT) || ($doctype== DOC_PROFORMA) || ($doctype== DOC_INVRCPT)) {
 			/* Write transactions */
-			/* Transaction 1 ׳—׳•׳‘׳× ׳”׳�׳§׳•׳— ׳‘׳¡׳›׳•׳� ׳”׳—׳©׳‘׳•׳ ׳™׳× */
+			/* Transaction 1 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ג€�׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” ׳³ג€˜׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ג€�׳³ג€”׳³ֲ©׳³ג€˜׳³ג€¢׳³ֲ ׳³ג„¢׳³ֳ— */
 			if(($doctype == DOC_INVOICE) ||($doctype==DOC_PROFORMA)||($DOC_INVRCPT))
 				$t = $total * -1.0;
 			else
@@ -563,7 +564,7 @@ if($step == 3) {	/* final step, put data in tables */
 			//adam: $issue_date = FormatDate($issue_date, "mysql", "dmy");
 			//print "tryyyy just a little bit harder";
 			$tnum = Transaction(0, $transtype, $account, $docnum, $refnum, $issue_date, "$company", $t);
-			/* Transaction 2 ׳–׳›׳•׳× ׳�׳¢"׳� ׳¢׳¡׳§׳�׳•׳× */
+			/* Transaction 2 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ן¿½׳³ֲ¢"׳³ן¿½ ׳³ֲ¢׳³ֲ¡׳³ֲ§׳³ן¿½׳³ג€¢׳³ֳ— */
 			if($doctype == DOC_CREDIT)
 				$t = $vat * -1.0;
 			else
@@ -677,87 +678,94 @@ if($step == 0) {	/* First step, select document type and customer */
 	$l = _("Copy delivery doc.");
 	$text.= "<input type=\"submit\" value=\"$l\" />\n";
 	$text.= "</form>\n";
-	$text.= "</div>\n";
+	//$text.= "</div>\n";
 	if($targetdoc == DOC_CREDIT)
 		$invisible = "";
 	else
 		$invisible = "class=\"para\"";
-	$text.= "<div id=\"tocredit\" $invisible>\n";
-	$text.= "<table border=\"0\" width=\"90%\"><tr><td width=\"10%\">\n";
-	$text.= "<form name=\"form5\" action=\"?module=showdocs&amp;step=2\" method=\"post\">\n";
+	//$text.= "<div id=\"tocredit\" $invisible>\n";
+	//$text.= "<table border=\"0\" width=\"90%\"><tr><td width=\"10%\">\n";
+	$text.= "<form name=\"form5\" action=\"?module=showdocs&amp;step=2\" method=\"post\" style=\"display:inline\">\n";
 	$text.= "<input type=\"hidden\" name=\"doctype\" value=\"3\" />\n";
 	$text.= "<input type=\"hidden\" name=\"targetdoc\" value=\"4\" />\n";
 	$text.= "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
 	$l = _("Copy invoice");
 	$text.= "<input type=\"submit\" value=\"$l\" />\n";
-	$text.= "</form>\n</td></tr></table>\n";
+	$text.= "</form>";
+	//$text.= "</form>\n</td></tr></table>\n";
 	$text.= "</div>\n";
+	
+	
+	
 	
 	/* main form */
 	$text.= "<div style=\"padding:10px;\">\n";
 	$text.= "<form name=\"form1\" action=\"?module=docsadmin&amp;step=1\" method=\"post\">\n";
 	$text.= "<input type=\"hidden\" name=\"fromnum\" value=\"$docnum\" />\n";
 	$text.= "<input type=\"hidden\" name=\"fromdoc\" value=\"$doctype\" />\n";
-	$text.= "<table border=\"0\" width=\"100%\" align=\"center\" class=\"formtbl\"><tr>\n";
-	$l = _("Customer");
-	$text.= "<td style=\"width:70%\">$l: \n";
-	$text.= PrintCustomerSelect($account);
 	$text.= "<input type=\"hidden\" name=\"type\" value=\"$targetdoc\" />\n";
+	$text.= '<input type="hidden" value="0" id="theValue" />';
+	$text.= "<table border=\"0\" width=\"100%\" align=\"center\" class=\"formtbl\"><tr>\n";
+	
+	//table doc hader
+	$text.="\t<td width=\"450px\">\n\t\t<table><tr>";
+	$l = _("Customer");
+	$text.= "<td>$l: </td><td>\n";
+	$text.= PrintCustomerSelect($account);
+	
 	$l = _("New customer");
 	//$text.= "<a href=\"?module=acctadmin&amp;type=0&amp;ret=docsadmin&amp;targetdoc=$targetdoc\">$l</a>\n";
 	$text.=newWindow($l,'?action=lister&form=account&type='.CUSTOMER,480,480);
-	$text.= "</td>\n";
-	$l = _("Date");
-	$text.= "<td>$l: \n";
+	$text.= "</td></tr>\n";
 	
+	$l = _("Company");
+	$text.= "<tr><td>$l: </td><td>\n";
+//	$company = htmlspecialchars($company);
+	$text.= "<input type=\"text\" id=\"company\" name=\"company\" size=\"20\" value=\"$company\" /></td></tr>\n";
+	$l = _("Address");
+	$text.= "<tr><td colspan=\"1\">$l: </td><td>\n";
+//	$address = htmlspecialchars($address);
+	$text.= "<input type=\"text\" id=\"address\" name=\"address\" size=\"40\" value=\"$address\" /></td></tr>\n";
+	//table doc date
+	$l = _("City");
+	$text.= "<tr><td>$l: </td><td>\n";//adam:
+//	$city = htmlspecialchars($city);
+	$text.= "<input type=\"text\" id=\"city\" name=\"city\" value=\"$city\" size=\"20\"/>&nbsp;&nbsp;\n";
+	$l = _("Zip");
+	$text.= "$l: \n";
+	$text.= "<input type=\"text\" id=\"zip\" name=\"zip\" value=\"$zip\" size=\"6\" />\n";
+	$l = _("Reg. num");
+	$text.= "</td></tr><tr><td>$l: </td><td>";
+	$text.= "<input type=\"text\" id=\"vatnum\" name=\"vatnum\" value=\"$vatnum\" size=\"20\" />\n";
+	$text.="</td></tr></table></td><td>     <table><tr>";
 	if(!$valdate) {
 		$valdate = date('d-m-Y');
 		if($doctype < 5)
 			$due_date = $valdate;
 	}
 	else
-		$valdate = FormatDate($valdate, "mysql", "dmy");
-
-	$text.= "<input type=\"text\" id=\"idate\" name=\"idate\" value=\"$valdate\" size=\"8\" />\n";
+	$valdate = FormatDate($valdate, "mysql", "dmy");
+	$l = _("Date");
+	$text.= "<td>$l: <br />\n";
+	$text.= "<input type=\"text\" id=\"idate\" name=\"idate\" value=\"$valdate\" size=\"10\" />\n";
 	$text.= "</td>\n";
 //	print "<INPUT type=hidden name=valdate value=\"$valdate\">\n";
-	$text.= "</tr><tr>\n";
-	$l = _("Company");
-	$text.= "<td style=\"width:70%\">$l: \n";
-//	$company = htmlspecialchars($company);
-	$text.= "<input type=\"text\" id=\"company\" name=\"company\" size=\"40\" value=\"$company\" /></td>\n";
+	//$text.= "</tr><tr>\n";
+	
 	$l = _("To be paid until");
-	$text.= "<td>$l: \n";
-	$text.= "<input type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$due_date\" size=\"8\" />\n";
-	$text.= '
-<script type="text/javascript">
-	addDatePicker("#idate","'.$valdate.'");
-	addDatePicker("#due_date","'.$due_date.'");
-</script>
-';
+	$text.= "<td>$l: <br />\n";
+	$text.= "<input type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$due_date\" size=\"10\" />\n";
+	$text.= '<script type="text/javascript">addDatePicker("#idate","'.$valdate.'");addDatePicker("#due_date","'.$due_date.'");</script>';
 	$text.= "</td></tr><tr>\n";
-	$l = _("Address");
-	$text.= "<td colspan=\"1\">$l: \n";
-//	$address = htmlspecialchars($address);
-	$text.= "<input type=\"text\" id=\"address\" name=\"address\" size=\"50\" value=\"$address\" /></td>\n";
+	
 	$l = _("Order number");
-	$text.= "<td>$l: \n";
-	$text.= "<input type=\"text\" name=\"refnum\" id=\"refnum\" value=\"$refnum\" size=\"8\" /></td>\n";
-	$text.= "</tr><tr>\n";
-	$l = _("City");
-	$text.= "<td colspan=\"2\">$l: \n";//adam:
-//	$city = htmlspecialchars($city);
-	$text.= "<input type=\"text\" id=\"city\" name=\"city\" value=\"$city\" />&nbsp;&nbsp;\n";
-	$l = _("Zip");
-	$text.= "$l: \n";
-	$text.= "<input type=\"text\" id=\"zip\" name=\"zip\" value=\"$zip\" size=\"5\" />\n";
-	$l = _("Reg. num");
-	$text.= "$l: ";
-	$text.= "<input type=\"text\" id=\"vatnum\" name=\"vatnum\" value=\"$vatnum\" size=\"8\" />\n";
-	$text.= "</td></tr><tr><td colspan=\"2\" align=\"center\">\n";
-	$text.= "<br />\n";
+	$text.= "<td colspan=\"2\">$l:  <br />\n";
+	$text.= "<input type=\"text\" name=\"refnum\" id=\"refnum\" value=\"$refnum\" size=\"20\" /></td>\n";
+	$text.= "</tr></table>\n";
+	
+	
+	$text.= "</td></tr></table>";
 	//adam:
-	$text.= '<input type="hidden" value="0" id="theValue" />';
 	/* Now the real part of an invoice, the details part.. */
 	if ($targetdoc!=DOC_RECEIPT){
 		$l=_("New Item");
@@ -777,12 +785,14 @@ if($step == 0) {	/* First step, select document type and customer */
 			$text.= "<td>$l</td>\n";
 			$l = _("Total");
 			$text.= "<td>$l</td>\n";
+			$l = _("Remove");
+			$text.= "<td>$l</td>\n";
 		$text.= "</tr>\n";
 		$text.= "</table>\n";
 		$text.= '<script type="text/javascript">addItem();</script>';
 		$text.= "<a href=\"javascript:addItem();\">Add</a>\n";
-		$text.= "</td></tr>\n";
-		$text.= "</table>\n";
+		//$text.= "</td></tr>\n";
+		//$text.= "</table>\n";
 	}
 	if (($targetdoc==DOC_RECEIPT) || ($targetdoc==DOC_INVRCPT)){
 			$text.= "<table border=\"1\">\n";		/* Internal table for details */
@@ -834,14 +844,14 @@ if($step == 0) {	/* First step, select document type and customer */
 	
 	$text.= "<br />\n";
 	$l = _("Comments");
-	$text.= "$l: \n";
+	$text.= "$l: <br />\n";
 	$text.= "<textarea name=\"comments\"  cols=\"80\" rows=\"4\">$comments</textarea>\n";
 	$l = _("Next");
-	$text.= "<input type=\"submit\" value=\"$l >>>\" />\n";
+	$text.= "<br /><input type=\"submit\" value=\"$l >>>\" />\n";
 	
 	$text.= "</form>\n";
 	$text.= "</div>\n";
-	createForm($text,$header,'',900);
+	createForm($text,$header,'',750);
 	//$text.= "</div>";//adam: form div
 }
 if($step > 0) {//preview
@@ -889,60 +899,61 @@ if($step > 0) {//preview
 	$price = $_POST['price'];
 	$currency = $_POST['currency'];
 
-	print "<div style=\"border:1px solid;width:90%;margin:5px\">\n";
-	print "<form action=\"?module=docsadmin\" method=\"post\">\n"; /* step will be defined later as _POST */
-	print "<input type=\"hidden\" name=\"fromdoc\" value=\"$fromdoc\" />\n";
-	print "<input type=\"hidden\" name=\"fromnum\" value=\"$fromnum\" />\n";
-	print "<table border=\"0\" width=\"100%\" align=\"center\" class=\"formtbl\"><tr>\n";
+	//print "<div style=\"border:1px solid;width:90%;margin:5px\">\n";
+	$texty='';
+	$texty.= "<form action=\"?module=docsadmin\" method=\"post\" id=\"docform\">\n"; /* step will be defined later as _POST */
+	$texty.=  "<input type=\"hidden\" name=\"fromdoc\" value=\"$fromdoc\" />\n";
+	$texty.=  "<input type=\"hidden\" name=\"fromnum\" value=\"$fromnum\" />\n";
+	$texty.=  "<table border=\"0\" width=\"100%\" align=\"center\" class=\"formtbl\"><tr>\n";
 	$l = _("To");
-	print "<td style=\"width:10%\">$l: </td>\n";
-	print "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
-	print "<td style=\"width:60%\">$company <input type=\"hidden\" name=\"company\" value=\"$company\" /></td>\n";
+	$texty.=  "<td style=\"width:10%\">$l: </td>\n";
+	$texty.=  "<input type=\"hidden\" name=\"account\" value=\"$account\" />\n";
+	$texty.=  "<td style=\"width:60%\">$company <input type=\"hidden\" name=\"company\" value=\"$company\" /></td>\n";
 	$l = _("Date");
-	print "<td style=\"width:10%\">$l: </td>\n";
-	print "<td>$date <input type=\"hidden\" name=\"idate\" value=\"$date\" /></td>\n";
-	print "</tr><tr>\n";
-	print "<td>&nbsp;</td>\n";	/* empty column */
-	print "<td>$address <input type=\"hidden\" name=\"address\" value=\"$address\" /></td>\n";
+	$texty.=  "<td style=\"width:10%\">$l: </td>\n";
+	$texty.=  "<td>$date <input type=\"hidden\" name=\"idate\" value=\"$date\" /></td>\n";
+	$texty.=  "</tr><tr>\n";
+	$texty.=  "<td>&nbsp;</td>\n";	/* empty column */
+	$texty.=  "<td>$address <input type=\"hidden\" name=\"address\" value=\"$address\" /></td>\n";
 	$l = _("Order number");
-	print "<td>$l: </td>\n";
-	print "<td>$refnum <input type=\"hidden\" name=\"refnum\" value=\"$refnum\" /></td>\n";
-	print "</tr><tr>\n";
-	print "<td>&nbsp;</td>\n";	/* empty column */
-	print "<td>$city $zip</td>\n";
-	print "<input type=\"hidden\" name=\"city\" value=\"$city\" /><input type=\"hidden\" name=\"zip\" value=\"$zip\" />\n";
-	print "</tr><tr>\n";
-	print "<input type=\"hidden\" name=\"type\" value=\"$doctype\" />\n";
+	$texty.=  "<td>$l: </td>\n";
+	$texty.=  "<td>$refnum <input type=\"hidden\" name=\"refnum\" value=\"$refnum\" /></td>\n";
+	$texty.=  "</tr><tr>\n";
+	$texty.=  "<td>&nbsp;</td>\n";	/* empty column */
+	$texty.=  "<td>$city $zip</td>\n";
+	$texty.=  "<input type=\"hidden\" name=\"city\" value=\"$city\" /><input type=\"hidden\" name=\"zip\" value=\"$zip\" />\n";
+	$texty.=  "</tr><tr>\n";
+	$texty.=  "<input type=\"hidden\" name=\"type\" value=\"$doctype\" />\n";
 	$t = $DocType[$doctype];
-	print "<td colspan=\"3\" align=\"center\"><h1 style=\"text-align:center\">$t ";
+	$texty.=  "<td colspan=\"3\" align=\"center\"><h1 style=\"text-align:center\">$t ";
 	if(!$docnum)	
 		$n = GetNextDocNum($doctype);
 	else
 		$n = $docnum;
-	print "<input type=\"hidden\" name=\"docnum\" value=\"$n\" />\n";
-	print "$n</h1></td>\n";
+	$texty.=  "<input type=\"hidden\" name=\"docnum\" value=\"$n\" />\n";
+	$texty.=  "$n</h1></td>\n";
 	$l = _("Source");
-	print "<td><h1>$l</h1></td>\n";
-	print "</tr><tr><td colspan=\"4\">\n";
+	$texty.=  "<td><h1>$l</h1></td>\n";
+	$texty.=  "</tr><tr><td colspan=\"4\">\n";
 	/* Check items values */
-	print "<div style=\"border:1px solid;width:100%\">\n";
+	$texty.=  "<div style=\"border:1px solid;width:100%\">\n";
 	if ($doctype!=DOC_RECEIPT){
-		print "<table dir=\"rtl\" border=\"1\" width=\"100%\">\n";		/* Internal table for details */
+		$texty.=  "<table dir=\"rtl\" border=\"1\" width=\"100%\">\n";		/* Internal table for details */
 		/* header line */
-		print "<tr class=\"tblhead1\">\n";
+		$texty.=  "<tr class=\"tblhead1\">\n";
 		$l = _("Description");
-		print "<td style=\"width:70%\">$l</td>\n";
+		$texty.=  "<td style=\"width:70%\">$l</td>\n";
 		$l = _("Qty.");
-		print "<td style=\"width:4em\">$l</td>\n";
+		$texty.=  "<td style=\"width:4em\">$l</td>\n";
 		$l = _("Price");
-		print "<td style=\"width:5em\">$l</td>\n";
+		$texty.=  "<td style=\"width:5em\">$l</td>\n";
 		$l = _("Currency");
-		print "<td style=\"width:4em\">$l</td>\n";
+		$texty.=  "<td style=\"width:4em\">$l</td>\n";
 		$l = _("Total");
-		print "<td style=\"width:4em\">$l</td>\n";
+		$texty.=  "<td style=\"width:4em\">$l</td>\n";
 		$l = _("Total NIS");
-		print "<td>$l</td>\n";
-		print "</tr>\n"; 
+		$texty.=  "<td>$l</td>\n";
+		$texty.=  "</tr>\n"; 
 		$novattotal = 0.0;
 		$vattotal = 0.0;
 		for($i = 0; $i <= 10; $i++) {//adam: 5
@@ -960,79 +971,80 @@ if($step > 0) {//preview
 				continue;
 			}
 			$needvat = NeedVat($cat);		/* check if this account needs VAT */
-			print "<tr>\n";
-			print "<input type=\"hidden\" name=\"cat_num[]\" value=\"$cat\" />\n";
+			$texty.=  "<tr>\n";
+			$texty.=  "<input type=\"hidden\" name=\"cat_num[]\" value=\"$cat\" />\n";
 			$desc = $description[$i];
 			$desc = htmlspecialchars($desc, ENT_QUOTES);
-			print "<td>$desc <input type=\"hidden\" name=\"description[]\" value=\"$desc\" /></td>\n";
+			$texty.=  "<td>$desc <input type=\"hidden\" name=\"description[]\" value=\"$desc\" /></td>\n";
 			$q = (int)$qty[$i];
-			print "<td>$q <input type=\"hidden\" name=\"qty[]\" value=\"$q\" />\n";
+			$texty.=  "<td>$q <input type=\"hidden\" name=\"qty[]\" value=\"$q\" />\n";
 	//		PrintUnits($cat_num);
-			print "</td>\n";
-			print "<td>$unit_price[$i] <input type=\"hidden\" name=\"unit_price[]\" value=\"$unit_price[$i]\" /></td>\n";
+			$texty.=  "</td>\n";
+			$texty.=  "<td>$unit_price[$i] <input type=\"hidden\" name=\"unit_price[]\" value=\"$unit_price[$i]\" /></td>\n";
 			$currnum = (int)$currency[$i];
 			$sign = GetCurrencySymbol($currnum);
-			print "<td>$sign <input type=\"hidden\" name=\"currency[]\" value=\"$currnum\" /></td>\n";
-			print "<td>$p <input type=\"hidden\" name=\"price[]\" value=\"$p\" /></td>\n";
+			$texty.=  "<td>$sign <input type=\"hidden\" name=\"currency[]\" value=\"$currnum\" /></td>\n";
+			$texty.=  "<td>$p <input type=\"hidden\" name=\"price[]\" value=\"$p\" /></td>\n";
 			$nisprice = CalcNISPrice($p, $currnum, "$year-$month-$day");
 			if(($p != 0) && ($nisprice == 0) ) {	/* we don't have rate... */
 				if(!($currdone[$currnum])) {
 					$l = _("Set rate");
-					print "<td><input type=\"button\" value=\"$l\" onclick=OpenRatesWin('$day-$month-$year') /></td>\n";
+					$texty.=  "<td><input type=\"button\" value=\"$l\" onclick=OpenRatesWin('$day-$month-$year') /></td>\n";
 					$currdone[$currnum] = 1;
 					$nextstep = 1;
 				}
 			}
 			else {
-				print "<td>$nisprice <input type=\"hidden\" name=\"nisprice[]\" value=\"$nisprice\" /></td>\n";
+				$texty.=  "<td>$nisprice <input type=\"hidden\" name=\"nisprice[]\" value=\"$nisprice\" /></td>\n";
 				if($needvat)
 					$vattotal += $nisprice;
 				else
 					$novattotal += $nisprice;
 			}
-			print "</tr>\n";
+			$texty.=  "</tr>\n";
 		}	/* end of for loop */
 		$vattotal = round($vattotal, 2);	
 		/* Now print totals, calculate VAT and print total including VAT */
-		print "<tr><td colspan=\"5\">&nbsp;</td></tr>\n";	/* empty space line */
-		print "<tr><td colspan=\"2\">&nbsp;</td>\n";	/* space column */
+		$texty.=  "<tr><td colspan=\"5\">&nbsp;</td></tr>\n";	/* empty space line */
+		$texty.=  "<tr><td colspan=\"2\">&nbsp;</td>\n";	/* space column */
 		$l = _("Total for VAT");
-		print "<td colspan=\"3\">$l: </td>\n";
-		print "<input type=hidden name=\"sub_total\" value=\"$vattotal\" />\n";
-		print "<td>$vattotal</td></tr>\n";
-		print "<tr><td colspan=\"2\">\n";
+		$texty.=  "<td colspan=\"3\">$l: </td>\n";
+		$texty.=  "<input type=hidden name=\"sub_total\" value=\"$vattotal\" />\n";
+		$texty.=  "<td>$vattotal</td></tr>\n";
+		$texty.=  "<tr><td colspan=\"2\">\n";
 		if($due_date) {
 			$l = _("To be paid until");
-			print "$l: \n";
-			print "<input type=\"hidden\" name=\"due_date\" value=\"$due_date\" />\n";
-			print "$due_date\n";
+			$texty.=  "$l: \n";
+			$texty.=  "<input type=\"hidden\" name=\"due_date\" value=\"$due_date\" />\n";
+			$texty.=  "$due_date\n";
 		}
-		print "</td>\n";
+		$texty.=  "</td>\n";
 		$l = _("No vat total");
-		print "<td colspan=\"3\">$l: </td>\n";
+		$texty.=  "<td colspan=\"3\">$l: </td>\n";
 		$novattotal = round($novattotal, 2);
-		print "<input type=\"hidden\" name=\"novat_total\" value=\"$novattotal\" />\n";
-		print "<td>$novattotal</td>\n";
-		print "<tr><td colspan=\"5\">&nbsp;</td></tr>\n";	/* empty space line */
-		print "<tr><td colspan=\"2\">$comments</td>\n";
-		print "<input type=\"hidden\" name=\"comments\" value=\"$comments\" />\n";
+		$texty.=  "<input type=\"hidden\" name=\"novat_total\" value=\"$novattotal\" />\n";
+		$texty.=  "<td>$novattotal</td>\n";
+		$texty.=  "<tr><td colspan=\"5\">&nbsp;</td></tr>\n";	/* empty space line */
+		$texty.=  "<tr><td colspan=\"2\">$comments</td>\n";
+		$texty.=  "<input type=\"hidden\" name=\"comments\" value=\"$comments\" />\n";
 		$l = _("VAT");
-		print "<td colspan=\"3\">$l: </td>\n";
+		$texty.=  "<td colspan=\"3\">$l: </td>\n";
 		$vat = CalcVAT($vattotal);
-		print "<input type=\"hidden\" name=\"vat\" value=\"$vat\" />\n";
-		print "<td>$vat</td>\n";
-		print "</tr>\n";
+		$texty.=  "<input type=\"hidden\" name=\"vat\" value=\"$vat\" />\n";
+		$texty.=  "<td>$vat</td>\n";
+		$texty.=  "</tr>\n";
 		
-		print "<tr><td colspan=\"2\">&nbsp;</td>\n";	/* space column */
+		$texty.=  "<tr><td colspan=\"2\">&nbsp;</td>\n";	/* space column */
 		$l = _("Total");
-		print "<td colspan=\"3\">$l: </td>\n";
+		$texty.=  "<td colspan=\"3\">$l: </td>\n";
 		$totalpayment = round($vattotal + $vat + $novattotal, 0);
-		print "<input type=\"hidden\" name=\"total\" value=\"$totalpayment\" />\n";
-		print "<td>$totalpayment</td>\n";
-		print "</tr>\n";
-		print "</table>\n";
+		$texty.=  "<input type=\"hidden\" name=\"total\" value=\"$totalpayment\" />\n";
+		$texty.=  "<td>$totalpayment</td>\n";
+		$texty.=  "</tr>\n";
+		$texty.=  "</table>\n";
+		
 }
-	print "</div>\n";
+	$texty.=  "</div>\n";
 	
 	//adam:
 	if (($doctype==DOC_RECEIPT) || ($doctype==DOC_INVRCPT)){
@@ -1048,101 +1060,117 @@ if($step > 0) {//preview
 		$date = $_POST['date'];
 		$sum = $_POST['sum'];
 		$src_tax=$_POST['src_tax'];
-		print "<table border=\"0\">\n";
+		$texty.=  "<table border=\"0\">\n";
 		/* header line */
-		print "<tr class=\"tblhead1\">\n";
-		print "<td style=\"width:7em\">אמצאי תשלום </td>\n";
-		print "<td style=\"width:6em\">חברת אשראי&nbsp;</td>\n";
-		print "<td style=\"width:8em\">אסמכתא\\מס' שיק</td>\n";
-		print "<td style=\"width:12em\">בנק&nbsp;</td>\n";
-		print "<td style=\"width:3em\">סניף&nbsp;</td>\n";
-		print "<td style=\"width:6em\">מס' חשבון&nbsp;</td>\n";
-		print "<td style=\"width:6em\">תאריך&nbsp;</td>\n";
-		print "<td>סכום</td>\n";
-		print "</tr>\n";
+		$texty.=  "<tr class=\"tblhead1\">\n";
+		$l = _("Payment method");
+		$texty.=  "<td style=\"width:9em\">$l </td>\n";
+		$l = _("Credit company");
+		$texty.=  "<td style=\"width:10em\">$l</td>\n";
+		$l = _("Number");
+		$texty.=  "<td style=\"width:8em\">$l</td>\n";
+		$l = _("Bank");
+		$texty.=  "<td style=\"width:12em\">$l</td>\n";
+		$l = _("Branch");
+		$texty.=  "<td style=\"width:3em\">$l</td>\n";
+		$l = _("Account no.");
+		$texty.=  "<td style=\"width:6em\">$l</td>\n";
+		$l = _("Date");
+		$texty.=  "<td style=\"width:6em\">$l</td>\n";
+		$l = _("Sum");
+		$texty.=  "<td>$l</td>\n";
+		$texty.=  "</tr>\n";
 		$total_sum = 0.0;
 		foreach($sum as $index => $val) {
 			// print "val: $val<br/>\n";	/* debug */
 			if(empty($val))
 				continue;
-			print "<tr>\n";
-			print "<td>\n";
+			$texty.=  "<tr>\n";
+			$texty.=  "<td>\n";
 			$t = $type[$index];
 			$ts = $paymenttype[$t];
-			print "$ts ";
-			print "<input type=\"hidden\" name=\"ptype[]\" value=\"$t\" readonly />\n";
-			print "</td><td>\n";
+			$texty.=  "$ts ";
+			$texty.=  "<input type=\"hidden\" name=\"ptype[]\" value=\"$t\" readonly />\n";
+			$texty.=  "</td><td>\n";
 			$t = $creditcompany[$index];
 			$ts = $creditcompanies[$t];
-			print "$ts <input type=\"hidden\" name=\"creditcompany[]\" value=\"$t\" readonly />\n</td>\n";
+			$texty.=  "$ts <input type=\"hidden\" name=\"creditcompany[]\" value=\"$t\" readonly />\n</td>\n";
 			//print "";
 			$cn = htmlspecialchars($cheque_num[$index], ENT_QUOTES);
-			print "<td>$cn";
-			print "<input type=\"hidden\" name=\"cheque_num[]\" value=\"$cn\" readonly />\n</td>\n";
+			$texty.=  "<td>$cn";
+			$texty.=  "<input type=\"hidden\" name=\"cheque_num[]\" value=\"$cn\" readonly />\n</td>\n";
 			$bn = $bank[$index];
 			$bs = $banksarr[$bn];
-			print "<td>$bn - $bs";
-			print "<input type=\"hidden\" name=\"bank[]\" value=\"$bank[$index]\" readonly />\n</td>\n";
-			print "<td>$branch[$index]";
-			print "<input type=\"hidden\" name=\"branch[]\" value=\"$branch[$index]\" readonly />\n</td>\n";
-			print "<td>$cheque_acct[$index]";
-			print "<input type=\"hidden\" name=\"cheque_acct[]\" value=\"$cheque_acct[$index]\" readonly />\n</td>\n";
-			print "<td>$date[$index]";
-			print "<input type=\"hidden\" name=\"date[]\" value=\"$date[$index]\" readonly />\n</td>\n";
-			print "<td>$val";
-			print "<input type=\"hidden\" name=\"sum[]\" value=\"$val\" readonly />\n</td>\n";
-			print "</tr>\n";
+			$texty.=  "<td>$bn - $bs";
+			$texty.=  "<input type=\"hidden\" name=\"bank[]\" value=\"$bank[$index]\" readonly />\n</td>\n";
+			$texty.=  "<td>$branch[$index]";
+			$texty.=  "<input type=\"hidden\" name=\"branch[]\" value=\"$branch[$index]\" readonly />\n</td>\n";
+			$texty.=  "<td>$cheque_acct[$index]";
+			$texty.=  "<input type=\"hidden\" name=\"cheque_acct[]\" value=\"$cheque_acct[$index]\" readonly />\n</td>\n";
+			$texty.=  "<td>$date[$index]";
+			$texty.=  "<input type=\"hidden\" name=\"date[]\" value=\"$date[$index]\" readonly />\n</td>\n";
+			$texty.=  "<td>$val";
+			$texty.=  "<input type=\"hidden\" name=\"sum[]\" value=\"$val\" readonly />\n</td>\n";
+			$texty.=  "</tr>\n";
 			$total_sum += $val;
 		}
-		print "<tr><td colspan=\"6\" >&nbsp;</td>\n";
+		$texty.=  "<tr><td colspan=\"6\" >&nbsp;</td>\n";
 		$l = _("Source tax");
-		print "<td>$l: </td>\n";
-		print "<td>$src_tax<input type=\"hidden\" name=\"src_tax\" value=\"$src_tax\" /></td></tr>\n";
-		print "<tr><td colspan=\"6\">&nbsp;</td>\n";		/* spacer */
+		$texty.=  "<td>$l: </td>\n";
+		$texty.=  "<td>$src_tax<input type=\"hidden\" name=\"src_tax\" value=\"$src_tax\" /></td></tr>\n";
+		$texty.=  "<tr><td colspan=\"6\">&nbsp;</td>\n";		/* spacer */
 		$l = _("Total");
-		print "<td><b>$l: </b></td>\n";
+		$texty.=  "<td><b>$l: </b></td>\n";
 		$total_sum += $src_tax;
-		print "<td><b><input type=\"hidden\" name=\"total\" value=\"$total_sum\" />$total_sum</b></td>\n";
-		print "</tr>\n";
-		print "</table>\n";
+		$texty.=  "<td><b><input type=\"hidden\" name=\"total\" value=\"$total_sum\" />$total_sum</b></td>\n";
+		$texty.=  "</tr>\n";
+		$texty.=  "</table>\n";
 	}
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"4\" align=\"center\">\n";
+	$texty.=  "</td></tr><tr>\n";
+	$texty.=  "<td colspan=\"4\" align=\"center\">\n";
 	if(!$nextstep)
 		$nextstep = 3;
 	if($step < 3) {
-		print "<input type=\"hidden\" name=\"step\" value=\"$nextstep\" />\n";
+		$texty.=  "<input type=\"hidden\" name=\"step\" value=\"$nextstep\" />\n";
 		if($nextstep == 3) {
 			if($doctype==DOC_INVRCPT){
-				
-				//print "<input type=\"submit\" value=\"$l\" />\n";
 				if($total_sum!=$totalpayment){
 					$l = _("Back");
-					print _("The sum of the invoice and the recipet is not the same");
-					print "<a href=\"#\" class=\"btn\" onClick=\"history.go(-1)\">$l</a>\n";
+					$texty.=  _("The sum of the invoice and the receipt is not the same");
+					$texty.=  "<a href=\"#\" class=\"btn\" onClick=\"history.go(-1)\">$l</a>\n";
+					///
+					$texty.=  "</td></tr>\n</table>\n";
+					$texty.=  "</form>\n";
+					$header=_("Documenet Preview");
+					createForm($texty,$header,'',750,null,'gfcg',1,null);
 					return;
 				}
 				
 			}
 			$l = _("Create & print");
-			print "<input type=\"submit\" value=\"$l\" />\n";
+			$texty.="<a href=\"javascript:$('#docform').submit();\" class=\"btn\">$l</a>";
+			//$texty.=  "<input type=\"submit\" value=\"$l\" />\n";
 			
 		}
 		else {
 			$l = _("Next");
-			print "<input type=\"submit\" value=\"$l >>>\" />\n";
+			$texty.="<a href=\"javascript:$('#docform').submit();\" class=\"btn\">$l</a>";
+			//$texty.=  "<input type=\"submit\" value=\"$l >>>\" />\n";
 		}
 	}
 	else {	/* show email form or print */
-		print "<input type=\"hidden\" name=\"step\" value=\"5\" />\n";
-//		print "<input type=\"submit\" value=\"׳©׳�׳— ׳‘׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™\">\n";
+		$texty.=  "<input type=\"hidden\" name=\"step\" value=\"5\" />\n";
+//		print "<input type=\"submit\" value=\"׳³ֲ©׳³ן¿½׳³ג€” ׳³ג€˜׳³ג€�׳³ג€¢׳³ן¿½׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ֻ�׳³ֲ¨׳³ג€¢׳³ֲ ׳³ג„¢\">\n";
 		$l = _("Print");
-		print "<input type=\"button\" value=\"$l\" ";
-		print "onclick=\"window.open('printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix&amp;print_win=1', 'printwin', 'width=800,height=600,scrollbar=yes')\" />\n";
+		//$texty.=  "<input type=\"button\" value=\"$l\" ";
+		$texty.=newWindow($l,"printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix&amp;print_win=1",800,600,_("Document Print"),'btn');
+		//$texty.=  "onclick=\"', 'printwin', 'width=800,height=600,scrollbar=yes')\" />\n";
 	}		
 //	print "step: $step, nextstep: $nextstep\n";
-	print "</td></tr>\n</table>\n";
-	print "</form>\n";
-	print "</div>\n";
+	$texty.=  "</td></tr>\n</table>\n";
+	$texty.=  "</form>\n";
+	//print "</div>\n";
+	$header=_("Documenet Preview");
+	createForm($texty,$header,'',750);
 }
 ?>

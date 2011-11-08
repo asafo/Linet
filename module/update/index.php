@@ -45,7 +45,7 @@ if(!empty($name) && ($name != ''))  {
 else{
 	//$loggedin = 0;
 	if (isset($_GET['non']))
-		print _("You Must login to Update the system")."<br />".'<a href="../../">׳—׳–׳•׳¨ ׳�׳�׳™׳ ׳˜</a>';
+		print _("You Must login to Update the system")."<br />".'<a href="../../">׳³ג€”׳³ג€“׳³ג€¢׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ג„¢׳³ֲ ׳³ֻ�</a>';
 	//print ;
 	$step=0;
 	$nextStep=0;
@@ -58,7 +58,7 @@ if ($loggedin){
 if (($step==1)&&(isset($_GET['non']))){
 	$nextStep=2;
 	print _("Welcome To Linet update wizard your system version is: ").$version."<br />"._("The current version is: ").$sversion."<br />"._("You need to update your system.");
-	//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
+	//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
 	print '<br /><a href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
 	}else{
 	$content=_("Please Wait");
@@ -81,24 +81,24 @@ if (($step==2)&&(isset($_GET['non']))){
 			Zip($path."/", $path.'/backup/files'.date('dmY').'.zip');
 			print _("Finished")."<br />";
 			print "<a href=../../backup/files".date('dmY').".zip>"._("Downlod System Files")."</a><br />";
-			print "׳�׳’׳‘׳” ׳�׳¡׳“ ׳ ׳×׳•׳ ׳™׳�<br />";
+			print "׳³ן¿½׳³ג€™׳³ג€˜׳³ג€� ׳³ן¿½׳³ֲ¡׳³ג€� ׳³ֲ ׳³ֳ—׳³ג€¢׳³ֲ ׳³ג„¢׳³ן¿½<br />";
 			$bkfile = $path.'/backup/db'.date('dmY').'.sql';//'.date('Ymd').'
 			dbBackup($bkfile);
-			print "׳¡׳™׳™׳�<br />";
-			print "<a href=../../backup/db".date('dmY').".sql>׳”׳•׳¨׳“ ׳�׳¡׳“ ׳ ׳×׳•׳ ׳™׳�</a><br />";
+			print "׳³ֲ¡׳³ג„¢׳³ג„¢׳³ן¿½<br />";
+			print "<a href=../../backup/db".date('dmY').".sql>׳³ג€�׳³ג€¢׳³ֲ¨׳³ג€� ׳³ן¿½׳³ֲ¡׳³ג€� ׳³ֲ ׳³ֳ—׳³ג€¢׳³ֲ ׳³ג„¢׳³ן¿½</a><br />";
 		}else{
-			print "׳×׳§׳�׳”: ׳‘׳“׳•׳§ ׳”׳¨׳©׳�׳•׳× ׳�׳¢׳¨׳›׳× ׳§׳‘׳¦׳™׳� ׳�׳×׳§׳™׳™׳” backup.<br />";
+			print "׳³ֳ—׳³ֲ§׳³ן¿½׳³ג€�: ׳³ג€˜׳³ג€�׳³ג€¢׳³ֲ§ ׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€¢׳³ֳ— ׳³ן¿½׳³ֲ¢׳³ֲ¨׳³ג€÷׳³ֳ— ׳³ֲ§׳³ג€˜׳³ֲ¦׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ֳ—׳³ֲ§׳³ג„¢׳³ג„¢׳³ג€� backup.<br />";
 			$nextStep=0;
 		}
-		if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">׳”׳‘׳�</a>';
-		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
+		if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">׳³ג€�׳³ג€˜׳³ן¿½</a>';
+		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
 }
 /*update*/
 if (($step==3)&&(isset($_GET['non']))){
-	print "׳�׳‘׳§׳© ׳¨׳©׳™׳�׳× ׳§׳‘׳¦׳™׳� ׳�׳¢׳“׳›׳•׳�.<br />";
+	print "׳³ן¿½׳³ג€˜׳³ֲ§׳³ֲ© ׳³ֲ¨׳³ֲ©׳³ג„¢׳³ן¿½׳³ֳ— ׳³ֲ§׳³ג€˜׳³ֲ¦׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ֲ¢׳³ג€�׳³ג€÷׳³ג€¢׳³ן¿½.<br />";
 	$nextStep=0;
 	
-	print "׳‘׳•׳—׳� ׳”׳¨׳©׳�׳•׳×.<br />";
+	print "׳³ג€˜׳³ג€¢׳³ג€”׳³ן¿½ ׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€¢׳³ֳ—.<br />";
 	$logfile=$path."/tmp/updatelog".date('dmY').'.txt';
 	if (permisionChk($logfile)){
 		$log = fopen($logfile, 'w') or die("can't open file");
@@ -107,7 +107,7 @@ if (($step==3)&&(isset($_GET['non']))){
 		$safty=true;
 	}else{
 		$safty=false;
-		print "׳×׳§׳�׳”: ׳�׳� ׳ ׳™׳×׳� ׳�׳›׳×׳•׳‘ ׳§׳•׳‘׳¥ LOG.<br />";
+		print "׳³ֳ—׳³ֲ§׳³ן¿½׳³ג€�: ׳³ן¿½׳³ן¿½ ׳³ֲ ׳³ג„¢׳³ֳ—׳³ן¿½ ׳³ן¿½׳³ג€÷׳³ֳ—׳³ג€¢׳³ג€˜ ׳³ֲ§׳³ג€¢׳³ג€˜׳³ֲ¥ LOG.<br />";
 	}
 	foreach ($updatefile as $value){
 		$value=$path."/".$value;
@@ -115,20 +115,20 @@ if (($step==3)&&(isset($_GET['non']))){
 		
 		}else{
 				$safty=false;
-				print "-׳�׳ ׳� ׳‘׳“׳•׳§ ׳�׳™׳©׳•׳¨׳™ ׳›׳×׳™׳‘׳” ׳¢׳‘׳•׳¨: ".$value.".<br />";
+				print "-׳³ן¿½׳³ֲ ׳³ן¿½ ׳³ג€˜׳³ג€�׳³ג€¢׳³ֲ§ ׳³ן¿½׳³ג„¢׳³ֲ©׳³ג€¢׳³ֲ¨׳³ג„¢ ׳³ג€÷׳³ֳ—׳³ג„¢׳³ג€˜׳³ג€� ׳³ֲ¢׳³ג€˜׳³ג€¢׳³ֲ¨: ".$value.".<br />";
 			}
 	}
 
 	if ($safty){//update all the files
-		print "׳¡׳™׳™׳� ׳‘׳“׳™׳§׳× ׳”׳¨׳©׳�׳•׳×. <br />׳”׳×׳—׳�׳× ׳¢׳“׳›׳•׳� ׳§׳‘׳¦׳™׳�:<br />";
+		print "׳³ֲ¡׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ג€˜׳³ג€�׳³ג„¢׳³ֲ§׳³ֳ— ׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€¢׳³ֳ—. <br />׳³ג€�׳³ֳ—׳³ג€”׳³ן¿½׳³ֳ— ׳³ֲ¢׳³ג€�׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ֲ§׳³ג€˜׳³ֲ¦׳³ג„¢׳³ן¿½:<br />";
 		foreach ($updatefile as $value){
 			//log: trying to ge file
-			fwrite($log, "-׳�׳‘׳§׳© ׳§׳•׳‘׳¥:".$value."\n");
+			fwrite($log, "-׳³ן¿½׳³ג€˜׳³ֲ§׳³ֲ© ׳³ֲ§׳³ג€¢׳³ג€˜׳³ֲ¥:".$value."\n");
 			$file=getFile($value,$sversion);
 			$value=$path."/".$value;
 			//log: writing file
 			
-			print "+׳›׳•׳×׳‘ ׳§׳•׳‘׳¥: $value<br />";
+			print "+׳³ג€÷׳³ג€¢׳³ֳ—׳³ג€˜ ׳³ֲ§׳³ג€¢׳³ג€˜׳³ֲ¥: $value<br />";
 			$fh = fopen($value, 'w') or die("can't open file");
 			fwrite($log, "+Wrote file: ".$value."\n");
 			
@@ -138,7 +138,7 @@ if (($step==3)&&(isset($_GET['non']))){
 		}
 		//log:end
 		fwrite($log, "finshed updating files"."\n");
-		print "׳¡׳™׳™׳� ׳›׳×׳™׳‘׳× ׳§׳‘׳¦׳™׳�.<br />";
+		print "׳³ֲ¡׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ג€÷׳³ֳ—׳³ג„¢׳³ג€˜׳³ֳ— ׳³ֲ§׳³ג€˜׳³ֲ¦׳³ג„¢׳³ן¿½.<br />";
 		/*update db*/
 		$command=getSQL();
 		if($command<>''){
@@ -165,14 +165,14 @@ if (($step==3)&&(isset($_GET['non']))){
 	fwrite($log, "End Loging: ".date('d/m/y H:m')."\n");
 	fclose($log);
 	$nextStep=4;
-	if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">'._("׳”׳‘׳�").'</a>';
-	//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳”׳‘׳�</a>";//bla
+	if ($nextStep) print '<a href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
+	//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
 }
 /*end*/
 if (($step==4)&&(isset($_GET['non']))){
-print "׳�׳™׳ ׳˜ ׳¢׳•׳“׳›׳ ׳” ׳‘׳”׳¦׳�׳—׳” ׳�׳₪׳© ׳�׳¨׳�׳•׳× ׳�׳× ׳™׳•׳�׳� ׳”׳¢׳“׳›׳•׳� ";
-print '<a href="../../tmp/updatelog'.date('dmY').'.txt">׳₪׳”.</a><br />';
-print '<a href="../../">׳—׳–׳¨׳” ׳�׳�׳™׳ ׳˜</a>';
+print "׳³ן¿½׳³ג„¢׳³ֲ ׳³ֻ� ׳³ֲ¢׳³ג€¢׳³ג€�׳³ג€÷׳³ֲ ׳³ג€� ׳³ג€˜׳³ג€�׳³ֲ¦׳³ן¿½׳³ג€”׳³ג€� ׳³ן¿½׳³ג‚×׳³ֲ© ׳³ן¿½׳³ֲ¨׳³ן¿½׳³ג€¢׳³ֳ— ׳³ן¿½׳³ֳ— ׳³ג„¢׳³ג€¢׳³ן¿½׳³ן¿½ ׳³ג€�׳³ֲ¢׳³ג€�׳³ג€÷׳³ג€¢׳³ן¿½ ";
+print '<a href="../../tmp/updatelog'.date('dmY').'.txt">׳³ג‚×׳³ג€�.</a><br />';
+print '<a href="../../">׳³ג€”׳³ג€“׳³ֲ¨׳³ג€� ׳³ן¿½׳³ן¿½׳³ג„¢׳³ֲ ׳³ֻ�</a>';
 }
 }
 

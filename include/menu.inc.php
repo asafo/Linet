@@ -105,7 +105,7 @@ foreach ($MainMenu as $key=>$value){
 	}
 	
 	if($i+1==$numItems) $class=" class=\"last\"";
-	$str.="<li$class><span><a href=\"?$l\">$n</a></span>";
+	$str.="<li$class><span><p>$n</p></span>";
 	$str.="<ul>";
 	$last=count($value);
 	$i1=0;

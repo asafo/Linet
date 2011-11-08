@@ -124,6 +124,13 @@ a.Surtcut:hover{
 	background-image: url(../img/btnSubQty.png);
 	
 	}
+.btnremove{
+	height:27px;
+	width:27px;
+	background-image: url(../img/btnRemove.png);
+	display:block;
+	
+	}
 #wrapper {
 	position: relative;
 	
@@ -138,7 +145,10 @@ a.Surtcut:hover{
 	height:105px;
 	/*background-image: url(../img/head.png);*/
 }
+.headerB{
+height:130px;
 
+}
 #logo {
 	    float: right;
     position: absolute;
@@ -169,6 +179,8 @@ a.Surtcut:hover{
     font-size: 14px;
     position: relative;
     top: 70px;
+     color: #006599;
+    font-weight: bold;
 	
 	
 	}
@@ -285,7 +297,7 @@ a:visited {
 	text-align: center;
 }
 
-#drop_down_menu a	{
+#drop_down_menu span p	{
 	color: #FFFFFF;
 	display:block;
 	border-left: 1px solid white;
@@ -313,13 +325,14 @@ a:visited {
     height: 34px;
     padding-top: 7px;
 }
-#drop_down_menu li.last span a{border-left: none;}
-#drop_down_menu li:hover{
+#drop_down_menu li.last span p{border-left: none;}
+#drop_down_menu span:hover{
 	background-image: url(../img/mainmenuover.png);
 	background-color:#168CE7; 
+	color:black;
 }
-#drop_down_menu li:hover span a	{
-	color:#186ec4;
+#drop_down_menu li:hover span p{
+	color:black;
 	z-index:20;
 	
 }
@@ -481,7 +494,7 @@ background-position:right top;
 }
 .fcc{
 	background: none repeat scroll 0 0 white;
-	padding-top:15px;
+	padding-top:15px;vertical-align: baseline;
 }
 .fcl{
 background: url(../img/fcl.png) 0 0 repeat-y;
@@ -570,19 +583,20 @@ tr.tblhead {
  color: white;
  font-size:12px;
  font-weight:bold;
- background-color: #2063A8;
+ background-color: #1870ca;
 }
 tr.tblhead1 {
  font-family: Arial,Verdana; 
  color: white;
  font-weight:bold;
- background-color: #2063A8;
+ background-color: #1870ca;
+ border-radius:15px;
 }
 .tblhead1, .tblhead1 td {
  font-family: Arial,Verdana; 
  color: white;
  font-weight:bold;
- background-color: #2063A8;
+ background-color: #1870ca;
 }
 
 .tblheadprt, .tblheadprt td, .tblheadprt tr {

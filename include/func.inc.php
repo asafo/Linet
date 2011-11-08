@@ -24,8 +24,10 @@ function ErrorReport($str) {
 	$l=_("Back");
 	print "<form><input type=\"button\" value=\"$l\" onclick=\"history.back()\"></form>\n";
 }
-function newWindow($text,$href,$width,$height){
-	$text= "<a href=\"$href\" onClick=\"window.open('$href','newAccount','width=$width,height=$height,menubar=no,status=no,directories=no,toolbar=no,location=no,resizable=no'); return false;\" target=\"_blank\"\">$text</a>\n";
+function newWindow($text,$href,$width,$height,$title=0,$class=0){
+	if(!$title)$title=_("New");
+	if(!$class)$class='';else $class='class="'.$class.'"';
+	$text= "<a href=\"$href\" $class onClick=\"window.open('$href','$title','width=$width,height=$height,menubar=no,status=no,directories=no,toolbar=no,location=no,resizable=no'); return false;\" target=\"_blank\"\">$text</a>\n";
 	return $text;
 }
 /*
@@ -242,8 +244,14 @@ function osiDiv(){
 		</div>';
 	return $text;
 }
-function createForm($text,$haeder,$sClass,$width=200,$height=480,$logo=null){
+function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,$back=null,$help=null){
 	if(isset($logo))$logo="<img src=\"$logo\" alt=\"$logo\" />";else $logo='';
+	if(isset($back)){
+		$l=_("Back");
+		$back='<a href="javascript:history.go(-1)"><img src=\"img/icon_back.png\" alt=\"Icon back\" />'.$l.'</a>';
+	}else 	
+		$back='';
+		
 	if(!isset($height))$height=500;
 	/*$newform='
 	<div class="form '.$sClass.'" style="width:'.$width.'px;">
@@ -268,7 +276,7 @@ function createForm($text,$haeder,$sClass,$width=200,$height=480,$logo=null){
 	<table class="form '.$sClass.'" style="width:'.$width.'px;">
 		<tr>
 			<td class="ftr"><img src="img/ftr.png" alt="formright"  /></td>
-			<td class="ftc" style="width:'.($width-30).'px;">'.$logo.'<p>'.$haeder.'</p></td>
+			<td class="ftc" style="width:'.($width-30).'px;">'.$logo.'<p>'.$haeder.'</p>'.$back.'</td>
 			<td class="ftl"><img src="img/ftl.png" alt="formleft" /></td>
 		</tr>
 		<tr>

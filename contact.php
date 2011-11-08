@@ -265,9 +265,9 @@ new tcal ({
 	'controlname': 'dt'
 });
 </script>
-<br>
+<br />
 <textarea name="details" cols="40" rows="4"></textarea>
-<br>
+<br />
 <input type="submit" value="$submit">
 </form>
 EHF;
@@ -353,7 +353,7 @@ if($type=='0'){
 }
 $tblheader = <<<EOT
 $text
-<br />
+
 <table dir="$dir" class="hovertbl">
 	<tr class="tblhead">
 		<td style="width:3em">$n </td>
@@ -368,8 +368,8 @@ $text
 	</tr>
 EOT;
 
-print "<br />\n";
-print "<div class=\"righthalf1\">\n";
+//print "<br />\n";
+
 $type = (int)$_GET['type'];
 if($type=='0')
 	$l = _("Customers managmenet");
@@ -378,14 +378,14 @@ else
 //print "<h3>$l</h3>\n";
 //print "$srchform";
 
-createForm($srchform, $l,'',700,200);
-print "</div>\n";
 
-print "<div class=\"lefthalf1\">\n";
-ShowText('contact');
-print "</div>\n";
 
-print "<div class=\"innercontent\" >\n";
+
+
+//ShowText('contact');
+
+
+
 $company = str_replace('*', '%', $company);
 $contact = str_replace('*', '%', $contact);
 $address = str_replace('*', '%', $address);
@@ -419,7 +419,7 @@ $query1 .= "ORDER BY contact";
 $query .= $query1;
 // print "Query: $query<br>\n";
 $result = DoQuery($query, __LINE__);
-print "$tblheader";
+$text= "$tblheader";
 
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$num = $line['num'];
@@ -430,52 +430,25 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$zip = $line['zip'];
 	NewRow();
 	$url = "?module=contact&amp;action=edit&amp;num=$num";
-	print "<td><a href=\"$url\">$num</a></td>\n";
+	$text.= "<td><a href=\"$url\">$num</a></td>\n";
 	if ($line['type']== CUSTOMER) $t = _("Customer");
 	if ($line['type']== SUPPLIER) $t=  _("Supplier");
-	print "<td>$t</td>\n";
-	print "<td><a href=\"$url\">$company</a></td>\n";
-	print "<td>$contact</td>\n";
-	print "<td>$address</td>\n";
-	print "<td>$city</td>\n";
-	print "<td>$zip</td>\n";
+	$text.= "<td>$t</td>\n";
+	$text.= "<td><a href=\"$url\">$company</a></td>\n";
+	$text.= "<td>$contact</td>\n";
+	$text.= "<td>$address</td>\n";
+	$text.= "<td>$city</td>\n";
+	$text.= "<td>$zip</td>\n";
 	$sum = GetAcctTotal($num, $beginmysql, $endmysql);
-	print "<td dir=\"ltr\">$sum</td>\n";
+	$text.= "<td dir=\"ltr\">$sum</td>\n";
 	$url = "?module=acctdisp&amp;account=$num&amp;begin=$begindmy&amp;end=$enddmy";
 	$l = _("Transactions");
-	print "<td><input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\" /></td>\n";
-	print "</tr>\n";
+	$text.= "<td><input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\" /></td>\n";
+	$text.= "</tr>\n";
 }
-/*$query = "SELECT * FROM $accountstbl WHERE prefix='$prefix' AND type='$t2' ";
-$query .= $query1;
-// print "Query: $query<br>\n";
-$result = DoQuery($query, __LINE__);
-$t =
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	$num = $line['num'];
-	$company = $line['company'];
-	$contact = $line['contact'];
-	$address = $line['address'];
-	$city = $line['city'];
-	$zip = $line['zip'];
-	NewRow();
-	$url = "?module=contact&amp;action=edit&amp;num=$num";
-	print "<td><a href=\"$url\">$num</a></td>\n";
-	print "<td>$t</td>\n";
-	print "<td><a href=\"$url\">$company</a></td>\n";
-	print "<td>$contact</td>\n";
-	print "<td>$address</td>\n";
-	print "<td>$city</td>\n";
-	print "<td>$zip</td>\n";
-	$sum = GetAcctTotal($num, $beginmysql, $endmysql);
-	print "<td dir=\"ltr\">$sum</td>\n";
-	$url = "?module=acctdisp&amp;account=$num&amp;begin=$begindmy&amp;end=$enddmy";
-	$l = _("Transactions");
-	print "<td><input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\"></td>\n";
-	print "</tr>\n";
-}*/
-print "</table>\n";
-print "</div>\n";
 
+$text.= "</table>\n";
+
+createForm($srchform.$text, $l,'',700);
 ?>
 

@@ -315,7 +315,8 @@ function browser_info($agent=null) {
 
 function RunModule() {
 	global $module, $action, $id, $lang;
-	global $articlestbl, $logintbl, $permissionstbl;
+	//global $articlestbl, 
+	global $logintbl, $permissionstbl;
 	global $name, $prefix;
 	global $loggedin, $superuser;
 	global $ModuleAction;
@@ -335,7 +336,7 @@ function RunModule() {
 //	print "module: $module, id: $id<br>\n";
 	if($module == 'text') {		/* built in module */
 		/* Special case for edit actions */
-		if($action == 'doadd') {
+		/*if($action == 'doadd') {
 			$id = $_POST['id'];
 			$ancestor = $_GET['ancestor'];
 			$modname = htmlspecialchars($_POST['module'], ENT_QUOTES);
@@ -372,8 +373,8 @@ function RunModule() {
 			}
 			if($keepedit)
 				$action = 'edit';
-		}
-		else if(($action == 'update') && isset($_POST['id'])) {
+		}//*/
+		/*else if(($action == 'update') && isset($_POST['id'])) {
 			$id = $_POST['id'];
 			$ancestor = $_GET['ancestor'];
 			$newid = $_POST['newid'];
@@ -385,7 +386,7 @@ function RunModule() {
 
 			$query = "SELECT * FROM $articlestbl WHERE id='$id' AND lang='$lang'";
 			$result = DoQuery($query, "index.php");
-			if(mysql_num_rows($result) == 0) {	/* special case, add article */
+			if(mysql_num_rows($result) == 0) {	// special case, add article 
 				$query = "SELECT * FROM $articlestbl WHERE id='$id'";
 //				print "Query1: $query<br>\n";
 				$result = DoQuery($query, "index.php");
@@ -413,11 +414,11 @@ function RunModule() {
 			if($keepedit)
 				$action = 'edit';
 			$id = $newid;
-		}
-		else if($action == 'del') {
+		}*/
+		/*else if($action == 'del') {
 			$query = "DELETE FROM $articlestbl WHERE id='$id'";
 			$result = DoQuery($query, "DelPage");
-		}
+		}*/
 
 		$menuprinted = 0;
 		$nocommands = array('add', 'edit', 'login');
@@ -450,6 +451,7 @@ function RunModule() {
 					return "";
 				}
 			} 
+			require('shurtcut.php');
 			require("$module.php");					
 			return "";
 		}
@@ -525,7 +527,7 @@ function TemplateReplace($r) {
 	else if($p == 'logo')
 		return $small_logo;
 	else if($p=='complogo')
-		return '<img src="img/logo/'.$logo.'" alt="Company Logo" />';
+		return '<a href=\"module=main\"><img src="img/logo/'.$logo.'" alt="Company Logo" /></a>';
 	else if($p == 'version') {
 		return $Version;
 	}
@@ -554,18 +556,18 @@ function TemplateReplace($r) {
 		$query = "SELECT fullname FROM $logintbl WHERE name='$name1'";
 		$result = DoQuery($query, __LINE__);
 		$line = mysql_fetch_array($result, MYSQL_NUM);
-		$username = stripslashes($line[0]);
+		$username = _("Hello").":".stripslashes($line[0]);
 		$username .= "&nbsp;|&nbsp;";
 		if($superuser) {
-			$l = _("Select company");
+			$l = _("Change company");
 			$username .= "<a href=\"index.php?action=unsel\">$l</a>\n";
 			$username .= "&nbsp;|&nbsp;";
 		}
-		if(EditAble('')) {
+		/*if(EditAble('')) {
 			$l = _("Content management");
 			$username .= "<a href=\"index.php?module=edit\">$l</a>\n";
 			$username .= "&nbsp;|&nbsp;";
-		}
+		}*/
 		return "$username\n";
 	}
 
