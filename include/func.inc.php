@@ -18,11 +18,11 @@ function PrintSelect($defaccount,$type){
 	return $text;
 }
 function ErrorReport($str) {
-	print "<H1>$str</H1>\n";
+	print "<div style=\"display: inline-block;\"><H1>$str</H1>\n";
 	$l=_("To correct the mistake hit back");
 	print "<H2>$l</H2>\n";
 	$l=_("Back");
-	print "<form><input type=\"button\" value=\"$l\" onclick=\"history.back()\"></form>\n";
+	print "<form><input type=\"button\" value=\"$l\" onclick=\"history.back()\"></form></div>\n";
 }
 function newWindow($text,$href,$width,$height,$title=0,$class=0){
 	if(!$title)$title=_("New");
@@ -198,7 +198,23 @@ function NewRow() {
 		print "<tr>\n";
 	$EvenLine = !$EvenLine;
 }
-
+function getHelp(){
+	global $module;
+	$type=GetGet('type');
+	$action=GetGet('action');
+	$typeo=GetGet('targetdoc');
+	$opt=GetGet('opt');
+	$step=GetGet('step');
+	$help=$module;
+	if(($help=='acctadmin') ||($help=='contact')) $help.=$type;
+	elseif(($help=='login')||($help=='contact')) $help.=$action;
+	elseif($help=='docsadmin') $help.=$typeo;
+	elseif(($help=='outcome')||($help=='payment')) $help.=$opt;
+	elseif($help=='backup') $help.=$step;
+	
+	return "?module=redirect&amp;dest=$help";
+	
+}
 function RecomendFirefox() {
 	global $lang;
 	global $dir;
@@ -212,10 +228,10 @@ function RecomendFirefox() {
 	$l = _("We advise to use this software with Firefox browser");
 	$str .= "$l<br />\n";
 	$l = _("To install press the logo on the left");
-	$str .= "$l \n";
-	$l = _("For more information");
-	$l1 = _("Click here");
-	$str .= "$l <a href=\"?id=firefox\">$l1</a>\n";
+	//$str .= "$l \n";
+	//$l = _("For more information");
+	//$l1 = _("Click here");
+	//$str .= "$l <a href=\"?id=firefox\">$l1</a>\n";
 	$str .= "</td></tr></table>\n</div>";
 	
 	return $str;
@@ -248,35 +264,21 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 	if(isset($logo))$logo="<img src=\"$logo\" alt=\"$logo\" />";else $logo='';
 	if(isset($back)){
 		$l=_("Back");
-		$back='<a href="javascript:history.go(-1)"><img src=\"img/icon_back.png\" alt=\"Icon back\" />'.$l.'</a>';
+		$back='<a href="javascript:history.go(-1)">'.$l.'&nbsp;<img src="img/icon_back.png" alt="Icon back" /></a>';
 	}else 	
 		$back='';
-		
-	if(!isset($height))$height=500;
-	/*$newform='
-	<div class="form '.$sClass.'" style="width:'.$width.'px;">
-		<div class="ftr"><img src="img/ftr.png" alt="formright"  /></div>
-		<div class="ftc" style="width:'.($width-30).'px;">'.$haeder.'</div>
-		<div class="ftl"><img src="img/ftl.png" alt="formleft" /></div>
-		
-		<div class="fcr" style="height:'.($height-110).'px;"></div>
-		<div class="fcc" style="width:'.($width-40).'px;height:'.($height-140).'px;">
-			'.$text.'
-		</div>
-		<div class="fcl" style="height:'.($height-110).'px;"></div>
-
-		<div class="fbr"><img src="img/fbr.png" alt="formright" /></div>
-		<div class="fbc" style="width:'.($width-30).'px;"></div>
-		<div class="fbl"><img src="img/fbl.png" alt="formleft" /></div>
-	</div>';//*/
-	
-	
-	
+	if (isset($help)){
+		$l=_("Help");
+		$help='<a target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" />'.$l.'</a>';
+	}else{
+		$help='';
+	}
+	if(!isset($height))$height='';
 	$newform='
 	<table class="form '.$sClass.'" style="width:'.$width.'px;">
 		<tr>
 			<td class="ftr"><img src="img/ftr.png" alt="formright"  /></td>
-			<td class="ftc" style="width:'.($width-30).'px;">'.$logo.'<p>'.$haeder.'</p>'.$back.'</td>
+			<td class="ftc" style="width:'.($width-30).'px;">'.$logo.'<p>'.$haeder.'</p>'.$back.$help.'</td>
 			<td class="ftl"><img src="img/ftl.png" alt="formleft" /></td>
 		</tr>
 		<tr>
@@ -348,7 +350,7 @@ function EditAcct($num, $type,$smallprint=false) {
 	else {
 		$l = _("New account");
 		if (!$smallprint){
-			$text.= "<a href=\"javascript:editshow();\" id=\"b1\" class=\"btn\">$l</a>\n";
+			$text.= "<a href=\"javascript:editshow();\" id=\"b1\" class=\"btnsmall\">$l</a>\n";
 			$text.= "<div id=\"editformdiv\" style=\"display:none\">\n";
 		}else{
 			$text.= "<div id=\"editformdiv\">\n";
@@ -478,7 +480,7 @@ function EditAcct($num, $type,$smallprint=false) {
 	$text.= "</tr><tr><td colspan=\"5\" align=\"center\">";
 	$l = _("Submit");
 	if (!$smallprint){
-		$text.="<a href='javascript:document.acct.submit();' class='btn'>$l</a>";
+		$text.="<a href='javascript:document.acct.submit();' class='btnaction'>$l</a>";
 	}else {
 		$text.="<a href='javascript:document.acct.submit(); window.close();' class='btn'>$l</a>";		
 	}

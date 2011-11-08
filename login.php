@@ -8,8 +8,8 @@
  */
 global $logintbl, $permissionstbl;
 global $name;
-global $dir;
-
+//global $dir;
+$text='';
 if(isset($_POST['name']))
 	$name = $_POST['name'];
 
@@ -41,28 +41,28 @@ function UpdateLevel($uname, $level) {
 }
 
 function AddUser() {
-	global $levelsarr;
+	//global $levelsarr;
 	global $prefix;
-	global $dir;
+	//global $dir;
 	
-	print "<br />\n";
-	print "<div class=\"form righthalf1\">\n";
-	$l = _("Add user");
-	print "<h3>$l</h3>";
-	print "<form action=\"?module=login&amp;action=doadduser\" method=\"post\">\n";
-	print "<table dir=\"$dir\" border=\"0\" align=\"center\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	//print "<br />\n";
+	//print "<div class=\"form righthalf1\">\n";
+	$haeder = _("Add user");
+	//print "<h3>$l</h3>";
+	$text.= "<form action=\"?module=login&amp;action=doadduser\" method=\"post\">\n";
+	$text.= "<table dir=\"$dir\" border=\"0\" align=\"center\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("Email");
-	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" name=\"name\"></td></tr>\n";
+	$text.= "<td>$l: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"name\" /></td></tr>\n";
 	$l = _("Full name");
-	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"text\" name=\"fullname\" value=\"\"></td></tr>\n";
+	$text.= "<tr><td>$l: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"fullname\" value=\"\" /></td></tr>\n";
 	$l = _("Password");
-	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"password\" name=\"password\" value=\"\"></td></tr>\n";
+	$text.= "<tr><td>$l: </td>\n";
+	$text.= "<td><input type=\"password\" name=\"password\" value=\"\" /></td></tr>\n";
 	$l = _("Verify password");
-	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"password\" name=\"verpassword\"></td></tr>\n";
+	$text.= "<tr><td>$l: </td>\n";
+	$text.= "<td><input type=\"password\" name=\"verpassword\" /></td></tr>\n";
 //	print "<tr>\n";
 /*	print "<td>׳”׳¨׳©׳�׳•׳×: </td>\n";
 	print "<td>\n";
@@ -75,19 +75,20 @@ function AddUser() {
 	}
 	print "</select>\n"; */
 	if($prefix == '')
-		print "<input type=hidden name=prefix value=\"*\">\n";
+		$text.= "<input type=hidden name=prefix value=\"*\" />\n";
 //	print "</td></tr>\n";
 	$l = _("Create");
-	print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
-	print "</table>\n</form>\n";
-	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('adduser');
-	print "</div>\n";
+	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
+	$text.= "</table>\n</form>\n";
+	//print "</div>\n";
+	//print "<div class=\"lefthalf1\">\n";
+	//ShowText('adduser');
+	//print "</div>\n";
 //	print "</tr></td></table>\n";
+	createForm($text, $haeder,'',750,'','logo',1,'help');
 }
 
-if($action == 'delname') {
+/*if($action == 'delname') {
 	if($name == 'demo') {
 		$l = _("Demo user is not allowed to update data");
 		print "<h1>$l</h1>\n";
@@ -114,7 +115,7 @@ if($action == 'removeperm') {
 	$query = "DELETE FROM $permissionstbl WHERE name='$uname' AND prefix='$prefix'";
 	DoQuery($query, "RemovePerm");
 	return;
-}
+}*/
 if($action == 'logout') {
 	$name = $_COOKIE['name'];
 	$query = "UPDATE $logintbl SET cookie='' WHERE name='$name'";
@@ -189,7 +190,7 @@ if($action == 'doadduser') {
 		$l = _("User successfully added");
 		print "<h1  class=\"login\">$l</H1>\n";
 		$l = _("Click here to continue");
-		print "<h2  class=\"login\"><A HREF=index.php>$l</A></H2>\n";
+		print "<h2  class=\"login\"><a href=index.php>$l</a></h2>\n";
 		return;
 	}
 }
@@ -243,17 +244,26 @@ if($action == 'forgot') {
 	$r = rand(0, 26);
 	$pwd = substr($str, $r, 6);
 	$query = "UPDATE $logintbl SET password=PASSWORD('$pwd') WHERE name='$email'";
-		echo "<br />".$pwd."; <br />";
+	//	echo "<br />".$pwd."; <br />";
 	DoQuery($query, "login.php");
-	$l = _("New password for Drorit accounting software");
+	$l = _("New password for Linet accounting software");
 	$subject = "=?utf-8?B?" . base64_encode("$l") . "?=";
 	$headers = "Content-type: text/html; charset=UTF-8\r\n";
-	$headers .= "From: no-reply@drorit.co.il\r\n";
+	$headers .= "From: no-reply@linet.org.il\r\n";
 	$body .= "<div dir=\"$dir\">\n";
-	$body .= _("Your new drorit password is: ");
+	$body .= _("Your new Linet password is: ");
 	$body .= "$pwd\n";
 	$body .= "</div>\n";
 	mail($email, $subject, $body, $headers);
+	
+	
+	$to      = 'adam2314@gmail.com';
+$subject = 'the subject';
+$message = 'hello';
+$headers = 'From: webmaster@example.com' ;
+
+mail($to, $subject, $message, $headers);
+	
 	$l = _("Password sent to email");
 	print "<br /><h1>$l</h1>\n";
 	$action = '';
@@ -423,30 +433,31 @@ if($action == 'edituser') {
 	$email = $line['email'];
 	$hash=$line['hash'];
 	
-	print "<br />\n";
-	print "<div class=\"form righthalf1\">\n";
+	//print "<br />\n";
+	//print "<div class=\"form righthalf1\">\n";
 	$l = _("Edit user details");
-	print "<h3>$l</h3>";
-	print "<form action=\"?module=login&amp;action=updateuser\" method=\"post\">\n";
-	print "<table border=\"0\" dir=\"$dir\" align=\"center\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	$haeder=$l;
+	//print "<h3>$l</h3>";
+	$text.= "<form id=\"edituser\" action=\"?module=login&amp;action=updateuser\" method=\"post\">\n";
+	$text.= "<table border=\"0\" dir=\"$dir\" align=\"center\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("Email");
-	print "<td>$l: </td>\n";
-	print "<td>$name</td></tr>\n";
+	$text.= "<td>$l: </td>\n";
+	$text.= "<td>$name</td></tr>\n";
 
 	$l = _("Full name");
-	print "<tr><td>$l: </td>\n";
-	print "<td>\n";
-	print "<input type=\"hidden\" name=\"uname\" value=\"$name\" />\n";
-	print "<input type=\"text\" name=\"fullname\" value=\"$fullname\" /></td></tr>\n";
+	$text.= "<tr><td>$l: </td>\n";
+	$text.= "<td>\n";
+	$text.= "<input type=\"hidden\" name=\"uname\" value=\"$name\" />\n";
+	$text.= "<input type=\"text\" name=\"fullname\" value=\"$fullname\" /></td></tr>\n";
 	$l = _("Password");
-	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"password\" name=\"password\" /></td></tr>\n";
+	$text.= "<tr><td>$l: </td>\n";
+	$text.= "<td><input type=\"password\" name=\"password\" /></td></tr>\n";
 	$l = _("Verify password");
-	print "<tr><td>$l: </td>\n";
-	print "<td><input type=\"password\" name=\"verpassword\" /></td></tr>\n";
+	$text.= "<tr><td>$l: </td>\n";
+	$text.= "<td><input type=\"password\" name=\"verpassword\" /></td></tr>\n";
 	$l = _("App Key");
-	print "<tr><td>$l: </td>\n";
-	print "<td><font>$hash</font></td></tr>\n";
+	$text.= "<tr><td>$l: </td>\n";
+	$text.= "<td><font>$hash</font></td></tr>\n";
 /*	print "<tr><td>׳”׳¨׳©׳�׳•׳×: </td>\n";
 	print "<td>\n";
 	print "<select name=\"level\">\n";
@@ -459,12 +470,14 @@ if($action == 'edituser') {
 	print "</select>\n"; 
 	print "</td></tr>\n" */
 	$l = _("Update");
-	print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
-	print "</table>\n</form>\n";
-	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('edituser');
-	print "</div>\n";
+	$text.= "<tr><td colspan=\"2\" align=\"center\">";
+	$text.="<a href=\"javascript:$('#edituser').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+	$text.= "</table>\n</form>\n";
+	//print "</div>\n";
+	//print "<div class=\"lefthalf1\">\n";
+	//ShowText('edituser');
+	//print "</div>\n";
+	createForm($text, $haeder, 'login',750,'','img/icon_login.png',1,'help');
 	return;
 }
 if($action == 'adduser') {
@@ -492,7 +505,7 @@ else {
 	$l = _("Entrance is only for registerd users");
 	$text.= "$l";
 //	print "</h3></div></div>\n";
-	$text.=  "<div id=\"login\"><form action=\"index.php?action=dologin\" method=\"post\">\n";
+	$text.=  "<form id=\"login\" action=\"index.php?action=dologin\" method=\"post\">\n";
 	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"200px\"><tr>\n";
 	$l = _("Email");
 	$text.=  "<td>$l: <br />";
@@ -501,16 +514,18 @@ else {
 	$text.=  "<tr><td>$l: <br />";
 	$text.=  "<input type=\"password\" name=\"password\" size=\"30\" /></td>\n";
 	$l = _("Login");
-	$text.=  "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
+	$text.=  "<tr><td colspan=\"2\" align=\"center\">";
+	
+	$text.="<a href=\"javascript:$('#login').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$text.=  "</table>\n";
 	$l = _("I forgot my password");
 	$text.='<a href="#" id="btnfrgt">'.$l.'</a>';
-	$text.=  "</form>\n</div>";
+	$text.=  "</form>\n";
 	$text.=  "<br />\n";
 
 	
-	$text.="<div id=\"forgat\">";
-		$text.=  "<form action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
+	//$text.="<div>";
+		$text.=  "<form id=\"forgat\" action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
 		$text.=  "<table dir=\"$dir\" class=\"formtbl\" width=\"100%\">\n";
 	//$text.=  "<td colspan=\"2\">";
 	
@@ -520,11 +535,13 @@ else {
 	$text.=  "<td><input type=\"text\" name=\"email\" size=\"30\" /></td>\n";
 	$text.=  "</tr><tr>\n";
 	$l = _("Submit");
-	$text.=  "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
-	$text.=  "</tr></table></form>\n";
+	$text.=  "<td colspan=\"2\" align=\"center\"><a href=\"javascript:$('#forgat').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$l = _("Cancel");
-	$text.='<a href="#" id="btncancel">'.$l.'</a>';
-	$text.="</div>";
+	$text.='<tr><td><a href="#" id="btncancel">'.$l.'</a>';
+	
+	$text.=  "</td></tr></table></form>\n";
+	
+	//$text.="</div>";
 	$haeder=_("Login");
 	createForm($text, $haeder, 'login',400,300,'img/icon_login.png');
 	/*print "<div class=\"lefthalf1\">\n";

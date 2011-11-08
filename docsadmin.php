@@ -9,7 +9,7 @@
 global $logo, $prefix, $accountstbl, $companiestbl, $supdocstbl, $itemstbl;
 global $docstbl,$chequestbl, $docdetailstbl, $currencytbl;
 global $CompArray;
-global $CurrArray;
+//global $CurrArray;
 global $DocType;
 global $paymentarr;
 global $creditarr;
@@ -91,7 +91,7 @@ function addItem(last) {
 	r.setAttribute("id",trIdName);
 	
 	ca.innerHTML = "<input type=\"text\" id=\"AC"+num+"\" class=\"cat_num\" name=\"cat_num[]\" onblur=\"SetPartDetails("+num+")\" size=\"10\"/>\n";
-	cb.innerHTML = "<input type=\"text\" id=\"DESC"+num+"\" class=\"description\" name=\"description[]\" size=\"40\" />";
+	cb.innerHTML = "<input type=\"text\" id=\"DESC"+num+"\" class=\"description\" name=\"description[]\" size=\"25\" />";
 	cc.innerHTML ="<input type=\"text\" id=\"QTY"+num+"\" class=\"qty\" name=\"qty[]\" size=\"4\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("QTY",num,1);
 	cd.innerHTML ="<input type=\"text\" id=\"UNT"+num+"\" class=\"unit_price\" name=\"unit_price[]\" size=\"8\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("UNT",num,10);
 	ce.innerHTML ="<select class=\"currency\" id=\"CUR"+num+"\" name=\"currency[]\"><option value=\"0\">NIS</option></select>";
@@ -700,7 +700,7 @@ if($step == 0) {	/* First step, select document type and customer */
 	
 	/* main form */
 	$text.= "<div style=\"padding:10px;\">\n";
-	$text.= "<form name=\"form1\" action=\"?module=docsadmin&amp;step=1\" method=\"post\">\n";
+	$text.= "<form name=\"form1\" id=\"documenet\" action=\"?module=docsadmin&amp;step=1\" method=\"post\">\n";
 	$text.= "<input type=\"hidden\" name=\"fromnum\" value=\"$docnum\" />\n";
 	$text.= "<input type=\"hidden\" name=\"fromdoc\" value=\"$doctype\" />\n";
 	$text.= "<input type=\"hidden\" name=\"type\" value=\"$targetdoc\" />\n";
@@ -714,8 +714,8 @@ if($step == 0) {	/* First step, select document type and customer */
 	$text.= PrintCustomerSelect($account);
 	
 	$l = _("New customer");
-	//$text.= "<a href=\"?module=acctadmin&amp;type=0&amp;ret=docsadmin&amp;targetdoc=$targetdoc\">$l</a>\n";
-	$text.=newWindow($l,'?action=lister&form=account&type='.CUSTOMER,480,480);
+	
+	$text.=newWindow($l,'?action=lister&form=account&type='.CUSTOMER,480,480,$l,'btnsmall');
 	$text.= "</td></tr>\n";
 	
 	$l = _("Company");
@@ -764,77 +764,72 @@ if($step == 0) {	/* First step, select document type and customer */
 	$text.= "</tr></table>\n";
 	
 	
-	$text.= "</td></tr></table>";
+	$text.= "</td></tr></table><hr />";
 	//adam:
 	/* Now the real part of an invoice, the details part.. */
 	if ($targetdoc!=DOC_RECEIPT){
 		$l=_("New Item");
-		$text.=newWindow($l,'?action=lister&form=items',400,350);
-		$text.= "<table border=\"0\" id=\"docdet\">\n";		/* Internal table for details */
+		$text.=newWindow($l,'?action=lister&form=items',400,350,$l,'btnsmall');
+		$text.= "<table class=\"formy\"><tbody id=\"docdet\">\n";		/* Internal table for details */
 		/* header line */
-		$text.= "<tr class=\"tblhead1\">\n";
+		$text.= "<tr>\n";
 			$l = _("Item");
-			$text.= "<td>$l</td>\n";
+			$text.= "<th class=\"header\">$l</th>\n";
 			$l = _("Description");
-			$text.= "<td>$l</td>\n";
+			$text.= "<th class=\"header\">$l</th>\n";
 			$l = _("Qty.");
-			$text.= "<td>$l</td>\n";
+			$text.= "<th class=\"header\">$l</th>\n";
 			$l = _("Price");
-			$text.= "<td>$l</td>\n";
+			$text.= "<th class=\"header\">$l</th>\n";
 			$l = _("Currency");
-			$text.= "<td>$l</td>\n";
+			$text.= "<th class=\"header\">$l</th>\n";
 			$l = _("Total");
-			$text.= "<td>$l</td>\n";
+			$text.= "<th class=\"header\">$l</th>\n";
 			$l = _("Remove");
-			$text.= "<td>$l</td>\n";
+			$text.= "<th class=\"header\" width=\"36\">$l</th>\n";
 		$text.= "</tr>\n";
-		$text.= "</table>\n";
+		$text.= "</tbody></table>\n";
 		$text.= '<script type="text/javascript">addItem();</script>';
 		$text.= "<a href=\"javascript:addItem();\">Add</a>\n";
 		//$text.= "</td></tr>\n";
 		//$text.= "</table>\n";
 	}
 	if (($targetdoc==DOC_RECEIPT) || ($targetdoc==DOC_INVRCPT)){
-			$text.= "<table border=\"1\">\n";		/* Internal table for details */
+			$text.= "<table class=\"formy\">\n";		/* Internal table for details */
 		/* header line */
-		$text.= "<tr class=\"tblhead1\">\n";
+		$text.= "<tr>\n";
 		$l = _("Payment method");
-		$text.= "<td>$l</td>\n";
+		$text.= "<th class=\"header\"  width=\"120\">$l</th>\n";
 		$l = _("Credit company");
-		$text.= "<td class=\"crdhide\">$l</td>\n";
+		$text.= "<th class=\"header\" width=\"120\">$l</th>\n";
 		$l = _("Number");
-		$text.= "<td>$l</td>\n";
+		$text.= "<th class=\"header\" width=\"120\">$l</th>\n";
 		$l = _("Bank");
-		$text.= "<td class=\"chkhide\">$l</td>\n";
+		$text.= "<th class=\"header\">$l</th>\n";
 		$l = _("Branch");
-		$text.= "<td class=\"chkhide\">$l</td>\n";
+		$text.= "<th class=\"header\">$l</th>\n";
 		$l = _("Account no.");
-		$text.= "<td class=\"chkhide\">$l</td>\n";
+		$text.= "<th class=\"header\" width=\"120\">$l</th>\n";
 		$l = _("Date");
-		$text.= "<td>$l</td>\n";
+		$text.= "<th class=\"header\">$l</th>\n";
 		$l = _("Sum");
-		$text.= "<td>$l</td>\n";
+		$text.= "<th class=\"header\">$l</th>\n";
 		$text.="</tr>";
-		//$text.= "</tr><tr><td colspan=\"8\" align=\"center\">\n\n";
-		//$text.= '<input type="hidden" value="0" id="rcptDetialNum" />';
-		//$text.= "<table border=\"0\" id=\"rcptdetials\">\n";
 		for($i = 0; $i < 4; $i++) {
 			$text.= "<tr>\n";
 			$text.= "<td>\n";
 			$text.= PrintPaymentType(i);
-			$text.= "</td><td class=\"crdhide\">\n";
+			$text.= "</td><td>\n";
 			$text.= PrintCreditCompany(0);
 			$text.= "</td>\n";
-			$text.= "<td><input type=\"text\" name=\"cheque_num[]\" size=\"8\" /></td>\n";
-			$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"bank[]\" size=\"3\" /></td>\n";
-			$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"branch[]\" size=\"3\" /></td>\n";
-			$text.= "<td class=\"chkhide\"><input type=\"text\" name=\"cheque_acct[]\" size=\"8\" /></td>\n";
+			$text.= "<td><input type=\"text\" name=\"cheque_num[]\" size=\"16\" /></td>\n";
+			$text.= "<td><input type=\"text\" name=\"bank[]\" size=\"3\" /></td>\n";
+			$text.= "<td><input type=\"text\" name=\"branch[]\" size=\"3\" /></td>\n";
+			$text.= "<td><input type=\"text\" name=\"cheque_acct[]\" size=\"13\" /></td>\n";
 			$text.= "<td><input type=\"text\" name=\"date[]\" size=\"7\" /></td>\n";
 			$text.= "<td><input type=\"text\" class=\"sum\" name=\"sum[]\" size=\"6\" /></td>\n";
 			$text.= "</tr>\n";
 		}//*/
-		//$text.= "</table></td></tr>";
-		
 		$l = _("Source tax");
 		$text.= "<tr><td colspan=\"7\" align=\"left\">$l: </td>\n";
 		$text.= "<td><input type=\"text\" name=\"src_tax\" size=\"6\" /></td>\n\t</tr>";
@@ -847,12 +842,12 @@ if($step == 0) {	/* First step, select document type and customer */
 	$text.= "$l: <br />\n";
 	$text.= "<textarea name=\"comments\"  cols=\"80\" rows=\"4\">$comments</textarea>\n";
 	$l = _("Next");
-	$text.= "<br /><input type=\"submit\" value=\"$l >>>\" />\n";
+	//$text.= "<br /><input type=\"submit\" value=\"$l >>>\" />\n";
+	$text.="<br /><a href=\"javascript:$('#documenet').submit();\" class=\"btnaction\">$l</a>";
 	
 	$text.= "</form>\n";
 	$text.= "</div>\n";
-	createForm($text,$header,'',750);
-	//$text.= "</div>";//adam: form div
+	createForm($text,$header,'',750,null,'img/icon_acc.png',1,getHelp());
 }
 if($step > 0) {//preview
 	$fromnum = (int)$_POST['fromnum'];
@@ -1142,19 +1137,20 @@ if($step > 0) {//preview
 					$texty.=  "</td></tr>\n</table>\n";
 					$texty.=  "</form>\n";
 					$header=_("Documenet Preview");
-					createForm($texty,$header,'',750,null,'gfcg',1,null);
+					
+					createForm($texty,$header,'',750,null,'img/icon_acc.png',1,getHelp());
 					return;
 				}
 				
 			}
 			$l = _("Create & print");
-			$texty.="<a href=\"javascript:$('#docform').submit();\" class=\"btn\">$l</a>";
+			$texty.="<a href=\"javascript:$('#docform').submit();\" class=\"btnaction\">$l</a>";
 			//$texty.=  "<input type=\"submit\" value=\"$l\" />\n";
 			
 		}
 		else {
 			$l = _("Next");
-			$texty.="<a href=\"javascript:$('#docform').submit();\" class=\"btn\">$l</a>";
+			$texty.="<a href=\"javascript:$('#docform').submit();\" class=\"btnaction\">$l</a>";
 			//$texty.=  "<input type=\"submit\" value=\"$l >>>\" />\n";
 		}
 	}
@@ -1163,7 +1159,7 @@ if($step > 0) {//preview
 //		print "<input type=\"submit\" value=\"׳³ֲ©׳³ן¿½׳³ג€” ׳³ג€˜׳³ג€�׳³ג€¢׳³ן¿½׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ֻ�׳³ֲ¨׳³ג€¢׳³ֲ ׳³ג„¢\">\n";
 		$l = _("Print");
 		//$texty.=  "<input type=\"button\" value=\"$l\" ";
-		$texty.=newWindow($l,"printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix&amp;print_win=1",800,600,_("Document Print"),'btn');
+		$texty.=newWindow($l,"printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix&amp;print_win=1",800,600,_("Document Print"),'btnprint');
 		//$texty.=  "onclick=\"', 'printwin', 'width=800,height=600,scrollbar=yes')\" />\n";
 	}		
 //	print "step: $step, nextstep: $nextstep\n";
@@ -1171,6 +1167,6 @@ if($step > 0) {//preview
 	$texty.=  "</form>\n";
 	//print "</div>\n";
 	$header=_("Documenet Preview");
-	createForm($texty,$header,'',750);
+	createForm($texty,$header,'',750,null,'img/icon_acc.png',1,getHelp());
 }
 ?>

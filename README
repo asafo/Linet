@@ -1,4 +1,19 @@
+-install
+php 5.3+
+apache 2.x
+mysql 5.+
+sendmail
+xvfb
+wkhtmltopdf
+
+version 1.4
++open format import
++new recipt module
++new disgn!
++import bank books from file
++major pdf layot & rander change
+
 version 1.14
 -minor bug fixes in ajax(lister.php)
 -start working on the open format import
--ad option to change company logo
+-add option to change company logo

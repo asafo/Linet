@@ -5,9 +5,9 @@
  | Written Ori Idan helicon technologies Ltd.
  */
 global $prefix, $accountstbl, $companiestbl, $opt;
-global $EvenLine;
-global $lang, $dir;
-
+//global $EvenLine;
+//global $lang, $dir;
+$text='';
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
 	print "<h1>$l</h1>\n";
@@ -155,7 +155,7 @@ function PrintOutcomeSelect($def) {
 			$v = 100;
 		$l = _("Credited VAT");
 		$val = "$o ($l: $v%)";
-//		$val = "$o (מע\"מ מוכר: $v%)";
+//		$val = "$o (׳�׳¢\"׳� ׳�׳•׳›׳¨: $v%)";
 //		$val .= " $v";
 		if($n == $def)
 			$text.= "<option value=\"$n\" selected>$val</option>\n";
@@ -219,14 +219,14 @@ if($step == 2) {
 	}
 	if(abs($total) > 0.01) {	
 		/* write transactions */
-		// Transaction 1 זכות הספק בכל הסכום
+		// Transaction 1 ׳–׳›׳•׳× ׳”׳¡׳₪׳§ ׳‘׳›׳� ׳”׳¡׳›׳•׳�
 		$tnum = Transaction(0, SUPINV, $supplier, $refnum, '', $dt, $details, $total);
-		// Transaction 2 חובת מע"מ תשומות לפי המע"מ המוגדר לסעיף ההוצאה
+		// Transaction 2 ׳—׳•׳‘׳× ׳�׳¢"׳� ׳×׳©׳•׳�׳•׳× ׳�׳₪׳™ ׳”׳�׳¢"׳� ׳”׳�׳•׳’׳“׳¨ ׳�׳¡׳¢׳™׳£ ׳”׳”׳•׳¦׳�׳”
 		$tvat = $novattotal * $av / 100.0;
 //		print "novattotal: $novattotal, av: $av, tvat: $tvat<br>\n";
 		$acct = ($opt == 'asset') ? ASSETVAT : BUYVAT;
 		$tnum = Transaction($tnum, SUPINV, $acct, $refnum, '', $dt, '', $tvat * -1.0);
-		// Transaction 3 חובת סעיף ההוצאה ביתרה
+		// Transaction 3 ׳—׳•׳‘׳× ׳¡׳¢׳™׳£ ׳”׳”׳•׳¦׳�׳” ׳‘׳™׳×׳¨׳”
 		$novattotal = $total - $tvat;
 		$tnum = Transaction($tnum, SUPINV, $outcome, $refnum, '', $dt, $details, $novattotal * -1.0);
 		if($opt == 'asset') {
@@ -278,7 +278,7 @@ if($step == 0) {
 	$supplier = "__NULL__";
 	$outcome = "__NULL__";
 }
-$text.= "<form name=\"outcome\" action=\"?module=outcome&amp;step=$nextstep$optact\" method=\"post\">\n";
+$text.= "<form name=\"outcome\" id=\"outcome\" action=\"?module=outcome&amp;step=$nextstep$optact\" method=\"post\">\n";
 $text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 $l = _("Supplier");
 $text.= "<td>$l: </td>\n";
@@ -303,7 +303,7 @@ else {
 }
 $text.= "<td>\n";
 
-/* print "(מע\"מ מוכר: "; */
+/* print "(׳�׳¢\"׳� ׳�׳•׳›׳¨: "; */
 if(!isset($pvat))
 	$pvat = 100;
 $text.= "<input type=\"hidden\" name=\"pvat\" value=\"$pvat\" size=\"3\" />\n";
@@ -359,7 +359,7 @@ $text.= "<td><input type=\"text\" name=\"total\" size=\"10\" dir=\"ltr\" value=\
 $text.= "</tr><tr>\n";
 
 $l = _("Update");
-$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" />\n";
+$text.= "<td colspan=\"2\" align=\"center\"><a href=\"javascript:$('#outcome').submit();\" class=\"btnaction\">$l</a>\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
@@ -367,12 +367,12 @@ $text.= "</form>\n";
 createForm($text,$header,'',450);
 
 
-print "<div class=\"lefthalf1\">\n";
+//print "<div class=\"lefthalf1\">\n";
 /* if($opt == 'asset')
 	ShowText('asset');
 else */
-	ShowText('outcome');
-print "</div>\n";
+//	ShowText('outcome');
+//print "</div>\n";
 print "<div class=\"innercontent\">\n";
 if($step == 0) {
 	require('lasttran.inc.php');

@@ -1,12 +1,12 @@
 <?PHP
-//M:׳₪׳¨׳™׳˜׳™׳�
+//M:׳³ג‚×׳³ֲ¨׳³ג„¢׳³ֻ�׳³ג„¢׳³ן¿½
 /*
  | items
  | This module is part of Drorit free accounting system
  | Written by Ori Idan helicon technologies Ltd.
  */
 global $prefix, $accountstbl, $supdocstbl, $itemstbl, $currencytbl;
-global $EvenLine;
+//global $EvenLine;
 
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
@@ -41,10 +41,10 @@ function PrintIncomeSelect($def) {
 		$v = $line[2]; 
 		if(($v != '') && ($v == 0))
 			$company .= _("0% VAT");
-//			$company .= " (׳�׳¢\"׳� 0%)";
+//			$company .= " (׳³ן¿½׳³ֲ¢\"׳³ן¿½ 0%)";
 		else 
 			$company .= _("100% VAT");
-//			$company .= " (׳�׳¢\"׳� 100%)";
+//			$company .= " (׳³ן¿½׳³ֲ¢\"׳³ן¿½ 100%)";
 		if($n == $def)
 			$text.= "<option value=\"$n\" selected=\"selected\">$company</option>\n";
 		else
@@ -125,9 +125,9 @@ function EditItem($num) {
 	$l = _("Update");
 	$text.= "<td colspan=\"2\" align=\"center\">";
 	if (!$smallprint){
-		$text.="<a href='javascript:document.itm.submit();' class='btn'>$l</a>";
+		$text.="<a href='javascript:document.itm.submit();' class='btnaction'>$l</a>";
 	}else {
-		$text.="<a href='javascript:document.itm.submit(); window.close();' class='btn'>$l</a>";		
+		$text.="<a href='javascript:document.itm.submit(); window.close();' class='btnaction'>$l</a>";		
 	}
 	
 	//<input type=\"submit\" value=\"$l\" />";
@@ -154,7 +154,7 @@ $enddmy = isset($_COOKIE['end']) ? $_COOKIE['end'] : date("d-m-Y");
 $begindmy = isset($_GET['begin']) ? $_GET['begin'] : $begindmy;
 $enddmy = isset($_GET['end']) ? $_GET['end'] : $enddmy;
 
-print "<div class=\"form righthalf1\">\n";
+//print "<div class=\"form righthalf1\">\n";
 
 if($action == 'edit') {
 	$text=EditItem($num);
@@ -203,25 +203,26 @@ else if($action == 'del') {
 
 // print "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
 $text=EditItem(0);
-createForm($text,$haeder,"",350);
+if ($smallprint)
+	createForm($text,$haeder,"",350);
 
 if (!$smallprint){
 	$l = _("Existing items");
-	print "<h2>$l</h2>";
+	$text.= "<h2>$l</h2>";
 	
 	$query = "SELECT num,name,account,defprice FROM $itemstbl WHERE prefix='$prefix' ORDER BY name";
 	$result = DoQuery($query, "items.php");
-	print "<table dir=\"rtl\" border=\"0\" class=\"hovertbl\" width=\"100%\" style=\"margin-top:5px\">\n";
-	print "<tr class=\"tblhead\">\n";
+	$text.=  "<table class=\"tablesorter\" width=\"100%\" ><thead>\n";
+	$text.=  "<tr>\n";
 	$l = _("Item name");
-	print "<td>$l &nbsp;</td>\n";
+	$text.=  "<th class=\"header\">$l &nbsp;</th>\n";
 	$l = _("Income account");
-	print "<td>$l &nbsp;</td>\n";
+	$text.=  "<th class=\"header\">$l &nbsp;</th>\n";
 	$l = _("Unit price");
-	print "<td>$l &nbsp;</td>\n";
+	$text.=  "<th class=\"header\">$l &nbsp;</th>\n";
 	$l = _("Actions");
-	print "<td>$l &nbsp;</td>\n";
-	print "</tr>\n";
+	$text.=  "<th class=\"header\">$l &nbsp;</th>\n";
+	$text.=  "</tr></thead><tbody>\n";
 	
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$itemname = $line['name'];
@@ -229,21 +230,22 @@ if (!$smallprint){
 		$acct = $line['account'];
 		$acctname = GetAccountName($acct);
 		$defprice = $line['defprice'];
-		NewRow();
+		//NewRow();
 		$url = "?module=acctdisp&amp;account=$acct&amp;begin=$begindmy&amp;end=$enddmy";
-		print "<td>$itemname</td><td><a href=\"$url\">$acctname</a></td><td>$defprice</td>\n";
+		$text.=  "<tr><td>$itemname</td><td><a href=\"$url\">$acctname</a></td><td>$defprice</td>\n";
 		$l = _("Edit");
-		print "<td><a href=\"?module=items&amp;action=edit&amp;num=$num\">$l</a>&nbsp;&nbsp;\n";
+		$text.=  "<td><a href=\"?module=items&amp;action=edit&amp;num=$num\" class=\"btnedit\" ></a>&nbsp;&nbsp;\n";
 		$l = _("Delete");
-		print "<a href=\"?module=items&amp;action=del&amp;num=$num\">$l</a>\n";
-		print "</td>\n";
-		print "</tr>\n";
+		$text.=  "<a href=\"?module=items&amp;action=del&amp;num=$num\" class=\"btnremove\"></a>\n";
+		$text.=  "</td>\n";
+		$text.=  "</tr>\n";
 	}
-	print "</table>\n";
+	$text.=  "</tbody></table>\n";
 	
-	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('items');
-	print "</div>\n";
+	//$text.=  "</div>\n";
+	//print "<div class=\"lefthalf1\">\n";
+	//ShowText('items');
+	//print "</div>\n";
+	createForm($text,$haeder,"",750);
 }
 ?>

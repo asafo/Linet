@@ -27,7 +27,7 @@ $begindmy = isset($_GET['begin']) ? $_GET['begin'] : $begindmy;
 $enddmy = isset($_GET['end']) ? $_GET['end'] : $enddmy;
 $beginmysql = FormatDate($begindmy, "dmy", "mysql");
 $endmysql = FormatDate($enddmy, "dmy", "mysql");
-
+$text='';
 $num = isset($_GET['num']) ? (int)$_GET['num'] : 0;
 $dt = date("d-m-Y");
 $date1 = _("Date");
@@ -276,9 +276,9 @@ EHF;
 	$query = "SELECT * FROM $histtbl WHERE num='$num' AND prefix='$prefix' ";
 	$query .= "ORDER BY dt DESC";
 	$result = DoQuery($query, __LINE__);
-	print "<table class=\"hovertbl\">\n";
+	print "<table class=\"tablesorter\" >\n";
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		NewRow();
+		print "<tr>\n";
 		$dt = FormatDate($line['dt'], "mysql", "dmy");
 		print "<td>$date1: $dt<br>\n";
 		$details = nl2br($line['details']);
@@ -292,7 +292,7 @@ EHF;
 	print "</div>\n";
 	return;
 }
-if($action == 'add') {
+/*if($action == 'add') {
 	$type = (int)$_GET['type'];
 	print "<br />\n";
 	//print "<div class=\"righthalf1\">\n";
@@ -303,7 +303,7 @@ if($action == 'add') {
 	ShowText('addcontact');
 	print "</div>\n";
 	return;
-}
+}*/
 $type = (int)$_GET['type'];	
 $company1 = _("Company");
 $contact1 = _("Contact");
@@ -354,18 +354,21 @@ if($type=='0'){
 $tblheader = <<<EOT
 $text
 
-<table dir="$dir" class="hovertbl">
-	<tr class="tblhead">
-		<td style="width:3em">$n </td>
-		<td style="width:4em">$type1</td>
-		<td style="width:12em">$company1</td>
-		<td style="width:12em">$contact1</td>
-		<td style="width:8em">$address1</td>
-		<td style="width:8em">$city1</td>
-		<td style="width:4em">$zip1</td>
-		<td style="width:4em">$accbalance1</td>
-		<td><!-- actions --></td>
+<table class="tablesorter">
+	<thead>
+<tr >
+		<th class="header" style="width:3em">$n </th>
+		<th class="header" style="width:4em">$type1</th>
+		<th class="header" style="width:12em">$company1</th>
+		<th class="header" style="width:12em">$contact1</th>
+		<th class="header" style="width:8em">$address1</th>
+		<th class="header" style="width:8em">$city1</th>
+		<th class="header" style="width:4em">$zip1</th>
+		<th class="header" style="width:4em">$accbalance1</th>
+		<th class="header" ><!-- actions --></th>
 	</tr>
+	</thead>
+	<tbody>
 EOT;
 
 //print "<br />\n";
@@ -428,9 +431,9 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$address = $line['address'];
 	$city = $line['city'];
 	$zip = $line['zip'];
-	NewRow();
+	//NewRow();
 	$url = "?module=contact&amp;action=edit&amp;num=$num";
-	$text.= "<td><a href=\"$url\">$num</a></td>\n";
+	$text.= "<tr><td><a href=\"$url\">$num</a></td>\n";
 	if ($line['type']== CUSTOMER) $t = _("Customer");
 	if ($line['type']== SUPPLIER) $t=  _("Supplier");
 	$text.= "<td>$t</td>\n";
@@ -440,14 +443,14 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$text.= "<td>$city</td>\n";
 	$text.= "<td>$zip</td>\n";
 	$sum = GetAcctTotal($num, $beginmysql, $endmysql);
-	$text.= "<td dir=\"ltr\">$sum</td>\n";
+	$text.= "<td>$sum</td>\n";
 	$url = "?module=acctdisp&amp;account=$num&amp;begin=$begindmy&amp;end=$enddmy";
 	$l = _("Transactions");
 	$text.= "<td><input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\" /></td>\n";
 	$text.= "</tr>\n";
 }
 
-$text.= "</table>\n";
+$text.= "</tbody></table>\n";
 
 createForm($srchform.$text, $l,'',700);
 ?>

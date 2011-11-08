@@ -7,7 +7,7 @@
  */
 $ReqLevel = 1;
 global $ratestbl, $currencytbl;
-global $dir;
+//global $dir;
 /*
 if(!isset($module)) {
 	header('Content-type: text/html;charset=UTF-8');
@@ -103,38 +103,38 @@ if($action == 'rate') {
 		list ($day, $month, $year) = split ('[/.-]', $date);
 		$date = "$year-$month-$day";
 	}
-	print "<br>\n";
-	if(isset($module))
-		print "<div class=\"form righthalf1\">\n";
+	//print "<br />\n";
+	//if(isset($module))
+//		print "<div class=\"form righthalf1\">\n";
 	$l = _("Currency rates");
-	print "<h3 style=\"text-align:right\"> $l </h3>";
+	//print "<h3 style=\"text-align:right\"> $l </h3>";
+	$header=$l;
+	$text='';
 	if(!isset($module))
-		print "<form name=\"form1\" action=\"curadmin.php?action=updaterate\" method=\"post\">\n";
+		$text.= "<form name=\"form1\" action=\"curadmin.php?action=updaterate\" method=\"post\">\n";
 	else
-		print "<form name=\"form1\" action=\"?module=curadmin&amp;action=updaterate\" method=\"post\">\n";
-	print "<table border=\"0\" dir=\"rtl\" width=\"100%\" class=\"formtbl\"><tr>\n";
+		$text.= "<form name=\"form1\" action=\"?module=curadmin&amp;action=updaterate\" method=\"post\">\n";
+	$text.= "<table border=\"0\" dir=\"rtl\" width=\"100%\" class=\"formtbl\"><tr>\n";
 	$l = _("Date");
-	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" id=\"date\" name=\"date\" size=\"7\" value=\"$day-$month-$year\">";
-?>
-<script type="text/javascript">
-	addDatePicker("#date","<?print "$day-$month-$year"; ?>");
-</script>
-<?PHP	
-	print "</td></tr><tr>\n";
+	$text.= "<td>$l: </td>\n";
+	$text.= "<td><input type=\"text\" id=\"date\" name=\"date\" size=\"7\" value=\"$day-$month-$year\">";
 
-	print "<td colspan=\"2\">\n";
-	print "<table border=\"0\"><tr class=\"tblhead\">\n";
+	$text.= '<script type="text/javascript">addDatePicker("#date","'.$day.'-'.$month.'-'.$year.'");</script>';
+
+	$text.= "</td></tr><tr>\n";
+
+	$text.= "<td colspan=\"2\">\n";
+	$text.= "<table class=\"tablesorter\" ><thead><tr>\n";
 	/* table headers */
 	$l = _("Currency");
-	print "<td style=\"width:10em\">$l</td>\n";
+	$text.= "<th class=\"header\" style=\"width:10em\">$l</th>\n";
 	$l = _("Sign");
-	print "<td style=\"width:8em\">$l</td>\n";
+	$text.= "<th class=\"header\" style=\"width:8em\">$l</th>\n";
 	$l = _("Actions");
-	print "<td style=\"width:5em\">$l</td>\n";
+	$text.= "<th class=\"header\" style=\"width:5em\">$l</th>\n";
 	$l = _("Rate");
-	print "<td style=\"width:5em\">$l</td>\n";
-	print "</tr>\n";
+	$text.= "<th class=\"header\" style=\"width:5em\">$l</th>\n";
+	$text.= "</tr></thead><tbody>\n";
 	$query = "SELECT * FROM $currencytbl";	/* get currency types */
 	$curr = DoQuery($query, __LINE__);
 	while($currarr = mysql_fetch_array($curr, MYSQL_ASSOC)) {
@@ -142,53 +142,55 @@ if($action == 'rate') {
 		$name = $currarr['name'];
 		$name = stripslashes($name);
 		$sign = $currarr['sign'];
-		NewRow();
-		print "<td>$name</td>\n";
-		print "<td>$sign</td>\n";
-		if(!isset($module))
-			$url = "curadmin.php?action=delcurrency&amp;num=$curnum";
-		else
-			$url = "?module=curadmin&amp;action=delcurrency&amp;num=$curnum";
-		$l = _("Delete");
-		print "<td><input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\"></td>\n";
+		//NewRow();
+		$text.= "<tr><td>$name</td>\n";
+		$text.= "<td>$sign</td>\n";
+		//if(!isset($module))
+		//	$url = "curadmin.php?action=delcurrency&amp;num=$curnum";
+		//else
+		$url = "?module=curadmin&amp;action=delcurrency&amp;num=$curnum";
+		//$l = _("Delete");
+		//$text.= "<td><input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\"></td>\n";
+		$text.= "<td><a href=\"$url\" class=\"btnremove\"></a></td>\n";
 		$query = "SELECT rate FROM $ratestbl WHERE curnum='$curnum' AND date='$date'";
 		$result = DoQuery($query, __LINE__);
 		$line = mysql_fetch_array($result, MYSQL_ASSOC);
 		$rate = $line['rate'];
 		$rate = number_format($rate, 3);
-		print "<td><input type=\"text\" size=\"5\" name=\"$curnum\" value=\"$rate\"></td>\n";
-		print "</tr>\n";
+		$text.= "<td><input type=\"text\" size=\"5\" name=\"$curnum\" value=\"$rate\"></td>\n";
+		$text.= "</tr>\n";
 	}
-	print "</table>\n";
-	print "</td></tr>\n";
+	$text.= "</tbody></table>\n";
+	$text.= "</td></tr>\n";
 	$l = _("Update");
-	print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
-	print "</table>\n";
-	print "</form>\n";
+	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.= "</table>\n";
+	$text.= "</form>\n";
 	
-	print "</div>";
+	//print "</div>";
 	$l = _("Add currency");
-	print "<div class=\"form\"><h3 style=\"text-align:right\">$l</h3>\n";
+	//print "<div class=\"form\"><h3 style=\"text-align:right\">$l</h3>\n";
 	if(!isset($module))
-		print "<form action=\"curadmin.php?action=newcurrency\" method=\"post\">\n";
+		$text.= "<form action=\"curadmin.php?action=newcurrency\" method=\"post\">\n";
 	else
-		print "<form action=\"?module=curadmin&amp;action=newcurrency\" method=\"post\">\n";
-	print "<table border=\"0\" dir=\"$dir\" class=\"formtbl\" width=\"100%\">\n<tr>\n";
+		$text.= "<form action=\"?module=curadmin&amp;action=newcurrency\" method=\"post\">\n";
+	$text.= "<table border=\"0\" dir=\"$dir\" class=\"formtbl\" width=\"100%\">\n<tr>\n";
 	$l = _("Currency name");
-	print "<td>$l:</td>\n";
-	print "<td><input type=\"text\" name=\"name\" size=\"10\"></td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td>$l:</td>\n";
+	$text.= "<td><input type=\"text\" name=\"name\" size=\"10\"></td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Sign");
-	print "<td>$l:</td>\n";
-	print "<td><input type=\"text\" name=\"sign\" size=\"8\"></td>\n";
-	print "</tr><tr>\n";
-	print "<td colspan=\"2\" align=\"center\">\n";
+	$text.= "<td>$l:</td>\n";
+	$text.= "<td><input type=\"text\" name=\"sign\" size=\"8\"></td>\n";
+	$text.= "</tr><tr>\n";
+	$text.= "<td colspan=\"2\" align=\"center\">\n";
 	$l = _("Update");
-	print "<input type=\"submit\" value=\"$l\"></td>\n";
-	print "</tr>\n</table>\n";
-	print "</form>\n";
+	$text.= "<input type=\"submit\" value=\"$l\"></td>\n";
+	$text.= "</tr>\n</table>\n";
+	$text.= "</form>\n";
+	createForm($text,$header,'',750,'','logo',1,'help');
 }
-
+/*
 if(!isset($module)) 
 	print "</body>\n</html>\n";
 else {
@@ -196,5 +198,5 @@ else {
 	print "<div class=\"lefthalf1\">\n";
 	ShowText('curadmin');
 	print "</div>\n";
-}
+}*/
 ?>

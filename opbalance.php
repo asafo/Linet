@@ -11,52 +11,55 @@ if(!isset($prefix) || ($prefix == '')) {
 
 global $accountstbl, $transactionstbl;
 global $TranType;
-global $dir;
+//global $dir;
 
 function PrintYearSelect() {
 	
 	$year = date("Y");
 	$max = $year + 1;
 	
-	print "<select name=\"year\">\n";
+	$str= "<select name=\"year\">\n";
 	for($min = $year - 2; $min <= $max; $min++) {
-		print "<option value=\"$min\" ";
+		$str.= "<option value=\"$min\" ";
 		if($min == $year)
-			print "selected";
-		print ">$min</option>\n";
+			$str.= "selected";
+		$str.= ">$min</option>\n";
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 function PrintAccountSelect() {
 	global $accountstbl, $prefix;
-	
+	//adam!:
 	$types = array(CUSTOMER, SUPPLIER, BANKS, AUTHORITIES, OBLIGATIONS,
 			CAPITAL, CASH, FINANCING, ASSETS);
 
 	
-	print "<select class=\"account\" name=\"account[]\">\n";
+	$str= "<select class=\"account\" name=\"account[]\">\n";
 	$l = _("Select account");
-	print "<option value=\"0\">-- $l --</option>\n";
+	$str.= "<option value=\"0\">-- $l --</option>\n";
 	foreach($types as $type) {
 		$query = "SELECT num,company FROM $accountstbl WHERE type='$type' AND prefix='$prefix' ORDER BY company ASC";
 		$result = DoQuery($query, __LINE__);
 		while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$num = $line['num'];
 			$name = stripslashes($line['company']);
-			print "<option value=\"$num\">$name</option>\n";
+			$str.= "<option value=\"$num\">$name</option>\n";
 		}
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
 
-print "<br><div class=\"form righthalf1\">\n";
+//print "<br><div class=\"form righthalf1\">\n";
 $t = _("Openning balances");
-print "<h3>$t</h3>\n";
-
+//print "<h3>$t</h3>\n";
+$header=$l;
+$text='';
 if($step == 1) {
 	$year = $_POST['year'];
 	$date = "1-1-$year";
@@ -72,35 +75,36 @@ if($step == 1) {
 		}
 	}
 	$l = _("Openning balances updated");
-	print "<h2>$l</h2>\n";
+	$text.= "<h2>$l</h2>\n";
 }
 
-print "<form action=\"?module=opbalance&amp;step=1\" method=\"post\">\n";
-print "<table class=\"formtbl\" width=\"100%\"><tr>\n";
-print "<td colspan=\"2\">\n";
+$text.= "<form action=\"?module=opbalance&amp;step=1\" method=\"post\">\n";
+$text.= "<table class=\"formtbl\" width=\"100%\"><tr>\n";
+$text.= "<td colspan=\"2\">\n";
 $l = _("Select year");
-print "$l: \n";
-PrintYearSelect();
-print "</td></tr>\n";
-print "<tr class=\"tblhead\">\n";
+$text.= "$l: \n";
+$text.=PrintYearSelect();
+$text.= "</td></tr>\n";
+$text.= "<tr class=\"tblhead\">\n";
 $l = _("Account");
-print "<td>$l</td>\n";
+$text.= "<td>$l</td>\n";
 $l = _("Acct. balance");
-print "<td>$l</td>\n";
-print "</tr>\n";
+$text.= "<td>$l</td>\n";
+$text.= "</tr>\n";
 for($i = 0; $i < 10; $i++) {
-	print "<tr>\n";
-	print "<td>\n";
-	PrintAccountSelect();
-	print "</td><td>\n";
-	print "<input type=\"text\" class=\"bal\" name=\"bal[]\" dir=\"ltr\" >\n";
-	print "</td>\n";
-	print "</tr>\n";
+	$text.= "<tr>\n";
+	$text.= "<td>\n";
+	$text.=PrintAccountSelect();
+	$text.= "</td><td>\n";
+	$text.= "<input type=\"text\" class=\"bal\" name=\"bal[]\" dir=\"ltr\" >\n";
+	$text.= "</td>\n";
+	$text.= "</tr>\n";
 }
 $l = _("Update");
-print "<tr><td colspan=\"2\" align=\"center\">\n";
-print "<input type=\"submit\" value=\"$l\"></td></tr>\n";
-print "</table>\n";
-print "</form>\n";
-print "</div>\n";
+$text.= "<tr><td colspan=\"2\" align=\"center\">\n";
+$text.= "<input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.= "</table>\n";
+$text.= "</form>\n";
+createForm($text,$header,'',750,'','logo',1,'help');
+//print "</div>\n";
 ?>

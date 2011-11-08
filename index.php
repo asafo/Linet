@@ -527,7 +527,7 @@ function TemplateReplace($r) {
 	else if($p == 'logo')
 		return $small_logo;
 	else if($p=='complogo')
-		return '<a href=\"module=main\"><img src="img/logo/'.$logo.'" alt="Company Logo" /></a>';
+		return '<a href="?module=main"><img src="img/logo/'.$logo.'" alt="Company Logo" /></a>';
 	else if($p == 'version') {
 		return $Version;
 	}

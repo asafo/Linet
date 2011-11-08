@@ -9,9 +9,11 @@ global $AcctType;
 global $RetModule;
 global $arr6111;
 global $lang, $dir;
+//global $help;
 require_once('class/account.php');
 $text='';
 $haeder='';
+$help=getHelp();
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
 	print "<h1>$l</h1>\n";
@@ -72,14 +74,14 @@ function Set6111() {
 }
 
 function editshow() {
-	var d = document.getElementById('editformdiv');
+	//var d = document.getElementById('editformdiv');
 	
-	if(d.style.display == 'none') {
-		d.style.display = 'block';
-		document.getElementById('b1').style.display = 'none';
-	}
-	else
-		d.style.display = 'none';	
+	//if(d.style.display == 'none') {
+		 $("#editformdiv").show('slow');
+		 $("#b1").hide(500);
+	//}
+	//else
+	//	d.style.display = 'none';	
 }
 </script>
 <?PHP
@@ -296,7 +298,7 @@ if($action == 'editacct') {
 	//print "<br>\n";
 	//print "<div class=\"form righthalf1\" style=\"width:50%\"\n";
 	$text=EditAcct($num, $type);
-	createForm($text,$haeder,"righthalf1",450);
+	createForm($text,$haeder,"",450,null,"img/icon_acc.png",1,$help);
 	//print "</div>\n";
 	return;
 }
@@ -309,7 +311,7 @@ if($action == 'delacct') {
 	$result = DoQuery($query, "$file: $line");
 	if(mysql_num_rows($result)) {
 		$l = _("Account with transactions can not be deleted");
-		print "<h1>$l</h1>";
+		$text.= "<h1>$l</h1>";
 	}
 	else {
 		$query = "DELETE FROM $accountstbl WHERE num='$num' AND prefix='$prefix'";
@@ -330,8 +332,8 @@ if($action == 'addacct') {
 			$RetModule = "docsadmin";
 			break;
 	}
-	$text=EditAcct(0, $type);
-	createForm($text,$haeder,"righthalf1",450);
+	$text.=EditAcct(0, $type);
+	createForm($text,$haeder,"",450,null,"img/icon_acc.png",1,$help);
 	return;
 }
 
@@ -339,26 +341,26 @@ $RetModule = isset($_GET['ret']) ? $_GET['ret'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : $type;
 $typename = $AcctType[$type];
 if (!$smallprint){
-			print "<div class=\"accttype\">\n";
-			print "<br />\n";
-			print "<table cellspacing=\"5\">\n";
+			//print "<div class=\"accttype\">\n";
+			//print "<br />\n";
+			//print "<table cellspacing=\"5\">\n";
 			//for($i = 0; $i < 13; $i++) {
 			foreach ($AcctType as $key=>$value){
 				//print "<tr>\n";
 				//print "<td align=\"center\" width=\"145\" height=\"37\"";
 				if($key != $type)
-					$style = "background:url('botton.gif')";
+					$class = "";
 				else
-					$style = "background:url('pressed.gif')";
-				$style .= ";background-repeat: no-repeat;background-position:top left;";
+					$class = " active";
+				//$style .= ";background-repeat: no-repeat;background-position:top left;";
 				//adam:
-				$style='';
+				//$style='';
 				//print "style=\"$style\">\n";
 				$t = stripslashes($value);
 				$url = "?module=acctadmin&amp;type=$key";
 				if($option)
 					$url .= "&amp;option=$option";
-				print "<a href=\"$url\" class='btn'>$t</a></td>\n";
+				$text.= "<a href=\"$url\" class='btn$class'>$t</a>";
 				//print "</tr>\n";
 			}
 				/*print "<tr>\n<td align=\"center\" width=\"145\" height=\"37\">\n";
@@ -368,9 +370,9 @@ if (!$smallprint){
 				print "<a href=\"$url\" class='btn'>"._("Unknown")."</a></td>\n</tr>\n";*/
 			
 			
-			print "</table>\n";
-			print "<br />\n";
-			print "</div>\n";
+			//print "</table>\n";
+			$text.= "<hr class=\"submenu\" />\n";
+			//print "</div>\n";
 }//end small print
 // print "<br>";
 // print "<div class=\"accttbl\">\n";
@@ -385,17 +387,16 @@ if($option == '') {
 		$text.=EditAcct(0, $type,$smallprint);
 	//print "</div>\n"; 
 	$haeder=$typename;
-	createForm($text,$haeder,"righthalf1",450);
 }
 
 // print "<td>&nbsp;</td>\n";
 // print "</tr><tr><td colspan=\"2\">\n";
 if (!$smallprint){
-	print "<div class=\"form accttbl\">\n";
+	//print "<div class=\"form accttbl\">\n";
 	//if($lang == 'he')
 	$l=_('Existing %s accounts');
 	$l1=_('accounts');
-	print "<h2>".sprintf($l,$typename). "</h2>\n";
+	$text.= "<h2>".sprintf($l,$typename). "</h2>\n";
 	//else
 	//	print "<h2>Existing $typename accounts</h2>\n";
 	// print "</div></div>\n";
@@ -483,14 +484,14 @@ if (!$smallprint){
 		$curtablebody.= "<td dir=\"ltr\">$tstr</td>\n";
 		$total += $sum1;
 		if($option == '') {
-			$l = _("Edit");
+			//$l = _("Edit");
 			$url = "?module=acctadmin&amp;action=editacct&amp;num=$num";
 			//print "<td><input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\">&nbsp;\n";
-			$curtablebody.= "<td><a href='$url' class='btn'>$l</a>";
-			$l = _("Delete");
+			$curtablebody.= "<td><a href='$url' class='btnedit'></a>";
+			//$l = _("Delete");
 			$url = "?module=acctadmin&amp;action=delacct&amp;num=$num&amp;type=$type";
 			//print "<input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\"></td>\n";
-			$curtablebody.= "<a href='$url' class='btn'>$l</a></td>";
+			$curtablebody.= "<a href='$url' class='btnremove'></a></td>";
 	//	print "<a href=\"?module=acctdisp&account=$num&end=today\">׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½</a></td>\n";
 		}
 		$curtablebody.= "</tr>\n";
@@ -514,12 +515,13 @@ if (!$smallprint){
 		
 	$curtablefoot.= "\t</tr>\n</tfoot>\n";
 	
-		print "<table class=\"tablesorter\" id=\"accadmintbl\">$curtablehd $curtablefoot $curtablebody</table>\n
+		$text.= "<table class=\"tablesorter\" id=\"accadmintbl\">$curtablehd $curtablefoot $curtablebody</table>\n
 	<script type=\"text/javascript\">\$(\"#accadmintbl\").tablesorter(); </script>";
 		
-	print "</div>\n";
-	
+	//print "</div>\n";
+	//createForm($text,$haeder,"righthalf1",450);
 	// EditAcct(0, $type);
 }
+createForm($text,$haeder,"",780,null,"img/icon_acc.png",1,$help);
 ?>
 

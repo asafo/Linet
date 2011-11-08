@@ -80,6 +80,12 @@ th	{
 	font-family: Arial, Helvetica, sans-serif;
 	color: #54A4DE;
 }
+hr.submenu{
+	 border: medium solid #1870ca;
+    position: relative;
+    top: -7px;
+	
+	}
 a.Surtcut{
 	background-image: url(../img/ShurtcutBtn.png);
 	width: 155px; height: 36px;
@@ -93,44 +99,75 @@ a.Surtcut{
 a.Surtcut:hover{
 	background-image: url(../img/ShurtcutBtnOver.png);
 	}
-.btn{
+a.btn{
 	text-align:center;
-	color:white;
+	color:#186abf;
 	display: inline-block;
-	width: 80px; height: 20px;
-	padding-top:5px;
+	width: 92px; height: 30px;
+	padding-top:10px;
 	background-image: url(../img/btn.png);
 	/*background-position: top;
 	text-indent: -9999px;*/
 	
 	}
-.btn:hover{
+a.btn:hover{
 		background-image: url(../img/btnhover.png);
-		text-decoration: none;
-	}
-.btn:active{
 		background-image: url(../img/btnactive.png);
+		text-decoration: none;
+		color:white;
 	}
-.btnAddQty{
+a.active{
+		background-image: url(../img/btnactive.png);
+		text-decoration: none;
+		color:white;
+	}
+a.btnAddQty{
 	display: inline-block;
 	width: 20px; height: 20px;
 	/*padding-top:5px;*/
 	background-image: url(../img/btnAddQty.png);
 	}
-.btnSubQty{
+a.btnSubQty{
 	display: inline-block;
 	width: 20px; height: 20px;
 	/*padding-top:5px;*/
 	background-image: url(../img/btnSubQty.png);
 	
 	}
-.btnremove{
-	height:27px;
-	width:27px;
+a.btnremove{
+	height:25px;
+	width:25px;
 	background-image: url(../img/btnRemove.png);
-	display:block;
+	display:inline-block;
 	
 	}
+a.btnedit{
+	height:25px;
+	width:25px;
+	background-image: url(../img/btnEdit.png);
+	display:inline-block;
+	}
+a.btnsmall{
+	height:26px;
+	background-image: url(../img/btnSmall.png);
+	display:inline-block;
+	/*padding-right: 5px;*/
+	text-align:center;
+    padding-top: 5px;
+    width: 80px;
+}
+a.btnaction{
+	background-image: url(../img/btnAction.png);
+	   color: white;
+    display: inline-block;
+    height: 30px;
+    padding-left: 20px;
+    padding-top: 8px;
+    text-align: center;
+    width: 70px;
+	
+	}
+a.btnaction:over{color:orange}
 #wrapper {
 	position: relative;
 	
@@ -141,21 +178,28 @@ a.Surtcut:hover{
 }
 
 /*-------------------------------------HEADER--------------------------------*/
-.headerA {
-	height:105px;
-	/*background-image: url(../img/head.png);*/
+.headerA {height:105px;}
+.headerB{height:130px;}
+.headerC {
+	top:80px; 	
+	background: #BBD9EE;
+	height: 40px;
 }
-.headerB{
-height:130px;
 
+.headerD {
+	background: #ffffff;	
+	z-index: 1;
+	height: 2px;
+	_height: 10px;
 }
+
 #logo {
-	    float: right;
+	float: right;
     position: absolute;
     right: 400px;
     top: 50px;
 }
-
+/*
 #support {
 	color:white;
 	font-size: 24; 
@@ -168,21 +212,15 @@ height:130px;
 	font-size: 36; 
 	font-weight:bold;
 	font-family: Arial, Helvetica, sans-serif;	
-}
-#right_hdr{
-	float: right;
-	
-	
-	}
+}*/
+#right_hdr{float: right;}
 #left_hdr{
-	    float: left;
+	float: left;
     font-size: 14px;
     position: relative;
     top: 70px;
-     color: #006599;
-    font-weight: bold;
-	
-	
+    color: #006599;
+    font-weight: bold;	
 	}
 #right_hdr h1 {
 	position: absolute;
@@ -205,29 +243,7 @@ height:130px;
     width: 100%;
 }
 
-#logindata a {
-	color: #006599;
-	
-}
-
-.navBar { 
-  /*margin-right: 17px;
-    margin-top: 10px;
-*/
-
-}
-.headerC {
-	top:80px; 	
-	background: #BBD9EE;
-	height: 40px;
-}
-
-.headerD {
-	background: #ffffff;	
-	z-index: 1;
-	height: 2px;
-	_height: 10px;
-}
+/*#logindata a {color: #006599;}*/
 
 /*----------------------------contents--------------------------------------------*/
 #contents{
@@ -269,26 +285,23 @@ height:130px;
 /*------------------------------A-------------------------------------------------*/
 a {
 	text-decoration: none;
-/*	color: #000888; */
 	color: #006599;
 	font-weight: bold;
 }
-a:link,
+/*a:link,
 a:visited {
-/*	color:#000888; */
 	color: #006599; 
 	font-weight: bold;
-}
-a:hover,
+}*/
+/*a:hover,
 a:active {
-/*	color: #FF9834; */
 	color: #0000FF; 
 	font-weight: bold;
 }
 a:visited {
 	color:#006599;
 	font-weight:bold;
-}
+}*/
 
 /*----------------------------------` down menu------------------------------*/
 #drop_down_menu	{
@@ -326,15 +339,16 @@ a:visited {
     padding-top: 7px;
 }
 #drop_down_menu li.last span p{border-left: none;}
-#drop_down_menu span:hover{
+#drop_down_menu li:hover span{
 	background-image: url(../img/mainmenuover.png);
 	background-color:#168CE7; 
 	color:black;
 }
 #drop_down_menu li:hover span p{
+/*
+	background-image: url(../img/mainmenuover.png);
+	background-color:#168CE7;*/ 
 	color:black;
-	z-index:20;
-	
 }
 
 #drop_down_menu li.last	{border-radius: 15px 0px 0px 0px;}
@@ -471,6 +485,7 @@ div.isoc table tbody tr td{
 	border:1px solid;
 	width:auto;
 }
+/******************************************form********************/
 .ftr{}
 .ftc{
 background: url(../img/ftc.png) 0 0 repeat-x;
@@ -514,15 +529,23 @@ height:57px;
 #login{
 	text-align: center;
 	}
-#login form table{ margin: auto;text-align:right;background-color: #ECF8FF;}
+#login table{ margin: auto;text-align:right;background-color: #ECF8FF;}
 .form{
 	text-align:right;
 	 display: inline-block;
-	
+	vertical-align: top;
 	
 	}
 	.login{
 	margin-top:80px;
+	
+	}
+td.ftc a{
+	    display: inline;
+    float: left;
+    position: relative;
+    top: 10px;
+	
 	
 	}
 /*
@@ -567,9 +590,40 @@ background: none;
 }
 
 
+
+
+/*
 .shortcut a {
 	color:#FFFFFF;
 }
+*/
+/*************table*****************/
+
+.tablesorter tbody tr:nth-child(even){background-color: #ecf8ff;}
+.tablesorter tbody tr:nth-child(odd){background-color: #d5ebfc;}
+
+
+th.header:first-child{border-radius:0px 15px 0px 0px;}
+th.header:last-child{border-radius:15px 0px 0px 0px;}
+th.header{
+	background-color: #1870ca;
+	color:white;
+	padding: 10px;
+	}
+table.formy tbody tr td{background-color: #ecf8ff;  border: 4px solid #ecf8ff; }
+
+
+.tablesorter tbody tr td{ border: 4px solid white; }
+table.formy tbody tr td:first-child,.tablesorter tbody tr td:first-child
+{ padding-right: 10px;  }
+table.formy tbody tr:nth-child(2) td,.tablesorter tbody tr:first-child td
+{padding-top: 3px;}
+table.formy tbody tr:last-child td,.tablesorter tbody tr:last-child td
+{padding-bottom: 3px;}
+table.formy tbody tr td:last-child,.tablesorter tbody tr td:last-child
+{padding-left: 10px; }   
+
+
 
 table { 
 	font-size: 14px; 
@@ -633,29 +687,6 @@ tr.tblhead td a {
 	color:white;
 	font-weight:bold;
 	text-decoration:underline;
-}
-
-tr.otherline {
-	background-color: #E5EDF5;
-}
-
-.hovertbl tr:hover {
-	background-color:#C0C0C0;
-}
-
-.hovertbl1 tr {
-	font-size:16px; 
-	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #07B6E4;
-}
-
-.hovertbl1 tr:hover {
-	background-color:#C0C0C0;
-	font-size:16px; 
-	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #07B6E4;
 }
 
 .printtbl {
@@ -777,10 +808,10 @@ td.caltbl {
 .shortsdiv .shortcut a {
 	color:white;
 }
-
+/*
 a.shortcut {
 	color:white;
-}
+}*/
 
 
 /*adam bh update*/
