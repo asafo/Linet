@@ -330,8 +330,6 @@ print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\
 </div>
 <?PHP
 if($step == 0) {
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('intmatch');
-	print "</div>\n";
+	
 }
 ?>

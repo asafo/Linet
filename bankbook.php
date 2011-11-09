@@ -319,9 +319,6 @@ if(!$account) {
 	$text.= "</form>\n";
 	//print "</div>\n";
 	createForm($text,$haeder,$sClass,500,600);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('bankbook');
-	print "</div>\n";
 	exit;
 }
 

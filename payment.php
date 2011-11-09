@@ -161,9 +161,9 @@ if($step == 2) {
 	$t = SUPPLIERPAYMENT;
 	if($opt == 'vat')
 		$t = VAT;
-	// Transaction 1 ׳—׳•׳‘׳× ׳”׳¡׳₪׳§
+	// Transaction 1 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ג€�׳³ֲ¡׳³ג‚×׳³ֲ§
 	$tnum = Transaction(0, $t, $account, $refnum, '', $dt, $comment, $total * -1.0);
-	// Transaction 2 ׳–׳›׳•׳× ׳�׳�׳¦׳�׳™ ׳”׳×׳©׳�׳•׳�
+	// Transaction 2 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ן¿½׳³ן¿½׳³ֲ¦׳³ן¿½׳³ג„¢ ׳³ג€�׳³ֳ—׳³ֲ©׳³ן¿½׳³ג€¢׳³ן¿½
 	$tnum = Transaction($tnum, $t, $payment, $refnum, '', $dt, $comment, $total);
 	$step = 0;
 	if($opt) {
@@ -264,9 +264,7 @@ if($step == 1) {
 	print "</tr></table>\n";
 	print "</form>\n";
 	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('payment');
-	print "</div>\n";
+	
 	return;
 }
 print "<br />\n";
@@ -308,7 +306,7 @@ print "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7
 <?PHP
 print "</td></tr>\n";
 
-print "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\"׳”׳�׳©׳�\" /></td>\n";
+print "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\"׳³ג€�׳³ן¿½׳³ֲ©׳³ן¿½\" /></td>\n";
 print "</tr></table>\n";
 print "</form>\n";
 print "</div>\n";
@@ -344,6 +342,6 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 }
 print "</table>\n";
 print "</div>";
-ShowText('payment');
+
 print "</div>\n";
 ?>

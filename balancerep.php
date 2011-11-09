@@ -14,7 +14,7 @@ if(!isset($module)) {
 
 
 	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	$reptitle = "מאזן";
+	$reptitle = "׳�׳�׳–׳�";
 	include('printhead.inc.php');
 	print $header;
 	
@@ -32,7 +32,7 @@ else {
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
+	print "<h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳‘׳—׳™׳¨׳× ׳¢׳¡׳§</h1>\n";
 	return;
 }
 
@@ -96,7 +96,7 @@ function GetGroupTotal($grp, $begin, $end) {
 	print "<h1>$str</h1>\n";	
 } */
 if($step != 0)
-	print "<br><h1>דוח רווח והפסד</h1>\n";
+	print "<br><h1>׳“׳•׳— ׳¨׳•׳•׳— ׳•׳”׳₪׳¡׳“</h1>\n";
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 if($step == 0) {	/* Get date range */
@@ -105,12 +105,12 @@ if($step == 0) {	/* Get date range */
 	$bdate = "1-1-$y";
 	print "<br>\n";
 	print "<div class=\"righthalf\">\n";
-	print "<h3>דו\"ח רווח והפסד</h3>\n";
+	print "<h3>׳“׳•\"׳— ׳¨׳•׳•׳— ׳•׳”׳₪׳¡׳“</h3>\n";
 	print "<form name=\"dtrange\" method=\"get\">\n";
 	print "<input type=\"hidden\" name=\"module\" value=\"profloss\">\n";
 	print "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
 	print "<table cellpadding=\"5px\" cellspacing=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
-	print "<td>בחר תאריך תחילה: </td>\n";
+	print "<td>׳‘׳—׳¨ ׳×׳�׳¨׳™׳� ׳×׳—׳™׳�׳”: </td>\n";
 	print "<td><input type=\"text\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
 ?>
 <script language="JavaScript">
@@ -123,7 +123,7 @@ if($step == 0) {	/* Get date range */
 </script>
 <?PHP
 	print "</td>\n";
-	print "<td>בחר תאריך סיום: </td>\n";
+	print "<td>׳‘׳—׳¨ ׳×׳�׳¨׳™׳� ׳¡׳™׳•׳�: </td>\n";
 	print "<td><input type=\"text\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
 ?>
 <script language="JavaScript">
@@ -137,16 +137,14 @@ if($step == 0) {	/* Get date range */
 <?PHP
 	print "</td>\n";
 	print "</tr><tr><td colspan=\"4\">\n";
-	print "&nbsp;<input type=\"checkbox\" name=\"percent\" checked>הצג אחוזים\n";
-	print "&nbsp;<input type=\"checkbox\" name=\"d6111\" checked>סעיף טופס 6111\n";
+	print "&nbsp;<input type=\"checkbox\" name=\"percent\" checked>׳”׳¦׳’ ׳�׳—׳•׳–׳™׳�\n";
+	print "&nbsp;<input type=\"checkbox\" name=\"d6111\" checked>׳¡׳¢׳™׳£ ׳˜׳•׳₪׳¡ 6111\n";
 	print "</td><tr>\n";
-	print "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"הפק\"></td>\n";
+	print "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"׳”׳₪׳§\"></td>\n";
 	print "</tr></table>\n";
 	print "</form>\n";
 	print "</div>\n";
-	print "<div class=\"lefthalf\">\n";
-	ShowText('profloss');
-	print "</div>\n";
+	
 }
 if($step == 2) {
 	$filename = "tmp/profloss.csv";
@@ -157,7 +155,7 @@ if($step >= 1) {
 	$d6111 = isset($_GET['d6111']) ? $_GET['d6111'] : 0;
 	$begindate = $_GET['begindate'];
 	$enddate = $_GET['enddate'];
-	print "<h2>לתקופה: $begindate - $enddate</h2>\n";
+	print "<h2>׳�׳×׳§׳•׳₪׳”: $begindate - $enddate</h2>\n";
 
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
@@ -172,27 +170,27 @@ if($step >= 1) {
 			print "<tr class=\"tblheadprt\" align=\"right\" style=\"border-top:1px solid\">\n";
 		else
 			print "<tr class=\"tblhead\" align=\"right\" style=\"border-top:1px solid;border-bottom:1px solid\">\n";
-		print "<td style=\"width:15em\" align=\"right\">סעיף</td>\n";
-		print "<td style=\"width:7em\" align=\"right\">סכום ש\"ח&nbsp;</td>\n";
+		print "<td style=\"width:15em\" align=\"right\">׳¡׳¢׳™׳£</td>\n";
+		print "<td style=\"width:7em\" align=\"right\">׳¡׳›׳•׳� ׳©\"׳—&nbsp;</td>\n";
 		if($percent)
-			print "<td align=\"right\" style=\"width:5em\">אחוז&nbsp;&nbsp;</td>\n";
+			print "<td align=\"right\" style=\"width:5em\">׳�׳—׳•׳–&nbsp;&nbsp;</td>\n";
 		if($d6111)
-			print "<td align=\"right\">סעיף 6111</td>\n";
+			print "<td align=\"right\">׳¡׳¢׳™׳£ 6111</td>\n";
 		if(!isset($module))
 			print "</tr><tr class=\"tblheadprt\">\n";
 		else
 			print "</tr><tr class=\"tblhead\">\n";
-		print "<td colspan=\"4\" align=\"right\"><u>הכנסות</u></td>\n";
+		print "<td colspan=\"4\" align=\"right\"><u>׳”׳›׳ ׳¡׳•׳×</u></td>\n";
 		print "</tr>\n";
 	}
 	else {
-		fwrite($fd, "סעיף,סכום");
+		fwrite($fd, "׳¡׳¢׳™׳£,׳¡׳›׳•׳�");
 		if($percent)
-			fwrite($fd, ",אחוז");
+			fwrite($fd, ",׳�׳—׳•׳–");
 		if($d6111)
-			fwrite($fd, ",סעיף 6111");
+			fwrite($fd, ",׳¡׳¢׳™׳£ 6111");
 		fwrite($fd, "\n");
-		fwrite($fd, "הכנסות\n");
+		fwrite($fd, "׳”׳›׳ ׳¡׳•׳×\n");
 	}
 	$t = INCOME;
 	$total_income = GetGroupTotal($t, $bdate, $edate);
@@ -263,7 +261,7 @@ if($step >= 1) {
 			print "<tr class=\"sumlineprt\" align=\"right\">\n";
 		else
 			print "<tr class=\"sumline\" align=\"right\">\n";
-		print "<td align=\"right\"><b>סה\"כ</b></td><td align=\"right\">$tstr</td>\n";
+		print "<td align=\"right\"><b>׳¡׳”\"׳›</b></td><td align=\"right\">$tstr</td>\n";
 		if($percent)
 			print "<td>% 100</td>\n";
 		if($d6111)
@@ -271,7 +269,7 @@ if($step >= 1) {
 		print "</tr>\n";
 	}
 	else {
-		fwrite($fd, "סה\"כ,$total_income");
+		fwrite($fd, "׳¡׳”\"׳›,$total_income");
 		if($percent)
 			fwrite($fd, ",100");
 		fwrite($fd, "\n");
@@ -283,33 +281,33 @@ if($step >= 1) {
 				print "<tr class=\"tblheadprt\" align=\"right\">\n";
 			else
 				print "<tr class=\"tblhead\" align=\"right\">\n";
-			print "<td colspan=\"4\" align=\"right\"><u>עלות המכר</u></td></tr>\n";
+			print "<td colspan=\"4\" align=\"right\"><u>׳¢׳�׳•׳× ׳”׳�׳›׳¨</u></td></tr>\n";
 			$tstr = number_format($open_stock);
-			print "<tr><td align=\"right\">מלאי פתיחה</td><td align=\"right\">$tstr</td></tr>\n";
+			print "<tr><td align=\"right\">׳�׳�׳�׳™ ׳₪׳×׳™׳—׳”</td><td align=\"right\">$tstr</td></tr>\n";
 			$tstr = number_format($buy_stock);
-			print "<tr class=\"otherline\" align=\"right\"><td >קניות</td><td>$tstr</td>";
+			print "<tr class=\"otherline\" align=\"right\"><td >׳§׳ ׳™׳•׳×</td><td>$tstr</td>";
 			if($percent)
 				print "<td>&nbsp;</td>";
 			if($d6111)
 				print "<td>&nbsp;</td>\n";
 			print "</tr>\n";
 			$tstr = number_format($close_stock);
-			print "<tr align=\"right\"><td>מלאי סופי</td><td>$tstr</td>\n";
+			print "<tr align=\"right\"><td>׳�׳�׳�׳™ ׳¡׳•׳₪׳™</td><td>$tstr</td>\n";
 			if($percent)
 				print "<td>&nbsp;</td>";
 			print "</tr>\n";
 		}
 		else {
-			fwrite($fd, "עלות המכר\n");
-			fwrite($fd, "מלאי פתיחה,$open_stock\n");
-			fwrite($fd, "קניות,$buy_stock\n");
-			fwrite($fd, "מלאי סופי,$close_stock\n");
+			fwrite($fd, "׳¢׳�׳•׳× ׳”׳�׳›׳¨\n");
+			fwrite($fd, "׳�׳�׳�׳™ ׳₪׳×׳™׳—׳”,$open_stock\n");
+			fwrite($fd, "׳§׳ ׳™׳•׳×,$buy_stock\n");
+			fwrite($fd, "׳�׳�׳�׳™ ׳¡׳•׳₪׳™,$close_stock\n");
 		}
 		$p = ($sale_cost * 100) / $total_income;
 		$p = round($p, 2);
 		if($step == 1) {
 			$tstr = number_format($sale_cost);
-			print "<tr class=\"otherline\" align=\"right\"><td><b>סה\"כ עלות המכר</b></td><td>$tstr</td>";
+			print "<tr class=\"otherline\" align=\"right\"><td><b>׳¡׳”\"׳› ׳¢׳�׳•׳× ׳”׳�׳›׳¨</b></td><td>$tstr</td>";
 			if($percent)
 				print "<td>% $p</td>";
 			if($d6111)
@@ -317,7 +315,7 @@ if($step >= 1) {
 			print "</tr>\n";
 		}
 		else
-			fwrite($fd, "סה\"כ עלות המכר,$sale_cost\n");
+			fwrite($fd, "׳¡׳”\"׳› ׳¢׳�׳•׳× ׳”׳�׳›׳¨,$sale_cost\n");
 		$t = $total_income - $sale_cost;
 		$p = round(t * 100 / $total_income, 2);
 		if($step == 1) {
@@ -326,7 +324,7 @@ if($step >= 1) {
 				print "<tr class=\"sumlineprt\" align=\"right\">\n";
 			else
 				print "<tr class=\"sumline\" align=\"right\">\n";
-			print "<td><b>רווח גולמי</b></td><td>$tstr</td>\n";
+			print "<td><b>׳¨׳•׳•׳— ׳’׳•׳�׳�׳™</b></td><td>$tstr</td>\n";
 			if($percent)
 				print "<td>% $p</td>";
 			if($d6111)
@@ -334,7 +332,7 @@ if($step >= 1) {
 			print "</tr>\n";
 		}
 		else {
-			fwrite($fd, "רווח גולמי,$t");
+			fwrite($fd, "׳¨׳•׳•׳— ׳’׳•׳�׳�׳™,$t");
 			if($percent)
 				fwrite($fd, ",$p");
 			fwrite($fd, "\n");
@@ -345,10 +343,10 @@ if($step >= 1) {
 			print "<tr class=\"tblheadprt\" align=\"right\">\n";
 		else
 			print "<tr class=\"tblhead\" align=\"right\">\n";
-		print "<td colspan=\"4\"><u>הוצאות הנהלה וכלליות</u></td>\n";
+		print "<td colspan=\"4\"><u>׳”׳•׳¦׳�׳•׳× ׳”׳ ׳”׳�׳” ׳•׳›׳�׳�׳™׳•׳×</u></td>\n";
 	}
 	else
-		fwrite($fd, "הוצאות הנהלה וכלליות\n");
+		fwrite($fd, "׳”׳•׳¦׳�׳•׳× ׳”׳ ׳”׳�׳” ׳•׳›׳�׳�׳™׳•׳×\n");
 	$t = OUTCOME;
 	$total_outcome = GetGroupTotal($t, $bdate, $edate) * -1.0;
 	$query = "SELECT num,company,id6111 FROM $accountstbl WHERE prefix='$prefix' AND type='$t'";
@@ -402,7 +400,7 @@ if($step >= 1) {
 			print "<tr class=\"sumlineprt\" align=\"right\">\n";
 		else
 			print "<tr class=\"sumline\" align=\"right\">\n";
-		print "<td><b>סה\"כ</b></td><td>$tstr</td>\n";
+		print "<td><b>׳¡׳”\"׳›</b></td><td>$tstr</td>\n";
 		if($percent)
 			print "<td>% $tp</td>";
 		if($d6111)
@@ -415,7 +413,7 @@ if($step >= 1) {
 		print "<td>\n";
 	}
 	else {
-		fwrite($fd, "סה\"כ,$total_outcome");
+		fwrite($fd, "׳¡׳”\"׳›,$total_outcome");
 		if($percent)
 			fwrite($fd, ",$tp");
 		fwrite($fd, "\n");
@@ -423,15 +421,15 @@ if($step >= 1) {
 	$total = $total_income - $total_outcome;
 	if($total > 0) {
 		if($step == 1)
-			print "<b>רווח</b>\n";
+			print "<b>׳¨׳•׳•׳—</b>\n";
 		else
-			fwrite($fd, "רווח,");
+			fwrite($fd, "׳¨׳•׳•׳—,");
 	}
 	else {
 		if($step == 1)
-			print "<b>הפסד</b>\n";
+			print "<b>׳”׳₪׳¡׳“</b>\n";
 		else
-			fwrite($fd, "הפסד,");
+			fwrite($fd, "׳”׳₪׳¡׳“,");
 	}
 	if($step == 1) {
 		$tstr = number_format($total);
@@ -454,21 +452,21 @@ if($step >= 1) {
 			$url .= "&d6111=on";
 		$url .= "&prefix=$prefix";
 		print "<div class=\"repbottom\">\n";
-		print "<input type=\"button\" value=\"הדפס\" onclick=\"PrintWin('$url')\">\n";
+		print "<input type=\"button\" value=\"׳”׳“׳₪׳¡\" onclick=\"PrintWin('$url')\">\n";
 		print "&nbsp;&nbsp;";
 		$url = "?module-profloss&step=2&begindate=$begindate&enddate=$enddate";
 		if($percent)
 			$url .= "&percent=on";
-		print "<input type=\"button\" value=\"יצוא לקובץ\" onclick=\"window.location.href='$url'\">\n";
+		print "<input type=\"button\" value=\"׳™׳¦׳•׳� ׳�׳§׳•׳‘׳¥\" onclick=\"window.location.href='$url'\">\n";
 		print "</div>\n";
 	}
 	else if($step == 2) {
 		fclose($fd);
 		Conv1255($filename);
-		print "<h2>להורדת הדוח לחץ כאן: ";
+		print "<h2>׳�׳”׳•׳¨׳“׳× ׳”׳“׳•׳— ׳�׳—׳¥ ׳›׳�׳�: ";
 		$url = "/download.php?file=$filename&name=profloss.csv";
 		print "<a href=\"$filename\">profloss.csv</a></h2>\n";
-		print "<h2>לחץ על שם הקובץ עם כפתור ימני ובחר \"שמור בשם\"</h2>\n";
+		print "<h2>׳�׳—׳¥ ׳¢׳� ׳©׳� ׳”׳§׳•׳‘׳¥ ׳¢׳� ׳›׳₪׳×׳•׳¨ ׳™׳�׳ ׳™ ׳•׳‘׳—׳¨ \"׳©׳�׳•׳¨ ׳‘׳©׳�\"</h2>\n";
 		print "<script type=\"text/javascript\">\n";
 		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
 		print "</script>\n";

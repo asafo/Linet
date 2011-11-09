@@ -75,7 +75,7 @@ print "<br>\n";
 print "<div class=\"form righthalf1\">\n";
 $l = _("Cheque, credit and cash deposit");
 print "<h3>$l</h3>\n";
-// print "<h3>הפקדת שקים, מזומנים ורישום סליקה</h3>\n";
+// print "<h3>׳”׳₪׳§׳“׳× ׳©׳§׳™׳�, ׳�׳–׳•׳�׳ ׳™׳� ׳•׳¨׳™׳©׳•׳� ׳¡׳�׳™׳§׳”</h3>\n";
 
 if($action == 'submit') {
 	$account = $_POST['account'];
@@ -122,7 +122,7 @@ if($action == 'submit') {
 			if($n != '0000-00-00')
 				continue;
 			$t = $line['type'];
-			// First part זכות קופת שיקים 
+			// First part ׳–׳›׳•׳× ׳§׳•׳₪׳× ׳©׳™׳§׳™׳� 
 			$total = (float)$sum;
 			if($t == 1)
 				$cheque_acct = CASH;
@@ -130,7 +130,7 @@ if($action == 'submit') {
 				$cheque_acct = CHEQUE;
 			$tnum = Transaction($tnum, CHEQUEDEPOSIT, $cheque_acct, $bank_refnum, $val, $dep_date, '', $total);
 
-			// Second part חובת הבנק
+			// Second part ׳—׳•׳‘׳× ׳”׳‘׳ ׳§
 			$tnum = Transaction($tnum, CHEQUEDEPOSIT, $account, $bank_refnum, $val, $dep_date, '', $total * -1.0);
 			/* Now mark cheque as deposited */
 			$dep_date1 = FormatDate($dep_date, "dmy", "mysql");
@@ -228,7 +228,5 @@ print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\
 print "</table>\n";
 print "</form>\n";
 print "</div>\n";
-print "<div class=\"lefthalf1\">\n";
-ShowText('deposit');
-print "</div>\n";
+
 ?>

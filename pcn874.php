@@ -15,7 +15,7 @@ if($step == 0) {	/* First stage, choose dates for report */
 	$date = date('m-Y',mktime(0, 0, 0, (date('m')), 0, date('Y'))); //date("31-12-$y");
 
 	//print "<div class=\"form righthalf1\">\n";
-	$header = 'הפקת דוח 874';//_("Export pcn874 files for tax authorities"); 
+	$header = '׳”׳₪׳§׳× ׳“׳•׳— 874';//_("Export pcn874 files for tax authorities"); 
 	$text.= "<form name=\"dtrange\" action=\"?module=pcn874&amp;step=1\" method=\"post\">\n";
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 
@@ -45,9 +45,7 @@ $text.="<script type=\"text/javascript\">$(function() {
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
 	createForm($text,$header,'',350);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('pcn874');
-	print "</div>\n";
+	
 }
 else if($step == 1) {
 	$b = $_POST['date'];
@@ -189,7 +187,7 @@ else if($step == 1) {
 		print "<br />$l: ";
 		print "<a href=\"$dir/pcn874.txt\">pcn874.txt</a><br />\n";
 		}else{
-		print 'אין אפשרות ליצור קובץ';
+		print '׳�׳™׳� ׳�׳₪׳©׳¨׳•׳× ׳�׳™׳¦׳•׳¨ ׳§׳•׳‘׳¥';
 	}
 	print "</div>";
 	

@@ -41,8 +41,6 @@ $l = _("New page");
 print "<a href=\"?module=text&amp;action=add\">$l</a>\n";
 print "</div>\n";
 print "</div>\n";
-print "<div class=\"lefthalf1\">\n";
-ShowText('edit');
-print "</div>\n";
+
 
 ?>

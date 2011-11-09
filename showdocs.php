@@ -6,13 +6,13 @@
  | by Ori Idan August 2009
  | Modifed By adam BH 10/2010
  */
-global $prefix, $accountstbl, $supdocstbl, $itemstbl;
+global $prefix;//, $accountstbl, $supdocstbl, $itemstbl;
 //adam: global $receiptstbl; 
-global $chequestbl;
-global $docstbl, $docdetailstbl;
-global $creditcompanies;
-global $CompArray;
-global $CurrArray;
+//global $chequestbl;
+global $docstbl;//, $docdetailstbl;
+//global $creditcompanies;
+//global $CompArray;
+//global $CurrArray;
 global $DocType;
 global $paymentarr;
 global $creditarr;
@@ -100,28 +100,29 @@ if($step > 0) {
 		}*/
 //		print "Query: $query<br>\n";
 		$result = DoQuery($query, "showdocs.php");
-		print "<br />\n";
+		//print "<br />\n";
 		$doctypestr = $DocType[$doctype];
-		print "<h2>$doctypestr</h2>\n";
-		print "<table width=\"100%\" border=\"0\"><tr><td>\n";
-		print "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
+		//print "<h2>$doctypestr</h2>\n";
+		$haeder=$doctypestr;
+		//print "<table width=\"100%\" class=\"tablesorter\" border=\"0\"><tr><td>\n";
+		$text= "<table class=\"tablesorter\" id=\"accadmintbl\"><tr>\n";
 		$l = _("Doc. type");
-		print "<td style=\"width:6em\">$l</td>\n";
+		$text.= "<th style=\"width:6em\">$l</th>\n";
 		$l = _("Num");
-		print "<td style=\"width:3em\">$l</td>\n";
+		$text.= "<th style=\"width:3em\">$l</th>\n";
 		$l = _("Date");
-		print "<td style=\"width:7em\">$l</td>\n";
+		$text.= "<th style=\"width:7em\">$l</th>\n";
 		$l = _("Customer");
-		print "<td style=\"width:10em\">$l</td>\n";
+		$text.= "<th style=\"width:10em\">$l</th>\n";
 		if($doctype != DOC_RECEIPT) {
 			$l = _("No VAT sum");
-			print "<td style=\"width:8em\">$l</td>\n";
+			$text.= "<th style=\"width:8em\">$l</th>\n";
 		}
 		$l = _("Total sum");
-		print "<td style=\"width:5em\">$l</td>\n";
+		$text.= "<th style=\"width:5em\">$l</th>\n";
 		$l = _("Actions");
-		print "<td>$l</td>\n";
-		print "</tr>\n";
+		$text.= "<th>$l</th>\n";
+		$text.= "</tr>\n";
 		$novatsum = 0.0;
 		$totalsum = 0.0;
 		$e = 0;
@@ -154,24 +155,24 @@ if($step > 0) {
 			//}
 			//else
 			//	$total = $line['sum'];	
-			NewRow();
+			//NewRow();
 
 			$doctypestr = $DocType[$doctype];
 			/*if($doctype == DOC_INVRCPT)
 				$doctypestr = _("Invoice receipt");*/
-			print "<td>$doctypestr</td>\n";
-			print "<td>$docnum</td>\n";
+			$text.= "<tr><td>$doctypestr</td>\n";
+			$text.= "<td>$docnum</td>\n";
 			$issue_date = FormatDate($issue_date, "mysql", "dmy");
-			print "<td>$issue_date</td>\n";
-			print "<td>$accountstr</td>\n";
+			$text.= "<td>$issue_date</td>\n";
+			$text.= "<td>$accountstr</td>\n";
 			if($doctype != DOC_RECEIPT) {
-				print "<td>$sub_total</td>\n";
+				$text.= "<td>$sub_total</td>\n";
 				$novatsum += $sub_total;
 			}
 			$tstr = number_format($total);
-			print "<td>$tstr</td>\n";
+			$text.= "<td>$tstr</td>\n";
 			$totalsum += $total;
-			print "<td>";
+			$text.= "<td>";
 			if($step == 1) {
 				$url = "printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix";
 				$target = "docswin";
@@ -184,32 +185,32 @@ if($step > 0) {
 				$l = _("Copy");
 			}
 			if($target == 'docswin')
-				print "<input type=\"button\" onclick=\"window.open('$url', 'docswin')\"";
+				$text.= "<input type=\"button\" onclick=\"window.open('$url', 'docswin')\"";
 			else
-				print "<input type=\"button\" onclick=\"window.location.href='$url'\"";
-			print "value=\"$l\">";
-			print "</a>&nbsp;&nbsp;";
+				$text.= "<input type=\"button\" onclick=\"window.location.href='$url'\"";
+			$text.= "value=\"$l\">";
+			$text.= "</a>&nbsp;&nbsp;";
 			$url = "?module=emaildoc&amp;account=$account&amp;doctype=$doctype&amp;docnum=$docnum";
 //			print "<input type=\"button\" onclick=\"window.location.href='$url'\"";
-//			print "value=\"׳©׳�׳— ׳‘׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™\">\n";
-			print "</td></tr>\n";
+//			print "value=\"׳³ֲ©׳³ן¿½׳³ג€” ׳³ג€˜׳³ג€�׳³ג€¢׳³ן¿½׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ֻ�׳³ֲ¨׳³ג€¢׳³ֲ ׳³ג„¢\">\n";
+			$text.= "</td></tr>\n";
 		}
-		print "<tr class=\"sumline\">\n";
+		$text.= "<tr class=\"sumline\">\n";
 		//if($doctype != DOC_RECEIPT)
-			print "<td colspan=\"4\" align=\"left\">\n";
+			$text.= "<td colspan=\"4\" align=\"left\">\n";
 		//else
 		//	print "<td colspan=\"4\" align=\"left\">\n";
 		$l = _("Total");
-		print "<b>$l: &nbsp;</b></td>\n";
+		$text.= "<b>$l: &nbsp;</b></td>\n";
 		if($doctype != DOC_RECEIPT)
-			print "<td>$novatsum</td>\n";
-		print "<td>$totalsum</td>\n";
-		print "<td>&nbsp;</td>\n";
-		print "</tr>\n";
-		print "</table>\n";
-	/*	print "</td><td width=\"48%\" valign=\"top\">\n";
-		ShowText('showdocs1'); */
-		print "</td></tr></table>\n";
+			$text.= "<td>$novatsum</td>\n";
+		$text.= "<td>$totalsum</td>\n";
+		$text.= "<td>&nbsp;</td>\n";
+		$text.= "</tr>\n";
+		$text.= "</table>\n";
+		createForm($text, $haeder,'',750,'','logo',1,'help');
+	/*	print "</td><td width=\"48%\" valign=\"top\">\n"; */
+		//print "</td></tr></table>\n";
 	}
 }
 if($step == 0) {
@@ -234,14 +235,14 @@ if($step == 0) {
 	$l = _("From date");
 	$text.= "<td>$l: </td>\n";
 	$text.= "<td><input type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$begindate\" size=\"8\">\n";
-$text.='<script type="text/javascript">addDatePicker("#begindate","'.$begindate.'");</script>';
+//$text.='<script type="text/javascript">addDatePicker("#begindate","'.$begindate.'");</script>';
 
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("To date");
 	$text.= "<td>$l: </td>\n";
 	$text.= "<td><input type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$enddate\" size=\"8\">\n";
-$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
+//$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Search");
@@ -251,8 +252,6 @@ $text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");
 	$text.= "</form>\n";
 	//print "</div>\n";
 	createForm($text,$haeder,'',600);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('showdocs');
-	print "</div>\n";
+	
 }
 ?>

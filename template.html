@@ -11,7 +11,7 @@
 	<script type="text/javascript" src='js/jquery.ui.custom.min.js'></script>
 	<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script> 
 	<script type="text/javascript" src="js/java.js"></script>
-	
+
 	<title>~title~</title>
 	~header~
 	
@@ -49,4 +49,13 @@
 		</div><!--div footer  end-->
 	</div><!--div wrapper  end-->
 	</body>
+	<script type="text/javascript">
+		$("#accadmintbl").tablesorter();
+		
+		$.datepicker.setDefaults( $.datepicker.regional["he"] );
+		$(name).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});
+		$(name).datepicker( "option", "dateFormat", "dd-mm-yy" );
+		$(name).val(value);
+	
+	</script>
 </html>

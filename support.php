@@ -27,20 +27,21 @@ $fullname1 = _("Full name");
 $email1 = _("Email");
 $message1 = _("Message");
 $submit = _("Submit");
-
+$l = _("Hello");
 $contactform = <<<EOF
+<h2>$l: $fullname</h2><br />\n
 <form action="?module=support&action=submit" method="post">
 <table class="formtbl" dir="$dir" width="100%">
 <tr>
 <td>$subject1: </td>
-<td><input type="text" name="subject" size=\"30\" value="$subject"></td>
+<td><input type="text" name="subject" size=\"30\" value="$subject" /></td>
 </tr><tr>
 <td valign="top">$message1: </td>
 <td>
-<textarea rows="15" style="width:90%" name="message">$message</textarea>
+<textarea rows="10" style="width:90%" name="message">$message</textarea>
 </td>
 </tr><tr>
-<td colspan="2" align="center"><input type="submit" value="$submit"></td>
+<td colspan="2" align="center"><input type="submit" value="$submit" /></td>
 </tr>
 </table>
 </form>
@@ -76,13 +77,12 @@ $haeder = _("Support");
 //print "<h3>$l</h3>\n";
 //print "$contactform";
 //print "</div>\n";
-createForm($contactform,$haeder,$sClass,400);
-print "<div class=\"lefthalf1\">\n";
-$l = _("Hello");
-print "<h2>$l: $fullname</h2><br>\n";
+createForm($contactform,$haeder,$sClass,600);
+//print "<div class=\"lefthalf1\">\n";
+//
+//print 
 
-ShowText('support');
-print "</div>\n";
+//print "</div>\n";
 
 ?>
 

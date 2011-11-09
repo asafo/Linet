@@ -1,5 +1,5 @@
-ן»¿<?PHP
-//M:׳“׳•"׳— ׳¨׳•׳•׳— ׳•׳”׳₪׳¡׳“
+׳�ֲ»ֲ¿<?PHP
+//M:׳³ג€�׳³ג€¢"׳³ג€” ׳³ֲ¨׳³ג€¢׳³ג€¢׳³ג€” ׳³ג€¢׳³ג€�׳³ג‚×׳³ֲ¡׳³ג€�
 /*
  | Profit & Loss report for Freelance accounting system
  | Written by Ori Idan July 2009
@@ -119,7 +119,7 @@ if($step == 0) {	/* Get date range */
 	print "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
 	print "<table cellpadding=\"5px\" cellspacing=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("From date");
-	print "<td>׳‘׳—׳¨ ׳×׳�׳¨׳™׳� ׳×׳—׳™׳�׳”: </td>\n";
+	print "<td>׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ֳ—׳³ן¿½׳³ֲ¨׳³ג„¢׳³ן¿½ ׳³ֳ—׳³ג€”׳³ג„¢׳³ן¿½׳³ג€�: </td>\n";
 	print "<td><input type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
 ?>
 <script type="text/javascript">
@@ -147,9 +147,7 @@ if($step == 0) {	/* Get date range */
 	print "</tr></table>\n";
 	print "</form>\n";
 	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('profloss');
-	print "</div>\n";
+	
 }
 if($step == 2) {
 	$filename = "tmp/profloss.csv";
@@ -297,33 +295,33 @@ if($step >= 1) {
 				print "<tr class=\"tblheadprt\" align=\"right\">\n";
 			else
 				print "<tr class=\"tblhead\" align=\"right\">\n";
-			print "<td colspan=\"4\" align=\"right\"><u>׳¢׳�׳•׳× ׳”׳�׳›׳¨</u></td></tr>\n";
+			print "<td colspan=\"4\" align=\"right\"><u>׳³ֲ¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ג€�׳³ן¿½׳³ג€÷׳³ֲ¨</u></td></tr>\n";
 			$tstr = number_format($open_stock);
-			print "<tr><td align=\"right\">׳�׳�׳�׳™ ׳₪׳×׳™׳—׳”</td><td align=\"right\">$tstr</td></tr>\n";
+			print "<tr><td align=\"right\">׳³ן¿½׳³ן¿½׳³ן¿½׳³ג„¢ ׳³ג‚×׳³ֳ—׳³ג„¢׳³ג€”׳³ג€�</td><td align=\"right\">$tstr</td></tr>\n";
 			$tstr = number_format($buy_stock);
-			print "<tr class=\"otherline\" align=\"right\"><td >׳§׳ ׳™׳•׳×</td><td>$tstr</td>";
+			print "<tr class=\"otherline\" align=\"right\"><td >׳³ֲ§׳³ֲ ׳³ג„¢׳³ג€¢׳³ֳ—</td><td>$tstr</td>";
 			if($percent)
 				print "<td>&nbsp;</td>";
 			if($d6111)
 				print "<td>&nbsp;</td>\n";
 			print "</tr>\n";
 			$tstr = number_format($close_stock);
-			print "<tr align=\"right\"><td>׳�׳�׳�׳™ ׳¡׳•׳₪׳™</td><td>$tstr</td>\n";
+			print "<tr align=\"right\"><td>׳³ן¿½׳³ן¿½׳³ן¿½׳³ג„¢ ׳³ֲ¡׳³ג€¢׳³ג‚×׳³ג„¢</td><td>$tstr</td>\n";
 			if($percent)
 				print "<td>&nbsp;</td>";
 			print "</tr>\n";
 		}
 		else {
-			fwrite($fd, "׳¢׳�׳•׳× ׳”׳�׳›׳¨\n");
-			fwrite($fd, "׳�׳�׳�׳™ ׳₪׳×׳™׳—׳”,$open_stock\n");
-			fwrite($fd, "׳§׳ ׳™׳•׳×,$buy_stock\n");
-			fwrite($fd, "׳�׳�׳�׳™ ׳¡׳•׳₪׳™,$close_stock\n");
+			fwrite($fd, "׳³ֲ¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ג€�׳³ן¿½׳³ג€÷׳³ֲ¨\n");
+			fwrite($fd, "׳³ן¿½׳³ן¿½׳³ן¿½׳³ג„¢ ׳³ג‚×׳³ֳ—׳³ג„¢׳³ג€”׳³ג€�,$open_stock\n");
+			fwrite($fd, "׳³ֲ§׳³ֲ ׳³ג„¢׳³ג€¢׳³ֳ—,$buy_stock\n");
+			fwrite($fd, "׳³ן¿½׳³ן¿½׳³ן¿½׳³ג„¢ ׳³ֲ¡׳³ג€¢׳³ג‚×׳³ג„¢,$close_stock\n");
 		}
 		$p = ($sale_cost * 100) / $total_income;
 		$p = round($p, 2);
 		if($step == 1) {
 			$tstr = number_format($sale_cost);
-			print "<tr class=\"otherline\" align=\"right\"><td><b>׳¡׳”\"׳› ׳¢׳�׳•׳× ׳”׳�׳›׳¨</b></td><td>$tstr</td>";
+			print "<tr class=\"otherline\" align=\"right\"><td><b>׳³ֲ¡׳³ג€�\"׳³ג€÷ ׳³ֲ¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ג€�׳³ן¿½׳³ג€÷׳³ֲ¨</b></td><td>$tstr</td>";
 			if($percent)
 				print "<td>% $p</td>";
 			if($d6111)
@@ -331,7 +329,7 @@ if($step >= 1) {
 			print "</tr>\n";
 		}
 		else
-			fwrite($fd, "׳¡׳”\"׳› ׳¢׳�׳•׳× ׳”׳�׳›׳¨,$sale_cost\n");
+			fwrite($fd, "׳³ֲ¡׳³ג€�\"׳³ג€÷ ׳³ֲ¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ג€�׳³ן¿½׳³ג€÷׳³ֲ¨,$sale_cost\n");
 		$t = $total_income - $sale_cost;
 		$p = round(t * 100 / $total_income, 2);
 		if($step == 1) {
@@ -340,7 +338,7 @@ if($step >= 1) {
 				print "<tr class=\"sumlineprt\" align=\"right\">\n";
 			else
 				print "<tr class=\"sumline\" align=\"right\">\n";
-			print "<td><b>׳¨׳•׳•׳— ׳’׳•׳�׳�׳™</b></td><td>$tstr</td>\n";
+			print "<td><b>׳³ֲ¨׳³ג€¢׳³ג€¢׳³ג€” ׳³ג€™׳³ג€¢׳³ן¿½׳³ן¿½׳³ג„¢</b></td><td>$tstr</td>\n";
 			if($percent)
 				print "<td>% $p</td>";
 			if($d6111)
@@ -348,7 +346,7 @@ if($step >= 1) {
 			print "</tr>\n";
 		}
 		else {
-			fwrite($fd, "׳¨׳•׳•׳— ׳’׳•׳�׳�׳™,$t");
+			fwrite($fd, "׳³ֲ¨׳³ג€¢׳³ג€¢׳³ג€” ׳³ג€™׳³ג€¢׳³ן¿½׳³ן¿½׳³ג„¢,$t");
 			if($percent)
 				fwrite($fd, ",$p");
 			fwrite($fd, "\n");

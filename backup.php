@@ -72,9 +72,7 @@ if($step == 'backup') {
 	$text.= "<h2><a href=\"download.php?file=$bakname&amp;name=$bakname\" target=\"_blank\">$l</a></h2>\n";
 	//print "</div>\n";
 	createForm($text,$header,'',350);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('backup');
-	print "</div>\n";
+	
 }
 
 if($step == 'delbak') {
@@ -171,9 +169,7 @@ if($step == 'restore') {
 	$text.= "</table>\n";
 	//print "</div>\n";
 	createForm($text,$header,'',350);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('restore');
-	print "</div>\n";
+	
 }
 
 chdir($cwd);

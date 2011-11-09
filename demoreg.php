@@ -12,19 +12,19 @@ $fullname = isset($_POST['fullname']) ? $_POST['fullname'] : '';
 
 $formstr = <<<EOF
 <div class="righthalf1">
-<h3>רישום לחברה לדוגמא</h3>
+<h3>׳¨׳™׳©׳•׳� ׳�׳—׳‘׳¨׳” ׳�׳“׳•׳’׳�׳�</h3>
 <form action="?module=demoreg&amp;step=1" method="post">
 <table class="formtbl" width="100%">
 	<tr>
-		<td>דואר אלקטרוני: </td>
+		<td>׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™: </td>
 		<td><input type="text" name="email"></td>
 	</tr>
 	<tr>
-		<td>שם מלא: </td>
+		<td>׳©׳� ׳�׳�׳�: </td>
 		<td><input type="text" name="fullname"></td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center"><input type="submit" value="הרשם"></td>
+		<td colspan="2" align="center"><input type="submit" value="׳”׳¨׳©׳�"></td>
 	</tr>
 </table>
 </form>
@@ -35,9 +35,6 @@ $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
 if($step == 0) {
 	print $formstr;
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('demoreg');
-	print "</div>\n";
 }
 else {
 	$query = "SELECT password FROM $logintbl WHERE name='$email'";
@@ -53,16 +50,14 @@ else {
 			print "<h2><a href=\"?action=login\">$l</a></h2>\n";
 		}
 		else {
-			print "<h2>דואר אלקטרוני קיים במערכת</h2>\n";
-			print "<h2>לחץ ";
-			print "<a href=\"?action=login\">כאן ";
-			print "לכניסה למערכת או תזכורת ססמה";
+			print "<h2>׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™ ׳§׳™׳™׳� ׳‘׳�׳¢׳¨׳›׳×</h2>\n";
+			print "<h2>׳�׳—׳¥ ";
+			print "<a href=\"?action=login\">׳›׳�׳� ";
+			print "׳�׳›׳ ׳™׳¡׳” ׳�׳�׳¢׳¨׳›׳× ׳�׳• ׳×׳–׳›׳•׳¨׳× ׳¡׳¡׳�׳”";
 			print "</a></h2>\n";
 		}
 		print "$formstr";
-		print "<div class=\"lefthalf1\">\n";
-		ShowText('demoreg');
-		print "</div>\n";
+		
 	}
 	else {
 		/* This email does not exist in system, insert it */

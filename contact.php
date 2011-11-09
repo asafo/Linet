@@ -300,7 +300,6 @@ EHF;
 	createForm($text,$haeder,'',450);
 	//print "</div>\n";
 	print "<div class=\"lefthalf1\">\n";
-	ShowText('addcontact');
 	print "</div>\n";
 	return;
 }*/
@@ -380,13 +379,6 @@ else
 	$l = _("Suppliers managmenet");
 //print "<h3>$l</h3>\n";
 //print "$srchform";
-
-
-
-
-
-//ShowText('contact');
-
 
 
 $company = str_replace('*', '%', $company);

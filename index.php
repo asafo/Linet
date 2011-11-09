@@ -7,21 +7,7 @@
 /* 
  | Cookies must be sent first so check if someone wants us to send cookie...
  */
-if(isset($_GET['cookie'])) {
-	$cookiestr = $_GET['cookie'];
-	$cookies = explode(':', $cookiestr);
-	foreach($cookies as $cookie) {
-		//print "cookie: $cookie<BR>\n";
-		list($name, $val, $t) = explode(',', $cookie);
-		$val = urlencode($val);
-		setcookie($name, $val, $t);
-	}
-}
-
-include('include/i18n.inc.php');
-
-//print(md5('Replay'));
-
+session_start();
 if(isset($_GET['begin']) && isset($_GET['end'])) {
 	$begindmy = $_GET['begin'];
 	$enddmy = $_GET['end'];
@@ -29,6 +15,8 @@ if(isset($_GET['begin']) && isset($_GET['end'])) {
 	setcookie('end', $enddmy, time() + 24 * 3600);
 }
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
+$module = isset($_REQUEST['module']) ? $_REQUEST['module'] : '';
+
 if($action == 'disconnect') {
 	setcookie('name', '', -1);
 	setcookie('data', '', -1);
@@ -45,66 +33,49 @@ else if($action == 'unsel') {
 	unset($_GET['action']);
 	$module = 'main';
 }
-//header('Content-type: text/html;charset=UTF-8');
-
+include('include/i18n.inc.php');
 include('config.inc.php');
 include('include/core.inc.php');
 include('include/version.inc.php');
 include('include/func.inc.php');
-include('include/edit.inc.php');
 include('class/user.php');
 
-//include('include/menu.inc.php');
-$name = isset($_COOKIE['name']) ? $_COOKIE['name'] : '';
-$data = isset($_COOKIE['data']) ? $_COOKIE['data'] : '';
-$name = isset($_REQUEST['name']) ? $_REQUEST['name'] : $name;
-$data = isset($_REQUEST['data']) ? $_REQUEST['data'] : $data;
-$showtext = isset($_COOKIE['showtext']) ? $_COOKIE['showtext'] : 1;
-$showtext = isset($_GET['showtext']) ? $_GET['showtext'] : $showtext;
-if(isset($_COOKIE['company'])) {
-	$prefix =  $_COOKIE['company'];
-	// print "Select company: $prefix<br />\n";
-}
+$Uname = isset($_COOKIE['name']) ? $_COOKIE['name'] : '';
+$Udata = isset($_COOKIE['data']) ? $_COOKIE['data'] : '';
+$Sname = isset($_SESSION['name']) ? $_SESSION['name'] : '';
+$Sdata = isset($_SESSION['data']) ? $_SESSION['data'] : '';
+
+
+$prefix =  isset($_COOKIE['company']) ? $_COOKIE['company'] :'';
 $prefix = isset($_GET['company']) ? $_GET['company'] : $prefix;
 
 $stdheader = '';
 $abspath = GetURI();
-if(!isset($tinymcepath))
+if(!isset($tinymcepath))//adam:?
 	$tinimcepath = $abspath;
 
-if(!empty($name) && ($name != '')) {
-	$loggedin = 1;
-	$name = urldecode($name);
-}
-else
-	$loggedin = 0;
-if(isset($_GET['nonlogin']))
-	$simulatenolog = 1;
-
-// print "logged: $loggedin<br>name: $name<br>\n";
-
-$id = isset($_GET['id']) ? $_GET['id'] : 0;
-if($id)
-	$module = 'text';
-else {
-	$module = isset($_GET['module']) ? $_GET['module'] : '';
-}
-
-if(($module == '') && ($action == '')) {
-	if($loggedin && !$simulatenolog)
-		$module = 'main';
-	else {
-		$id = 'main1';
-		$module = 'text';
-//		$action = 'login';
+$loggedin = 0;
+/*chk if logged in improved */
+if(isset($Uname) && ($Uname != '')) 
+	if((isset($Udata)) && ($Udata!='')){
+		//if session isnt set get from db
+		if(($Uname==$Sname) && ($Udata==$Sdata)){
+			$loggedin = 1;
+			$name = urldecode($Uname);
+			$cookietime = time() + 60*60*24*30;
+			//chk if user has permisions to company
+			setcookie('company', $prefix, $cookietime);
+		}
 	}
-}
-// $action = isset($_GET['action']) ? $_GET['action'] : '';
+//else
+	
+//if(isset($_GET['nonlogin']))
+//	$simulatenolog = 1;
 
-if($module == '') {	/* check for default actions */
-	if($action == 'doadd')
-		$module = 'text';
-}
+if(($module == '') && ($action == '')) 
+//	if(($loggedin) && (!$simulatenolog))
+		$module = 'main';
+
 
 $link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
 mysql_query("SET NAMES 'utf8'");
@@ -130,7 +101,7 @@ if($loggedin) {
 		else
 			$prefix = $c;
 	}
-//	print "Name: $name, $superuser<br>\n";
+	//print "Name: $name, $superuser<br>\n";
 }
 //print "<br />".$action."<br />";
 if ($action=='lister'){
@@ -170,9 +141,9 @@ if(isset($prefix)) {
 	else
 		unset($prefix);
 }
-if($cssfile == '')
+//if($cssfile == '')
 	$cssfile = 'style/linet.css';
-if($small_logo == '')
+//if($small_logo == '')
 	$small_logo = 'img/logo.jpg';
 
 if($template == '') {
@@ -190,7 +161,7 @@ if($template == '') {
 	}
 }
 
-
+//print 'were here';
 /*
 
 */
@@ -219,78 +190,6 @@ function getVersion(){
 
 }
 
-function ShowText($id,$print=true) {
-	global $articlestbl;
-	global $lang, $dir;
-	global $superuser;
-	global $menuprinted;
-	global $module;
-	global $showtext;
-	$text='';
-	if($dir == 'ltr')
-		$align = 'left';
-	else
-		$align = 'right';
-	/*adam: option to edit*/
-	if($module != 'text')
-		if(($module != 'text') && EditAble($id)) {
-			$l = _("Edit");
-			$text.= "<span class=\"text1\"><a href=\"?id=$id&amp;action=edit\">$l</a></span><br />\n";
-		}
-	$query = "SELECT contents,subject FROM $articlestbl WHERE id='$id' AND lang='$lang'";
-	$result = DoQuery($query, "ShowText");
-	if(mysql_num_rows($result) == 0) {
-		/* Check default of no language */
-		$query = "SELECT contents,subject FROM $articlestbl WHERE id='$id'";
-		$result = DoQuery($query, "ShowText");
-		if(mysql_num_rows($result) == 0) {
-			$l = _("Page does not exist {id}:$id" );
-			$text.= "<h1 align=\"center\">$l</h1>\n";
-			if($module != 'text')
-				return '';
-		}
-	}
-	$line = mysql_fetch_array($result, MYSQL_ASSOC);
-	$contents = $line['contents'];
-	
-	$a = explode(':', $contents);
-	if(($k = array_search('plugin', $a)) !== FALSE) {
-		for($i = 0; $i < $k; $i++) {
-			$text.= $a[$i];
-			if($i != ($k - 1))
-				$text.= ":";
-		}
-		$p = trim($a[$k + 1]);
-
-		$after = $a[$k + 2];
-		include("plugins/$p");
-		for($i = $k + 2; $i < count($a); $i++) {
-			$text.= $a[$i];
-			if($i != (count($a) - 1))
-				$text.= ":";
-		}
-		if($module != 'text')
-			$text.= "</div>\n";
-		return '';
-	}
-	$str = "";
-
-	$arr = explode('\n', $contents);
-	foreach($arr as $l) {
-		$str .= preg_replace_callback("/~[^\x20|^~]*~/", "TemplateReplace", $l);
-	}
-	$text.= "$str";
-	if ($print) {
-		print $text;
-		return "";
-	}
-	else
-	{
-		return $text;
-	}
-
-}
-
 function browser_info($agent=null) {
   // Declare known browsers to look for
   $known = array('msie', 'firefox', 'safari', 'webkit', 'opera', 'netscape',
@@ -315,149 +214,25 @@ function browser_info($agent=null) {
 
 function RunModule() {
 	global $module, $action, $id, $lang;
-	//global $articlestbl, 
 	global $logintbl, $permissionstbl;
 	global $name, $prefix;
 	global $loggedin, $superuser;
 	global $ModuleAction;
-	global $menuprinted;
-	
-	if(($action == 'login') || ($action == 'dologin') || (!$loggedin)) {
+	//global $menuprinted;
+	//print $module;
+	if(!$loggedin) {
 		include('login.php');
 		return '';
 	}
 	$btype = browser_info(NULL);
-//	print_r($btype);
-//	if($btype['msie']) {
-//	}
-//	print "module: $module, id: $id<br>\n";
-//	if($action && ($module == 'compass'))
-//		$module = $ModuleAction[$action];
-//	print "module: $module, id: $id<br>\n";
-	if($module == 'text') {		/* built in module */
-		/* Special case for edit actions */
-		/*if($action == 'doadd') {
-			$id = $_POST['id'];
-			$ancestor = $_GET['ancestor'];
-			$modname = htmlspecialchars($_POST['module'], ENT_QUOTES);
-			$params = htmlspecialchars($_POST['params'], ENT_QUOTES);
-			$subject = htmlspecialchars($_POST['subject'], ENT_QUOTES);
-			$contents = $_POST['contents'];
-			$keepedit = isset($_POST['keepediting']);
-
-			if($id == '__NULL__') {
-				$l = _("No identifying name specidied");
-				print "<H1 align=\"center\">$l</H1>\n";
-				exit;
-			}
-			else if($id == '__NEW__')
-				$id = $_POST['newid'];
-			$id1 = urlencode($id);
-			if($id1 != $id) {
-				$l = _("Invalid identifying name");
-				print "<H1 align=\"center\">$l</H1>\n";
-				exit;
-			}
-			$query = "SELECT * FROM $articlestbl WHERE id='$id'";
-			$result = DoQuery($query, "index.php");
-			if(mysql_num_rows($result) == 0) {
-				$query = "INSERT INTO $articlestbl  \n";
-				$query .= "VALUES('$id', '$ancestor', '$lang', '$subject', '$modname', '$params', NOW(), '$contents')";
-				$result = DoQuery($query, "index.php");
-			}
-			else {
-				$query = "UPDATE $articlestbl SET $subject='$subject', lastmode=NOW(), ";
-				$query .= "module='$modname', params='$params', ";
-				$query .= "contents='$contents' lang='$lang' WHERE id='$id'";
-				$result = DoQuery($query, "index.php");
-			}
-			if($keepedit)
-				$action = 'edit';
-		}//*/
-		/*else if(($action == 'update') && isset($_POST['id'])) {
-			$id = $_POST['id'];
-			$ancestor = $_GET['ancestor'];
-			$newid = $_POST['newid'];
-			$modname = htmlspecialchars($_POST['module'], ENT_QUOTES);
-			$params = htmlspecialchars($_POST['params'], ENT_QUOTES);
-			$subject = htmlspecialchars($_POST['subject'], ENT_QUOTES);
-			$contents = $_POST['contents'];
-			$keepedit = isset($_POST['keepediting']);
-
-			$query = "SELECT * FROM $articlestbl WHERE id='$id' AND lang='$lang'";
-			$result = DoQuery($query, "index.php");
-			if(mysql_num_rows($result) == 0) {	// special case, add article 
-				$query = "SELECT * FROM $articlestbl WHERE id='$id'";
-//				print "Query1: $query<br>\n";
-				$result = DoQuery($query, "index.php");
-				if(!mysql_num_rows($result)) {
-					$query = "INSERT INTO $articlestbl  \n";
-					$query .= "VALUES('$id', '$ancestor', '$lang', '$subject', '$modname', '$params', NOW(), '$contents')";
-				}
-				else {
-					$query = "UPDATE $articlestbl SET id='$newid', lang='$lang', ";
-					$query .= "subject='$subject', module='$modname', params='$params', lastmod=NOW(), ";
-					$query .= "contents='$contents' WHERE id='$id'";
-				}
-			}
-			else {
-				$query = "UPDATE $articlestbl SET id='$newid', lang='$lang', ";
-				$query .= "subject='$subject', module='$modname', params='$params', lastmod=NOW(), ";
-				$query .= "contents='$contents' WHERE id='$id'";
-			}
-			$result = mysql_query($query);
-			if(!$result) {
-				print "Query: $query<BR>\n";
-				echo mysql_error();
-				exit;
-			}
-			if($keepedit)
-				$action = 'edit';
-			$id = $newid;
-		}*/
-		/*else if($action == 'del') {
-			$query = "DELETE FROM $articlestbl WHERE id='$id'";
-			$result = DoQuery($query, "DelPage");
-		}*/
-
-		$menuprinted = 0;
-		$nocommands = array('add', 'edit', 'login');
-		if(!in_array($action, $nocommands)) {
-			$str = PrintCommands();
-			$menuprinted = 1;
-			print $str;
-		}
-		if(($action == 'add') || ($action == 'edit')) {
-			$ancestor = isset($_GET['ancestor']) ? $_GET['ancestor'] : '';
-			AddEdit($action, $id, $ancestor);
-			return;
-		}
-		ShowText($id);
-		return "";
-	}
-	else {
 		if(file_exists("$module.php")) {
-//			print "module: $module.php<br>\n";
-			if(!isset($name) || ($name == '')) {
-				if(($module != 'contactus') && ($module != 'demoreg') && ($module != 'defs') && ($module != 'login')) {
-					print "<br><div style=\"text-align:center\">\n";
-					print "<h3>" . _("This module can not be used without logging in") . "</h3>";
-					print "<br>\n";
-					$l = _("Login to Linet");
-					print "<h2><a href=\"?action=login\">$l</a></h2>";
-					$url = "index.php";
-					print "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=$url\">\n";
-					print "</div>\n";
-					return "";
-				}
-			} 
 			require('shurtcut.php');
 			require("$module.php");					
 			return "";
 		}
 		$l = _("Module not implemented yet");
 		return "<h1>$l</h1>\n";
-	}
+	
 }
 
 function TemplateReplace($r) {

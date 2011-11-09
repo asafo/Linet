@@ -195,8 +195,6 @@ if(!isset($module))
 	print "</body>\n</html>\n";
 else {
 	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('curadmin');
-	print "</div>\n";
+	
 }*/
 ?>

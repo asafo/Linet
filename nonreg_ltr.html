@@ -8,6 +8,25 @@
 
 <title>~title~</title>
 <!-- ~header~ -->
+
+
+
+<script type="text/javascript">
+$(document).ready(function() { 
+    $("#btnfrgt").click(function() { 
+        $("#forgat").show('slow');
+        $("#login").hide(1000);
+    }); 
+    $("#btncancel").click(function() { 
+        $("#login").show('slow');
+        $("#forgat").hide(1000);
+    }); 
+    
+}); 
+
+
+
+</script>
 </head>
 	<body>
 		<div id="wrapper">

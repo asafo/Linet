@@ -103,9 +103,7 @@ $text.='<script type="text/javascript">addDatePicker("#enddate","'.$edate.'");</
 	//print "</div>\n";
 	//print "test";
 	createForm($text,$reptitle,'',400);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('tranrep');
-	print "</div>\n";
+	
 	//print "test";
 }
 if($step == 2) {
@@ -120,7 +118,7 @@ if($step >= 1) {
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
 	//$text= '';
-	$text.= "<h2>לתקופה: $begindate - $enddate</h2>\n";
+	$text.= "<h2>׳�׳×׳§׳•׳₪׳”: $begindate - $enddate</h2>\n";
 	//print "test";
 	$numorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=num";
 	$dtorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=date";
@@ -156,7 +154,7 @@ if($step >= 1) {
 		$text.= "<td>$l&nbsp;</td>\n";
 		$l = _("Details");
 		$text.= "<td>$l&nbsp;&nbsp;&nbsp;</td>\n";
-		$text.= "<td style=\"width:4em\">סכום&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
+		$text.= "<td style=\"width:4em\">׳¡׳›׳•׳�&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
 		$l = _("VAT");
 		$text.= "<td style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</td>\n";
 		$l = _("Inc. VAT");

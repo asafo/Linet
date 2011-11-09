@@ -1,5 +1,5 @@
-ן»¿<?PHP
-//M:׳�׳§׳•׳—׳•׳× ׳—׳™׳™׳‘׳™׳�
+׳�ֲ»ֲ¿<?PHP
+//M:׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€”׳³ג€¢׳³ֳ— ׳³ג€”׳³ג„¢׳³ג„¢׳³ג€˜׳³ג„¢׳³ן¿½
 /*
  | Customers owing money report for Drorit accounting system
  | Written by Ori Idan 2009
@@ -68,10 +68,8 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	print "</tr>\n";	
 }
 $tstr = number_format($total);
-print "<tr class=\"sumline\"><td><b>׳¡׳”\"׳›</b></td><td>$tstr</td></tr>\n";
+print "<tr class=\"sumline\"><td><b>׳³ֲ¡׳³ג€�\"׳³ג€÷</b></td><td>$tstr</td></tr>\n";
 print "</table>\n";
 print "</div>\n";
-print "<div class=\"lefthalf1\">\n";
-ShowText('owe');
-print "</div>\n";
+
 ?>

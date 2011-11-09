@@ -164,7 +164,5 @@ $text.= "</table>\n";
 $text.= "</form>\n";
 //print "</div>\n";
 createForm($text,$haeder,'',450);
-print "<div class=\"lefthalf1\">\n";
-ShowText('ducnums');
-print "</div>\n";
+
 ?>

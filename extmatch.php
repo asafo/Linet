@@ -163,10 +163,7 @@ if(!$bankacc) {
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text,$haeder,'',400);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('extmatch');
-	print "</div>\n";
+	createForm($text,$haeder,'',400,'','logo',1,'help');
 	return;
 }
 
@@ -231,7 +228,7 @@ if($action == 'extbalance') {
 			$sum_str = $sum[$i];
 		$tnum = Transaction($tnum, BANKMATCH, $account, $refnum1, $refnum2, $date, $details, $sum[$i]);
 	}
-//	print "<h2>התנועה נרשמה בהצלחה</h2>\n";
+//	print "<h2>׳”׳×׳ ׳•׳¢׳” ׳ ׳¨׳©׳�׳” ׳‘׳”׳¦׳�׳—׳”</h2>\n";
 	$s = $sum[$i] * -1.0;
 	$int[] = "$tnum:$s";
 	$action = 'match';
@@ -311,7 +308,7 @@ if($action == 'extmatch') {
 	else {
 		$l = _("Unbalanced reconciliation, please create balancing transaction");
 		print "<h2>$l</h2>\n";
-//		print "<h2>התאמה לא מאוזנת, יש ליצור תנועה מאזנת</h2>\n";
+//		print "<h2>׳”׳×׳�׳�׳” ׳�׳� ׳�׳�׳•׳–׳ ׳×, ׳™׳© ׳�׳™׳¦׳•׳¨ ׳×׳ ׳•׳¢׳” ׳�׳�׳–׳ ׳×</h2>\n";
 		print "<div class=\"formtbl\">\n";
 		print "<form name=\"form1\" action=\"?module=extmatch&amp;action=extbalance&amp;bankacc=$bankacc\" method=\"post\">\n";
 		print "<input type=\"hidden\" name=\"int_str\" value=\"$int_str\">\n";
@@ -385,10 +382,8 @@ if($action == 'extmatch') {
 		$text.= "</form>\n";
 		$text.= "</div>\n";
 		//print "</div>\n";	/* end righthalf */
-		createForm($text,$haeder,'',400);
-		print "<div class=\"lefthalf1\">\n";
-		ShowText('creatematch');
-		print "</div>\n";
+		createForm($text,$haeder,'',400,'','logo',1,'help');
+		
 		return;
 	}
 }
@@ -404,7 +399,7 @@ print "<td align=\"right\"><h2>$l</h2></td>\n";
 print "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
 $l = _("Internal bank account transactions");
 print "<td align=\"right\"><h2>$l</h2></td>\n";
-// <td align=\"right\"><h2>תנועות בכרטיס בנק</h2></td>
+// <td align=\"right\"><h2>׳×׳ ׳•׳¢׳•׳× ׳‘׳›׳¨׳˜׳™׳¡ ׳‘׳ ׳§</h2></td>
 ?>
 </tr>
 <tr>

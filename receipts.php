@@ -246,8 +246,6 @@ print "</td></tr>\n";
 print "</table>\n";
 print "</form>\n";
 print "</div>\n";
-//print "<div class=\"lefthalf\">\n";
-//ShowText('receipts');
-//print "</div>\n";
+
 ?>
 

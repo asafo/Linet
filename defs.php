@@ -20,32 +20,27 @@ if($action == 'defsubmit') {
 		//ErrorReport(_("Prefix must be english only with no spaces"));
 		$prefix=sha1(rand());
 		
-//		ErrorReport("׳™׳© ׳�׳”׳›׳ ׳™׳¡ ׳§׳™׳“׳•׳�׳× ׳—׳‘׳¨׳” ׳‘׳�׳ ׳’׳�׳™׳× ׳�׳�׳� ׳¨׳•׳•׳—׳™׳�");
 		//return;
 	}
 	if($companyname == '') {
 		ErrorReport(_("Business name not specified"));
-//		ErrorReport("׳�׳� ׳¦׳•׳™׳� ׳©׳� ׳¢׳¡׳§");
+
 		return;
 	}
 	if($fullname == '') {
 		ErrorReport(_("Full name not specified"));
-//		ErrorReport("׳�׳� ׳¦׳•׳™׳� ׳©׳� ׳�׳�׳�");
 		return;
 	}
 	if($email == '') {
 		ErrorReport(_("No email entered"));
-//		ErrorReport("׳�׳� ׳”׳•׳›׳ ׳¡ ׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™");
 		return;
 	}
 	if($passwd == '') {
 		ErrorReport(_("No password entered"));
-//		ErrorReport("׳�׳� ׳”׳•׳›׳ ׳¡׳” ׳¡׳™׳¡׳�׳”");
 		return;
 	}	
 	if($passwd != $verpasswd) {
 		ErrorReport(_("Passwords are not equal"));
-//		ErrorReport("׳¡׳¡׳�׳�׳•׳× ׳�׳™׳ ׳� ׳–׳”׳•׳×");
 		return;
 	}
 
@@ -122,13 +117,13 @@ if($action == 'register') {
 	$l = _("Hello");
 	print "<h1>$l $fullname</h1>\n";
 //	print "<h1>׳©׳�׳•׳� $fullname</h1>\n";
-	$l = _("Your registration to drorit is completed");
+	$l = _("Your registration to linet is completed");
 	print "<h1>$l</h1>\n";
 //	print "<h1>׳”׳¨׳©׳�׳×׳� ׳�׳�׳¢׳¨׳›׳× ׳“׳¨׳•׳¨׳™׳× ׳”׳•׳©׳�׳�׳”</h1>\n";
 	$l1 = _("Click");
 	$l2 = _("here to connect");
 	print "<h2>$l1 <a href=\"?action=login\">$l</a></h2>\n";
-;;	print "<h2>׳�׳—׳¦\\׳™ <a href=\"?action=login\">׳›׳�׳� ׳�׳”׳×׳—׳‘׳¨׳•׳×</a></h2>\n";
+	print "<h2>׳�׳—׳¦\\׳™ <a href=\"?action=login\">׳›׳�׳� ׳�׳”׳×׳—׳‘׳¨׳•׳×</a></h2>\n";
 	return;
 }
 if($action == 'defupdate') {
@@ -391,11 +386,10 @@ $text.= "<br><input type=\"submit\" value=\"$l\">&nbsp;&nbsp;";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
-createForm($text,$haeder,"righthalf1",410);
+createForm($text,$haeder,"",410,'','logo',1,'help');
 //print "</div>\n";
 
-print "<div class=\"lefthalf1\">\n";
-ShowText('defs');
+//print "<div class=\"lefthalf1\">\n";
 /*if(!$editdata) {
 	print "<br><br><table border=\"0\" dir=\"$dir\"><tr><td>\n";
 	// firefox affiliate code 
@@ -413,7 +407,7 @@ ShowText('defs');
 //	print "<a href=\"?id=firefox\">׳›׳�׳�</a>\n";
 	print "</td></tr></table>\n";
 }//*/
-print "</div>\n";	/* close left half */
-print "<br>\n";
+//print "</div>\n";	/* close left half */
+//print "<br>\n";
 
 ?>

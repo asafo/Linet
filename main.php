@@ -31,7 +31,7 @@ if($action == 'delcomp') {
 	$query = "DELETE FROM $companiestbl WHERE prefix='$p'";
 	DoQuery($query, "main");
 }*/
-
+$text='';
 if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 	$query = "SELECT company FROM $permissionstbl WHERE name='$name'";
 //	print "Query: $query<br>\n";
@@ -53,16 +53,14 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 		$line = mysql_fetch_array($result, MYSQL_NUM);
 		if($line[0] == '*') {
 			$query = "SELECT prefix FROM $companiestbl";
-			$result = DoQuery($query, "compass.php");
+			$result = DoQuery($query, "main.php");
 			$n = mysql_num_rows($result);
 			// print "n: $n<br>\n";
 		}
-		print "<br />\n";
-		print "<div class=\"righthalf1\">\n";
-		$l = _("Choose business to work on");
-		print "<h3>$l</h3>\n";
-		print "<div style=\"margin-right:10%;font-size:14px\">\n";
-		print "<ul>\n";
+
+		$haeder = _("Choose business to work on");
+		
+		$text.= "<ul>\n";
 		while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 			$s = $line[0];
 			// print "prefix: $s<br>\n";
@@ -71,25 +69,23 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$line = mysql_fetch_array($r, MYSQL_NUM);
 			$n = $line[0];
 			$cookietime = time() + 60*60*24*30;
-			$url = "index.php?cookie=company,$s,$cookietime&amp;company=$s";
-			print "<li><a href=\"$url\">$n</a>&nbsp;\n";
-			if($name == 'admin') {
+			$url = "index.php?company=$s";
+			setcookie('company', $s, $cookietime);
+			$text.= "<li><a href=\"$url\">$n</a>&nbsp;\n";
+			if($superuser) {
 				$l = _("Delete");
-				print "<a href=\"?module=main&amp;action=delcomp&amp;company=$s\">$l</a>";
+				$text.= "<a href=\"?module=main&amp;action=delcomp&amp;company=$s\">$l</a>";
 			}
-			print "</li>\n";
+			$text.= "</li>\n";
 		}
-		print "</ul>\n";
+		$text.= "</ul>\n";
 		if($superuser) {
 			$l = _("Add new business");
 //			print "<br><br><a href=\"?module=defs\">׳³ג€�׳³ג€™׳³ג€�׳³ֲ¨׳³ֳ— ׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€� ׳³ג€”׳³ג€�׳³ֲ©׳³ג€�</a><br>\n";
-			print "<br /><br /><a href=\"?module=defs\">$l</a><br />\n";
+			$text.= "<br /><br /><a href=\"?module=defs\">$l</a><br />\n";
 		}
-		print "</div>\n";
-		print "</div>\n";
-		print "<div class=\"lefthalf1\">\n";
-		ShowText('compselect');
-		print "</div>\n";
+	
+		createForm($text, $haeder,'',750,'','logo',0,'help');
 		return;
 	}
 }

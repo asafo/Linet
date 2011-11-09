@@ -62,9 +62,7 @@ $l = _("Contact us");
 print "<h3>$l</h3>\n";
 print "$contactform";
 print "</div>\n";
-print "<div class=\"lefthalf1\">\n";
-ShowText('contactus');
-print "</div>\n";
+
 
 ?>
 

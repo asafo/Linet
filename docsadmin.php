@@ -1,5 +1,5 @@
 <?PHP
-//M:׳³ֲ ׳³ג„¢׳³ג€�׳³ג€¢׳³ן¿½ ׳³ן¿½׳³ֲ¡׳³ן¿½׳³ג€÷׳³ג„¢׳³ן¿½ ׳³ֲ¢׳³ֲ¡׳³ֲ§׳³ג„¢׳³ג„¢׳³ן¿½
+//M:׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¡׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³ײ²ֲ¢׳³ֲ³ײ²ֲ¡׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳�ֲ¿ֲ½
 /*
  | docsadmin
  | Business document module for Linet
@@ -8,7 +8,7 @@
  */
 global $logo, $prefix, $accountstbl, $companiestbl, $supdocstbl, $itemstbl;
 global $docstbl,$chequestbl, $docdetailstbl, $currencytbl;
-global $CompArray;
+//global $CompArray;
 //global $CurrArray;
 global $DocType;
 global $paymentarr;
@@ -556,7 +556,7 @@ if($step == 3) {	/* final step, put data in tables */
 		//print ";$doctype;";
 		if(($doctype == DOC_INVOICE) || ($doctype == DOC_CREDIT) || ($doctype== DOC_PROFORMA) || ($doctype== DOC_INVRCPT)) {
 			/* Write transactions */
-			/* Transaction 1 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ג€�׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” ׳³ג€˜׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ג€�׳³ג€”׳³ֲ©׳³ג€˜׳³ג€¢׳³ֲ ׳³ג„¢׳³ֳ— */
+			/* Transaction 1 ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ג€� ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€” */
 			if(($doctype == DOC_INVOICE) ||($doctype==DOC_PROFORMA)||($DOC_INVRCPT))
 				$t = $total * -1.0;
 			else
@@ -564,7 +564,7 @@ if($step == 3) {	/* final step, put data in tables */
 			//adam: $issue_date = FormatDate($issue_date, "mysql", "dmy");
 			//print "tryyyy just a little bit harder";
 			$tnum = Transaction(0, $transtype, $account, $docnum, $refnum, $issue_date, "$company", $t);
-			/* Transaction 2 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ן¿½׳³ֲ¢"׳³ן¿½ ׳³ֲ¢׳³ֲ¡׳³ֲ§׳³ן¿½׳³ג€¢׳³ֳ— */
+			/* Transaction 2 ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¢"׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³ײ²ֲ¢׳³ֲ³ײ²ֲ¡׳³ֲ³ײ²ֲ§׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” */
 			if($doctype == DOC_CREDIT)
 				$t = $vat * -1.0;
 			else
@@ -1156,7 +1156,7 @@ if($step > 0) {//preview
 	}
 	else {	/* show email form or print */
 		$texty.=  "<input type=\"hidden\" name=\"step\" value=\"5\" />\n";
-//		print "<input type=\"submit\" value=\"׳³ֲ©׳³ן¿½׳³ג€” ׳³ג€˜׳³ג€�׳³ג€¢׳³ן¿½׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ֻ�׳³ֲ¨׳³ג€¢׳³ֲ ׳³ג„¢\">\n";
+//		print "<input type=\"submit\" value=\"׳³ֲ³ײ²ֲ©׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ג€� ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¨ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³ײ»ן¿½׳³ֲ³ײ²ֲ¨׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢\">\n";
 		$l = _("Print");
 		//$texty.=  "<input type=\"button\" value=\"$l\" ";
 		$texty.=newWindow($l,"printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix&amp;print_win=1",800,600,_("Document Print"),'btnprint');

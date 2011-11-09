@@ -45,6 +45,7 @@ $MainMenu = array(
 	 		_("Payment") . '|?module=payment',
 			 _("VAT payment") . '|?module=payment&amp;opt=vat',
 			 _("Nat. Ins. payment") . '|?module=payment&amp;opt=natins',
+			 _("Manual recipet").'|?module=receipts'
 	 ),
 	  _("Reconciliations") . '|#'=>array(
 		 _("Bank docs entry") . '|?module=bankbook',
@@ -58,7 +59,10 @@ $MainMenu = array(
 			 _("Profit & loss") . '|?module=profloss',
 			 _("Monthly Prof. & loss") . '|?module=mprofloss',
 			 _("VAT calculation") . '|?module=vatrep',
-			 _("Balance") . '|?module=balance'
+			 _("Balance") . '|?module=balance',
+			 _("Mokdamot").'|?module=taxrep',
+			 _("Nikoi mass Bamkor").'|?module=srctax',
+			 _("Takbulim tashlomim").'|?module=inout'
 	 ),
 	 _("Import Export") . '|#' => array(
 			 _("Open docs") . '|?module=openfrmt',

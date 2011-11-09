@@ -49,9 +49,7 @@ print "</tr>\n";
 print "</table>\n";
 print "</form>\n";
 //print "</div>\n";
-//print "<div class=\"lefthalf\">\n";
-//ShowText('recomend');
-//print "</div>\n";
+
 
 ?>
 

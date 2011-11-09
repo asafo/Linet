@@ -81,9 +81,6 @@ function AddUser() {
 	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
-	//print "<div class=\"lefthalf1\">\n";
-	//ShowText('adduser');
-	//print "</div>\n";
 //	print "</tr></td></table>\n";
 	createForm($text, $haeder,'',750,'','logo',1,'help');
 }
@@ -244,7 +241,7 @@ if($action == 'forgot') {
 	$r = rand(0, 26);
 	$pwd = substr($str, $r, 6);
 	$query = "UPDATE $logintbl SET password=PASSWORD('$pwd') WHERE name='$email'";
-	//	echo "<br />".$pwd."; <br />";
+		echo "<br />".$pwd."; <br />";
 	DoQuery($query, "login.php");
 	$l = _("New password for Linet accounting software");
 	$subject = "=?utf-8?B?" . base64_encode("$l") . "?=";
@@ -268,7 +265,7 @@ mail($to, $subject, $message, $headers);
 	print "<br /><h1>$l</h1>\n";
 	$action = '';
 }
-if($action == 'dologin') {
+if($action == 'login') {
 	//$bla=Get
 	$password = GetPost('password');//[];
 	$name = GetPost('name');//['name'];
@@ -309,16 +306,22 @@ if($action == 'dologin') {
 	$result = DoQuery($query, "dologin");
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	$data = md5($line[0]);
-	$query = "UPDATE $logintbl SET cookie='$data' WHERE name='$name'";
-	$result = mysql_query($query);
-	if(!$result) {
-		echo mysql_error();
-		exit;
-	}
+	if($remmberme)
+		$query = "UPDATE $logintbl SET cookie='$data' WHERE name='$name'";
+	else 
+		$query = "UPDATE $logintbl SET cookie='' WHERE name='$name'";
+	$result = DoQuery($query, __FILE__.": ".__LINE__);
+	//if(!$result) {
+	//	echo mysql_error();
+	//	exit;
+	//}
 	$cookietime = time() + 60*60*24*30;
-	$cookiestr = "name,$name,$cookietime:data,$data,$cookietime";
-	$url = "index.php?cookie=$cookiestr&amp;name=$name&amp;data=$data";
-	
+	//$cookiestr = "name,$name,$cookietime:data,$data,$cookietime";
+	$url = "index.php";
+	setcookie('name', $name, $cookietime);
+	setcookie('data', $data, $cookietime);
+	$_SESSION['name']=$name;
+	$_SESSION['data']=$data;
 	$l = _("You have succesfully entered the system");
 	print "<h1  class=\"login\">$l</h1>\n";
 //	print "<script type=\"text/javascript\">location.href='$url'</script>\n";
@@ -474,9 +477,6 @@ if($action == 'edituser') {
 	$text.="<a href=\"javascript:$('#edituser').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
-	//print "<div class=\"lefthalf1\">\n";
-	//ShowText('edituser');
-	//print "</div>\n";
 	createForm($text, $haeder, 'login',750,'','img/icon_login.png',1,'help');
 	return;
 }
@@ -505,7 +505,7 @@ else {
 	$l = _("Entrance is only for registerd users");
 	$text.= "$l";
 //	print "</h3></div></div>\n";
-	$text.=  "<form id=\"login\" action=\"index.php?action=dologin\" method=\"post\">\n";
+	$text.=  "<form id=\"login\" action=\"index.php?action=login\" method=\"post\">\n";
 	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"200px\"><tr>\n";
 	$l = _("Email");
 	$text.=  "<td>$l: <br />";
@@ -544,11 +544,7 @@ else {
 	//$text.="</div>";
 	$haeder=_("Login");
 	createForm($text, $haeder, 'login',400,300,'img/icon_login.png');
-	/*print "<div class=\"lefthalf1\">\n";
-	ShowText('linet');
 
-	
-	print "</div>\n";*/
 }
 
 ?>

@@ -1,5 +1,5 @@
 <?PHP
-//M:חישוב מע"מ
+//M:׳—׳™׳©׳•׳‘ ׳�׳¢"׳�
 /*
  | VAT calculatin script for Freelance accounting system
  | Written by Ori Idan
@@ -11,8 +11,8 @@ $montharr = array(_("January"), _("February"), _("March"), _("April"),
 	_("May"), _("June"), _("July"), _("August"), _("September"), 
 	_("October"), _("November"), _("December"));
 
-// $montharr = array('ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט',
-//	'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר');
+// $montharr = array('׳™׳ ׳•׳�׳¨', '׳₪׳‘׳¨׳•׳�׳¨', '׳�׳¨׳¥', '׳�׳₪׳¨׳™׳�', '׳�׳�׳™', '׳™׳•׳ ׳™', '׳™׳•׳�׳™', '׳�׳•׳’׳•׳¡׳˜',
+//	'׳¡׳₪׳˜׳�׳‘׳¨', '׳�׳•׳§׳˜׳•׳‘׳¨', '׳ ׳•׳‘׳�׳‘׳¨', '׳“׳¦׳�׳‘׳¨');
 
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
@@ -197,9 +197,7 @@ if($step == 0) {	/* print date select form */
 	print "<br>\n";
 	
 	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('vatrep');
-	print "</div>\n";
+	
 	return;
 }
 if($step == 1) {
@@ -228,23 +226,23 @@ if($step == 1) {
 	print "<input type=\"hidden\" name=\"enddate\" value=\"$enddate\">\n";
 	print "</td></tr><tr>\n";
 	print "<td align=\"center\">\n";
-	print "עסקאות פטורות<br>\n";
+	print "׳¢׳¡׳§׳�׳•׳× ׳₪׳˜׳•׳¨׳•׳×<br>\n";
 	$novatincome = GetSumForAcctType(INCOME, $begin, $end, 0);
 	$novatincome = round($novatincome, 0);
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"novatincome\" value=\"$novatincome\">\n";
 	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "עסקאות חייבות ללא מע\"מ<br>\n";
+	print "׳¢׳¡׳§׳�׳•׳× ׳—׳™׳™׳‘׳•׳× ׳�׳�׳� ׳�׳¢\"׳�<br>\n";
 	$vatincome = GetSumForAcctType(INCOME, $begin, $end, 1);
 	$vatincome = round($vatincome, 0);
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"vatincome\" value=\"$vatincome\">\n";
 	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "המס על העסקאות<br>";
+	print "׳”׳�׳¡ ׳¢׳� ׳”׳¢׳¡׳§׳�׳•׳×<br>";
 	$sellvat = round(GetSumForAcct(SELLVAT, $begin, $end), 0);
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"sellvat\" value=\"$sellvat\">\n";
 	print "</td></tr><tr>\n";
 	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
 	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "תשומות ציוד ונכסים<br>\n";
+	print "׳×׳©׳•׳�׳•׳× ׳¦׳™׳•׳“ ׳•׳ ׳›׳¡׳™׳�<br>\n";
 	$assetvat = round(GetSumForAcct(ASSETVAT, $begin, $end), 0);
 	if($assetvat < 0)
 		$assetvat *= -1.0;
@@ -252,7 +250,7 @@ if($step == 1) {
 	print "</td></tr><tr>\n";
 	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
 	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "תשומות אחרות<br>\n";
+	print "׳×׳©׳•׳�׳•׳× ׳�׳—׳¨׳•׳×<br>\n";
 	$buyvat = round(GetSumForAcct(BUYVAT, $begin, $end), 0);
 	if($buyvat < 0)
 		$buyvat *= -1.0;
@@ -260,11 +258,11 @@ if($step == 1) {
 	print "</td></tr><tr>\n";
 	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
 	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "סכום לתשלום<br>\n";
+	print "׳¡׳›׳•׳� ׳�׳×׳©׳�׳•׳�<br>\n";
 	$payvat = $sellvat - $assetvat - $buyvat;
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"payvat\" value=\"$payvat\">\n";
 	print "</td></tr>\n";
-	print "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"רשום\"></td></tr>\n"; 
+	print "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"׳¨׳©׳•׳�\"></td></tr>\n"; 
 	print "</table>\n"; 
 	print "</form>\n";
 }
@@ -282,7 +280,7 @@ if($step == 2) {
 
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
-	print "<br><h1>דו\"ח מע\"מ לתקופה: $bm - $em</h1>\n";
+	print "<br><h1>׳“׳•\"׳— ׳�׳¢\"׳� ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
 	
 	/* Now the real thing, register transactions... */
 	list($day1, $month1, $year1) = split("[/.-]", $begindate);
@@ -297,44 +295,44 @@ if($step == 2) {
 	$result = DoQuery($query, "vatrep.php");
 	$num = mysql_num_rows($result);
 	if($num == 0) {
-		// Transaction 1 חובת מע"מ עסקאות זכות מע"מ חו"ז
+		// Transaction 1 ׳—׳•׳‘׳× ׳�׳¢"׳� ׳¢׳¡׳§׳�׳•׳× ׳–׳›׳•׳× ׳�׳¢"׳� ׳—׳•"׳–
 		$s = $sellvat * -1.0;
-		$tnum = Transaction(0, VAT, SELLVAT, $ref1, $ref2, $date, 'מע\"מ', $s);
-		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, 'מע\"מ', $sellvat);
-		// Transaction 2 זכות מע"מ תשומות חובת מע"מ חו"ז
+		$tnum = Transaction(0, VAT, SELLVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $s);
+		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $sellvat);
+		// Transaction 2 ׳–׳›׳•׳× ׳�׳¢"׳� ׳×׳©׳•׳�׳•׳× ׳—׳•׳‘׳× ׳�׳¢"׳� ׳—׳•"׳–
 		$b = $buyvat * -1.0;
-		$tnum = Transaction(0, VAT, BUYVAT, $ref1, $ref2, $date, 'מע\"מ', $buyvat);
-		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, 'מע\"מ', $b);
-		// Transaction 3 זכות מע"מ תשומות ונכסים, חובת מע"מ חו"ז
+		$tnum = Transaction(0, VAT, BUYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $buyvat);
+		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $b);
+		// Transaction 3 ׳–׳›׳•׳× ׳�׳¢"׳� ׳×׳©׳•׳�׳•׳× ׳•׳ ׳›׳¡׳™׳�, ׳—׳•׳‘׳× ׳�׳¢"׳� ׳—׳•"׳–
 		$a = $assetvat * -1.0;
-		$tnum = Transaction(0, VAT, ASSETVAT, $ref1, $ref2, $date, 'מע\"מ', $assetvat);
-		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, 'מע\"מ', $a);
+		$tnum = Transaction(0, VAT, ASSETVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $assetvat);
+		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $a);
 	}
 
 	print "<table dir=\"ltr\" class=\"formtbl\" border=\"0\"><tr>\n";
 	print "<td align=\"center\">\n";
-	print "עסקאות פטורות<br>\n";
+	print "׳¢׳¡׳§׳�׳•׳× ׳₪׳˜׳•׳¨׳•׳×<br>\n";
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"novatincome\" value=\"$novatincome\">\n";
 	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "עסקאות חייבות ללא מע\"מ<br>\n";
+	print "׳¢׳¡׳§׳�׳•׳× ׳—׳™׳™׳‘׳•׳× ׳�׳�׳� ׳�׳¢\"׳�<br>\n";
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"vatincome\" value=\"$vatincome\">\n";
 	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "המס על העסקאות<br>";
+	print "׳”׳�׳¡ ׳¢׳� ׳”׳¢׳¡׳§׳�׳•׳×<br>";
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"sellvat\" value=\"$sellvat\">\n";
 	print "</td></tr><tr>\n";
 	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
 	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "תשומות ציוד ונכסים<br>\n";
+	print "׳×׳©׳•׳�׳•׳× ׳¦׳™׳•׳“ ׳•׳ ׳›׳¡׳™׳�<br>\n";
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"assetvat\" value=\"$assetvat\">\n";
 	print "</td></tr><tr>\n";
 	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
 	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "תשומות אחרות<br>\n";
+	print "׳×׳©׳•׳�׳•׳× ׳�׳—׳¨׳•׳×<br>\n";
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"buyvat\" value=\"$buyvat\">\n";
 	print "</td></tr><tr>\n";
 	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
 	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "סכום לתשלום<br>\n";
+	print "׳¡׳›׳•׳� ׳�׳×׳©׳�׳•׳�<br>\n";
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"payvat\" value=\"$payvat\">\n";
 	print "</td></tr>\n";
 	print "<tr><td colspan=\"3\" dir=\"rtl\" align=\"center\">\n";
@@ -344,7 +342,7 @@ if($step == 2) {
 	print "<input type=\"hidden\" name=\"account\" value=\"$vatacc\">\n";
 	print "<input type=\"hidden\" name=\"refnum\" value=\"$ref1-$ref2\">\n";
 	print "<input type=\"hidden\" name=\"total\" value=\"$payvat\">\n";
-	print "<input type=\"submit\" value=\"תשלום\">\n";
+	print "<input type=\"submit\" value=\"׳×׳©׳�׳•׳�\">\n";
 	print "</form>\n";
 	print "</td></tr></table>\n";
 	print "</tr>\n";
@@ -363,12 +361,12 @@ if($step == 3) {
 	}
 	$begin = FormatDate($bdate, "dmy", "mysql");
 	$end = FormatDate($edate, "dmy", "mysql");
-	print "<br><h1>הצג תנועות</h1>\n";
+	print "<br><h1>׳”׳¦׳’ ׳×׳ ׳•׳¢׳•׳×</h1>\n";
 	print "<div class=\"righthalf2\">\n";
 	print "<form name=\"vattran\" method=\"get\">\n";
 	print "<input type=\"hidden\" name=\"module\" value=\"vatrep\">\n";
 	print "<input type=\"hidden\" name=\"step\" value=\"3\">\n";
-	print "<br>מתאריך: \n";
+	print "<br>׳�׳×׳�׳¨׳™׳�: \n";
 	print "<input type=\"text\" name=\"begin\" size=\"7\" value=\"$bdate\">\n";
 ?>
 <script type="text/javascript">
@@ -380,7 +378,7 @@ if($step == 3) {
 	});
 </script>
 <?PHP
-	print "עד תאריך: ";
+	print "׳¢׳“ ׳×׳�׳¨׳™׳�: ";
 	print "<input type=\"text\" name=\"end\" size=\"7\" value=\"$edate\">\n";
 ?>
 <script type="text/javascript">
@@ -392,22 +390,20 @@ if($step == 3) {
 	});
 </script>
 <?PHP
-	print "<input type=\"submit\" value=\"הצג\">\n";
+	print "<input type=\"submit\" value=\"׳”׳¦׳’\">\n";
 	print "</form>\n";
 	print "<br><br>\n";
 	print "<h2>";
-	print "<a href=\"?module=acctdisp&account=1&begin=$bdate&end=$edate\">מע\"מ תשומות</a>\n";
+	print "<a href=\"?module=acctdisp&account=1&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳×׳©׳•׳�׳•׳×</a>\n";
 	$total = GetAcctTotal(1, $begin, $end);
 	print "<span dir=\"ltr\">$total</span>";
 	print "&nbsp;&nbsp;&nbsp;&nbsp;\n";
-	print "<a href=\"?module=acctdisp&account=3&begin=$bdate&end=$edate\">מע\"מ עסקאות</a>\n";
+	print "<a href=\"?module=acctdisp&account=3&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳¢׳¡׳§׳�׳•׳×</a>\n";
 	$total = GetAcctTotal(3, $begin, $end);
 	print "<span dir=\"ltr\">$total</span>";
 	print "</h2>\n";
 	print "</div>\n";
-	print "<div class=\"lefthalf2\">\n";
-	ShowText('vatrep2');
-	print "</div>\n";
+	
 }
 
 ?>

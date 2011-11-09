@@ -74,14 +74,8 @@ function Set6111() {
 }
 
 function editshow() {
-	//var d = document.getElementById('editformdiv');
-	
-	//if(d.style.display == 'none') {
 		 $("#editformdiv").show('slow');
 		 $("#b1").hide(500);
-	//}
-	//else
-	//	d.style.display = 'none';	
 }
 </script>
 <?PHP
@@ -340,57 +334,26 @@ if($action == 'addacct') {
 $RetModule = isset($_GET['ret']) ? $_GET['ret'] : '';
 $type = isset($_GET['type']) ? $_GET['type'] : $type;
 $typename = $AcctType[$type];
-if (!$smallprint){
-			//print "<div class=\"accttype\">\n";
-			//print "<br />\n";
-			//print "<table cellspacing=\"5\">\n";
-			//for($i = 0; $i < 13; $i++) {
+if (!$smallprint){//new menu
 			foreach ($AcctType as $key=>$value){
-				//print "<tr>\n";
-				//print "<td align=\"center\" width=\"145\" height=\"37\"";
 				if($key != $type)
 					$class = "";
 				else
 					$class = " active";
-				//$style .= ";background-repeat: no-repeat;background-position:top left;";
-				//adam:
-				//$style='';
-				//print "style=\"$style\">\n";
 				$t = stripslashes($value);
 				$url = "?module=acctadmin&amp;type=$key";
 				if($option)
 					$url .= "&amp;option=$option";
 				$text.= "<a href=\"$url\" class='btn$class'>$t</a>";
-				//print "</tr>\n";
 			}
-				/*print "<tr>\n<td align=\"center\" width=\"145\" height=\"37\">\n";
-				//print ">\n";
-				//$t = stripslashes($AcctType[$i]);
-				$url = "?module=acctadmin&amp;type=20";
-				print "<a href=\"$url\" class='btn'>"._("Unknown")."</a></td>\n</tr>\n";*/
-			
-			
-			//print "</table>\n";
 			$text.= "<hr class=\"submenu\" />\n";
-			//print "</div>\n";
 }//end small print
-// print "<br>";
-// print "<div class=\"accttbl\">\n";
-//print "<br>\n";
-// print "<table width=\"75%\" style=\"margin-right:20px\"><tr><td width=\"50%\">";
+
 if($option == '') {
-	//print "<div class=\"form righthalf1\" style=\"width:50%\">\n";
-	//print "<h3>$typename</h3>\n";
-	//if(!$smallprint)
-	//	$text.=EditAcct(0, $type,1);
-	//else 
-		$text.=EditAcct(0, $type,$smallprint);
-	//print "</div>\n"; 
+	$text.=EditAcct(0, $type,$smallprint);
 	$haeder=$typename;
 }
 
-// print "<td>&nbsp;</td>\n";
-// print "</tr><tr><td colspan=\"2\">\n";
 if (!$smallprint){
 	//print "<div class=\"form accttbl\">\n";
 	//if($lang == 'he')
@@ -516,7 +479,7 @@ if (!$smallprint){
 	$curtablefoot.= "\t</tr>\n</tfoot>\n";
 	
 		$text.= "<table class=\"tablesorter\" id=\"accadmintbl\">$curtablehd $curtablefoot $curtablebody</table>\n
-	<script type=\"text/javascript\">\$(\"#accadmintbl\").tablesorter(); </script>";
+	";
 		
 	//print "</div>\n";
 	//createForm($text,$haeder,"righthalf1",450);

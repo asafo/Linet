@@ -6,11 +6,11 @@
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 global $montharr;
 
-$montharr = array('ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט',
-	'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר');
+$montharr = array('׳™׳ ׳•׳�׳¨', '׳₪׳‘׳¨׳•׳�׳¨', '׳�׳¨׳¥', '׳�׳₪׳¨׳™׳�', '׳�׳�׳™', '׳™׳•׳ ׳™', '׳™׳•׳�׳™', '׳�׳•׳’׳•׳¡׳˜',
+	'׳¡׳₪׳˜׳�׳‘׳¨', '׳�׳•׳§׳˜׳•׳‘׳¨', '׳ ׳•׳‘׳�׳‘׳¨', '׳“׳¦׳�׳‘׳¨');
 
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
+	print "<h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳‘׳—׳™׳¨׳× ׳¢׳¡׳§</h1>\n";
 	return;
 }
 
@@ -129,13 +129,13 @@ if($step == 0) {	/* print date select form */
 	
 	print "<div class=\"righthalf2\">\n";
 	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>מקדמות מס הכנסה</b>\n";
+	print "<b>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”</b>\n";
 	print "</div></div>\n";
 	print "<form action=\"?module=taxrep&step=1\" method=\"post\">\n";
 	print "<input type=\"hidden\" name=\"beginyear\" value=\"$beginyear\">\n";
 	print "<input type=\"hidden\" name=\"endyear\" value=\"$endyear\">\n";
 	print "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-	print "<td>צור דוח מקדמות מס לחודשים: &nbsp;</td>\n";
+	print "<td>׳¦׳•׳¨ ׳“׳•׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳—׳•׳“׳©׳™׳�: &nbsp;</td>\n";
 	print "<td>\n";
 	PrintMonthSelect($beginmonth, 'beginmonth');
 	print "&nbsp;</td>\n";
@@ -144,14 +144,12 @@ if($step == 0) {	/* print date select form */
 	PrintMonthSelect($endmonth, 'endmonth');
 	print "</td>\n";
 	print "<td>\n";
-	print "&nbsp;&nbsp;<input type=\"submit\" value=\"בצע\"></td></tr>\n";
+	print "&nbsp;&nbsp;<input type=\"submit\" value=\"׳‘׳¦׳¢\"></td></tr>\n";
 	print "</table>\n";
 	print "</form>\n";
 	print "<br>\n";
 	print "</div>\n";
-	print "<div class=\"lefthalf2\">\n";
-	ShowText('taxrep');
-	print "</div>\n";
+	
 	return;
 }
 
@@ -169,7 +167,7 @@ if($step == 1) {
 	
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
-	print "<br><h1>דו\"ח מקדמות מס לתקופה: $bm - $em</h1>\n";
+	print "<br><h1>׳“׳•\"׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
 	print "<div class=\"righthalf2\">\n";
 	print "<form action=\"?module=taxrep&step=2\" method=\"post\">\n";
 	print "<table dir=\"ltr\" border=\"0\" cellpadding=\"10\"><tr>\n";
@@ -179,7 +177,7 @@ if($step == 1) {
 	print "<input type=\"hidden\" name=\"enddate\" value=\"$enddate\">\n";
 	print "<td align=\"center\">\n";
 	$income = round(GetSumForAcctType(INCOME, $begin, $end), 0);
-	print "המחזור העסקי בש\"ח<br>";
+	print "׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™ ׳‘׳©\"׳—<br>";
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"income\" value=\"$income\">\n";
 	print "</td><td style=\"width:7em\">\n";
 	$query = "SELECT tax FROM $companiestbl WHERE prefix='$prefix'";
@@ -189,18 +187,18 @@ if($step == 1) {
 	print "<br> &nbsp;X";
 	print "<input type=\"text\" readonly name=\"taxpercent\" value=\"$taxpercent\" size=\"4\">%\n";
 	print "</td><td align=\"center\">\n";
-	print "מקדמה ע\"פ % מהמחזור העסקי<br>\n";
+	print "׳�׳§׳“׳�׳” ׳¢\"׳₪ % ׳�׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™<br>\n";
 	$tax = round($income * $taxpercent / 100.0, 0);
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"tax\" value=\"$tax\">\n";
 	print "</td></tr>\n";
 	print "<td align=\"center\">\n";
-	print "ניכוי במקור מלקוחות לתקופה<br>";
+	print "׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳× ׳�׳×׳§׳•׳₪׳”<br>";
 	$custtax = GetSumForAcct(CUSTTAX, $begin, $end) * -1.0;
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"custtaxtotal\" value=\"$custtax\">\n";
 	print "</td><td>\n";
 	print "&nbsp;\n";		/* spacer column */
 	print "</td><td align=\"center\">\n";
-	print "ניכויים במקור לקיזוז<br>\n";
+	print "׳ ׳™׳›׳•׳™׳™׳� ׳‘׳�׳§׳•׳¨ ׳�׳§׳™׳–׳•׳–<br>\n";
 	$custtax = GetSumForAcct(CUSTTAX, 0, $end) * -1.0;
 	if($custtax > $tax)
 		$custtax = $tax;
@@ -208,11 +206,11 @@ if($step == 1) {
 	
 	print "</td></tr><tr>\n";
 	print "<td colspan=\"2\">&nbsp;</td><td align=\"center\">\n";
-	print "סה\"כ לתשלום<br>\n";
+	print "׳¡׳”\"׳› ׳�׳×׳©׳�׳•׳�<br>\n";
 	$taxtopay = $tax - $custtax;
 	print "<input dir=\"ltr\" type=\"text\" readonly name=\"taxtopay\" value=\"$taxtopay\">\n";
 	print "</tr><tr><td colspan=\"3\" align=\"center\">\n";
-	print "<input type=\"submit\" value=\"רשום\"></td></tr>\n";
+	print "<input type=\"submit\" value=\"׳¨׳©׳•׳�\"></td></tr>\n";
 	print "</table>\n";
 	print "</form>\n";
 }
@@ -230,7 +228,7 @@ if($step == 2) {
 	
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
-	print "<br><h1>מקדמות מס הכנסה לתקופה: $bm - $em</h1>\n";
+	print "<br><h1>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
 
 	// Now the real thing, register transactions */
 		list($day1, $month1, $year1) = split("[/.-]", $begindate);
@@ -242,10 +240,10 @@ if($step == 2) {
 	/* first check if we already have transactions */
 	$t = TRAN_PRETAX;
 	$query = "SELECT num FROM $transactionstbl WHERE type='$t' AND refnum1='$ref1' AND refnum2='$ref2' AND prefix='$prefix'";
-	// Transaction 1 זכות מס הכנסה חובת מקדמות מס הכנסה
+	// Transaction 1 ׳–׳›׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳—׳•׳‘׳× ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”
 	$tnum = Transaction(0, TRAN_PRETAX, TAX, $ref1, $ref2, $date, $tax);
 	$tnum = Transaction($tnum, TRAN_PRETAX, PRETAX, $ref1, $ref2, $date, $tax * -1.0);
-	// Transaction 2 זכות ניכוי במקור מלקוחות, חובת מס הכנסה
+	// Transaction 2 ׳–׳›׳•׳× ׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳×, ׳—׳•׳‘׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”
 	$tnum = Transaction($tnum, TRAN_PRETAX, TAX, $ref1, $ref2, $date, $custtax);
 	$tnum = Transaction($tnum, TRAN_PRETAX, CUSTTAX, $ref1, $ref2, $date, $custtax * -1.0);
 }

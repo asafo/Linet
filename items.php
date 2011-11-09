@@ -137,7 +137,7 @@ function EditItem($num) {
 	if($num) {
 		$text.= "</td><td>\n";
 		$text.= "&nbsp;&nbsp;&nbsp;&nbsp;</td><td valign=\"top\">\n";	/* spacing column */
-		ShowText('edititem');
+	
 		$text.= "</td></tr>\n";
 		$text.= "</table>\n</div>";
 	}
@@ -244,7 +244,7 @@ if (!$smallprint){
 	
 	//$text.=  "</div>\n";
 	//print "<div class=\"lefthalf1\">\n";
-	//ShowText('items');
+	
 	//print "</div>\n";
 	createForm($text,$haeder,"",750);
 }

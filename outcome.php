@@ -364,15 +364,9 @@ $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
 //print "</div>\n";
-createForm($text,$header,'',450);
+createForm($text,$header,'',450,'','logo',1,'help');
 
 
-//print "<div class=\"lefthalf1\">\n";
-/* if($opt == 'asset')
-	ShowText('asset');
-else */
-//	ShowText('outcome');
-//print "</div>\n";
 print "<div class=\"innercontent\">\n";
 if($step == 0) {
 	require('lasttran.inc.php');

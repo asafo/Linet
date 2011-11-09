@@ -1,4 +1,4 @@
-ן»¿<?PHP
+<?PHP
 /*
  | Edit trnasaction for Freelance accounting.
  | Written by Ori Idan September 2009 
@@ -62,7 +62,7 @@ function StoreNo($tnum) {
 	print "</table>\n";
 	$l = _("Storeno transaction registered");
 	print "<h1>$l</h1>\n";
-//	print "<h1>׳×׳ ׳•׳¢׳× ׳‘׳™׳˜׳•׳� ׳ ׳¨׳©׳�׳” </h1>\n";
+//	print "<h1>׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ֳ— ׳³ג€˜׳³ג„¢׳³ֻ�׳³ג€¢׳³ן¿½ ׳³ֲ ׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€� </h1>\n";
 }
 $dt = '';
 $refnum1 = '';
@@ -110,66 +110,56 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	else if(($sum < 0) && ($account > 100))
 		$dacct = $account;
 }
-
-print "<br>\n";
-print "<div class=\"righthalf1\">\n";
+$text='';
+//print "<br>\n";
+//print "<div class=\"righthalf1\">\n";
 $l = _("Edit transaction");
-print "<h3>$l</h3>\n";
-print "<table class=\"formtbl\" width=\"100%\">\n";
-print "<form name=\"tedit\" action=\"?module=tedit&amp;num=$tnum&amp;account=$acct&amp;begin=$begin&amp;end=$end&amp;step=1\" method=\"post\">\n";
-print "<tr>\n";
+$haeder=$l;
+//print "<h3>$l</h3>\n";
+$text.= "<table class=\"formy\" width=\"100%\">\n";
+$text.= "<form name=\"tedit\" action=\"?module=tedit&amp;num=$tnum&amp;account=$acct&amp;begin=$begin&amp;end=$end&amp;step=1\" method=\"post\">\n";
+$text.= "<tr>\n";
 $l = _("Transaction number");
-print "<td>$l: &nbsp;</td>\n";
-print "<td><b>$tnum</b></td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$l: &nbsp;</td>\n";
+$text.= "<td><b>$tnum</b></td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Tran. type");
-print "<td>$l</td>\n";
+$text.= "<td>$l</td>\n";
 $tstr = $TranType[$type];
-print "<td>$tstr</td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$tstr</td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Debit account");
-print "<td>$l: </td>\n";
+$text.= "<td>$l: </td>\n";
 $acctname = GetAccountName($dacct);
-print "<td>$acctname</td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$acctname</td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Credit account");
-print "<td>$l: </td>\n";
+$text.= "<td>$l: </td>\n";
 $acctname = GetAccountName($cacct);
-print "<td>$acctname</td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$acctname</td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Date");
-print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"date\" size=\"7\" value=\"$dtdmy\">\n";
-?>
-<script type="text/javascript">
-	new tcal ({
-		// form name
-		'formname': 'tedit',
-		// input name
-		'controlname': 'date'
-	});
-</script>
-<?PHP
-print "</td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$l: </td>\n";
+$text.= "<td><input type=\"text\" class=\"txtDate\" name=\"date\" size=\"7\" value=\"$dtdmy\" />\n";
+$text.= "</td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Ref. num");
-print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"refnum1\" value=\"$refnum1\"></td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$l: </td>\n";
+$text.= "<td><input type=\"text\" name=\"refnum1\" value=\"$refnum1\" /></td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Details");
-print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"details\" value=\"$details\"></td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$l: </td>\n";
+$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\"></td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Storeno transaction");
-print "<td colspan=\"2\"><input type=\"checkbox\" name=\"storeno\">$l</td>\n";
-print "</tr><tr>\n";
+$text.= "<td colspan=\"2\"><input type=\"checkbox\" name=\"storeno\">$l</td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Submit");
-print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
-print "</tr></table>\n";
-print "</form>\n";
-print "</div>\n";
-print "<div class=\"lefthalf1\">\n";
-ShowText('tedit');
-print "</div>\n";
+$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+$text.= "</tr></table>\n";
+$text.= "</form>\n";
+//$text.= "</div>\n";
+createForm($text, $haeder,'',600,'','logo',1,'help');
+
 
 ?>

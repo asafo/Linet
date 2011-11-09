@@ -1,6 +1,6 @@
 <?PHP
 /*
- | Create transactions report (תקבולים תשלומים)
+ | Create transactions report (׳×׳§׳‘׳•׳�׳™׳� ׳×׳©׳�׳•׳�׳™׳�)
  | This is part of Freelance accounting system.
  | Written by Ori Idan for Shay Harel
  */
@@ -15,7 +15,7 @@ if(!isset($module)) {
 
 
 	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	$reptitle = "ספר תקבולים תשלומים";
+	$reptitle = "׳¡׳₪׳¨ ׳×׳§׳‘׳•׳�׳™׳� ׳×׳©׳�׳•׳�׳™׳�";
 	include('printhead.inc.php');
 	print $header;
 }
@@ -31,7 +31,7 @@ if(isset($module)) {
 	print "</script>\n";
 }
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
+	print "<h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳‘׳—׳™׳¨׳× ׳¢׳¡׳§</h1>\n";
 	return;
 }
 
@@ -60,10 +60,10 @@ if(!isset($module)) {
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	$str = $line[0];
 	print "<h1>$str</h1>\n";	
-	print "<h1>ספר תקבולים תשלומים</h1>\n";
+	print "<h1>׳¡׳₪׳¨ ׳×׳§׳‘׳•׳�׳™׳� ׳×׳©׳�׳•׳�׳™׳�</h1>\n";
 }
 else if($step != 0) {
-	print "<h1>ספר תקבולים תשלומים</h1>";
+	print "<h1>׳¡׳₪׳¨ ׳×׳§׳‘׳•׳�׳™׳� ׳×׳©׳�׳•׳�׳™׳�</h1>";
 }
 /* prepare temporary table */
 $query = "DELETE FROM $tranreptbl WHERE prefix='$prefix'";
@@ -76,13 +76,13 @@ if($step == 0) {	/* Get date range */
 	$bdate = "1-1-$y";
 	print "<div class=\"righthalf2\">\n";
 	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>ספר תקבולים תשלומים</b>\n";
+	print "<b>׳¡׳₪׳¨ ׳×׳§׳‘׳•׳�׳™׳� ׳×׳©׳�׳•׳�׳™׳�</b>\n";
 	print "</div></div>\n";
 	print "<form name=\"dtrange\" method=\"get\">\n";
 	print "<input type=\"hidden\" name=\"module\" value=\"inout\">\n";
 	print "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
 	print "<table dir=\"rtl\" cellpadding=\"20px\" cellspacing=\"20px\"><tr>\n";
-	print "<td>בחר תאריך תחילה: </td>\n";
+	print "<td>׳‘׳—׳¨ ׳×׳�׳¨׳™׳� ׳×׳—׳™׳�׳”: </td>\n";
 	print "<td><input type=\"text\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
 ?>
 <script language="JavaScript">
@@ -95,7 +95,7 @@ if($step == 0) {	/* Get date range */
 </script>
 <?PHP
 	print "</td>\n";
-	print "<td>בחר תאריך סיום: </td>\n";
+	print "<td>׳‘׳—׳¨ ׳×׳�׳¨׳™׳� ׳¡׳™׳•׳�: </td>\n";
 	print "<td><input type=\"text\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
 ?>
 <script language="JavaScript">
@@ -108,13 +108,11 @@ if($step == 0) {	/* Get date range */
 </script>
 <?PHP
 	print "</td>\n";
-	print "<td><input type=\"submit\" value=\"הפק\"></td>\n";
+	print "<td><input type=\"submit\" value=\"׳”׳₪׳§\"></td>\n";
 	print "</tr></table>\n";
 	print "</form>\n";
 	print "</div>\n";
-	print "<div class=\"lefthalf2\">\n";
-	ShowText('inout');
-	print "</div>\n";
+	
 }
 if($step == 2) {
 	$filename = "tmp/inoutrep.csv";
@@ -128,7 +126,7 @@ if($step >= 1) {
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
 	
-	print "<h2>לתקופה: $begindate - $enddate</h2>\n";
+	print "<h2>׳�׳×׳§׳•׳₪׳”: $begindate - $enddate</h2>\n";
 	
 	$numorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=num";
 	$dtorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=date";
@@ -136,33 +134,33 @@ if($step >= 1) {
 	if($step == 1) {
 		print "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
 		if(isset($module))
-			print "<td><a href=\"$numorderurl\">תנועה</a>&nbsp;</td>\n";
+			print "<td><a href=\"$numorderurl\">׳×׳ ׳•׳¢׳”</a>&nbsp;</td>\n";
 		else
-			print "<td>תנועה&nbsp;</td>\n";
+			print "<td>׳×׳ ׳•׳¢׳”&nbsp;</td>\n";
 		if(isset($module)) {
-			print "<td style=\"width:5.5em\"><a href=\"$dtorderurl\">תאריך</a></td>\n";
-			print "<td><a href=\"$typeorderurl\">סעיף&nbsp;</a></td>\n";
+			print "<td style=\"width:5.5em\"><a href=\"$dtorderurl\">׳×׳�׳¨׳™׳�</a></td>\n";
+			print "<td><a href=\"$typeorderurl\">׳¡׳¢׳™׳£&nbsp;</a></td>\n";
 		}
 		else {
-			print "<td style=\"width:5.5em\">תאריך</td>\n";
-			print "<td>סעיף&nbsp;</td>\n";
+			print "<td style=\"width:5.5em\">׳×׳�׳¨׳™׳�</td>\n";
+			print "<td>׳¡׳¢׳™׳£&nbsp;</td>\n";
 		}
-		print "<td style=\"width:3.5em\">&nbsp;אסמכתא&nbsp;</td>\n";
-		print "<td>לקוח\\ספק&nbsp;</td>\n";
-		print "<td>פירוט&nbsp;&nbsp;&nbsp;</td>\n";
-		print "<td style=\"width:4em\">תקבול&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
-		print "<td style=\"width:4em\">תשלום&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
+		print "<td style=\"width:3.5em\">&nbsp;׳�׳¡׳�׳›׳×׳�&nbsp;</td>\n";
+		print "<td>׳�׳§׳•׳—\\׳¡׳₪׳§&nbsp;</td>\n";
+		print "<td>׳₪׳™׳¨׳•׳˜&nbsp;&nbsp;&nbsp;</td>\n";
+		print "<td style=\"width:4em\">׳×׳§׳‘׳•׳�&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
+		print "<td style=\"width:4em\">׳×׳©׳�׳•׳�&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
 		print "</tr>\n";
 	}
 	else if($step == 2) {
-		fwrite($fd, "\"תנועה\",");
-		fwrite($fd, "\"תאריך\",");
-		fwrite($fd, "\"סעיף\",");
-		fwrite($fd, "\"אסמכתא\",");
-		fwrite($fd, "\"לקוח\ספק\",");
-		fwrite($fd, "\"פירוט\",");
-		fwrite($fd, "\"תקבול\",");
-		fwrite($fd, "\"תשלום\",");
+		fwrite($fd, "\"׳×׳ ׳•׳¢׳”\",");
+		fwrite($fd, "\"׳×׳�׳¨׳™׳�\",");
+		fwrite($fd, "\"׳¡׳¢׳™׳£\",");
+		fwrite($fd, "\"׳�׳¡׳�׳›׳×׳�\",");
+		fwrite($fd, "\"׳�׳§׳•׳—\׳¡׳₪׳§\",");
+		fwrite($fd, "\"׳₪׳™׳¨׳•׳˜\",");
+		fwrite($fd, "\"׳×׳§׳‘׳•׳�\",");
+		fwrite($fd, "\"׳×׳©׳�׳•׳�\",");
 	}
 //	print "order: $order<br>\n";
 	$query = "SELECT * FROM $transactionstbl WHERE prefix='$prefix' ";
@@ -313,7 +311,7 @@ if($step >= 1) {
 			print "<tr class=\"sumlineprt\">\n";
 		else
 			print "<tr class=\"sumline\">\n";
-		print "<td colspan=\"6\" align=\"left\"><b>סה\"כ: &nbsp;</b></td>\n";
+		print "<td colspan=\"6\" align=\"left\"><b>׳¡׳”\"׳›: &nbsp;</b></td>\n";
 		$tstr = number_format($tc_sum);
 		print "<td>$tstr</td>\n";
 		$tstr = number_format($td_sum);
@@ -324,10 +322,10 @@ if($step >= 1) {
 	else if($step == 2) {
 		fclose($fd);
 		Conv1255($filename);
-		print "<h2>להורדת הדוח לחץ כאן: ";
+		print "<h2>׳�׳”׳•׳¨׳“׳× ׳”׳“׳•׳— ׳�׳—׳¥ ׳›׳�׳�: ";
 		$url = "/download.php?file=$filename&name=tranrep.csv";
 		print "<a href=\"$filename\">tranrep.csv</a></h2>\n";
-		print "<h2>לחץ על שם הקובץ עם כפתור ימני ובחר \"שמור בשם\"</h2>\n";
+		print "<h2>׳�׳—׳¥ ׳¢׳� ׳©׳� ׳”׳§׳•׳‘׳¥ ׳¢׳� ׳›׳₪׳×׳•׳¨ ׳™׳�׳ ׳™ ׳•׳‘׳—׳¨ \"׳©׳�׳•׳¨ ׳‘׳©׳�\"</h2>\n";
 		print "<script type=\"text/javascript\">\n";
 		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
 		print "</script>\n";
@@ -339,9 +337,9 @@ if($step >= 1) {
 		if($order)
 			$url .= "&order=$order";
 		print "<div class=\"repbottom\">\n";
-		print "<input type=\"button\" value=\"הדפס\" onclick=\"PrintWin('$url')\">\n";
+		print "<input type=\"button\" value=\"׳”׳“׳₪׳¡\" onclick=\"PrintWin('$url')\">\n";
 		print "&nbsp;&nbsp;";
-		print "<input type=\"button\" value=\"יצוא לקובץ\" onclick=\"window.location.href='?module=tranrep&step=2&begindate=$begindate&enddate=$enddate'\">\n";
+		print "<input type=\"button\" value=\"׳™׳¦׳•׳� ׳�׳§׳•׳‘׳¥\" onclick=\"window.location.href='?module=tranrep&step=2&begindate=$begindate&enddate=$enddate'\">\n";
 		print "</div>\n";
 	}
 

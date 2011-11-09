@@ -64,9 +64,7 @@ $text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");
 	$text.= "</form>\n";
 	//print "</div>\n";
 	createForm($text,$haeder,'',400);
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('dispmatch');
-	print "</div>\n";
+	
 	return;
 }
 

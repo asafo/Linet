@@ -1,4 +1,4 @@
-ן»¿<?PHP
+׳�ֲ»ֲ¿<?PHP
 /*
  | Open format files generation script for Drorit accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2009
@@ -361,7 +361,7 @@ function GetRefType($type) {
 		case INVOICE:
 			return TranslateDocumentType(DOC_INVOICE);
 		case SUPINV:
-			return 700;	/* ׳—׳©׳‘׳•׳ ׳™׳× ׳�׳¡ ׳¨׳›׳© */
+			return 700;	/* ׳³ג€”׳³ֲ©׳³ג€˜׳³ג€¢׳³ֲ ׳³ג„¢׳³ֳ— ׳³ן¿½׳³ֲ¡ ׳³ֲ¨׳³ג€÷׳³ֲ© */
 		case RECEIPT:
 			return TranslateDocumentType(DOC_RECEIPT);
 		case CHEQUEDEPOSIT:
@@ -455,9 +455,7 @@ $text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");
 	$text.= "</table>\n</form>\n";
 	createForm($text,$header,'',350);
 	//print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('openfrmt');
-	print "</div>\n";
+	
 }
 else if($step == 1) {
 	$b = $_POST['begindate'];
@@ -603,7 +601,7 @@ else if($step == 1) {
 	fwrite($fd, "$l: $e<br>\n");
 	$l = _("Open format files created successfully");
 	fwrite($fd, "<br>$l<br>\n");
-//	fwrite($fd, "<br>׳‘׳™׳¦׳•׳¢ ׳�׳�׳©׳§ ׳₪׳×׳•׳— ׳”׳¡׳×׳™׳™׳� ׳‘׳”׳¦׳�׳—׳”<br>\n");
+//	fwrite($fd, "<br>׳³ג€˜׳³ג„¢׳³ֲ¦׳³ג€¢׳³ֲ¢ ׳³ן¿½׳³ן¿½׳³ֲ©׳³ֲ§ ׳³ג‚×׳³ֳ—׳³ג€¢׳³ג€” ׳³ג€�׳³ֲ¡׳³ֳ—׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ג€˜׳³ג€�׳³ֲ¦׳³ן¿½׳³ג€”׳³ג€�<br>\n");
 	$l = _("Records types details");
 	fwrite($fd, "<h2>$l</h2>\n");
 	fwrite($fd, "<table border=\"1\"><tr class=\"tblhead\">\n");
@@ -643,9 +641,7 @@ else if($step == 1) {
 	print "onclick=\"window.open('openfrmtprnt.php?prefix=$prefix')\">\n";
 	
 	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('openfrmt1');
-	print "</div>\n";
+	
 }
 
 ?>

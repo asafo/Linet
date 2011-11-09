@@ -16,7 +16,7 @@ if(!isset($module)) {
 
 	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
 	$reptitle = _("Balance report");
-//	$reptitle = "מאזן";
+//	$reptitle = "׳�׳�׳–׳�";
 	include('printhead.inc.php');
 	print $header;
 	
@@ -137,9 +137,7 @@ if($step == 0) {	/* Get date range */
 	print "</tr></table>\n";
 	print "</form>\n";
 	print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
-	ShowText('balance');
-	print "</div>\n";
+	
 }
 if($step == 2) {
 	$filename = "tmp/balance.csv";
@@ -184,7 +182,7 @@ if($step >= 1) {
 		$l4 = _("Credit");
 		$l5 = _("Acc. balance");
 		fwrite($fd, "$l1,$l2,$l3,$l4,$l5");
-//		fwrite($fd, "סעיף,סעיף 6111,חובה,זכות,סכום");
+//		fwrite($fd, "׳¡׳¢׳™׳£,׳¡׳¢׳™׳£ 6111,׳—׳•׳‘׳”,׳–׳›׳•׳×,׳¡׳›׳•׳�");
 		fwrite($fd, "\n");
 	}
 	$totaldb = 0;
