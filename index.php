@@ -249,7 +249,7 @@ function TemplateReplace($r) {
 	global $loggedin, $simulatenolog, $superuser;
 
 	$p = str_replace('~', '', $r[0]);
-	if($p == 'header') {
+	/*if($p == 'header') {
 		//print "$stdheader\n";
 		if($module == 'text') {
 			if(($action != 'edit') && ($action != 'add'))
@@ -257,8 +257,8 @@ function TemplateReplace($r) {
 			require_once("inittinymce.inc.php");
 		}
 		return $tinymce;
-	}
-	else if($p =='updatepop'){
+	}*/
+	if($p =='updatepop'){
 		//global 
 		//$updatepop=true;//rethink
 		if ($_SESSION['updatepop']) {
@@ -338,11 +338,6 @@ function TemplateReplace($r) {
 			$username .= "<a href=\"index.php?action=unsel\">$l</a>\n";
 			$username .= "&nbsp;|&nbsp;";
 		}
-		/*if(EditAble('')) {
-			$l = _("Content management");
-			$username .= "<a href=\"index.php?module=edit\">$l</a>\n";
-			$username .= "&nbsp;|&nbsp;";
-		}*/
 		return "$username\n";
 	}
 
@@ -350,7 +345,7 @@ function TemplateReplace($r) {
 		include_once 'include/menu.inc.php';
 		return $str;
 	}
-	else if($MainMenu[$p]) {
+	/*else if($MainMenu[$p]) {
 		$query = "SELECT subject,module,params FROM $articlestbl WHERE id='$p'";
 		$query .= " AND lang='$lang'";
 		$result = DoQuery($query, __LINE__);
@@ -368,7 +363,7 @@ function TemplateReplace($r) {
 				$url = "?id=$p";
 			return "<a href=\"$url\">$subject</a>\n";
 		}
-	}
+	}*/
 	return "";
 }
 

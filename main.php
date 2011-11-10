@@ -70,7 +70,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$n = $line[0];
 			$cookietime = time() + 60*60*24*30;
 			$url = "index.php?company=$s";
-			setcookie('company', $s, $cookietime);
+			//setcookie('company', $s, $cookietime);
 			$text.= "<li><a href=\"$url\">$n</a>&nbsp;\n";
 			if($superuser) {
 				$l = _("Delete");
@@ -157,51 +157,53 @@ $text='';
 /****************** dates form ***************************/
 $begindmy = isset($_GET['begin']) ? $_GET['begin'] : date("1-1-Y");
 $enddmy = isset($_GET['end']) ? $_GET['end'] : date("d-m-Y");
-$text.= "<form action=\"\" name=\"main\" method=\"get\">\n";
+$style="style=\"background-color: #f2f2f2;padding: 10px;text-align:center; border: 1px solid #dedede;margin-top: 1px;\"";
+$text.= "<form  $style action=\"\" name=\"main\" method=\"get\">\n";
 $text.= "<input type=\"hidden\" name=\"module\" value=\"main\" />\n";
 //print "<br /><table dir=\"$dir\" style=\"height:100%\"><tr>\n";
 $l = _("Begin date");
-$text.= "<table><tr><td>$l: \n";
+$style="style=\"padding-right: 10px;width: 120px;text-align:right;color: #186ABF;   font-weight: bold;\"";
+$text.= "<table style=\"\"><tr><td $style>$l: <br />\n";
 $text.= "<input type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindmy\" size=\"7\" />\n";
-
-$text.= "</td><td>\n";
+//color="#f7f7f7"color="#f2f2f2"color="#dedede"
+$text.= "</td><td $style>\n";
 $l = _("End date");
-$text.= "$l: \n";
+$text.= "$l: <br />\n";
 $text.= "<input type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\" />\n";
 $text.='<script type="text/javascript">	addDatePicker("#begin","'.$begindmy.'");addDatePicker("#end","'.$enddmy.'");</script>';
 //print "&nbsp;&nbsp;<input type=\"submit\" value=\"׳³ג€˜׳³ֲ¦׳³ֲ¢\" />\n";
 $l=_('Go');
-$text.= "</td></tr></table><a href='javascript:document.main.submit();' class='btn'>$l</a>";
+$text.= "</td><td $style><a href='javascript:document.main.submit();' class='btnsmall'>$l</a></td></tr></table>";
 //print "</tr></table>\n";
-$text.= "</form>\n";
+$text.= "</form>\n<br /><br /><br /><br /><br />";
 
 
-
-$text.= "<table class=\"hovertbl1\" style=\"float:right\">\n";
+// style=\"font-weight:normal;font-size:14px;\"
+$text.= "<table class=\"sums\" style=\"width:200px;display:inline-block;\">\n";
 //NewRow();
 $n = number_format($income);
 $l = _("Total income");
-$text.= "<tr><td style=\"width:7.5em;font-weigh:normal;font-size:14px;\" ><a href=\"?module=acctadmin&amp;type=3&amp;option=rep\">$l</a></td>";
-$text.= "<td style=\"color:black;font-weight:normal;font-size:14px;\" >$n</td></tr>\n";
+$text.= "<tr><td><a href=\"?module=acctadmin&amp;type=3&amp;option=rep\">$l</a></td>";
+$text.= "<td>$n</td></tr>\n";
 //NewRow();
 $o = $outcome * -1.0;
 $n = number_format($o);
 $l = _("Total outcome");
-$text.= "<tr><td style=\"font-weight:normal;font-size:14px;\"><a href=\"?module=acctadmin&amp;type=2&amp;option=rep\">$l</a></td>";
-$text.= "<td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td></tr>\n";
+$text.= "<tr><td><a href=\"?module=acctadmin&amp;type=2&amp;option=rep\">$l</a></td>";
+$text.= "<td>$n</td></tr>\n";
 //NewRow();
 $profit = $income + $outcome;
 $url = "?module=profloss&amp;step=1&amp;begindate=$begindmy&amp;enddate=$enddmy";
 if($profit >= 0.0) {
 	$l = _("Total profit");
-	$text.= "<tr><td style=\"font-weight:normal;font-size:14px;\"><a href=\"$url\">$l</a></td>";
+	$text.= "<tr><td><a href=\"$url\">$l</a></td>";
 }
 else {
 	$l = _("Total loss");
-	$text.= "<tr><td style=\"font-weight:normal;font-size:14px;\"><a href=\"$url\">$l</a></td>";
+	$text.= "<tr><td><a href=\"$url\">$l</a></td>";
 }
 $n = number_format(abs($profit));
-$text.= "<td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td>\n";
+$text.= "<td>$n</td>\n";
 $text.= "</tr>"; 
 //NewRow();
 $text.="<tr>";
@@ -210,7 +212,7 @@ if($t < 0.0)
 	$t *= -1.0;
 $n = number_format($t);
 $l = _("Total customers");
-$text.= "<td style=\"font-weight:normal;font-size:14px;\"><a href=\"?module=acctadmin&amp;type=0&amp;option=rep\">$l</a></td><td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td>\n";
+$text.= "<td><a href=\"?module=acctadmin&amp;type=0&amp;option=rep\">$l</a></td><td>$n</td>\n";
 $text.= "</tr>\n";
 $text.='<tr>';
 $t = GetGroupTotal(SUPPLIER, $begin, $end);
@@ -218,17 +220,17 @@ if($t < 0.0)
 	$t *= -1.0;
 $n = number_format($t);
 $l = _("Total suppliers");
-$text.= "<td style=\"font-weight:normal;font-size:14px;\"><a href=\"?module=acctadmin&amp;type=1&amp;option=rep\">$l</a></td><td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td>\n";
+$text.= "<td><a href=\"?module=acctadmin&amp;type=1&amp;option=rep\">$l</a></td><td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td>\n";
 $text.= "</tr></table>\n";
 
 CreateProfitGraph($income, $outcome, $profit);
 //$text.= "<br />\n";
-$text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px; float:left;\" />\n";
-createForm($text,$haeder,"maindiv",460,null,'img/icon_detiales.png');
+$text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px;display: inline-block;\" />\n";
+createForm($text,$haeder,"maindiv",460,500,'img/icon_detiales.png',null,'help');
 
 $haeder = _("Events according to date");
 
 require('calendar.php');
-createForm($text,$haeder,"caldiv",280,null,'img/icon_cel.png');
+createForm($text,$haeder,"caldiv",280,500,'img/icon_cel.png');
 ?>
 

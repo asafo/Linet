@@ -10,7 +10,7 @@ if(!isset($prefix) || ($prefix == '')) {
 	print "<h1>$l</h1>\n";
 	return;
 }
-
+$text='';
 $linesperpage = 20;
 
 global $bankbooktbl, $accountstbl;
@@ -318,7 +318,7 @@ if(!$account) {
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text,$haeder,$sClass,500,600);
+	createForm($text,$haeder,$sClass,500,600,'',1,getHelp());
 	exit;
 }
 
@@ -430,5 +430,5 @@ if($LastLine >= ($start + ($linesperpage-1))) {
 }
 $text.=  "</td></tr>";
 $text.=  "</table>\n</form>";
-createForm($text,$haeder,$sClass,800,600);
+createForm($text,$haeder,$sClass,750,600,'',1,getHelp());
 ?>

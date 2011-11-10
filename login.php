@@ -505,14 +505,14 @@ else {
 	$l = _("Entrance is only for registerd users");
 	$text.= "$l";
 //	print "</h3></div></div>\n";
-	$text.=  "<form id=\"login\" action=\"index.php?action=login\" method=\"post\">\n";
-	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"200px\"><tr>\n";
+	$text.=  "<form class=\"login1\" id=\"login\" action=\"index.php?action=login\" method=\"post\">\n";
+	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"300px\"><tr>\n";
 	$l = _("Email");
 	$text.=  "<td>$l: <br />";
-	$text.=  "<input type=\"text\" name=\"name\" size=\"30\" /></td></tr>\n";
+	$text.=  "<input type=\"text\" name=\"name\" size=\"17\" /></td></tr>\n";
 	$l = _("Password");
 	$text.=  "<tr><td>$l: <br />";
-	$text.=  "<input type=\"password\" name=\"password\" size=\"30\" /></td>\n";
+	$text.=  "<input type=\"password\" name=\"password\" size=\"17\" /></td>\n";
 	$l = _("Login");
 	$text.=  "<tr><td colspan=\"2\" align=\"center\">";
 	
@@ -525,17 +525,17 @@ else {
 
 	
 	//$text.="<div>";
-		$text.=  "<form id=\"forgat\" action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
-		$text.=  "<table dir=\"$dir\" class=\"formtbl\" width=\"100%\">\n";
+		$text.=  "<form class=\"login1\" id=\"forgat\" action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
+		$text.=  "<table width=\"300px\">\n";
 	//$text.=  "<td colspan=\"2\">";
 	
 	//$text.=  "<h2>$l</h2></td></tr>\n";
 	$l = _("Email");
-	$text.=  "<tr><td>$l: </td>\n";
-	$text.=  "<td><input type=\"text\" name=\"email\" size=\"30\" /></td>\n";
+	$text.=  "<tr><td>$l: <br />\n";
+	$text.=  "<input type=\"text\" name=\"email\" size=\"30\" /></td>\n";
 	$text.=  "</tr><tr>\n";
 	$l = _("Submit");
-	$text.=  "<td colspan=\"2\" align=\"center\"><a href=\"javascript:$('#forgat').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+	$text.=  "<td align=\"center\"><a href=\"javascript:$('#forgat').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$l = _("Cancel");
 	$text.='<tr><td><a href="#" id="btncancel">'.$l.'</a>';
 	
@@ -543,7 +543,7 @@ else {
 	
 	//$text.="</div>";
 	$haeder=_("Login");
-	createForm($text, $haeder, 'login',400,300,'img/icon_login.png');
+	createForm($text, $haeder, 'login',500,400,'img/icon_login.png');
 
 }
 

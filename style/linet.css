@@ -83,7 +83,7 @@ th	{
 hr.submenu{
 	 border: medium solid #1870ca;
     position: relative;
-    top: -7px;
+    top: -2px;
 	
 	}
 a.Surtcut{
@@ -148,12 +148,12 @@ a.btnedit{
 	display:inline-block;
 	}
 a.btnsmall{
-	height:26px;
+	height:24px;
 	background-image: url(../img/btnSmall.png);
 	display:inline-block;
 	/*padding-right: 5px;*/
 	text-align:center;
-    padding-top: 5px;
+    padding-top: 7px;
     width: 80px;
 }
 a.btnaction{
@@ -504,16 +504,16 @@ position: relative;
 	
 .ftl{}
 .fcr{
-background: url(../img/fcr.png) 0 0 repeat-y;
-background-position:right top;
+
+    background: url("../img/fcr.png") repeat-y scroll right top white
 }
 .fcc{
 	background: none repeat scroll 0 0 white;
 	padding-top:15px;vertical-align: baseline;
 }
 .fcl{
-background: url(../img/fcl.png) 0 0 repeat-y;
-background-position:left top;
+
+    background: url("../img/fcl.png") repeat-y scroll left top white
 }
 .fbr{}
 .fbc{
@@ -521,25 +521,8 @@ background: url(../img/fbc.png) 0 0 repeat-x;
 height:57px;
 }
 .fbl{}
-#forgat{
-	display:none;
-	/*height: 10px;
-	 width: 300px;*/
-	}
-#login{
-	text-align: center;
-	}
-#login table{ margin: auto;text-align:right;background-color: #ECF8FF;}
-.form{
-	text-align:right;
-	 display: inline-block;
-	vertical-align: top;
+
 	
-	}
-	.login{
-	margin-top:80px;
-	
-	}
 td.ftc a{
 	    display: inline;
     float: left;
@@ -548,6 +531,33 @@ td.ftc a{
 	
 	
 	}
+a.help img{
+	 position: relative;
+    top: -5px;
+    left:12px;
+	}	
+a.help p{
+	 position: relative;
+    top: -12px;
+    right:-10px;
+	}		
+.form{
+	text-align:right;
+	 display: inline-block;
+	vertical-align: top;
+	
+	}	
+	
+#forgat{
+	display:none;
+	/*height: 10px;
+	 width: 300px;*/
+	}
+.login1{	text-align: center;	}
+.login1 table{ margin: auto;margin-top:15px;text-align:right;background-color: #ECF8FF;}
+.login1 table tbody tr td:nth-child(1){text-align:center; padding: 10px;}
+.login1 table tbody tr td input{margin-top:5px;}
+.login{	margin-top:80px;	}
 /*
 .up{
 background: none repeat scroll 0 0 #E5E9EA;
@@ -609,11 +619,14 @@ th.header{
 	background-color: #1870ca;
 	color:white;
 	padding: 10px;
+	font-size: 14px;
 	}
+.tablesorter tbody tr td{ 
+	border: 4px solid white; 
+	font-size: 14px;
+	}
+	
 table.formy tbody tr td{background-color: #ecf8ff;  border: 4px solid #ecf8ff; }
-
-
-.tablesorter tbody tr td{ border: 4px solid white; }
 table.formy tbody tr td:first-child,.tablesorter tbody tr td:first-child
 { padding-right: 10px;  }
 table.formy tbody tr:nth-child(2) td,.tablesorter tbody tr:first-child td
@@ -623,8 +636,11 @@ table.formy tbody tr:last-child td,.tablesorter tbody tr:last-child td
 table.formy tbody tr td:last-child,.tablesorter tbody tr td:last-child
 {padding-left: 10px; }   
 
-
-
+table.sums tr td{padding: 10px;}
+table.sums tr:nth-child(even){background-color: #d5ebfc;}
+table.sums tr:nth-child(odd){background-color: #ffe96e;}
+table.eventtbl{width:100%}
+table.eventtbl tr:nth-child(odd){background-color:#d5ebfc}
 table { 
 	font-size: 14px; 
 	font-family: arial, sans-serif;
@@ -763,7 +779,6 @@ td.caltbl {
 	text-align:center;
 	margin:auto;
 }
-
 .caldiv {
 	margin-right:7px;
 }
@@ -794,20 +809,6 @@ td.caltbl {
     width: 100px;
 }*/
 
-.emptyshortcut {
-	float:right;
-	height:30px;
-	color:white;
-	background:white;
-	padding-right:3px;
-	padding-top:10px;
-	margin:5px;
-	width:100px;
-}
-
-.shortsdiv .shortcut a {
-	color:white;
-}
 /*
 a.shortcut {
 	color:white;
@@ -815,7 +816,7 @@ a.shortcut {
 
 
 /*adam bh update*/
-#main{
+/*#main{
 	background: none repeat scroll 0 0 #E5EDF5;
 	
 	width:660px;
@@ -849,7 +850,6 @@ font-size:14pt;
   border-top: 2px solid #F9A23B;
  margin-bottom:20px;
   width:700px;
-  /*height:100px;*/
 }
 #footer il{
 font-size:14px;
@@ -859,7 +859,47 @@ font-size:14px;
 color:blue;
 font-size:14px;
  font-weight: bold;
+}*/
+.control{
+	text-align:center;
+	}
+#main.fcc ul{
+	position: relative;
+    right: 105px;
+    top: -15px;
+	}
+#main.fcc ul il{
+	 display: inline-block;
+    width: 150px;
+	}
+#main.fcc ul il p{
+    color: #C7C5C5;
+    display: inline;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    right: -12px;
+    top: -20px;
+    }
+#main.fcc ul il p.num{
+	color: #FFFFFF;
+    display: inline;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
+    right: -32px;
+    top: -18px;
+    
+    text-shadow: #6374AB 1px 1px 2px;
 }
+	
+div.updatetext{
+	 background-color: #ECF8FF;
+    padding: 30px;
+    position: relative;
+    right: 130px;
+    width: 400px;
+	}
 	.ui-autocomplete {
 		max-height: 100px;
 		overflow-y: auto;
@@ -884,9 +924,10 @@ font-size:14px;
 	
 	}
 	table#doc tbody tr td{
-	
-	border: 1px solid grey;
-	
+		border: 1px solid grey;
 	}
-	
+
+	html body div#wrapper div#contents table.form tbody tr td.fcc div form#documenet table.formy tbody tr td input.bank{
+	width: 40px;
+	}
 	

@@ -269,7 +269,7 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 		$back='';
 	if (isset($help)){
 		$l=_("Help");
-		$help='<a target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" />'.$l.'</a>';
+		$help='<a class="help" target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" /><p>'.$l.'</p></a>';
 	}else{
 		$help='';
 	}
@@ -278,7 +278,7 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 	<table class="form '.$sClass.'" style="width:'.$width.'px;">
 		<tr>
 			<td class="ftr"><img src="img/ftr.png" alt="formright"  /></td>
-			<td class="ftc" style="width:'.($width-30).'px;">'.$logo.'<p>'.$haeder.'</p>'.$back.$help.'</td>
+			<td class="ftc">'.$logo.'<p>'.$haeder.'</p>'.$back.$help.'</td>
 			<td class="ftl"><img src="img/ftl.png" alt="formleft" /></td>
 		</tr>
 		<tr>
@@ -290,7 +290,7 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 		</tr>
 		<tr>
 		<td class="fbr"><img src="img/fbr.png" alt="formright" /></td>
-		<td class="fbc" style="width:'.($width-30).'px;"></td>
+		<td class="fbc"></td>
 		<td class="fbl"><img src="img/fbl.png" alt="formleft" /></td>
 		</tr>
 	</table>
@@ -375,16 +375,13 @@ function EditAcct($num, $type,$smallprint=false) {
 	$l = _("Account name");
 	$text.= "<td>$l: </td>\n";
 	$text.= "<td><input type=\"text\" name=\"company\" value=\"$company\" size=\"15\" /></td>\n";
-	$text.= "</tr><tr>\n";
+	//$text.= "</tr><tr>\n";
 	if($type < 2) {
-		$l = _("Payment terms");
-		$text.= "<td>$l: </td>\n";
-		$l = _("Add + for current +");
-		$text.= "<td colspan=\"2\"><input type=\"text\" name=\"pay_terms\" size=\"5\" value=\"$plus$pay_terms\" />$l</td>\n";
-		$text.= "</tr><tr>\n";
+		
 	}
 
 	if(($type == INCOME) || ($type == OUTCOME) || ($type == ASSETS)) {
+		$text.= "</tr><tr>\n";
 		$l = _("6111 clause");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td>\n";
@@ -397,6 +394,7 @@ function EditAcct($num, $type,$smallprint=false) {
 		$text.= "</tr><tr>\n";
 	}
 	if(($type == OUTCOME) || ($type == ASSETS)) {
+		$text.= "</tr><tr>\n";
 		$l = _("Recocnized VAT");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td>\n";
@@ -405,6 +403,7 @@ function EditAcct($num, $type,$smallprint=false) {
 		$text.= "</td></tr><tr>\n";
 	}
 	else if($type == INCOME) {
+		$text.= "</tr><tr>\n";
 		$l = _("Recocnized VAT");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td>\n";
@@ -412,6 +411,27 @@ function EditAcct($num, $type,$smallprint=false) {
 		$text.= "</td></tr><tr>\n";
 	}
 	if(($type < 2) || ($type == 10)) {
+		
+		$l = _("Phone");
+		$text.= "<td>$l: </td>\n";
+		$text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\" size=\"15\" /></td>\n";
+		$text.= "</tr><tr>\n";
+	
+		if($type == BANKS) {
+			$l = _("Account number");
+			$text.= "<td>$l: </td>\n";
+		}
+		else {
+			$l = _("Registration number");
+			$text.= "<td>$l: </td>\n";
+		}
+		$text.= "<td><input type=\"text\" name=\"vatnum\" value=\"$vatnum\" size=\"15\" /></td>\n";
+		
+		$l = _("Fax");
+		$text.= "<td>$l: </td>\n";
+		$text.= "<td><input type=\"text\" name=\"fax\" value=\"$fax\" size=\"15\" /></td>\n";
+		$text.= "</tr><tr>\n";
+		
 		if($type == SUPPLIER) {
 			$l = _("Source clearing");
 			$text.= "<td>$l: </td>\n";
@@ -426,49 +446,47 @@ function EditAcct($num, $type,$smallprint=false) {
 		$l = _("Contact");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td><input type=\"text\" name=\"contact\" value=\"$contact\" size=\"15\" /></td>\n";
-//		print "</TR><TR>\n";
-		$l = _("Department");
+		
+		$l = _("Direct phone");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"department\" value=\"$department\" size=\"15\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"dir_phone\" value=\"$dir_phone\" size=\"15\" /></td>\n";
+//		print "</TR><TR>\n";
+		
 		$text.= "</tr><tr>\n";
-		if($type == BANKS) {
-			$l = _("Account number");
-			$text.= "<td>$l: </td>\n";
-		}
-		else {
-			$l = _("Registration number");
-			$text.= "<td>$l: </td>\n";
-		}
-		$text.= "<td><input type=\"text\" name=\"vatnum\" value=\"$vatnum\" size=\"15\" /></td>\n";
+		
 //		print "</TR><TR>\n";
 		$l = _("Email");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td><input type=\"text\" name=\"email\" value=\"$email\" size=\"15\" /></td>\n";
 		$text.= "</tr><tr>\n";
-		$l = _("Phone");
-		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\" size=\"15\" /></td>\n";
+
 //		print "</TR><TR>\n";
-		$l = _("Direct phone");
+		$l = _("Department");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"dir_phone\" value=\"$dir_phone\" size=\"15\" /></td>\n";
-		$text.= "</tr><tr>\n";
-		$l = _("Fax");
-		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"fax\" value=\"$fax\" size=\"15\" /></td>\n";
-		$text.= "</tr><tr>\n";
-		$l = _("Web site");
-		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"web\" value=\"$web\" size=\"15\" /></td>\n";
-		$text.= "</tr><tr>\n";
+		$text.= "<td><input type=\"text\" name=\"department\" value=\"$department\" size=\"15\" /></td>\n";
+		
+		//adam:
+		
+		//$text.= "</tr><tr>\n";
+		
+		//$text.= "</tr><tr>\n";
 		$l = _("Address");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td><input type=\"text\" name=\"address\" value=\"$address\" size=\"15\" /></td>\n";
 		$text.= "</tr><tr>\n";
+		
+		$l = _("Payment terms");
+		$text.= "<td>$l: </td>\n";
+		$l = _("Add + for current +");
+		$text.= "<td><input type=\"text\" name=\"pay_terms\" size=\"5\" value=\"$plus$pay_terms\" />$l</td>\n";
 		$l = _("City");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td><input type=\"text\" name=\"city\" value=\"$city\" size=\"10\" /></td>\n";
-//		print "</TR><TR>\n";
+		$text.= "</tr><tr>\n";
+		
+		$l = _("Web site");
+		$text.= "<td>$l: </td>\n";
+		$text.= "<td><input type=\"text\" name=\"web\" value=\"$web\" size=\"15\" /></td>\n";
 		$l = _("Zip");
 		$text.= "<td>$l: </td>\n";
 		$text.= "<td><input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\" /></td>\n";

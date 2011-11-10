@@ -6,8 +6,8 @@ img.tcalIcon {
 }
 /* calendar container element */
 div#mcal {
-	width:205px;
-	max-width:210px;
+	width:240px;
+	/*max-width:210px;*/
 	padding: 2px 0 0 0;
 }
 /* all tables in calendar */

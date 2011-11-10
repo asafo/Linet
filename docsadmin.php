@@ -64,8 +64,8 @@ function addRcpt(last){
 	r.innerHTML=r.innerHTML+ '<?PHP print PrintCreditCompany(0);?>';
 	r.innerHTML=r.innerHTML+ "</td>\n";
 	r.innerHTML=r.innerHTML+ "<td><input type=\"text\" name=\"cheque_num[]\" size=\"8\" /></td>\n";
-	r.innerHTML=r.innerHTML+ "<td class=\"chkhide\"><input type=\"text\" name=\"bank[]\" size=\"3\" /></td>\n";
-	r.innerHTML=r.innerHTML+ "<td class=\"chkhide\"><input type=\"text\" name=\"branch[]\" size=\"3\" /></td>\n";
+	r.innerHTML=r.innerHTML+ "<td class=\"chkhide\"><input type=\"text\" name=\"bank[]\" size=\"1\" /></td>\n";
+	r.innerHTML=r.innerHTML+ "<td class=\"chkhide\"><input type=\"text\" name=\"branch[]\" size=\"1\" /></td>\n";
 	r.innerHTML=r.innerHTML+ "<td class=\"chkhide\"><input type=\"text\" name=\"cheque_acct[]\" size=\"8\" /></td>\n";
 	r.innerHTML=r.innerHTML+ "<td><input type=\"text\" name=\"date[]\" size=\"7\" /></td>\n";
 	r.innerHTML=r.innerHTML+ "<td><input type=\"text\" class=\"sum\" name=\"sum[]\" size=\"6\" /></td>\n";
@@ -91,9 +91,9 @@ function addItem(last) {
 	r.setAttribute("id",trIdName);
 	
 	ca.innerHTML = "<input type=\"text\" id=\"AC"+num+"\" class=\"cat_num\" name=\"cat_num[]\" onblur=\"SetPartDetails("+num+")\" size=\"10\"/>\n";
-	cb.innerHTML = "<input type=\"text\" id=\"DESC"+num+"\" class=\"description\" name=\"description[]\" size=\"25\" />";
-	cc.innerHTML ="<input type=\"text\" id=\"QTY"+num+"\" class=\"qty\" name=\"qty[]\" size=\"4\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("QTY",num,1);
-	cd.innerHTML ="<input type=\"text\" id=\"UNT"+num+"\" class=\"unit_price\" name=\"unit_price[]\" size=\"8\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("UNT",num,10);
+	cb.innerHTML = "<input type=\"text\" id=\"DESC"+num+"\" class=\"description\" name=\"description[]\" size=\"23\" />";
+	cc.innerHTML ="<input type=\"text\" id=\"QTY"+num+"\" class=\"qty\" name=\"qty[]\" size=\"3\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("QTY",num,1);
+	cd.innerHTML ="<input type=\"text\" id=\"UNT"+num+"\" class=\"unit_price\" name=\"unit_price[]\" size=\"6\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("UNT",num,10);
 	ce.innerHTML ="<select class=\"currency\" id=\"CUR"+num+"\" name=\"currency[]\"><option value=\"0\">NIS</option></select>";
 	cf.innerHTML ="<input type=\"text\" id=\"PRICE"+num+"\" class=\"price\" name=\"price[]\" size=\"8\" />";
 	cg.innerHTML="<a href=\"javascript:;\" onclick=\"removeElement(\'"+trIdName+"\')\" class=\"btnremove\"></a>";
@@ -815,7 +815,7 @@ if($step == 0) {	/* First step, select document type and customer */
 		$l = _("Sum");
 		$text.= "<th class=\"header\">$l</th>\n";
 		$text.="</tr>";
-		for($i = 0; $i < 4; $i++) {
+		for($i = 0; $i < 1; $i++) {
 			$text.= "<tr>\n";
 			$text.= "<td>\n";
 			$text.= PrintPaymentType(i);
@@ -823,8 +823,8 @@ if($step == 0) {	/* First step, select document type and customer */
 			$text.= PrintCreditCompany(0);
 			$text.= "</td>\n";
 			$text.= "<td><input type=\"text\" name=\"cheque_num[]\" size=\"16\" /></td>\n";
-			$text.= "<td><input type=\"text\" name=\"bank[]\" size=\"3\" /></td>\n";
-			$text.= "<td><input type=\"text\" name=\"branch[]\" size=\"3\" /></td>\n";
+			$text.= "<td><input type=\"text\" name=\"bank[]\" class=\"bank\" size=\"1\" /></td>\n";
+			$text.= "<td><input type=\"text\" name=\"branch[]\" size=\"1\" /></td>\n";
 			$text.= "<td><input type=\"text\" name=\"cheque_acct[]\" size=\"13\" /></td>\n";
 			$text.= "<td><input type=\"text\" name=\"date[]\" size=\"7\" /></td>\n";
 			$text.= "<td><input type=\"text\" class=\"sum\" name=\"sum[]\" size=\"6\" /></td>\n";

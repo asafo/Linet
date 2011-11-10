@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Linet 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-08 01:02+0200\n"
-"PO-Revision-Date: 2011-11-08 20:03+0200\n"
+"PO-Revision-Date: 2011-11-10 18:44+0200\n"
 "Last-Translator: Adam Ben Hour <adam@speedcomp.co.il>\n"
 "Language-Team: Hebrew <adam@speedcomp.co.il>\n"
 "MIME-Version: 1.0\n"
@@ -1524,7 +1524,7 @@ msgstr "ש"
 
 #: Y:\linet1.3/calendar.php:516
 msgid "Events for date"
-msgstr "אירועים לתארך"
+msgstr "אירועים לתאריך"
 
 #: Y:\linet1.3/backup.php:46
 msgid "Data backup"
@@ -1582,11 +1582,11 @@ msgstr ""
 #: Y:\linet1.3/payment.php:237
 #: Y:\linet1.3/payment.php:289
 msgid "Payment type"
-msgstr "אמצאי תשלום"
+msgstr "אמצעי תשלום"
 
 #: Y:\linet1.3/payment.php:149
 msgid "No payment method selected"
-msgstr "לא נבחר אמצאי תשלום"
+msgstr "לא נבחר אמצעי תשלום"
 
 #: Y:\linet1.3/payment.php:170
 msgid "Payment executed successfully"
@@ -1876,7 +1876,7 @@ msgstr "נתונים עסקיים"
 
 #: Y:\linet1.3/main.php:194
 msgid "Go"
-msgstr ""
+msgstr "סע"
 
 #: Y:\linet1.3/main.php:217
 msgid "Total profit"
@@ -1888,11 +1888,11 @@ msgstr "סה\"כ הפסד"
 
 #: Y:\linet1.3/main.php:233
 msgid "Total customers"
-msgstr "סה\"כ לקוחות"
+msgstr "סה\"כ חוב של לקוחות"
 
 #: Y:\linet1.3/main.php:241
 msgid "Total suppliers"
-msgstr "סה\"כ ספקים"
+msgstr "סה\"כ חוב לספקים"
 
 #: Y:\linet1.3/main.php:250
 msgid "Events according to date"
@@ -2171,7 +2171,7 @@ msgstr "מספר חשבון"
 
 #: Y:\linet1.3/include/func.inc.php:444
 msgid "Direct phone"
-msgstr "טלפון ישיר"
+msgstr "טלפון נייד"
 
 #: Y:\linet1.3/include/func.inc.php:448
 msgid "Fax"
@@ -2322,7 +2322,7 @@ msgstr "לאומי כרד"
 
 #: Y:\linet1.3/module/update/index.php:7
 msgid "Version Verify"
-msgstr ""
+msgstr "בדיקת גרסה"
 
 #: Y:\linet1.3/module/update/index.php:8
 msgid "Backup"
@@ -2338,23 +2338,23 @@ msgstr "עידכון לינט:"
 
 #: Y:\linet1.3/module/update/index.php:60
 msgid "Welcome To Linet update wizard your system version is: "
-msgstr ""
+msgstr "ברוך הבא לאשף עדכון לינט גרסת התוכנה שלך היא: "
 
 #: Y:\linet1.3/module/update/index.php:60
 msgid "The current version is: "
-msgstr ""
+msgstr "הגרסה העדכנית היא: "
 
 #: Y:\linet1.3/module/update/index.php:60
 msgid "You need to update your system."
-msgstr ""
+msgstr "אתה צריך לעדכן את התוכנה"
 
 #: Y:\linet1.3/module/update/index.php:64
 msgid "Please Wait"
-msgstr ""
+msgstr "אנא המתן"
 
 #: Y:\linet1.3/module/update/index.php:70
 msgid "Backup system and database, it is heighly advised to save a local copy of the bakup files"
-msgstr ""
+msgstr "מגבה את התוכנה ואת מסד הנתונים, מומלץ ביותר לשמור עותק מקומי של קבצי הגיבויי"
 
 #: Y:\linet1.3/module/update/index.php:71
 msgid "Backuping system files"
@@ -2362,116 +2362,9 @@ msgstr "מגבה מערכת קבצים"
 
 #: Y:\linet1.3/module/update/index.php:82
 msgid "Finished"
-msgstr ""
+msgstr "סיים"
 
 #: Y:\linet1.3/module/update/index.php:83
 msgid "Downlod System Files"
-msgstr ""
+msgstr "שמירת קבצי התוכנה"
 
-#: Y:\linet1.3/module/update/look.php:45
-#: Y:\linet1.3/module/update/look.php:47
-msgid "ביטול עדכון"
-msgstr ""
-
-#~ msgid "S"
-#~ msgstr "א"
-
-#~ msgid "M"
-#~ msgstr "ב"
-
-#~ msgid "T"
-#~ msgstr "ג"
-
-#~ msgid "W"
-#~ msgstr "ד"
-
-#~ msgid "F"
-#~ msgstr "ו"
-
-#~ msgid "Select company"
-#~ msgstr "בחר חברה"
-
-#~ msgid "Content management"
-#~ msgstr "ניהול תוכן"
-
-#~ msgid "Registered users login"
-#~ msgstr "כניסה למשתמשים רשומים"
-
-#~ msgid "This software is supported by ISOC"
-#~ msgstr "תוכנה זו נתמכת על ידי ארגון האינטרנט הישראלי"
-
-#~ msgid "Asstes"
-#~ msgstr "נכסים"
-
-#~ msgid "Prefix must be english only with no spaces"
-#~ msgstr "קידומת חברה חייבת להיות באותיות אנגליות בלבד ללא רווחים"
-
-#~ msgid "Prefix: "
-#~ msgstr "קידומת:"
-
-#~ msgid "Equity"
-#~ msgstr "הון עצמי"
-
-#~ msgid "Buys"
-#~ msgstr "קניות"
-
-#~ msgid "financing expenses"
-#~ msgstr "הוצאות מימון"
-
-#~ msgid "Stocks"
-#~ msgstr "נירות ערך"
-
-#~ msgid "Main"
-#~ msgstr "דף ראשי"
-
-#~ msgid "Bussiness docs"
-#~ msgstr "מסמכים עסקיים"
-
-#~ msgid "Demo"
-#~ msgstr "הדגמה"
-
-#~ msgid "Edit customer details"
-#~ msgstr "עריכת פרטי לקוח"
-
-#~ msgid "Edit supplier details"
-#~ msgstr "עריכת פרטי ספק"
-
-#~ msgid "Company name"
-#~ msgstr "שם חברה"
-
-#~ msgid "Drorit Free accounting software - Currency rate management"
-#~ msgstr "דרורית הנהלת חשבונות חופשית - ניהול מטבעות"
-
-#~ msgid "Choose customer"
-#~ msgstr "בחר לקוח"
-
-#~ msgid "Choose item"
-#~ msgstr "בחר פריט"
-
-#~ msgid "Choose outcome"
-#~ msgstr "בחר סעיף הוצאה"
-
-#~ msgid "Credited VAT"
-#~ msgstr "מע\"מ מוכר"
-
-#~ msgid "-- Select customer --"
-#~ msgstr "-- בחר לקוח --"
-
-#~ msgid "Select all"
-#~ msgstr "בחר הכל"
-
-#~ msgid "Page does not exist"
-#~ msgstr "דף לא קיים"
-
-#~ msgid "Choose business"
-#~ msgstr "בחר חברה"
-
-#~ msgid "Choose"
-#~ msgstr "בחירה"
-
-#, fuzzy
-#~ msgid "For perdiod"
-#~ msgstr "לתקופה"
-
-#~ msgid "No contacts matching query"
-#~ msgstr "אין אנשי קשר מתאימים לשאילתה"

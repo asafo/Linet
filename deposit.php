@@ -10,15 +10,15 @@ global $chequestbl, $paymenttype;
 
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport($l);
 	return;
 }
-
+$text='';
 function PrintBankSelect() {
 	global $accountstbl;
 	global $prefix;
 
-	print "<select name=\"account\">\n";
+	$str= "<select name=\"account\">\n";
 	
 	$banks = BANKS;
 	$query = "SELECT num,company FROM $accountstbl WHERE type='$banks' AND prefix='$prefix'"; /* banks accounts */
@@ -27,10 +27,11 @@ function PrintBankSelect() {
 		$num = $line['num'];
 		if($num > 100) {
 			$acct = $line['company'];
-			print "<option value=\"$num\">$acct</option>\n";
+			$str.= "<option value=\"$num\">$acct</option>\n";
 		}
 	}
-	print "</select>\n";
+	$str.=  "</select>\n";
+	return $str;
 }
 
 ?>
@@ -71,10 +72,10 @@ function CalcSum() {
 <?PHP
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
-print "<br>\n";
-print "<div class=\"form righthalf1\">\n";
+//print "<br>\n";
+//print "<div class=\"form righthalf1\">\n";
 $l = _("Cheque, credit and cash deposit");
-print "<h3>$l</h3>\n";
+$text= "<h3>$l</h3>\n";
 // print "<h3>׳”׳₪׳§׳“׳× ׳©׳§׳™׳�, ׳�׳–׳•׳�׳ ׳™׳� ׳•׳¨׳™׳©׳•׳� ׳¡׳�׳™׳§׳”</h3>\n";
 
 if($action == 'submit') {
@@ -82,13 +83,13 @@ if($action == 'submit') {
 	if(!$account) {
 		$l = _("Bank account not defined");
 		ErrorReport("$l");
-		exit;
+		return ;
 	}
 	$dep_date = $_POST['dep_date'];
 	if(empty($dep_date)) {
 		$l = _("Deposit date not defined");
 		ErrorReport("$l");
-		exit;
+		return;
 	}
 //	$dep_date = FormatDate($dep_date, "dmy", "mysql");
 	
@@ -96,13 +97,13 @@ if($action == 'submit') {
 	if(empty($bank_refnum)) {
 		$l = _("Bank refnum must be filled");
 		ErrorReport("$l");
-		exit;
+		return;
 	}
 	$cheque = $_POST['cheque'];
 	if(empty($cheque)) {
 		$l = _("Nothing to deposit");
 		ErrorReport("$l");
-		exit;
+		return;
 	}
 	$sum = $_POST['sum'];
 	
@@ -144,50 +145,47 @@ if($action == 'submit') {
 	}
 //	print "<div dir=ltr>Sum: $total</div>\n";
 	$l = _("Deposit executed successfully");
-	print "<h2>$l</h2></br>\n";
+	$text.= "<h2>$l</h2></br>\n";
 }
 
-print "<form name=\"form1\" action=\"?module=deposit&amp;action=submit\" method=\"post\">\n";
-print "<table width=\"100%\" class=\"formtbl\"><tr>\n";
+$text.=  "<form name=\"form1\" action=\"?module=deposit&amp;action=submit\" method=\"post\">\n";
+$text.=  "<table width=\"100%\" class=\"formtbl\"><tr>\n";
 $l = _("Bank account");
-print "<td>$l: \n";
+$text.=  "<td>$l: \n";
 PrintBankSelect();
 $l = _("Deposit date");
-print "</td><td>$l: \n";
+$text.=  "</td><td>$l: \n";
 $dep_date = date("d-m-Y");
-print "<input type=\"text\" id=\"dep_date\" name=\"dep_date\" value=\"$dep_date\" size=\"8\">\n";
-?>
-<script type="text/javascript">
-	addDatePicker("#dep_date","<?print "$dep_date"; ?>");
-</script>
-<?PHP
-print "</td></tr>\n";
-print "<tr><td colspan=\"2\">\n";
+$text.=  "<input type=\"text\" id=\"dep_date\" name=\"dep_date\" value=\"$dep_date\" size=\"8\">\n";
+$text.= '<script type="text/javascript">addDatePicker("#dep_date","'.$dep_date.'");</script>';
+
+$text.= "</td></tr>\n";
+$text.= "<tr><td colspan=\"2\">\n";
 $l = _("Bank refnum");
-print "$l: \n";
-print "<input type=\"text\" name=\"bank_refnum\">\n";
-print "</td></tr>\n";
-print "<tr><td colspan=\"2\">\n";
+$text.= "$l: \n";
+$text.= "<input type=\"text\" name=\"bank_refnum\">\n";
+$text.= "</td></tr>\n";
+$text.= "<tr><td colspan=\"2\">\n";
 /* Internal cheques table */
-print "<table border=\"1\" width=\"100%\"><tr class=\"tblhead\">\n";
-print "<td>&nbsp;</td>\n";		/* checkbox for selecting cheque */
+$text.= "<table class=\"formy\" border=\"1\" width=\"100%\"><tr>\n";
+$text.= "<th class=\"header\">&nbsp;</th>\n";		/* checkbox for selecting cheque */
 $l = _("Type");
-print "<td>$l</td>\n";
+$text.= "<th class=\"header\">$l</th>\n";
 $l = _("Receipt");
-print "<td>$l</td>\n";
+$text.= "<th class=\"header\">$l</th>\n";
 $l = _("Refnum");
-print "<td>$l</td>\n";
+$text.= "<th class=\"header\">$l</th>\n";
 $l = _("Bank");
-print "<td>$l</td>\n";
+$text.= "<th class=\"header\">$l</th>\n";
 $l = _("Branch");
-print "<td>$l</td>\n";
+$text.= "<th class=\"header\">$l</th>\n";
 $l = _("Account");
-print "<td>$l</td>\n";
+$text.= "<th class=\"header\">$l</th>\n";
 $l = _("Date");
-print "<td>$l</td>\n";
+$text.= "<th class=\"header\">$l</td>\n";
 $l = _("Sum");
-print "<td>$l</td>\n";
-print "</tr>\n";
+$text.= "<th class=\"header\">$l</th>\n";
+$text.= "</tr>\n";
 
 $query = "SELECT * FROM $chequestbl WHERE bank_refnum='' AND prefix='$prefix'";	/* all cheques with no bank refnum */
 $result = DoQuery($query, __LINE__);
@@ -200,33 +198,34 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$cheque_acct = $line['cheque_acct'];
 	$cheque_date = FormatDate($line['cheque_date'], "mysql", "dmy");
 	$sum = $line['sum'];
-	print "<tr>\n";
-	print "<td><input type=\"checkbox\" id=\"cheque\" name=\"cheque[]\" value=\"$cheque_num:$sum\" onchange=\"CalcSum()\"></td>\n";
+	$text.= "<tr>\n";
+	$text.= "<td><input type=\"checkbox\" id=\"cheque\" name=\"cheque[]\" value=\"$cheque_num:$sum\" onchange=\"CalcSum()\"></td>\n";
 	$doctype = DOC_RECEIPT;
 	$url = "printdoc.php?doctype=$doctype&amp;docnum=$refnum&amp;prefix=$prefix";
 	$typestr = $paymenttype[$type];
-	print "<td>$typestr</td>\n";
-	print "<td><a href=\"javascript:void()\" onclick=PrintDocument(\"$url\")>$refnum</A></TD>\n";
-	print "<td>$cheque_num</td>\n";
-	print "<td>$bank</td>\n";
-	print "<td>$branch</td>\n";
-	print "<td>$cheque_acct</td>\n";
-	print "<td>$cheque_date</td>\n";
-	print "<td>$sum</td>\n";
-	print "<input type=\"hidden\" id=\"sum\" name=\"sum[]\" value=\"$sum\">\n";
-	print "</tr>\n";
+	$text.= "<td>$typestr</td>\n";
+	$text.= "<td><a href=\"javascript:void()\" onclick=PrintDocument(\"$url\")>$refnum</A></TD>\n";
+	$text.= "<td>$cheque_num</td>\n";
+	$text.= "<td>$bank</td>\n";
+	$text.= "<td>$branch</td>\n";
+	$text.= "<td>$cheque_acct</td>\n";
+	$text.= "<td>$cheque_date</td>\n";
+	$text.= "<td>$sum</td>\n";
+	$text.= "<input type=\"hidden\" id=\"sum\" name=\"sum[]\" value=\"$sum\">\n";
+	$text.= "</tr>\n";
 }
-print "<tr><td colspan=\"7\">&nbsp;</td>\n";		/* spacer */
+$text.= "<tr><td colspan=\"7\">&nbsp;</td>\n";		/* spacer */
 $l = _("Total");
-print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"total\" size=\"7\"></td>\n";
-print "</tr>\n";
-print "</table>\n";
-print "</td></tr>\n";
+$text.= "<td>$l: </td>\n";
+$text.= "<td><input type=\"text\" name=\"total\" size=\"7\"></td>\n";
+$text.= "</tr>\n";
+$text.= "</table>\n";
+$text.= "</td></tr>\n";
 $l = _("Deposit");
-print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
-print "</table>\n";
-print "</form>\n";
-print "</div>\n";
+$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+$text.= "</table>\n";
+$text.= "</form>\n";
+createForm($text, $haeder,'',750,'','logo',1,getHelp());
+//print "</div>\n";
 
 ?>
