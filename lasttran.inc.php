@@ -52,25 +52,25 @@ function GetOppositAccount($num, $sum) {
 }
 
 $l = _("Last outcomes");
-print "<h3>$l</h3><br />\n";// class=\"hovertbl\"
-print "<table border=\"0\" id=\"outcome\" class=\"tablesorter\"><thead><tr class=\"tblhead\">\n";
+$text.= "<h3>$l</h3><br />\n";// class=\"hovertbl\"
+$text.= "<table border=\"0\" id=\"outcome\" class=\"tablesorter\"><thead><tr>\n";
 $l = _("Num.");
-print "<th style=\"width:2.5em\">$l</th>\n";
+$text.= "<th style=\"width:2.5em\">$l</th>\n";
 $l = _("Date");
-print "<th style=\"width:6em\">$l</th>\n";
+$text.= "<th style=\"width:6em\">$l</th>\n";
 $l = _("Supplier");
-print "<th style=\"width:11em\">$l</th>\n";
+$text.= "<th style=\"width:11em\">$l</th>\n";
 $l = _("Outcome acc.");
-print "<th style=\"width:10em\">$l</th>\n";
+$text.= "<th style=\"width:10em\">$l</th>\n";
 $l = _("Ref. num");
-print "<th style=\"width:5em\">$l</th>\n";
+$text.= "<th style=\"width:5em\">$l</th>\n";
 $l = _("Details");
-print "<th style=\"width:15em\">$l</th>\n";
+$text.= "<th style=\"width:15em\">$l</th>\n";
 $l = _("Before VAT");
-print "<th style=\"width:5em\">$l</th>\n";
+$text.= "<th style=\"width:5em\">$l</th>\n";
 $l = _("Sum");
-print "<th style=\"width:4em\">$l</th>\n";
-print "</tr></thead><tbody>\n";
+$text.= "<th style=\"width:4em\">$l</th>\n";
+$text.= "</tr></thead><tbody>\n";
 $t = SUPINV;
 $query = "SELECT * FROM $transactionstbl WHERE prefix='$prefix' ";
 $query .= "AND type='$t' AND sum>'0' ORDER BY num DESC LIMIT 10";
@@ -108,21 +108,21 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 //	print "Sup: $supname, out: $outname<br>\n";
 	if(($supacct == 0) || ($outacct == 0))
 		continue;
-	NewRow();
-	print "<td>$num</td>\n";
-	print "<td>$date</td>\n";
+	$text.='<tr>';
+	$text.= "<td>$num</td>\n";
+	$text.= "<td>$date</td>\n";
 	$url = "?module=acctdisp&amp;account=$supacct&amp;begin=start&amp;end=today";
-	print "<td><a href=\"$url\">$supname</a></td>\n";
+	$text.= "<td><a href=\"$url\">$supname</a></td>\n";
 	$url = "?module=acctdisp&amp;account=$outacct&amp;begin=start&amp;end=today";
-	print "<td><a href=\"$url\">$outname</a></td>\n";
-	print "<td>$refnum1</td>\n";
-	print "<td>$details</td>\n";
-	print "<td dir=\"ltr\" align=\"right\">$novatsum</td>\n";
+	$text.= "<td><a href=\"$url\">$outname</a></td>\n";
+	$text.= "<td>$refnum1</td>\n";
+	$text.= "<td>$details</td>\n";
+	$text.= "<td dir=\"ltr\" align=\"right\">$novatsum</td>\n";
 	$tstr = number_format($sum);
-	print "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
-	print "</tr>\n";
+	$text.= "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
+	$text.= "</tr>\n";
 }
-print "</tbody></table>\n";
+$text.= "</tbody></table>\n";
 
 ?>
 

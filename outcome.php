@@ -286,8 +286,8 @@ $text.= "<td>\n";
 $text.=PrintSupplierSelect($supplier);
 if($step == 0) {
 	$t = SUPPLIER;
-	$l = _("Define new supplier");
-	$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480);
+	$l = _("new supplier");
+	$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
 	//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
 }
 $text.= "</td></tr>\n";
@@ -310,17 +310,17 @@ $text.= "<input type=\"hidden\" name=\"pvat\" value=\"$pvat\" size=\"3\" />\n";
 if($step == 0) {
 	if($opt == 'asset') {
 		$t = ASSETS;
-		$l = _("Define new assets account");
+		$l = _("new assets");
 		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
 		$text.=PrintSelect($outcome,ASSETS);
-		$text.=newWindow($l,'?action=lister&form=account&type='.ASSETS,480,480);
+		$text.=newWindow($l,'?action=lister&form=account&type='.ASSETS,480,480,'','btnsmall');
 	}
 	else {
 		$t = OUTCOME;
-		$l = _("Define new outcome account");
+		$l = _("new outcome");
 		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
 		$text.=PrintSelect($outcome,OUTCOME);
-		$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480);
+		$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
 	}
 }
 $text.= "</td></tr>\n";
@@ -364,13 +364,14 @@ $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
 //print "</div>\n";
-createForm($text,$header,'',450,'','logo',1,'help');
-
-
-print "<div class=\"innercontent\">\n";
 if($step == 0) {
 	require('lasttran.inc.php');
 }
-print "</div>\n";
+createForm($text,$header,'',750,'','logo',1,'help');
+
+
+//print "<div class=\"innercontent\">\n";
+
+//print "</div>\n";
 
 ?>

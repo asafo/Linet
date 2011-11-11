@@ -7,7 +7,7 @@
 global $prefix, $accountstbl, $companiestbl, $supdocstbl;
 
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
+	ErrorReport("<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n");
 	return;
 }
 
@@ -15,7 +15,7 @@ $query = "SELECT vat FROM $companiestbl WHERE prefix='$prefix'";
 $result = DoQuery($query, "income.php");
 $line = mysql_fetch_array($result, MYSQL_NUM);
 $vat = $line[0];
-
+$text='';
 ?>
 <script type="text/javascript">
 function Fix2(v) {
@@ -32,9 +32,7 @@ function Fix0(v) {
 function CalcTotal() {
 	var total = document.income.novattotal.value;
 	var d = document.getElementById('vatd').style.display;
-<?PHP
-	print "\tvat = $vat\n";
-?>
+<?PHP	print "\tvat = $vat\n";?>
 	if(d != 'block')
 		vat = 0;
 	var calcvat = parseFloat(total) * parseFloat(vat) / 100.0;
@@ -45,9 +43,7 @@ function CalcTotal() {
 function CalcVAT() {
 	var total = document.income.total.value;
 	var d = document.getElementById('vatd').style.display;
-<?PHP
-	print "\tvat = $vat\n";
-?>
+<?PHP	print "\tvat = $vat\n";?>
 	if(d != 'block') {
 		vat = 0;
 	}
@@ -150,8 +146,8 @@ function PrintIncomeSelect($def) {
 	$t = INCOME;
 	$query = "SELECT num,company,src_tax FROM $accountstbl WHERE prefix='$prefix' AND type='$t'  ORDER BY company ASC";
 	$result = DoQuery($query, "income.php");
-	print "<select name=\"income\" onchange=\"inchange()\">\n";
-	print "<option value=\"__NULL__\" >-- בחר סעיף הכנסה --</option>\n";
+	$str= "<select name=\"income\" onchange=\"inchange()\">\n";
+	$str.=  "<option value=\"__NULL__\" >-- בחר סעיף הכנסה --</option>\n";
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$n = $line[0];
 		$company = $line[1];
@@ -161,48 +157,44 @@ function PrintIncomeSelect($def) {
 		else
 			$company .= " (מע\"מ 100%)";
 		if($n == $def)
-			print "<option value=\"$n\" selected>$company</option>\n";
+			$str.=  "<option value=\"$n\" selected>$company</option>\n";
 		else
-			print "<option value=\"$n\">$company</option>\n";
+			$str.=  "<option value=\"$n\">$company</option>\n";
 	}
-	print "</select>\n";
+	$str.=  "</select>\n";
+	return $str;
 }
 
 function PrintPaymentSelect($def) {
-	$paymentarr = array('-- בחר אמצעי תשלום --', 
-	'שיק',
-	'מזומן',
-	'אשראי');
-	print "<select name=\"payment\" onchange=\"TypeSelChange()\">\n";
-	foreach($paymentarr as $n => $v) {
+	//$paymentarr = array(''); 
+	global $paymenttype;
+	$str= "<select name=\"payment\" onchange=\"TypeSelChange()\">\n";
+	$str.=  "<option value=\"__NULL__\" >-- בחר אמצעי תשלום --</option>\n";
+	foreach($paymenttype as $n => $v) {
 		if($n == $def)
-			print "<option value=\"$n\" selected>$v</option>\n";
+			$str.= "<option value=\"$n\" selected>$v</option>\n";
 		else
-			print "<option value=\"$n\">$v</option>\n";
+			$str.= "<option value=\"$n\">$v</option>\n";
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 function PrintCreditSelect($def, $payment) {
-	$creditarr = array(
-		'visa' => 'ויזה',
-		'isracard' => 'ישראכרט',
-		'mastercard' => 'מאסטרכרד',
-		'diners' => 'דיינרס',
-		'amex' => 'אמריקן אקספרס'
-	);
+	global $creditcompanies;
 	
 	if($payment != 3)
-		print "<select name=\"creditcomp\" id=\"crd\" style=\"display:none\">\n";
+		$str= "<select name=\"creditcomp\" id=\"crd\" style=\"display:none\">\n";
 	else
-		print "<select name=\"creditcomp\" id=\"crd\" style=\"display:block\">\n";
-	foreach($creditarr as $n => $v) {
+		$str= "<select name=\"creditcomp\" id=\"crd\" style=\"display:block\">\n";
+	foreach($creditcompanies as $n => $v) {
 		if($n == $def)
-			print "<option value=\"$n\" selected>$v</option>\n";
+			$str.= "<option value=\"$n\" selected>$v</option>\n";
 		else
-			print "<option value=\"$n\">$v</option>\n";
+			$str.= "<option value=\"$n\">$v</option>\n";
 	}	
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
@@ -251,7 +243,7 @@ if($step > 0) {
 }
 if($step == 2) {
 	if($name == 'demo') {
-		print "<h1>משתמש דוגמה אינו רשאי לעדכן נתונים</h1>\n";
+		ErrorReport("משתמש דוגמה אינו רשאי לעדכן נתונים");
 		return;
 	}
 
@@ -297,7 +289,7 @@ if($step == 2) {
 			$t4 = $sum + $t2 + $t3;
 			$tnum = Transaction($tnum, MANRECEIPT, ROUNDING, $refnum, '', $dt, $details, $t4);
 		}
-		print "<h1>ההכנסה נרשמה בהצלחה</h1>\n";
+		$text.= "<h1>ההכנסה נרשמה בהצלחה</h1>\n";
 	}
 	$step = 0;
 	$customer = "__NULL__";
@@ -317,112 +309,113 @@ $url = "?module=income&step=$nextstep";
 if($option != '')
 	$url .= "&option=$option";
 //print "<div class=\"righthalf2\">\n";
-print "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
+$text.= "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
 
 if($step == 1) {
-	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>אישור רישום הכנסה</b>\n";
-	print "</div></div>\n";
-	print "<h2>יש לבדוק את הפרטים וללחוץ עדכן בשנית על מנת לבצע את הרישום</h2>\n";
+	//print "<div class=\"caption_out\"><div class=\"caption\">";
+	$header= "אישור רישום הכנסה";
+	//print "</div></div>\n";
+	$text.= "<h2>יש לבדוק את הפרטים וללחוץ עדכן בשנית על מנת לבצע את הרישום</h2>\n";
 	$nextstep = 2;
 }
 if($step == 0) {
-	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>רישום הכנסה</b>\n";
-	print "</div></div>\n";
+	//print "<div class=\"caption_out\"><div class=\"caption\">";
+	$header= "רישום הכנסה";
+	//print "</div></div>\n";
 	$customer == "__NULL__";
 	$income == "__NULL__";
 	$nextstep = 1;
 }
 
-print "<form name=\"income\" action=\"$url\" method=\"post\">\n";
-print "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-print "<td>לקוח: </td>\n";
-print "<td>\n";
-PrintCustomerSelect($customer);
+$text.= "<form name=\"income\" action=\"$url\" method=\"post\">\n";
+$text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
+$text.= "<td>לקוח: </td>\n";
+$text.= "<td>\n";
+$text.= PrintCustomerSelect($customer);
 if($step == 0) {
 	$t = CUSTOMER;
-	print "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&action=addacct&type=$t\">הגדר לקוח חדש</a>\n";
+	$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&action=addacct&type=$t\">הגדר לקוח חדש</a>\n";
 }
-print "</td></tr>\n";
-print "<tr>\n";
+$text.= "</td></tr>\n";
+$text.= "<tr>\n";
 
-print "<td>סעיף הכנסה: </td>\n";
-print "<td>\n";
-PrintIncomeSelect($income);
+$text.= "<td>סעיף הכנסה: </td>\n";
+$text.= "<td>\n";
+$text.= PrintIncomeSelect($income);
 if($step == 0) {
 	$t = INCOME;
-	print "<br><a href=\"index.php?module=acctadmin&action=addacct&type=$t\">הגדר סעיף הכנסה חדש</a>\n";
+	$text.= "<br><a href=\"index.php?module=acctadmin&action=addacct&type=$t\">הגדר סעיף הכנסה חדש</a>\n";
 }
-print "</td></tr>\n";
-print "<tr>\n";
+$text.= "</td></tr>\n";
+$text.= "<tr>\n";
 
-print "<td>תאריך: </td>\n";
-print "<td><input class=\"date\" type=\"text\" name=\"date\" id=\"date\" size=\"7\" value=\"$dt\">\n";
+$text.= "<td>תאריך: </td>\n";
+$text.= "<td><input class=\"date\" type=\"text\" name=\"date\" id=\"date\" size=\"7\" value=\"$dt\">\n";
 
-print "</td>\n";
-print "</tr><tr>\n";
+$text.= "</td>\n";
+$text.= "</tr><tr>\n";
 
-print "<td>אסמכתא: </td>\n";
-print "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"15\"></td>\n";
-print "</tr><tr>\n";
+$text.= "<td>אסמכתא: </td>\n";
+$text.= "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"15\"></td>\n";
+$text.= "</tr><tr>\n";
 
-print "<td>פרטים: </td>\n";
-print "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\"></td>\n";
-print "</tr><tr>\n";
+$text.= "<td>פרטים: </td>\n";
+$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\"></td>\n";
+$text.= "</tr><tr>\n";
 
-print "<td>סכום לפני מע\"מ: </td>\n";
-print "<td><input type=\"text\" dir=\"ltr\" name=\"novattotal\" value=\"$novattotal\" size=\"10\" onblur=\"CalcTotal()\"></td>\n";
-print "</tr><tr>\n";
+$text.= "<td>סכום לפני מע\"מ: </td>\n";
+$text.= "<td><input type=\"text\" dir=\"ltr\" name=\"novattotal\" value=\"$novattotal\" size=\"10\" onblur=\"CalcTotal()\"></td>\n";
+$text.= "</tr><tr>\n";
 
-print "<td><div id=\"vatd\">מע\"מ: </td></td>\n";
-print "<td>\n";
-print "<div id=\"vatd1\">";
-print "<input type=\"text\" name=\"vat\" dir=\"ltr\" size=\"10\" value=\"$tvat\" readonly>\n";
-print "</div></td>\n";
-print "</tr><tr>\n";
+$text.= "<td><div id=\"vatd\">מע\"מ: </td></td>\n";
+$text.= "<td>\n";
+$text.= "<div id=\"vatd1\">";
+$text.= "<input type=\"text\" name=\"vat\" dir=\"ltr\" size=\"10\" value=\"$tvat\" readonly>\n";
+$text.= "</div></td>\n";
+$text.= "</tr><tr>\n";
 
-print "<td>סכום כולל מע\"מ: </td>\n";
-print "<td><input type=\"text\" name=\"total\" dir=\"ltr\" size=\"10\" value=\"$total\" onblur=\"CalcVAT()\"></td>\n";
-print "</tr><tr>\n";
+$text.= "<td>סכום כולל מע\"מ: </td>\n";
+$text.= "<td><input type=\"text\" name=\"total\" dir=\"ltr\" size=\"10\" value=\"$total\" onblur=\"CalcVAT()\"></td>\n";
+$text.= "</tr><tr>\n";
 
 if($option == 'receipt') {
-	print "<td>אמצאי תשלום: </td>\n";
-	print "<td>\n";
-	PrintPaymentSelect($payment);
-	PrintCreditSelect($creditcomp, $payment);
+	$text.= "<td>אמצאי תשלום: </td>\n";
+	$text.= "<td>\n";
+	$text.= PrintPaymentSelect($payment);
+	$text.= PrintCreditSelect($creditcomp, $payment);
 	// print "</div>\n";
-	print "</tr><tr>\n";
-	print "<td>אסמכתא: </td>\n";
-	print "<td><input type=\"text\" name=\"refnum2\" value=\"$refnum2\"></td>\n";
-	print "</tr><tr>\n";
-	print "<td>תשלום לפני ניכוי במקור: </td>\n";
-	print "<td><input type=\"text\" name=\"notaxsum\" size=\"10\" value=\"$notaxsum\"></td>\n";
-	print "</tr><tr>\n";
+	$text.= "</tr><tr>\n";
+	$text.= "<td>אסמכתא: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"refnum2\" value=\"$refnum2\"></td>\n";
+	$text.= "</tr><tr>\n";
+	$text.= "<td>תשלום לפני ניכוי במקור: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"notaxsum\" size=\"10\" value=\"$notaxsum\"></td>\n";
+	$text.= "</tr><tr>\n";
 
-	print "<td>ניכוי במקור: </td>\n";
-	print "<td><input type=\"text\" name=\"tax\" size=\"10\" value=\"$tax\" onblur=\"calcTotalTax()\"></td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td>ניכוי במקור: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"tax\" size=\"10\" value=\"$tax\" onblur=\"calcTotalTax()\"></td>\n";
+	$text.= "</tr><tr>\n";
 
-	print "<td>סכום כולל ניכוי במקור: </td>\n";
-	print "<td><input type=\"text\" name=\"sum\" size=\"10\" value=\"$sum\"></td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td>סכום כולל ניכוי במקור: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"sum\" size=\"10\" value=\"$sum\"></td>\n";
+	$text.= "</tr><tr>\n";
 }
-print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"עדכן\">\n";
-print "</td></tr>\n";
-print "</table>\n";
-print "</form>\n";
-print "</td><td valign=\"top\">\n";
-print "<div style=\"margin-right:10px\">\n";
+$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"עדכן\">\n";
+$text.= "</td></tr>\n";
+$text.= "</table>\n";
+$text.= "</form>\n";
+$text.= "</td><td valign=\"top\">\n";
+$text.= "<div style=\"margin-right:10px\">\n";
 //if($option == 'receipt')
 	//ShowText('income_receipt');
 //else
 	//ShowText('income');
-print "</div>\n";
-print "</td></tr>";
-print "<tr><td colspan=\"2\">\n";
+$text.= "</div>\n";
+$text.= "</td></tr>";
+$text.= "<tr><td colspan=\"2\">\n";
 if($step == 0)
 	require('lastincome.inc.php');
-print "</td></tr>\n";
-print "</table>\n";
+$text.= "</td></tr>\n";
+$text.= "</table>\n";
+createForm($text, $header,'',750,'','icon',1,getHelp());
 ?>

@@ -51,19 +51,19 @@ function GetOppositAccount($num, $sum) {
 	return $retacct;
 }
 
-print "<div class=\"caption_out\" style=\"margin-top:5px\"><div class=\"caption\">";
-print "<b>×”×›× ×¡×•×ª ××—×¨×•× ×•×ª</b>\n";
-print "</div></div><br>\n";
-print "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
-print "<td style=\"width:2.5em\">××¡×¤×¨</td>\n";
-print "<td style=\"width:6em\">×ª××¨×™×š</td>\n";
-print "<td style=\"width:10em\">×œ×§×•×—</td>\n";
-print "<td style=\"width:10em\">×—×©×‘×•×Ÿ ×”×›× ×¡×•×ª</td>\n";
-print "<td style=\"width:5em\">××¡××›×ª×</td>\n";
-print "<td style=\"width:5em\">×¤×¨×˜×™×</td>\n";
-print "<td style=\"width:5em\">×œ×¤× ×™ ××¢\"×</td>\n";
-print "<td style=\"width:4em\">×¡×›×•×</td>\n";
-print "</tr>\n";
+$text.= "<div class=\"caption_out\" style=\"margin-top:5px\"><div class=\"caption\">";
+$text.= "<b>äëğñåú àçøåğåú</b>\n";
+$text.= "</div></div><br>\n";
+$text.= "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
+$text.= "<td style=\"width:2.5em\">îñôø</td>\n";
+$text.= "<td style=\"width:6em\">úàøéê</td>\n";
+$text.= "<td style=\"width:10em\">ì÷åç</td>\n";
+$text.= "<td style=\"width:10em\">çùáåï äëğñåú</td>\n";
+$text.= "<td style=\"width:5em\">àñîëúà</td>\n";
+$text.= "<td style=\"width:5em\">ôøèéí</td>\n";
+$text.= "<td style=\"width:5em\">ìôğé îò\"î</td>\n";
+$text.= "<td style=\"width:4em\">ñëåí</td>\n";
+$text.= "</tr>\n";
 $t = MANINVOICE;
 $query = "SELECT * FROM $transactionstbl WHERE prefix='$prefix' ";
 $query .= "AND type='$t' AND sum<'0' ORDER BY num DESC LIMIT 10";
@@ -100,21 +100,20 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$inname = GetAccountName($inacct);
 	if(($custacct == 0) || ($inacct == 0))
 		continue;
-	NewRow();
-	print "<td>$num</td>\n";
-	print "<td>$date</td>\n";
+	$text.='<tr>';
+	$text.= "<td>$num</td>\n";
+	$text.= "<td>$date</td>\n";
 	$url = "?module=acctdisp&account=$custacct&begin=start&end=today";
-	print "<td><a href=\"$url\">$custname</a></td>\n";
+	$text.= "<td><a href=\"$url\">$custname</a></td>\n";
 	$url = "?module=acctdisp&account=$inacct&begin=start&end=today";
-	print "<td><a href=\"$url\">$inname</a></td>\n";
-	print "<td>$refnum1</td>\n";
-	print "<td>$details</td>\n";
-	print "<td>$novatsum</td>\n";
+	$text.= "<td><a href=\"$url\">$inname</a></td>\n";
+	$text.= "<td>$refnum1</td>\n";
+	$text.= "<td>$details</td>\n";
+	$text.= "<td>$novatsum</td>\n";
 	$sum = number_format($sum);
-	print "<td>$sum</td>\n";
-	print "</tr>\n";
+	$text.= "<td>$sum</td>\n";
+	$text.= "</tr>\n";
 }
-print "</table>\n";
+$text.= "</table>\n";
 
 ?>
-
