@@ -533,13 +533,13 @@ td.ftc a{
 	}
 a.help img{
 	 position: relative;
-    top: -5px;
+    top: -10px;
     left:12px;
 	}	
 a.help p{
 	 position: relative;
-    top: -12px;
-    right:-10px;
+    top: -14px;
+    right:-8px;
 	}		
 .form{
 	text-align:right;

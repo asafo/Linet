@@ -747,15 +747,15 @@ if($step == 0) {	/* First step, select document type and customer */
 	$valdate = FormatDate($valdate, "mysql", "dmy");
 	$l = _("Date");
 	$text.= "<td>$l: <br />\n";
-	$text.= "<input type=\"text\" id=\"idate\" name=\"idate\" value=\"$valdate\" size=\"10\" />\n";
+	$text.= "<input class=\"date\" type=\"text\" id=\"idate\" name=\"idate\" value=\"$valdate\" size=\"10\" />\n";
 	$text.= "</td>\n";
 //	print "<INPUT type=hidden name=valdate value=\"$valdate\">\n";
 	//$text.= "</tr><tr>\n";
 	
 	$l = _("To be paid until");
 	$text.= "<td>$l: <br />\n";
-	$text.= "<input type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$due_date\" size=\"10\" />\n";
-	$text.= '<script type="text/javascript">addDatePicker("#idate","'.$valdate.'");addDatePicker("#due_date","'.$due_date.'");</script>';
+	$text.= "<input class=\"date\" type=\"text\" id=\"due_date\" name=\"due_date\" value=\"$due_date\" size=\"10\" />\n";
+	//$text.= '<script type="text/javascript">addDatePicker("#idate","'.$valdate.'");addDatePicker("#due_date","'.$due_date.'");</script>';
 	$text.= "</td></tr><tr>\n";
 	
 	$l = _("Order number");

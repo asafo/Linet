@@ -1,4 +1,4 @@
-׳�ֲ»ֲ¿<?PHP
+<?PHP
 /*
  | Income
  | This file is part of freelance accounting system
@@ -7,7 +7,7 @@
 global $prefix, $accountstbl, $companiestbl, $supdocstbl;
 
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>׳³ן¿½׳³ן¿½ ׳³ֲ ׳³ג„¢׳³ֳ—׳³ן¿½ ׳³ן¿½׳³ג€˜׳³ֲ¦׳³ֲ¢ ׳³ג‚×׳³ֲ¢׳³ג€¢׳³ן¿½׳³ג€� ׳³ג€“׳³ג€¢ ׳³ן¿½׳³ן¿½׳³ן¿½ ׳³ג€˜׳³ג€”׳³ג„¢׳³ֲ¨׳³ֳ— ׳³ֲ¢׳³ֲ¡׳³ֲ§</h1>\n";
+	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
 	return;
 }
 
@@ -131,7 +131,7 @@ function PrintCustomerSelect($def) {
 	$query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' AND type='$t'  ORDER BY company ASC";
 	$result = DoQuery($query, "income.php");
 	print "<select name=\"customer\" style=\"z-index:0\">\n";
-	print "<option value=\"__NULL__\">-- ׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” --</option>\n";
+	print "<option value=\"__NULL__\">-- בחר לקוח --</option>\n";
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$n = $line[0];
 		$company = $line[1];
@@ -141,8 +141,8 @@ function PrintCustomerSelect($def) {
 			print "<option value=\"$n\">$company</option>\n";
 	}
 	print "</select>\n";
-}*/
-
+}
+*/
 function PrintIncomeSelect($def) {
 	global $accountstbl;
 	global $prefix;
@@ -151,15 +151,15 @@ function PrintIncomeSelect($def) {
 	$query = "SELECT num,company,src_tax FROM $accountstbl WHERE prefix='$prefix' AND type='$t'  ORDER BY company ASC";
 	$result = DoQuery($query, "income.php");
 	print "<select name=\"income\" onchange=\"inchange()\">\n";
-	print "<option value=\"__NULL__\" >-- ׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€� --</option>\n";
+	print "<option value=\"__NULL__\" >-- בחר סעיף הכנסה --</option>\n";
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$n = $line[0];
 		$company = $line[1];
 		$v = $line[2]; 
 		if(($v != '') && ($v == 0))
-			$company .= " (׳³ן¿½׳³ֲ¢\"׳³ן¿½ 0%)";
+			$company .= " (מע\"מ 0%)";
 		else
-			$company .= " (׳³ן¿½׳³ֲ¢\"׳³ן¿½ 100%)";
+			$company .= " (מע\"מ 100%)";
 		if($n == $def)
 			print "<option value=\"$n\" selected>$company</option>\n";
 		else
@@ -169,10 +169,10 @@ function PrintIncomeSelect($def) {
 }
 
 function PrintPaymentSelect($def) {
-	$paymentarr = array('-- ׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ¦׳³ֲ¢׳³ג„¢ ׳³ֳ—׳³ֲ©׳³ן¿½׳³ג€¢׳³ן¿½ --', 
-	'׳³ֲ©׳³ג„¢׳³ֲ§',
-	'׳³ן¿½׳³ג€“׳³ג€¢׳³ן¿½׳³ן¿½',
-	'׳³ן¿½׳³ֲ©׳³ֲ¨׳³ן¿½׳³ג„¢');
+	$paymentarr = array('-- בחר אמצעי תשלום --', 
+	'שיק',
+	'מזומן',
+	'אשראי');
 	print "<select name=\"payment\" onchange=\"TypeSelChange()\">\n";
 	foreach($paymentarr as $n => $v) {
 		if($n == $def)
@@ -185,11 +185,11 @@ function PrintPaymentSelect($def) {
 
 function PrintCreditSelect($def, $payment) {
 	$creditarr = array(
-		'visa' => '׳³ג€¢׳³ג„¢׳³ג€“׳³ג€�',
-		'isracard' => '׳³ג„¢׳³ֲ©׳³ֲ¨׳³ן¿½׳³ג€÷׳³ֲ¨׳³ֻ�',
-		'mastercard' => '׳³ן¿½׳³ן¿½׳³ֲ¡׳³ֻ�׳³ֲ¨׳³ג€÷׳³ֲ¨׳³ג€�',
-		'diners' => '׳³ג€�׳³ג„¢׳³ג„¢׳³ֲ ׳³ֲ¨׳³ֲ¡',
-		'amex' => '׳³ן¿½׳³ן¿½׳³ֲ¨׳³ג„¢׳³ֲ§׳³ן¿½ ׳³ן¿½׳³ֲ§׳³ֲ¡׳³ג‚×׳³ֲ¨׳³ֲ¡'
+		'visa' => 'ויזה',
+		'isracard' => 'ישראכרט',
+		'mastercard' => 'מאסטרכרד',
+		'diners' => 'דיינרס',
+		'amex' => 'אמריקן אקספרס'
 	);
 	
 	if($payment != 3)
@@ -210,7 +210,7 @@ $option = isset($_GET['option']) ? $_GET['option'] : '';
 if($step > 0) {
 	$customer = $_POST['customer'];
 	if($customer == "__NULL__") {
-		ErrorReport("׳³ן¿½׳³ן¿½ ׳³ֲ ׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€”");
+		ErrorReport("לא נבחר לקוח");
 		return;
 	}
 	$income = $_POST['income'];
@@ -237,7 +237,7 @@ if($step > 0) {
 	}
 	
 	if(($income == "__NULL__") && ($total > 0.1)) {
-		ErrorReport("׳³ן¿½׳³ן¿½ ׳³ֲ ׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€�");
+		ErrorReport("לא נבחר סעיף הכנסה");
 		return;
 	}
 	if($option == 'receipt') {
@@ -251,37 +251,37 @@ if($step > 0) {
 }
 if($step == 2) {
 	if($name == 'demo') {
-		print "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ג€�׳³ג€¢׳³ג€™׳³ן¿½׳³ג€� ׳³ן¿½׳³ג„¢׳³ֲ ׳³ג€¢ ׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג„¢ ׳³ן¿½׳³ֲ¢׳³ג€�׳³ג€÷׳³ן¿½ ׳³ֲ ׳³ֳ—׳³ג€¢׳³ֲ ׳³ג„¢׳³ן¿½</h1>\n";
+		print "<h1>משתמש דוגמה אינו רשאי לעדכן נתונים</h1>\n";
 		return;
 	}
 
 	/* This is the actual data handling */
 	if(@ValidDate($dt)) {
-		ErrorReport("׳³ֳ—׳³ן¿½׳³ֲ¨׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ן¿½ ׳³ֳ—׳³ֲ§׳³ג„¢׳³ן¿½");
+		ErrorReport("תאריך לא תקין");
 		return;
 	}
 	if(abs($total) > 0.01) {	/* write transactions as it invoice */
-		//׳’ג‚¬ן¿½ Transaction 1 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ג€�׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” ׳³ג€˜׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ג€�׳³ג€”׳³ֲ©׳³ג€˜׳³ג€¢׳³ֲ ׳³ג„¢׳³ֳ—
+		//‎ Transaction 1 חובת הלקוח בסכום החשבונית
 		$t1 = $total * -1.0;
 		$tnum = Transaction(0, MANINVOICE, $customer, $refnum, '', $dt, $details, $t1);
-		// Transaction 2 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ן¿½׳³ֲ¢"׳³ן¿½ ׳³ֲ¢׳³ֲ¡׳³ֲ§׳³ן¿½׳³ג€¢׳³ֳ—
+		// Transaction 2 זכות מע"מ עסקאות
 		$tnum = Transaction($tnum, MANINVOICE, SELLVAT, $refnum, '', $dt, '', $tvat);
-		// Transaction 3 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ג€”׳³ֲ©׳³ג€˜׳³ג€¢׳³ן¿½ ׳³ג€�׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€¢׳³ֳ—
+		// Transaction 3 זכות חשבון ההכנסות
 		$tnum = Transaction($tnum, MANINVOICE, $income, $refnum, '', $dt, $details, $novattotal);
 		$total = $t1 + $tvat + $novattotal;
 		$total *= 1.0;
 		$tnum = Transaction($tnum, MANINVOICE, ROUNDING, $refnum, '', $dt, $details, $total);
 		if($option == 'receipt') {
 			if($payment == 0) {
-				ErrorReport("׳³ן¿½׳³ן¿½ ׳³ֲ ׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ¦׳³ן¿½׳³ג„¢ ׳³ֳ—׳³ֲ©׳³ן¿½׳³ג€¢׳³ן¿½");
+				ErrorReport("לא נבחר אמצאי תשלום");
 				return;
 			}
-			// Transaction 1 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ג€�׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” ׳³ג€˜׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ן¿½׳³ג€”׳³ֲ¨׳³ג„¢ ׳³ֲ ׳³ג„¢׳³ג€÷׳³ג€¢׳³ג„¢ ׳³ג€˜׳³ן¿½׳³ֲ§׳³ג€¢׳³ֲ¨
+			// Transaction 1 זכות הלקוח בסכום אחרי ניכוי במקור
 			$tnum = Transaction(0, MANRECEIPT, $customer, $refnum, '', $dt, $details, $sum);
-			// Transaction 2 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ֲ ׳³ג„¢׳³ג€÷׳³ג€¢׳³ג„¢ ׳³ג€˜׳³ן¿½׳³ֲ§׳³ג€¢׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€”׳³ג€¢׳³ֳ—
+			// Transaction 2 חובת ניכוי במקור מלקוחות
 			$t2 = $tax * -1.0;
 			$tnum = Transaction($tnum, MANRECEIPT, CUSTTAX, $refnum, '', $dt, $details, $t2);
-			// Transaction 3 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ֲ§׳³ג€¢׳³ג‚×׳³ג€�
+			// Transaction 3 חובת קופה
 			$t3 = $notaxsum * -1.0;
 			switch($payment) {
 				case 1:
@@ -297,7 +297,7 @@ if($step == 2) {
 			$t4 = $sum + $t2 + $t3;
 			$tnum = Transaction($tnum, MANRECEIPT, ROUNDING, $refnum, '', $dt, $details, $t4);
 		}
-		print "<h1>׳³ג€�׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€� ׳³ֲ ׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€� ׳³ג€˜׳³ג€�׳³ֲ¦׳³ן¿½׳³ג€”׳³ג€�</h1>\n";
+		print "<h1>ההכנסה נרשמה בהצלחה</h1>\n";
 	}
 	$step = 0;
 	$customer = "__NULL__";
@@ -321,14 +321,14 @@ print "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
 
 if($step == 1) {
 	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>׳³ן¿½׳³ג„¢׳³ֲ©׳³ג€¢׳³ֲ¨ ׳³ֲ¨׳³ג„¢׳³ֲ©׳³ג€¢׳³ן¿½ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€�</b>\n";
+	print "<b>אישור רישום הכנסה</b>\n";
 	print "</div></div>\n";
-	print "<h2>׳³ג„¢׳³ֲ© ׳³ן¿½׳³ג€˜׳³ג€�׳³ג€¢׳³ֲ§ ׳³ן¿½׳³ֳ— ׳³ג€�׳³ג‚×׳³ֲ¨׳³ֻ�׳³ג„¢׳³ן¿½ ׳³ג€¢׳³ן¿½׳³ן¿½׳³ג€”׳³ג€¢׳³ֲ¥ ׳³ֲ¢׳³ג€�׳³ג€÷׳³ן¿½ ׳³ג€˜׳³ֲ©׳³ֲ ׳³ג„¢׳³ֳ— ׳³ֲ¢׳³ן¿½ ׳³ן¿½׳³ֲ ׳³ֳ— ׳³ן¿½׳³ג€˜׳³ֲ¦׳³ֲ¢ ׳³ן¿½׳³ֳ— ׳³ג€�׳³ֲ¨׳³ג„¢׳³ֲ©׳³ג€¢׳³ן¿½</h2>\n";
+	print "<h2>יש לבדוק את הפרטים וללחוץ עדכן בשנית על מנת לבצע את הרישום</h2>\n";
 	$nextstep = 2;
 }
 if($step == 0) {
 	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>׳³ֲ¨׳³ג„¢׳³ֲ©׳³ג€¢׳³ן¿½ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€�</b>\n";
+	print "<b>רישום הכנסה</b>\n";
 	print "</div></div>\n";
 	$customer == "__NULL__";
 	$income == "__NULL__";
@@ -337,93 +337,88 @@ if($step == 0) {
 
 print "<form name=\"income\" action=\"$url\" method=\"post\">\n";
 print "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-print "<td>׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€”: </td>\n";
+print "<td>לקוח: </td>\n";
 print "<td>\n";
-print PrintCustomerSelect($customer);
+PrintCustomerSelect($customer);
 if($step == 0) {
 	$t = CUSTOMER;
-	print "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&action=addacct&type=$t\">׳³ג€�׳³ג€™׳³ג€�׳³ֲ¨ ׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” ׳³ג€”׳³ג€�׳³ֲ©</a>\n";
+	print "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&action=addacct&type=$t\">הגדר לקוח חדש</a>\n";
 }
 print "</td></tr>\n";
 print "<tr>\n";
 
-print "<td>׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€�: </td>\n";
+print "<td>סעיף הכנסה: </td>\n";
 print "<td>\n";
 PrintIncomeSelect($income);
 if($step == 0) {
 	$t = INCOME;
-	print "<br><a href=\"index.php?module=acctadmin&action=addacct&type=$t\">׳³ג€�׳³ג€™׳³ג€�׳³ֲ¨ ׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€� ׳³ג€”׳³ג€�׳³ֲ©</a>\n";
+	print "<br><a href=\"index.php?module=acctadmin&action=addacct&type=$t\">הגדר סעיף הכנסה חדש</a>\n";
 }
 print "</td></tr>\n";
 print "<tr>\n";
 
-print "<td>׳³ֳ—׳³ן¿½׳³ֲ¨׳³ג„¢׳³ן¿½: </td>\n";
-print "<td><input type=\"text\" name=\"date\" size=\"7\" value=\"$dt\">\n";
-?>
-<script language="JavaScript">
-	new tcal ({
-		// form name
-		'formname': 'income',
-		// input name
-		'controlname': 'date'
-	});
+print "<td>תאריך: </td>\n";
+print "<td><input class=\"date\" type=\"text\" name=\"date\" id=\"date\" size=\"7\" value=\"$dt\">\n";
 
-</script>
-<?PHP
 print "</td>\n";
 print "</tr><tr>\n";
 
-print "<td>׳³ן¿½׳³ֲ¡׳³ן¿½׳³ג€÷׳³ֳ—׳³ן¿½: </td>\n";
+print "<td>אסמכתא: </td>\n";
 print "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"15\"></td>\n";
 print "</tr><tr>\n";
 
-print "<td>׳³ג‚×׳³ֲ¨׳³ֻ�׳³ג„¢׳³ן¿½: </td>\n";
+print "<td>פרטים: </td>\n";
 print "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\"></td>\n";
 print "</tr><tr>\n";
 
-print "<td>׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ן¿½׳³ג‚×׳³ֲ ׳³ג„¢ ׳³ן¿½׳³ֲ¢\"׳³ן¿½: </td>\n";
+print "<td>סכום לפני מע\"מ: </td>\n";
 print "<td><input type=\"text\" dir=\"ltr\" name=\"novattotal\" value=\"$novattotal\" size=\"10\" onblur=\"CalcTotal()\"></td>\n";
 print "</tr><tr>\n";
 
-print "<td><div id=\"vatd\">׳³ן¿½׳³ֲ¢\"׳³ן¿½: </td></td>\n";
+print "<td><div id=\"vatd\">מע\"מ: </td></td>\n";
 print "<td>\n";
 print "<div id=\"vatd1\">";
 print "<input type=\"text\" name=\"vat\" dir=\"ltr\" size=\"10\" value=\"$tvat\" readonly>\n";
 print "</div></td>\n";
 print "</tr><tr>\n";
 
-print "<td>׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ג€÷׳³ג€¢׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ֲ¢\"׳³ן¿½: </td>\n";
+print "<td>סכום כולל מע\"מ: </td>\n";
 print "<td><input type=\"text\" name=\"total\" dir=\"ltr\" size=\"10\" value=\"$total\" onblur=\"CalcVAT()\"></td>\n";
 print "</tr><tr>\n";
 
 if($option == 'receipt') {
-	print "<td>׳³ן¿½׳³ן¿½׳³ֲ¦׳³ן¿½׳³ג„¢ ׳³ֳ—׳³ֲ©׳³ן¿½׳³ג€¢׳³ן¿½: </td>\n";
+	print "<td>אמצאי תשלום: </td>\n";
 	print "<td>\n";
 	PrintPaymentSelect($payment);
 	PrintCreditSelect($creditcomp, $payment);
 	// print "</div>\n";
 	print "</tr><tr>\n";
-	print "<td>׳³ן¿½׳³ֲ¡׳³ן¿½׳³ג€÷׳³ֳ—׳³ן¿½: </td>\n";
+	print "<td>אסמכתא: </td>\n";
 	print "<td><input type=\"text\" name=\"refnum2\" value=\"$refnum2\"></td>\n";
 	print "</tr><tr>\n";
-	print "<td>׳³ֳ—׳³ֲ©׳³ן¿½׳³ג€¢׳³ן¿½ ׳³ן¿½׳³ג‚×׳³ֲ ׳³ג„¢ ׳³ֲ ׳³ג„¢׳³ג€÷׳³ג€¢׳³ג„¢ ׳³ג€˜׳³ן¿½׳³ֲ§׳³ג€¢׳³ֲ¨: </td>\n";
+	print "<td>תשלום לפני ניכוי במקור: </td>\n";
 	print "<td><input type=\"text\" name=\"notaxsum\" size=\"10\" value=\"$notaxsum\"></td>\n";
 	print "</tr><tr>\n";
 
-	print "<td>׳³ֲ ׳³ג„¢׳³ג€÷׳³ג€¢׳³ג„¢ ׳³ג€˜׳³ן¿½׳³ֲ§׳³ג€¢׳³ֲ¨: </td>\n";
+	print "<td>ניכוי במקור: </td>\n";
 	print "<td><input type=\"text\" name=\"tax\" size=\"10\" value=\"$tax\" onblur=\"calcTotalTax()\"></td>\n";
 	print "</tr><tr>\n";
 
-	print "<td>׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½ ׳³ג€÷׳³ג€¢׳³ן¿½׳³ן¿½ ׳³ֲ ׳³ג„¢׳³ג€÷׳³ג€¢׳³ג„¢ ׳³ג€˜׳³ן¿½׳³ֲ§׳³ג€¢׳³ֲ¨: </td>\n";
+	print "<td>סכום כולל ניכוי במקור: </td>\n";
 	print "<td><input type=\"text\" name=\"sum\" size=\"10\" value=\"$sum\"></td>\n";
 	print "</tr><tr>\n";
 }
-print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"׳³ֲ¢׳³ג€�׳³ג€÷׳³ן¿½\">\n";
+print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"עדכן\">\n";
 print "</td></tr>\n";
 print "</table>\n";
 print "</form>\n";
 print "</td><td valign=\"top\">\n";
-
+print "<div style=\"margin-right:10px\">\n";
+//if($option == 'receipt')
+	//ShowText('income_receipt');
+//else
+	//ShowText('income');
+print "</div>\n";
 print "</td></tr>";
 print "<tr><td colspan=\"2\">\n";
 if($step == 0)
@@ -431,4 +426,3 @@ if($step == 0)
 print "</td></tr>\n";
 print "</table>\n";
 ?>
-

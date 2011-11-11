@@ -207,10 +207,10 @@ if($end != '') {
 		$curtablehd.= "</tr></thead>\n";
 		$curtablebody='<tbody>';
 	}
-/*	$openonly = isset($_GET['openonly']) ? $_GET['openonly'] : 0; // ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¦׳³ֲ³׳’ג‚¬ג„¢ ׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¢׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ³ג€”׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½ 
+/*	$openonly = isset($_GET['openonly']) ? $_GET['openonly'] : 0; // ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¦׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג€�ֲ¢ ׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½ ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ»ן¿½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ»ן¿½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½ 
 
 	if($openonly)
-		print "<H2 align=center dir=RTL>׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¢׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ³ג€”׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½</H2>\n<BR>\n";
+		print "<H2 align=center dir=RTL>׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½ ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ»ן¿½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ»ן¿½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½</H2>\n<BR>\n";
 */
 
 	if(($accttype != INCOME) && ($accttype != OUTCOME))
@@ -239,6 +239,7 @@ if($end != '') {
 				$curtablebody.= "<td>&nbsp;</td>\n";
 				$tstr = number_format($sub_total);
 				$curtablebody.= "<td dir=\"ltr\">$tstr</td>\n";
+				$curtablebody.= "<td>&nbsp;</td>\n";
 			}
 		}
 		else {
@@ -250,6 +251,7 @@ if($end != '') {
 				$tstr = number_format($sub_total);
 				$curtablebody.= "<td dir=\"ltr\">$tstr</td>\n";
 				$curtablebody.= "<td dir=\"ltr\">$tstr</td>\n";
+				$curtablebody.= "<td>&nbsp;</td>\n";
 			}
 		}
 		$e = 1;
@@ -333,7 +335,7 @@ if($end != '') {
 			if(isset($module)) {
 				$l = _("Edit/Storeno");
 				$curtablebody.= "<td><a href=\"?module=tedit&amp;num=$num&amp;account=$acct&amp;begin=$begin&amp;end=$end\">$l</a></td>\n";
-			}
+			}//else$curtablebody.= "<td></td>";
 			$curtablebody.= "</tr>\n";
 		}	
 	}
@@ -377,8 +379,8 @@ if($end != '') {
 			//print "<a href=\"javascript:PrintWin('$url');\" class='btn'>$l</a>";
 			//print "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
 			$text.= "&nbsp;&nbsp;";
-			//print "<input type=\"button\" value=\"׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ²ֲ¦׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ²ֲ¥\" onclick=\"window.location.href='?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1'\">\n";
-			$text.= "<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btn'>$l</a>";
+			//print "<input type=\"button\" value=\"׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¦׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½ ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ§׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ»ן¿½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¥\" onclick=\"window.location.href='?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1'\">\n";
+			$text.= "<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btnsmall'>$l</a>";
 			$text.= "</div>\n";
 		}
 	}
@@ -397,13 +399,16 @@ $text.= "	<input type=\"hidden\" name=\"account\" value=\"$acct\" />\n";
 $text.= "	<table dir=\"rtl\"><tr>\n";
 $l = _("From date: ");
 $text.= "		<td>$l: </td>\n";
-$text.= "		<td><input type=\"text\" name=\"begin\" value=\"$begindate\" /></td>\n";
+$text.= "		<td><input class=\"date\" type=\"text\" name=\"begin\" value=\"$begindate\" /></td>\n";
 $l = _("To date");
 $text.= "		<td>$l: </td>\n";
-$text.= "		<td><input type=\"text\" name=\"end\" value=\"$enddate\" /></td>\n";
+$text.= "		<td><input class=\"date\" type=\"text\" name=\"end\" value=\"$enddate\" /></td>\n";
 $text.= "	</tr><tr>\n";
 $l = _("Display");
-$text.= "		<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
+$text.= "		<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\" />
+<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btnsmall'>$l</a>
+
+</td></tr>\n";
 $text.= "	</table>\n</form>\n";
 createForm($text, $haeder,'',750);
 ?>

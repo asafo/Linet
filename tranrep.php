@@ -31,7 +31,7 @@ if(isset($module)) {
 }
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport($l);
 	return;
 }
 
@@ -86,23 +86,23 @@ if($step == 0) {	/* Get date range */
 	$text.= "<table dir=\"rtl\" cellpadding=\"20px\" cellspacing=\"20px\" class=\"formtbl\" width=\"100%\" style=\"height:40px\"><tr>\n";
 	$l = _("From date");
 	$text.= "<td valign=\"middle\">$l: </td>\n";
-	$text.= "<td valign=\"middle\"><input type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$bdate\" size=\"7\" />\n";
-$text.='<script type="text/javascript">addDatePicker("#begindate","'.$bdate.'");</script>';
+	$text.= "<td valign=\"middle\"><input class=\"date\" type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$bdate\" size=\"7\" />\n";
+//$text.='<script type="text/javascript">addDatePicker("#begindate","'.$bdate.'");</script>';
 
 	$text.= "</td>\n";
 	$l = _("To date");
 	$text.= "<td valign=\"middle\">$l: </td>\n";
-	$text.= "<td valign=\"middle\"><input type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\" />\n";
-$text.='<script type="text/javascript">addDatePicker("#enddate","'.$edate.'");</script>';
+	$text.= "<td valign=\"middle\"><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\" />\n";
+//$text.='<script type="text/javascript">addDatePicker("#enddate","'.$edate.'");</script>';
 	$text.= "</td>\n";
 	$l = _("Execute");
-	$text.= "<td><a href='javascript:document.dtrange.submit();' class='btn'>$l</a></td>\n";
+	$text.= "<td><a href='javascript:document.dtrange.submit();' class='btnaction'>$l</a></td>\n";
 	//$text.= "<td><input type=\"submit\" value=\"$l\" /></td>\n";
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
 	//print "test";
-	createForm($text,$reptitle,'',400);
+	createForm($text,$reptitle,'',500);
 	
 	//print "test";
 }
@@ -120,51 +120,51 @@ if($step >= 1) {
 	//$text= '';
 	$text.= "<h2>׳�׳×׳§׳•׳₪׳”: $begindate - $enddate</h2>\n";
 	//print "test";
-	$numorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=num";
-	$dtorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=date";
-	$typeorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=opacctname";
+	//$numorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=num";
+	//$dtorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=date";
+	//$typeorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=opacctname";
 	if($step == 1) {
-		$text.= "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
-		$text.= "<td colspan=\"6\">&nbsp;</td>\n";
+		$text.= "<table border=\"0\" class=\"formy\"><tr>\n";
+		$text.= "<th colspan=\"6\">&nbsp;</th>\n";
 		$l = _("Incomes");
-		$text.= "<td colspan=\"3\" align=\"center\">$l</td>\n";
+		$text.= "<th colspan=\"3\" align=\"center\">$l</th>\n";
 		$l = _("Outcomes");
-		$text.= "<td colspan=\"3\" align=\"center\">$l</td>\n";
-		$text.= "</tr><tr class=\"tblhead\">\n";
+		$text.= "<th colspan=\"3\" align=\"center\">$l</th>\n";
+		$text.= "</tr><tr>\n";
 		$l = _("Transaction");
 		if(isset($module))
-			$text.= "<td><a href=\"$numorderurl\">$l&nbsp;</a></td>\n";
+			$text.= "<th>$l&nbsp;</th>\n";
 		else
-			$text.= "<td>$l&nbsp;</td>\n";
+			$text.= "<th>$l&nbsp;</th>\n";
 		if(isset($module)) {
 			$l = _("Date");
-			$text.= "<td style=\"width:5.5em\"><a href=\"$dtorderurl\">$l</a></td>\n";
+			$text.= "<th style=\"width:5.5em\">$l</th>\n";
 			$l = _("Account");
-			$text.= "<td><a href=\"$typeorderurl\">$l&nbsp;</a></td>\n";
+			$text.= "<th>$l&nbsp;</th>\n";
 		}
 		else {
 			$l = _("Date");
-			$text.= "<td style=\"width:5.5em\">$l</td>\n";
+			$text.= "<th style=\"width:5.5em\">$l</th>\n";
 			$l = _("Account");
-			$text.= "<td>$l&nbsp;</td>\n";
+			$text.= "<th>$l&nbsp;</th>\n";
 		}
 		$l = _("Ref. num");
-		$text.= "<td style=\"width:3.5em\">&nbsp;$l&nbsp;</td>\n";
+		$text.= "<th style=\"width:3.5em\">&nbsp;$l&nbsp;</th>\n";
 		$l = _("Customer//Supplier");
-		$text.= "<td>$l&nbsp;</td>\n";
+		$text.= "<th>$l&nbsp;</th>\n";
 		$l = _("Details");
-		$text.= "<td>$l&nbsp;&nbsp;&nbsp;</td>\n";
-		$text.= "<td style=\"width:4em\">׳¡׳›׳•׳�&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
+		$text.= "<th>$l&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "<th style=\"width:4em\">׳¡׳›׳•׳�&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>\n";
 		$l = _("VAT");
-		$text.= "<td style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</td>\n";
+		$text.= "<th style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</th>\n";
 		$l = _("Inc. VAT");
-		$text.= "<td >$l&nbsp;&nbsp;&nbsp;</td>\n";
+		$text.= "<th >$l&nbsp;&nbsp;&nbsp;</th>\n";
 		$l = _("Sum");
-		$text.= "<td style=\"width:4em\">$l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
+		$text.= "<th style=\"width:4em\">$l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>\n";
 		$l = _("VAT");
-		$text.= "<td style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</td>\n";
+		$text.= "<th style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</th>\n";
 		$l = _("Inc. VAT");
-		$text.= "<td>$l&nbsp;&nbsp;&nbsp;</td>\n";
+		$text.= "<th>$l&nbsp;&nbsp;&nbsp;</th>\n";
 		$text.= "</tr>\n";
 	}
 	else if($step == 2) {
@@ -402,28 +402,28 @@ if($step >= 1) {
 		$text.= "<a href=\"$filename\">tranrep.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
 		$text.= "<h2>$l</h2>\n";
-		print "<script type=\"text/javascript\">\n";
-		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		print "</script>\n";
+		$text.= "<script type=\"text/javascript\">\n";
+		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		$text.= "</script>\n";
 	}
-createForm($text,$reptitle,'','');
+
 	if(isset($module) && ($step == 1)) {
 		$url = "tranrep.php?print=1&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate";
 		$url .= "&amp;prefix=$prefix";
 		if($order)
 			$url .= "&amp;order=$order";
-		print "<div class=\"repbottom\">\n";
+		//print "<div class=\"repbottom\">\n";
 		$l = _("Print");
-		print "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
-		print "&nbsp;&nbsp;";
+		$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
+		$text.= "&nbsp;&nbsp;";
 		$l = _("File export");
-		print "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='?module=tranrep&amp;step=2&amp;begindate=$begindate&amp;enddate=$enddate'\">\n";
-		print "</div>\n";
+		$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='?module=tranrep&amp;step=2&amp;begindate=$begindate&amp;enddate=$enddate'\">\n";
+		//print "</div>\n";
 	}
-
+createForm($text,$reptitle,'',750);
 }
 
-if(!isset($module))
-	print "</body>\n</html>\n";
+//if(!isset($module))
+	//print "</body>\n</html>\n";
 
 ?>

@@ -1,4 +1,4 @@
-׳�ֲ»ֲ¿<?PHP
+<?PHP
 //M:׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€”׳³ג€¢׳³ֳ— ׳³ג€”׳³ג„¢׳³ג„¢׳³ג€˜׳³ג„¢׳³ן¿½
 /*
  | Customers owing money report for Drorit accounting system
@@ -34,24 +34,25 @@ function GetAcctTotal($account, $dt) {
 	}
 	return $total;
 }
-
-print "<br>\n";
-print "<div class=\"form righthalf1\">\n";
-$l = _("Customers owing money");
-print "<h3>$l</h3>";
+$text='';
+//print "<br>\n";
+//print "<div class=\"form righthalf1\">\n";
+$haeder = _("Customers owing money");
+//print "<h3>$l</h3>";
 $t = CUSTOMER;
 $query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' AND type='$t'";
 $result = DoQuery($query, "owe.php");
-print "<table border=\"0\" dir=\"$dir\" class=\"hovertbl\" width=\"100%\"><tr class=\"tblhead\">\n";
+$text.= "<table class=\"tablesorter\"><thead><tr>\n";
 $l = _("Customer");
-print "<td style=\"width:20em\">$l &nbsp;&nbsp;</td>\n";			/* customer account */
+$text.= "<th style=\"width:20em\">$l &nbsp;&nbsp;</th>\n";			/* customer account */
 $l = _("Acc. balance");
-print "<td>$l</td>\n";
-print "</tr>\n";
+$text.= "<th>$l</th>\n";
+$text.= "</tr></thead>\n";
 
 $e = 0;
 $total = 0;
 $dt = date("Y-m-d");
+$body='<tbody>';
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$num = $line['num'];
 	$acctname = $line['company'];
@@ -60,16 +61,17 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		continue;
 	$sum *= -1.0;
 	$total += $sum;
-	NewRow();
 	$url = "?module=acctdisp&amp;account=$num&amp;end=today";
-	print "<td><a href=\"$url\">$acctname</a></td>\n";
+	$body.= "<tr><td><a href=\"$url\">$acctname</a></td>\n";
 	$tstr = number_format($sum);
-	print "<td dir=\"ltr\">$tstr</td>\n";
-	print "</tr>\n";	
+	$body.= "<td dir=\"ltr\">$tstr</td>\n";
+	$body.= "</tr>\n";	
 }
+$body.="</tbody>";
 $tstr = number_format($total);
-print "<tr class=\"sumline\"><td><b>׳³ֲ¡׳³ג€�\"׳³ג€÷</b></td><td>$tstr</td></tr>\n";
-print "</table>\n";
-print "</div>\n";
-
+$text.= "<tfoot><tr class=\"sumline\"><td><b>"._("Total")."</b></td><td>$tstr</td></tr><tfoot>\n";
+$text.=$body;
+$text.= "</table>\n";
+//print "</div>\n";
+createForm($text, $haeder,'',750,'','',1,getHelp());
 ?>

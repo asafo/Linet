@@ -1,8 +1,8 @@
 <?PHP
-//M:׳—׳™׳©׳•׳‘ ׳�׳¢"׳�
 /*
  | VAT calculatin script for Freelance accounting system
  | Written by Ori Idan
+ | modfied by Adam BH
  */
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 global $montharr;
@@ -11,15 +11,12 @@ $montharr = array(_("January"), _("February"), _("March"), _("April"),
 	_("May"), _("June"), _("July"), _("August"), _("September"), 
 	_("October"), _("November"), _("December"));
 
-// $montharr = array('׳™׳ ׳•׳�׳¨', '׳₪׳‘׳¨׳•׳�׳¨', '׳�׳¨׳¥', '׳�׳₪׳¨׳™׳�', '׳�׳�׳™', '׳™׳•׳ ׳™', '׳™׳•׳�׳™', '׳�׳•׳’׳•׳¡׳˜',
-//	'׳¡׳₪׳˜׳�׳‘׳¨', '׳�׳•׳§׳˜׳•׳‘׳¨', '׳ ׳•׳‘׳�׳‘׳¨', '׳“׳¦׳�׳‘׳¨');
-
 if(!isset($prefix) || ($prefix == '')) {
-	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport(_("This operation can not be executed without choosing a business first"));
+	 //"<h1>$l</h1>\n";
 	return;
 }
-
+$text='';
 function GetAcctTotal($account, $begin, $end) {
 	global $transactionstbl, $prefix;
 	
@@ -50,26 +47,28 @@ function GetLastDayOfMonth($month, $year) {
 function PrintMonthSelect($def, $name) {
 	global $montharr;
 	
-	print "<select name=\"$name\">\n";
+	$str= "<select name=\"$name\">\n";
 	foreach($montharr as $i => $m) {
 		$i++;
 		$d = ($def == $i) ? " selected" : "";
-		print "<option value=\"$i\"$d>$m</option>\n";
+		$str.= "<option value=\"$i\"$d>$m</option>\n";
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 function PrintYearSelect($year) {
 	$max = $year + 1;
 	
-	print "<select name=\"year\" >\n";
+	$str= "<select name=\"year\" >\n";
 	for($min = $year - 2; $min <= $max; $min++) {
-		print "<option value=\"$min\" ";
+		$str.= "<option value=\"$min\" ";
 		if($min == $year)
-			print "selected";
-		print ">$min</option>\n";
+			$str.= "selected";
+		$str.= ">$min</option>\n";
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 function GetSumForAcct($acct, $begin, $end) {
@@ -80,11 +79,8 @@ function GetSumForAcct($acct, $begin, $end) {
 	$query = "SELECT sum FROM $transactionstbl WHERE account='$acct' ";
 	$query .= "AND date>='$begin' AND date<='$end' AND prefix='$prefix'";
 //	print "Query: $query<br />\n";
-	$result = mysql_query($query);	/* get accounts numbers */
-	if(!$result) {
-		echo mysql_error();
-		exit;
-	}
+	$result = DoQuery($query,__FILE__.": ".__LINE__);	/* get accounts numbers */
+	
 	$sum = 0.0;
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$s = $line[0];
@@ -100,11 +96,8 @@ function GetSumForAcctType($acct_type, $begin, $end, $usevat) {
 	global $prefix;
 
 	$query = "SELECT num,src_tax FROM $accountstbl WHERE type='$acct_type' AND prefix='$prefix'";
-	$result = mysql_query($query);	/* get accounts numbers */
-	if(!$result) {
-		echo mysql_error();
-		exit;
-	}
+	$result = DoQuery($query,__FILE__.": ".__LINE__);	/* get accounts numbers */
+	
 	$sum = 0.0;
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$num = $line[0];
@@ -171,33 +164,33 @@ if($step == 0) {	/* print date select form */
 	$enddate = "$last2-$endmonth-$endyear";
 	
 	//print "<br>\n";
-	print "<div class=\"form righthalf1\">\n";
-	$l = _("VAT report for period");
-	print "<h3>$l</h3>";
-	print "<form action=\"?module=vatrep&amp;step=1\" method=\"post\">\n";
-	print "<input type=\"hidden\" name=\"beginyear\" value=\"$beginyear\">\n";
-	print "<input type=\"hidden\" name=\"endyear\" value=\"$endyear\">\n";
-	print "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	//print "<div class=\"form righthalf1\">\n";
+	$haeder = _("VAT report for period");
+	//print "<h3>$l</h3>";
+	$text.= "<form action=\"?module=vatrep&amp;step=1\" method=\"post\">\n";
+	$text.= "<input type=\"hidden\" name=\"beginyear\" value=\"$beginyear\">\n";
+	$text.= "<input type=\"hidden\" name=\"endyear\" value=\"$endyear\">\n";
+	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("Calculate VAT report for month");
-	print "<td>$l: &nbsp;</td>\n";
-	print "<td>\n";
-	PrintMonthSelect($beginmonth, 'beginmonth');
-	print "&nbsp;</td>\n";
-	print "<td> &nbsp; </td>\n";	/* just to create small space */
-	print "<td>\n";
-	PrintMonthSelect($endmonth, 'endmonth');
-	print "<td>\n";
-	PrintYearSelect($beginyear);
-	print "</td>\n";
-	print "<td>\n";
+	$text.= "<td>$l: &nbsp;</td>\n";
+	$text.= "<td>\n";
+	$text.=PrintMonthSelect($beginmonth, 'beginmonth');
+	$text.= "&nbsp;</td>\n";
+	$text.= "<td> &nbsp; </td>\n";	/* just to create small space */
+	$text.= "<td>\n";
+	$text.=PrintMonthSelect($endmonth, 'endmonth');
+	$text.= "<td>\n";
+	$text.=PrintYearSelect($beginyear);
+	$text.= "</td>\n";
+	$text.= "<td>\n";
 	$l = _("Execute");
-	print "&nbsp;&nbsp;<input type=\"submit\" value=\"$l\"></td></tr>\n";
-	print "</table>\n";
-	print "</form>\n";
-	print "<br>\n";
+	$text.= "&nbsp;&nbsp;<input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.= "</table>\n";
+	$text.= "</form>\n";
+	//print "<br>\n";
 	
-	print "</div>\n";
-	
+	//print "</div>\n";
+	createForm($text, $haeder,'',750,'','',1,getHelp());
 	return;
 }
 if($step == 1) {
@@ -216,55 +209,56 @@ if($step == 1) {
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
 	$l = _("VAT report for period");
-	print "<br><h1>$l: $bm - $em</h1>\n";
-	print "<form action=\"?module=vatrep&amp;step=2\" method=\"post\">\n";
-	print "<table dir=\"ltr\" border=\"0\" class=\"formtbl\">\n";
-	print "<tr><td colspan=\"3\" align=center>\n";
-	print "<input type=\"hidden\" name=\"beginmonth\" value=\"$beginmonth\">\n";
-	print "<input type=\"hidden\" name=\"endmonth\" value=\"$endmonth\">\n";
-	print "<input type=\"hidden\" name=\"begindate\" value=\"$begindate\">\n";
-	print "<input type=\"hidden\" name=\"enddate\" value=\"$enddate\">\n";
-	print "</td></tr><tr>\n";
-	print "<td align=\"center\">\n";
-	print "׳¢׳¡׳§׳�׳•׳× ׳₪׳˜׳•׳¨׳•׳×<br>\n";
+	$haeder= "$l: $bm - $em";
+	$text.= "<form action=\"?module=vatrep&amp;step=2\" method=\"post\">\n";
+	$text.= "<table dir=\"ltr\" border=\"0\" class=\"formtbl\">\n";
+	$text.= "<tr><td colspan=\"3\" align=center>\n";
+	$text.= "<input type=\"hidden\" name=\"beginmonth\" value=\"$beginmonth\" />\n";
+	$text.= "<input type=\"hidden\" name=\"endmonth\" value=\"$endmonth\" />\n";
+	$text.= "<input type=\"hidden\" name=\"begindate\" value=\"$begindate\" />\n";
+	$text.= "<input type=\"hidden\" name=\"enddate\" value=\"$enddate\" />\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td align=\"center\">\n";
+	//print "bla<br>\n";
 	$novatincome = GetSumForAcctType(INCOME, $begin, $end, 0);
 	$novatincome = round($novatincome, 0);
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"novatincome\" value=\"$novatincome\">\n";
-	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "׳¢׳¡׳§׳�׳•׳× ׳—׳™׳™׳‘׳•׳× ׳�׳�׳� ׳�׳¢\"׳�<br>\n";
+	$text.=_("VAT exempt transactions")."<br />";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"novatincome\" value=\"$novatincome\">\n";
+	$text.= "</td><td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("Sales without VAT")."<br />\n";
 	$vatincome = GetSumForAcctType(INCOME, $begin, $end, 1);
 	$vatincome = round($vatincome, 0);
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"vatincome\" value=\"$vatincome\">\n";
-	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "׳”׳�׳¡ ׳¢׳� ׳”׳¢׳¡׳§׳�׳•׳×<br>";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"vatincome\" value=\"$vatincome\">\n";
+	$text.= "</td><td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("Sales VAT")."<br />";
 	$sellvat = round(GetSumForAcct(SELLVAT, $begin, $end), 0);
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"sellvat\" value=\"$sellvat\">\n";
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
-	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "׳×׳©׳•׳�׳•׳× ׳¦׳™׳•׳“ ׳•׳ ׳›׳¡׳™׳�<br>\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"sellvat\" value=\"$sellvat\">\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
+	$text.= "<td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("VAT paid for Inputs and assets")."<br />\n";
 	$assetvat = round(GetSumForAcct(ASSETVAT, $begin, $end), 0);
 	if($assetvat < 0)
 		$assetvat *= -1.0;
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"assetvat\" value=\"$assetvat\">\n";
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
-	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "׳×׳©׳•׳�׳•׳× ׳�׳—׳¨׳•׳×<br>\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"assetvat\" value=\"$assetvat\">\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
+	$text.= "<td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("VAT paid for other input")."<br />\n";
 	$buyvat = round(GetSumForAcct(BUYVAT, $begin, $end), 0);
 	if($buyvat < 0)
 		$buyvat *= -1.0;
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"buyvat\" value=\"$buyvat\">\n";
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
-	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "׳¡׳›׳•׳� ׳�׳×׳©׳�׳•׳�<br>\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"buyvat\" value=\"$buyvat\">\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
+	$text.= "<td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("Sum to pay")."<br />\n";
 	$payvat = $sellvat - $assetvat - $buyvat;
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"payvat\" value=\"$payvat\">\n";
-	print "</td></tr>\n";
-	print "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"׳¨׳©׳•׳�\"></td></tr>\n"; 
-	print "</table>\n"; 
-	print "</form>\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"payvat\" value=\"$payvat\">\n";
+	$text.= "</td></tr>\n";
+	$text.= "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\""._("register")."\"></td></tr>\n"; 
+	$text.= "</table>\n"; 
+	$text.= "</form>\n";
 }
 if($step == 2) {
 	$begindate = $_POST['begindate'];
@@ -280,8 +274,8 @@ if($step == 2) {
 
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
-	print "<br><h1>׳“׳•\"׳— ׳�׳¢\"׳� ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
-	
+	//$haeder "<br><h1>׳“׳•\"׳— ׳�׳¢\"׳� ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
+	$haeder = _("VAT report for period").": $bm - $em</h1>\n";
 	/* Now the real thing, register transactions... */
 	list($day1, $month1, $year1) = split("[/.-]", $begindate);
 	list($day2, $month2, $year2) = split("[/.-]", $enddate);
@@ -309,44 +303,44 @@ if($step == 2) {
 		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $a);
 	}
 
-	print "<table dir=\"ltr\" class=\"formtbl\" border=\"0\"><tr>\n";
-	print "<td align=\"center\">\n";
-	print "׳¢׳¡׳§׳�׳•׳× ׳₪׳˜׳•׳¨׳•׳×<br>\n";
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"novatincome\" value=\"$novatincome\">\n";
-	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "׳¢׳¡׳§׳�׳•׳× ׳—׳™׳™׳‘׳•׳× ׳�׳�׳� ׳�׳¢\"׳�<br>\n";
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"vatincome\" value=\"$vatincome\">\n";
-	print "</td><td dir=\"rtl\" align=\"center\">\n";
-	print "׳”׳�׳¡ ׳¢׳� ׳”׳¢׳¡׳§׳�׳•׳×<br>";
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"sellvat\" value=\"$sellvat\">\n";
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
-	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "׳×׳©׳•׳�׳•׳× ׳¦׳™׳•׳“ ׳•׳ ׳›׳¡׳™׳�<br>\n";
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"assetvat\" value=\"$assetvat\">\n";
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
-	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "׳×׳©׳•׳�׳•׳× ׳�׳—׳¨׳•׳×<br>\n";
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"buyvat\" value=\"$buyvat\">\n";
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
-	print "<td dir=\"rtl\" align=\"center\">\n";
-	print "׳¡׳›׳•׳� ׳�׳×׳©׳�׳•׳�<br>\n";
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"payvat\" value=\"$payvat\">\n";
-	print "</td></tr>\n";
-	print "<tr><td colspan=\"3\" dir=\"rtl\" align=\"center\">\n";
-	print "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
-	print "<form action=\"?module=payment&step=1&opt=vat\" method=\"post\">\n";
+	$text.= "<table dir=\"ltr\" class=\"formtbl\" border=\"0\"><tr>\n";
+	$text.= "<td align=\"center\">\n";
+	$text.= _("VAT exempt transactions")."<br />\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"novatincome\" value=\"$novatincome\" />\n";
+	$text.= "</td><td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("Sales without VAT")."<br />\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"vatincome\" value=\"$vatincome\">\n";
+	$text.= "</td><td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("Sales VAT")."<br>";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"sellvat\" value=\"$sellvat\">\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
+	$text.= "<td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("VAT paid for Inputs and assets")."<br />\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"assetvat\" value=\"$assetvat\">\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
+	$text.= "<td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("VAT paid for other input")."<br />\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"buyvat\" value=\"$buyvat\">\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td colspan=\"2\">&nbsp;</td>\n";		/* space column */
+	$text.= "<td dir=\"rtl\" align=\"center\">\n";
+	$text.= _("Sum to pay")."<br />\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"payvat\" value=\"$payvat\">\n";
+	$text.= "</td></tr>\n";
+	$text.= "<tr><td colspan=\"3\" dir=\"rtl\" align=\"center\">\n";
+	$text.= "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
+	$text.= "<form action=\"?module=payment&step=1&opt=vat\" method=\"post\">\n";
 	$vatacc = PAYVAT;
-	print "<input type=\"hidden\" name=\"account\" value=\"$vatacc\">\n";
-	print "<input type=\"hidden\" name=\"refnum\" value=\"$ref1-$ref2\">\n";
-	print "<input type=\"hidden\" name=\"total\" value=\"$payvat\">\n";
-	print "<input type=\"submit\" value=\"׳×׳©׳�׳•׳�\">\n";
-	print "</form>\n";
-	print "</td></tr></table>\n";
-	print "</tr>\n";
-	print "</table>\n";
+	$text.= "<input type=\"hidden\" name=\"account\" value=\"$vatacc\">\n";
+	$text.= "<input type=\"hidden\" name=\"refnum\" value=\"$ref1-$ref2\">\n";
+	$text.= "<input type=\"hidden\" name=\"total\" value=\"$payvat\">\n";
+	$text.= "<input type=\"submit\" value=\""._("pay")."\">\n";
+	$text.= "</form>\n";
+	$text.= "</td></tr></table>\n";
+	$text.= "</tr>\n";
+	$text.= "</table>\n";
 }
 
 if($step == 3) {
@@ -361,50 +355,32 @@ if($step == 3) {
 	}
 	$begin = FormatDate($bdate, "dmy", "mysql");
 	$end = FormatDate($edate, "dmy", "mysql");
-	print "<br><h1>׳”׳¦׳’ ׳×׳ ׳•׳¢׳•׳×</h1>\n";
-	print "<div class=\"righthalf2\">\n";
-	print "<form name=\"vattran\" method=\"get\">\n";
-	print "<input type=\"hidden\" name=\"module\" value=\"vatrep\">\n";
-	print "<input type=\"hidden\" name=\"step\" value=\"3\">\n";
-	print "<br>׳�׳×׳�׳¨׳™׳�: \n";
-	print "<input type=\"text\" name=\"begin\" size=\"7\" value=\"$bdate\">\n";
-?>
-<script type="text/javascript">
-	new tcal ({
-		// form name
-		'formname': 'vattran',
-		// input name
-		'controlname': 'begin'
-	});
-</script>
-<?PHP
-	print "׳¢׳“ ׳×׳�׳¨׳™׳�: ";
-	print "<input type=\"text\" name=\"end\" size=\"7\" value=\"$edate\">\n";
-?>
-<script type="text/javascript">
-	new tcal ({
-		// form name
-		'formname': 'vattran',
-		// input name
-		'controlname': 'end'
-	});
-</script>
-<?PHP
-	print "<input type=\"submit\" value=\"׳”׳¦׳’\">\n";
-	print "</form>\n";
-	print "<br><br>\n";
-	print "<h2>";
-	print "<a href=\"?module=acctdisp&account=1&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳×׳©׳•׳�׳•׳×</a>\n";
+	$haeder= _("View VAT Transactions");
+	//$text.= "<div class=\"righthalf2\">\n";
+	$text.= "<form name=\"vattran\" method=\"get\">\n";
+	$text.= "<input type=\"hidden\" name=\"module\" value=\"vatrep\">\n";
+	$text.= "<input type=\"hidden\" name=\"step\" value=\"3\">\n";
+	$text.= "<br>"._("begin").": \n";
+	$text.= "<input class=\"date\" type=\"text\" name=\"begin\" id=\"begin\" size=\"7\" value=\"$bdate\" />\n";
+
+	$text.= _("end").": ";
+	$text.= "<input class=\"date\" type=\"text\" name=\"end\" id=\"end\" size=\"7\" value=\"$edate\" />\n";
+
+	$text.= "<input type=\"submit\" value=\"submit\">\n";
+	$text.= "</form>\n";
+	$text.= "<br><br>\n";
+	//$text.= "<h2>";
+	$text.= "<a href=\"?module=acctdisp&account=1&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳×׳©׳•׳�׳•׳×</a>\n";
 	$total = GetAcctTotal(1, $begin, $end);
-	print "<span dir=\"ltr\">$total</span>";
-	print "&nbsp;&nbsp;&nbsp;&nbsp;\n";
-	print "<a href=\"?module=acctdisp&account=3&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳¢׳¡׳§׳�׳•׳×</a>\n";
+	$text.= "<span dir=\"ltr\">$total</span>";
+	$text.= "&nbsp;&nbsp;&nbsp;&nbsp;\n";
+	$text.= "<a href=\"?module=acctdisp&account=3&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳¢׳¡׳§׳�׳•׳×</a>\n";
 	$total = GetAcctTotal(3, $begin, $end);
-	print "<span dir=\"ltr\">$total</span>";
-	print "</h2>\n";
-	print "</div>\n";
+	$text.= "<span dir=\"ltr\">$total</span>";
+	//$text.= "</h2>\n";
+	//print "</div>\n";
 	
 }
-
+createForm($text, $haeder,'',750,'','',1,getHelp());
 ?>
 

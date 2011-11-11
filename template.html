@@ -50,12 +50,20 @@
 	</div><!--div wrapper  end-->
 	</body>
 	<script type="text/javascript">
-		$("#accadmintbl").tablesorter();
+		$(".tablesorter").tablesorter();
 		
-		$.datepicker.setDefaults( $.datepicker.regional["he"] );
-		$(name).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});
-		$(name).datepicker( "option", "dateFormat", "dd-mm-yy" );
-		$(name).val(value);
+		var elements = $('.date');
+		for (var i=0; i<elements.length; i++) {
+			//alert(elements[i].name);
+		    var id=elements[i].id;
+		    var value=$('#'+id).val();
+			$.datepicker.setDefaults( $.datepicker.regional["he"] );
+			$('#'+id).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});
+			$('#'+id).datepicker( "option", "dateFormat", "dd-mm-yy" );
+			$('#'+id).val(value);
+		}
+
+		
 	
 	</script>
 </html>

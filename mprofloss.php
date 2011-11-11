@@ -1,34 +1,17 @@
 <?PHP
-//M:רווח והפסד חדשי
+//M:׳¨׳•׳•׳— ׳•׳”׳₪׳¡׳“ ׳—׳“׳©׳™
 /*
  | Monthly Profit & Loss report for Drorit accounting system
  | Written by Ori Idan July 2009
  */
-if(!isset($module)) {
-	header('Content-type: text/html;charset=UTF-8');
 
-	include('config.inc.php');
-	include('drorit.inc.php');
-	include('func.inc.php');
-
-	$link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
-	mysql_select_db($database) or die("Could not select database: $database");
-
-
-	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	$reptitle = _("Profit & loss per month");
-	include('printhead.inc.php');
-	print $header;
-	
-}
-else {
 	/* open window script */
 	print "<script type=\"text/javascript\">\n";
 	print "function PrintWin(url) {\n";
 	print "\twindow.open(url, 'PrintWin', 'width=800,height=600,scrollbar=yes');\n";
 	print "}\n";
 	print "</script>\n";
-}
+
 
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 
@@ -36,12 +19,12 @@ $montharr = array(_("January"), _("February"), _("March"), _("April"),
 	_("May"), _("June"), _("July"), _("August"), _("September"), 
 	_("October"), _("November"), _("December"));
 	
-// $montharr = array('ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט',
-//	'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר');
+// $montharr = array('׳™׳ ׳•׳�׳¨', '׳₪׳‘׳¨׳•׳�׳¨', '׳�׳¨׳¥', '׳�׳₪׳¨׳™׳�', '׳�׳�׳™', '׳™׳•׳ ׳™', '׳™׳•׳�׳™', '׳�׳•׳’׳•׳¡׳˜',
+//	'׳¡׳₪׳˜׳�׳‘׳¨', '׳�׳•׳§׳˜׳•׳‘׳¨', '׳ ׳•׳‘׳�׳‘׳¨', '׳“׳¦׳�׳‘׳¨');
 
 if(!isset($prefix) || ($prefix == '')) {
-	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport(_("This operation can not be executed without choosing a business first"));
+	//print "<h1>$l</h1>\n";
 	return;
 }
 
@@ -114,14 +97,15 @@ function GetGroupTotal($grp, $begin, $end) {
 function PrintYearSelect($year) {
 	$max = $year + 1;
 	
-	print "<select name=\"year\" onChange=\"document.yform.submit()\">\n";
+	$str= "<select name=\"year\" onChange=\"document.yform.submit()\">\n";
 	for($min = $year - 2; $min <= $max; $min++) {
-		print "<option value=\"$min\" ";
+		$str.= "<option value=\"$min\" ";
 		if($min == $year)
-			print "selected";
-		print ">$min</option>\n";
+			$str.= "selected";
+		$str.= ">$min</option>\n";
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 $y = date("Y");
@@ -141,17 +125,17 @@ if($y < 1900)
 	$str = $line[0];
 	print "<h1>$str</h1>\n";	
 } */
-
+$text='';
 $reptitle = _("Profit & loss per month");
-print "<div class=\"form\"><h3>$reptitle</h3>\n";
-print "<form name=\"yform\" action=\"\" method=\"get\">\n";
-print "<input type=\"hidden\" name=\"module\" value=\"mprofloss\">\n";
+//print "<div class=\"form\"><h3>$reptitle</h3>\n";
+$text.= "<form name=\"yform\" action=\"\" method=\"get\">\n";
+$text.= "<input type=\"hidden\" name=\"module\" value=\"mprofloss\">\n";
 $l = _("For year");
-print "<b>$l: </b>";
-PrintYearSelect($y);
+$text.= "<b>$l: </b>";
+$text.=PrintYearSelect($y);
 // print "<input type=\"text\" name=\"year\" size=\"6\" value=\"$y\">\n";
-// print "<input type=\"submit\" value=\"בצע\">\n";
-print "</form><br>\n";
+// print "<input type=\"submit\" value=\"׳‘׳¦׳¢\">\n";
+$text.= "</form><br>\n";
 
 if($filerep) {
 	$filename = "tmp/mprofloss.csv";
@@ -166,21 +150,21 @@ if($filerep) {
 	fwrite($fd, "$l\n");
 }
 else {
-	print "<table border=\"0\" style=\"margin-right:2%\" class=\"hovertbl\">\n";
+	$text.= "<table border=\"0\" style=\"margin-right:2%\" class=\"hovertbl\">\n";
 	if(!isset($module))
-		print "<tr class=\"tblheadprt\">\n";
+		$text.= "<tr class=\"tblheadprt\">\n";
 	else
-		print "<tr class=\"tblhead\">\n";
+		$text.= "<tr class=\"tblhead\">\n";
 	$l = _("Account");
-	print "<td style=\"width:8em\">$l&nbsp;</td>\n";
+	$text.= "<td style=\"width:8em\">$l&nbsp;</td>\n";
 	foreach($montharr as $m)
-		print "<td style=\"width:4em\">$m</td>\n";
+		$text.= "<td style=\"width:4em\">$m</td>\n";
 	$l = _("Total");
-	print "<td>$l</td>\n";
-	print "</tr><tr class=\"tblhead\">\n";
+	$text.= "<td>$l</td>\n";
+	$text.= "</tr><tr class=\"tblhead\">\n";
 	$l = _("Income");
-	print "<td colspan=\"14\"><u>$l</u></td>\n";
-	print "</tr>\n";
+	$text.= "<td colspan=\"14\"><u>$l</u></td>\n";
+	$text.= "</tr>\n";
 }
 $t = INCOME;
 $query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' AND type='$t'";
@@ -217,27 +201,27 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	}
 	else {
 		if($e) {
-			print "<tr class=\"otherline\">\n";
+			$text.= "<tr class=\"otherline\">\n";
 			$e = 0;
 		}
 		else {
-			print "<tr>\n";
+			$text.= "<tr>\n";
 			$e = 1;
 		}
 		if(isset($module))
-			print "<td><a href=\"?module=acctdisp&amp;account=$num&amp;begin=start&amp;end=today\">$acct</a></td>\n";
+			$text.= "<td><a href=\"?module=acctdisp&amp;account=$num&amp;begin=start&amp;end=today\">$acct</a></td>\n";
 		else
-			print "<td>$acct</td>\n";
+			$text.= "<td>$acct</td>\n";
 		for($i = 0; $i < 12; $i++) {
 			$t = $total[$i];
 			$sumarr[$i] += $t;
 			$tstr = number_format($t);
-			print "<td>$tstr</td>\n";
+			$text.= "<td>$tstr</td>\n";
 		}
 		$sumarr[$i] += $sum;
 		$tstr = number_format($sum);
-		print "<td>$tstr</td>\n";
-		print "</tr>\n";
+		$text.= "<td>$tstr</td>\n";
+		$text.= "</tr>\n";
 	}
 }
 if($filerep) {
@@ -248,22 +232,22 @@ if($filerep) {
 		fwrite($fd, ",$t");
 	}
 	fwrite($fd, "\n");
-//	fwrite($fd, "עלות המכירות\n");
+//	fwrite($fd, "׳¢׳�׳•׳× ׳”׳�׳›׳™׳¨׳•׳×\n");
 }
 else {
 	if(!isset($module))
-		print "<tr class=\"sumlineprt\">\n";
+		$text.= "<tr class=\"sumlineprt\">\n";
 	else
-		print "<tr class=\"sumline\">\n";
+		$text.= "<tr class=\"sumline\">\n";
 	$l = _("Total");
-	print "<td><b>$l: </b></td>\n";
+	$text.= "<td><b>$l: </b></td>\n";
 	for($i = 0; $i < 13; $i++) {
 		$t = $sumarr[$i];
 		$tstr = number_format($t);
-		print "<td>$tstr</td>\n";
+		$text.= "<td>$tstr</td>\n";
 	}
-	print "</tr>\n";
-//	print "<tr class=\"tblhead\"><td colspan=\"14\"><u>עלות המכירות<u></td></tr>\n";
+	$text.= "</tr>\n";
+//	print "<tr class=\"tblhead\"><td colspan=\"14\"><u>׳¢׳�׳•׳× ׳”׳�׳›׳™׳¨׳•׳×<u></td></tr>\n";
 }
 /*
 for($i = 0; $i < 12; $i++) {
@@ -277,7 +261,7 @@ for($i = 0; $i < 12; $i++) {
 	$sale_cost[$i] = $open_stock[$i] + $buy_stock[$i] - $close_stock[$i];
 }
 if($filerep) {
-	fwrite($fd, "\"מלאי פתיחה\"");
+	fwrite($fd, "\"׳�׳�׳�׳™ ׳₪׳×׳™׳—׳”\"");
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $open_stock[$i];
@@ -295,7 +279,7 @@ else {
 		print "<tr>\n";
 		$e = 1;
 	}
-	print "<td>מלאי פתיחה</td>\n";
+	print "<td>׳�׳�׳�׳™ ׳₪׳×׳™׳—׳”</td>\n";
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $open_stock[$i];
@@ -308,7 +292,7 @@ else {
 	print "</tr>\n";
 }
 if($filerep) {
-	fwrite($fd, "קניות");
+	fwrite($fd, "׳§׳ ׳™׳•׳×");
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $buy_stock[$i];
@@ -326,7 +310,7 @@ else {
 		print "<tr>\n";
 		$e = 1;
 	}
-	print "<td>קניות</td>\n";
+	print "<td>׳§׳ ׳™׳•׳×</td>\n";
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $buy_stock[$i];
@@ -339,7 +323,7 @@ else {
 	print "</tr>\n";
 }
 if($filerep) {
-	fwrite($fd, "\"מלאי סופי\"");
+	fwrite($fd, "\"׳�׳�׳�׳™ ׳¡׳•׳₪׳™\"");
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $close_stock[$i];
@@ -357,7 +341,7 @@ else {
 		print "<tr>\n";
 		$e = 1;
 	}
-	print "<td>מלאי סופי</td>\n";
+	print "<td>׳�׳�׳�׳™ ׳¡׳•׳₪׳™</td>\n";
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $close_stock[$i];
@@ -370,7 +354,7 @@ else {
 	print "</tr>\n";
 }
 if($filerep) {
-	fwrite($fd, "\"סהכ עלות המכר\"");
+	fwrite($fd, "\"׳¡׳”׳› ׳¢׳�׳•׳× ׳”׳�׳›׳¨\"");
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $sale_stock[$i];
@@ -388,7 +372,7 @@ else {
 		print "<tr>\n";
 		$e = 1;
 	}
-	print "<td>סה\"כ עלות המכר</td>\n";
+	print "<td>׳¡׳”\"׳› ׳¢׳�׳•׳× ׳”׳�׳›׳¨</td>\n";
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $sale_cost[$i];
@@ -401,7 +385,7 @@ else {
 	print "</tr>\n";
 }
 if($filerep) {
-	fwrite($fd, "\"רווח גולמי\"");
+	fwrite($fd, "\"׳¨׳•׳•׳— ׳’׳•׳�׳�׳™\"");
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $sale_cost[$i];
@@ -418,7 +402,7 @@ else {
 	else
 		print "<tr class=\"sumline\" align=\"right\">\n";
 
-	print "<td>רווח גולמי</td>\n";
+	print "<td>׳¨׳•׳•׳— ׳’׳•׳�׳�׳™</td>\n";
 	$sum = 0.0;
 	for($i = 0; $i < 12; $i++) {
 		$t = $sale_cost[$i];
@@ -436,10 +420,10 @@ if($filerep) {
 	fwrite($fd, "\"$l\"\n");
 }
 else {
-	print "<tr class=\"tblhead\">\n";
+	$text.= "<tr class=\"tblhead\">\n";
 	$l = _("Outcome");
-	print "<td colspan=\"14\"><u>$l</u></td>\n";
-	print "</tr>\n";
+	$text.= "<td colspan=\"14\"><u>$l</u></td>\n";
+	$text.= "</tr>\n";
 }
 $t = OUTCOME;
 $query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' AND type='$t'";
@@ -478,27 +462,27 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	}
 	else {
 		if($e) {
-			print "<tr class=\"otherline\">\n";
+			$text.= "<tr class=\"otherline\">\n";
 			$e = 0;
 		}
 		else {
-			print "<tr>\n";
+			$text.= "<tr>\n";
 			$e = 1;
 		}
 		if(isset($module))
-			print "<td><a href=\"?module=acctdisp&amp;account=$num&amp;begin=start&amp;end=today\">$acct</a></td>\n";
+			$text.= "<td><a href=\"?module=acctdisp&amp;account=$num&amp;begin=start&amp;end=today\">$acct</a></td>\n";
 		else
-			print "<td>$acct</td>\n";
+			$text.= "<td>$acct</td>\n";
 		for($i = 0; $i < 12; $i++) {
 			$t = $total[$i];
 			$sumarr1[$i] += $t;
 			$tstr = number_format($t);
-			print "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
+			$text.= "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
 		}
 		$sumarr1[$i] += $sum;
 		$tstr = number_format($sum);
-		print "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
-		print "</tr>\n";
+		$text.= "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
+		$text.= "</tr>\n";
 	}
 }
 if($filerep) {
@@ -512,17 +496,17 @@ if($filerep) {
 }
 else {
 	if(!isset($module))
-		print "<tr class=\"sumlineprt\" align=\"right\">\n";
+		$text.= "<tr class=\"sumlineprt\" align=\"right\">\n";
 	else
-		print "<tr class=\"sumline\" align=\"right\">\n";
+		$text.= "<tr class=\"sumline\" align=\"right\">\n";
 	$l = _("Total");
-	print "<td><b>$l: </b></td>\n";
+	$text.= "<td><b>$l: </b></td>\n";
 	for($i = 0; $i < 13; $i++) {
 		$t = $sumarr1[$i];
 		$tstr = number_format($t);
-		print "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
+		$text.= "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
 	}
-	print "</tr>\n";
+	$text.= "</tr>\n";
 }
 if($filerep) {
 	$l = _("Profit & loss");
@@ -535,43 +519,44 @@ if($filerep) {
 }
 else {
 	if(!isset($module))
-		print "<tr class=\"sumlineprt\" align=\"right\">\n";
+		$text.= "<tr class=\"sumlineprt\" align=\"right\">\n";
 	else
-		print "<tr class=\"sumline\" align=\"right\">\n";
+		$text.= "<tr class=\"sumline\" align=\"right\">\n";
 	$l = _("Profit & loss");
-	print "<td><b>$l: </b></td>\n";
+	$text.= "<td><b>$l: </b></td>\n";
 	for($i = 0; $i < 13; $i++) {
 		$t = $sumarr[$i] + $sumarr1[$i];
 		$tstr = number_format($t);
-		print "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
+		$text.= "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
 	}
-	print "</tr>\n";
-	print "</table>\n";
+	$text.= "</tr>\n";
+	$text.= "</table>\n";
 }
 
 if(isset($module) && (!$filerep)) {
 	$url = "mprofloss.php";
 	$url .= "?prefix=$prefix";
-	print "<div class=\"repbottom\">\n";
+	$text.= "<div class=\"repbottom\">\n";
 	$l = _("Print");
-	print "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
-	print "&nbsp;&nbsp;";
+	$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
+	$text.= "&nbsp;&nbsp;";
 	$l = _("File export");
-	print "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='?module=mprofloss&amp;file=1'\">\n";
-	print "</div>\n";
+	$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='?module=mprofloss&amp;file=1'\">\n";
+	$text.= "</div>\n";
 }
 if($filerep) {
 	fclose($fd);
 	Conv1255($filename);
 	$l = _("File export");
-	print "<h2>$l: ";
+	$text.= "<h2>$l: ";
 	$url = "/download.php?file=$filename&amp;name=profloss.csv";
-	print "<a href=\"$filename\">mprofloss.csv</a></h2>\n";
+	$text.= "<a href=\"$filename\">mprofloss.csv</a></h2>\n";
 	$l = _("Right click and choose 'save as...'");
-	print "<h2>$l</h2>\n";
-	print "<script type=\"text/javascript\">\n";
-	print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-	print "</script>\n";
+	$text.= "<h2>$l</h2>\n";
+	$text.= "<script type=\"text/javascript\">\n";
+	$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+	$text.= "</script>\n";
 }
-print "</div>";//adam: form div
+createForm($text, $reptitle,'',750,'','',1,getHelp());
+//print "</div>";//adam: form div
 ?>

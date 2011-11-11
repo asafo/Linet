@@ -307,30 +307,20 @@ if($action == 'extmatch') {
 	}
 	else {
 		$l = _("Unbalanced reconciliation, please create balancing transaction");
-		print "<h2>$l</h2>\n";
+		$text.= "<h2>$l</h2>\n";
 //		print "<h2>׳”׳×׳�׳�׳” ׳�׳� ׳�׳�׳•׳–׳ ׳×, ׳™׳© ׳�׳™׳¦׳•׳¨ ׳×׳ ׳•׳¢׳” ׳�׳�׳–׳ ׳×</h2>\n";
-		print "<div class=\"formtbl\">\n";
-		print "<form name=\"form1\" action=\"?module=extmatch&amp;action=extbalance&amp;bankacc=$bankacc\" method=\"post\">\n";
-		print "<input type=\"hidden\" name=\"int_str\" value=\"$int_str\">\n";
-		print "<input type=\"hidden\" name=\"int_total\" value=\"$total\">\n";
-		print "<input type=\"hidden\" name=\"ext_str\" value=\"$ext_str\">\n";
-		print "<input type=\"hidden\" name=ext_total\" value=\"$ext_total\">\n";
-		print "<table dir=\"$dir\"><tr><td>\n";
+		$text.=  "<div class=\"formtbl\">\n";
+		$text.=  "<form name=\"form1\" action=\"?module=extmatch&amp;action=extbalance&amp;bankacc=$bankacc\" method=\"post\">\n";
+		$text.=  "<input type=\"hidden\" name=\"int_str\" value=\"$int_str\">\n";
+		$text.=  "<input type=\"hidden\" name=\"int_total\" value=\"$total\">\n";
+		$text.=  "<input type=\"hidden\" name=\"ext_str\" value=\"$ext_str\">\n";
+		$text.=  "<input type=\"hidden\" name=ext_total\" value=\"$ext_total\">\n";
+		$text.=  "<table dir=\"$dir\"><tr><td>\n";
 		$l = _("Date");
-		print "$l: \n";
+		$text.=  "$l: \n";
 		$today = date('d-m-Y');
-		print "<input type=\"text\" name=\"date\" value=\"$today\" size=\"7\">\n";
-?>
-<script type="text/javascript">
-	new tcal ({
-		// form name
-		'formname': 'form1',
-		// input name
-		'controlname': 'date'
-	});
+		$text.=  "<input calss=\"date\" type=\"text\" name=\"date\" value=\"$today\" size=\"7\">\n";
 
-</script>
-<?PHP
 		$text.= "<br><br>\n";
 		$l = _("Ref. num. 1");
 		$text.= "$l: \n";
@@ -380,7 +370,7 @@ if($action == 'extmatch') {
 		$text.= "<tr><td align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
 		$text.= "</table>\n";
 		$text.= "</form>\n";
-		$text.= "</div>\n";
+		//$text.= "</div>\n";
 		//print "</div>\n";	/* end righthalf */
 		createForm($text,$haeder,'',400,'','logo',1,'help');
 		
@@ -389,43 +379,36 @@ if($action == 'extmatch') {
 }
 
 //print "</div>\n";	/* end of righthalf used for caption */
-print "<br><br><br>\n";
-print "<div class=\"innercontent\">\n";
-print "<form name=\"form1\" action=\"?module=extmatch&amp;action=extmatch&amp;bankacc=$bankacc\" method=\"post\">\n";
+//print "<br><br><br>\n";
+//print "<div class=\"innercontent\">\n";
+$text.=   "<form name=\"form1\" action=\"?module=extmatch&amp;action=extmatch&amp;bankacc=$bankacc\" method=\"post\">\n";
 
-print "<table dir=\"ltr\"><tr>\n";
+$text.=  "<table><tr>\n";
 $l = _("External page transactions");
-print "<td align=\"right\"><h2>$l</h2></td>\n";
-print "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
+$text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
+$text.=  "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
 $l = _("Internal bank account transactions");
-print "<td align=\"right\"><h2>$l</h2></td>\n";
+$text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
 // <td align=\"right\"><h2>׳×׳ ׳•׳¢׳•׳× ׳‘׳›׳¨׳˜׳™׳¡ ׳‘׳ ׳§</h2></td>
-?>
-</tr>
-<tr>
-<td valign="top">
-<div style="border:1px solid">
-<?PHP
-print "<table dir=\"$dir\" border=\"1\"><tr class=\"tblhead\">\n";
-print "<td>&nbsp;</td>\n";
+$text.= '</tr><tr><td valign="top">';
+
+$text.=  "<table class=\"formy\"><tr>\n";
+$text.=  "<th>&nbsp;</th>\n";
 
 $l = _("Date");
-print "<td>$l</td>\n";
+$text.=  "<th>$l</th>\n";
 $l = _("Ref. num.");
-print "<td>$l</td>\n";
+$text.=  "<th>$l</th>\n";
 $l = _("Details");
-print "<td>$l</td>\n";
+$text.=  "<th>$l</th>\n";
 $l = _("Sum");
-print "<td>$l</td>\n";
-print "</tr>\n";
+$text.=  "<th>$l</th>\n";
+$text.=  "</tr>\n";
 /* Show external bank books */
 $query = "SELECT * FROM $bankbooktbl WHERE cor_num='0' AND prefix='$prefix' AND account='$bankacc'";
 	/* only unmatched transactions */
-$result = mysql_query($query);
-if(!$result) {
-	echo mysql_error();
-	exit;
-}
+$result = DoQuery($query, __FILE__.": ".__LINE__);
+
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$num = $line['num'];
 	$date = FormatDate($line['date'], "mysql", "dmy");
@@ -433,37 +416,33 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$details = stripslashes($line['details']);
 //	$details = htmlspecialchars($details);
 	$sum = $line['sum'];
-	print "<tr>\n";
-	print "<td><input type=\"checkbox\" class=\"ext\" name=\"ext[]\" value=\"$num\" onchange=\"CalcExtSum()\"></td>\n";
-	print "<td>$date</td>\n";
-	print "<td>$refnum</td>\n";
-	print "<td>$details</td>\n";
-	print "<td dir=\"ltr\">$sum<input type=\"hidden\" class=\"ext_sum\" name=\"ext_sum[]\" value=\"$sum\"></td>\n";
-	print "</tr>\n";
+	$text.=  "<tr>\n";
+	$text.=  "<td><input type=\"checkbox\" class=\"ext\" name=\"ext[]\" value=\"$num\" onchange=\"CalcExtSum()\"></td>\n";
+	$text.=  "<td>$date</td>\n";
+	$text.=  "<td>$refnum</td>\n";
+	$text.=  "<td>$details</td>\n";
+	$text.=  "<td dir=\"ltr\">$sum<input type=\"hidden\" class=\"ext_sum\" name=\"ext_sum[]\" value=\"$sum\"></td>\n";
+	$text.=  "</tr>\n";
 }
-print "<tr><td colspan=\"4\">&nbsp;</td>\n";
-print "<td><input type=\"text\" name=\"ext_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
-?>
-</table>
-</div>
-<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-<td valign="top">
-<div style="border:1px solid">
-<?PHP
-print "<table dir=\"$dir\" border=\"1\"><tr class=\"tblhead\">\n";
-print "<td>&nbsp;</td>\n";
+$text.=  "<tr><td colspan=\"4\">&nbsp;</td>\n";
+$text.=  "<td><input type=\"text\" name=\"ext_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
+$text.= '</table><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td valign="top">';
+
+
+$text.=  "<table class=\"formy\"><tr>\n";
+$text.=  "<th>&nbsp;</th>\n";
 
 $l = _("Tran. type");
-print "<td>$l</td>\n";
+$text.=  "<th>$l</th>\n";
 $l = _("Date");
-print "<td>$l</td>\n";
+$text.=  "<th>$l</th>\n";
 $l = _("Ref. num.");
-print "<td>$l</td>\n";
+$text.=  "<th>$l</th>\n";
 $l = _("Details");
-print "<td>$l</td>\n";
+$text.=  "<th>$l</th>\n";
 $l = _("Sum");
-print "<td>$l</td>\n";
-print "</tr>\n";
+$text.=  "<th>$l</th>\n";
+$text.=  "</tr>\n";
 
 global $TranType;
 /* Show internal bank account */
@@ -477,24 +456,21 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$details = $line['details'];
 	$sum = $line['sum'];
 	$sum *= -1;
-	print "<tr>\n";
-	print "<td><input type=\"checkbox\" class=\"int\" name=\"int[]\" value=\"$num:$sum\" onchange=\"CalcIntSum()\"></td>\n";
-	print "<td>$TranType[$type]</td>\n";
-	print "<td>$date</td>\n";
-	print "<td>$refnum</td>\n";
-	print "<td>$details</td>\n";
-	print "<td dir=\"ltr\">$sum<input type=\"hidden\" class=\"int_sum\" name=\"int_sum[]\" value=\"$sum\"></td>\n";
-	print "</tr>\n";
+	$text.=  "<tr>\n";
+	$text.=  "<td><input type=\"checkbox\" class=\"int\" name=\"int[]\" value=\"$num:$sum\" onchange=\"CalcIntSum()\"></td>\n";
+	$text.=  "<td>$TranType[$type]</td>\n";
+	$text.=  "<td>$date</td>\n";
+	$text.=  "<td>$refnum</td>\n";
+	$text.=  "<td>$details</td>\n";
+	$text.=  "<td dir=\"ltr\">$sum<input type=\"hidden\" class=\"int_sum\" name=\"int_sum[]\" value=\"$sum\"></td>\n";
+	$text.=  "</tr>\n";
 }
-print "<tr><td colspan=\"5\">&nbsp;</td>\n";
-print "<td><input type=\"text\" name=\"int_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
-?>
-</table>
-</div>
-</td>
-<?PHP
-$l = _("Reconciliate");
-print "</tr><tr><td colspan=\"3\" align=\"center\"><br><input type=\"submit\" value=\"$l\"></td></tr>\n";
-print "</table>\n</form>\n</div>";
+$text.=  "<tr><td colspan=\"5\">&nbsp;</td>\n";
+$text.=  "<td><input type=\"text\" name=\"int_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
+$text.= '</table></td>';
 
+$l = _("Reconciliate");
+$text.=  "</tr><tr><td colspan=\"3\" align=\"center\"><br><input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.=  "</table>\n</form>\n</div>";
+createForm($text, $haeder,'',750);
 ?>

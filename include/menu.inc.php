@@ -28,6 +28,7 @@ $MainMenu = array(
 		     _("Invoice receipt") . '|?module=docsadmin&amp;targetdoc=9',
 		   //  _("Parchace Order") . '|module=docsadmin&amp;targetdoc=10',
 		  	 _("Print docs.") . '|?module=showdocs',
+		  	 _("Register manual income") . '|?module=income',
 			 
 	),
 	 _("Outcome") . '|#'=>array(

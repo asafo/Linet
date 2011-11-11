@@ -3,25 +3,7 @@
  | Balance report for Drorit accounting system
  | Written by Ori Idan July 2009
  */
-if(!isset($module)) {
-	//header('Content-type: text/html;charset=UTF-8');
-/*
- * //dont need it //adam:
-	include('config.inc.php');
-	include('func.inc.php');
 
-	$link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
-	mysql_select_db($database) or die("Could not select database: $database");
-*/
-
-	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	$reptitle = _("Balance report");
-//	$reptitle = "׳�׳�׳–׳�";
-	include('printhead.inc.php');
-	print $header;
-	
-}
-else {
 	/* open window script */
 	print "<script type=\"text/javascript\">\n";
 	print "function PrintWin(url) {\n";
@@ -29,14 +11,13 @@ else {
 	print "\twindow.open(url, 'PrintWin', 'width=800,height=600,scrollbar=yes');\n";
 	print "}\n";
 	print "</script>\n";
-}
 
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 global $AcctType;
 
 if(!isset($prefix) || ($prefix == '')) {
-	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport(_("This operation can not be executed without choosing a business first"));
+	//print "<h1>$l</h1>\n";
 	return;
 }
 
@@ -88,7 +69,7 @@ function GetTotals($num, $begindate, $enddate) {
 }
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
-
+$text='';
 if(!isset($module)) {
 	$query = "SELECT companyname FROM $companiestbl WHERE prefix='$prefix'";
 	$result = DoQuery($query, "GetAccountName");
@@ -97,46 +78,38 @@ if(!isset($module)) {
 	print "<h1>$str</h1>\n";	
 }
 if($step != 0) {
-	$l = _("Balance report");
-	print "</br><h1>$l</h1>\n";
+	$header = _("Balance report");
+	//print "<br /><h1>$l</h1>\n";
+	
 }
 if($step == 0) {	/* Get date range */
 	$edate = date("d-m-Y");
 	list($d, $m, $y) = explode('-', $edate);
 	$bdate = "1-1-$y";
 	//print "<br>\n";
-	print "<div class=\"form righthalf1\">\n";
+	//print "<div class=\"form righthalf1\">\n";
 	$l = _("Balance report");
-	print "<h3>$l</h3>\n";
-	print "<form name=\"dtrange\" action=\"\" method=\"get\">\n";
-	print "<input type=\"hidden\" name=\"module\" value=\"balance\">\n";
-	print "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
-	print "<table cellpadding=\"5px\" cellspacing=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	//print "<h3>$l</h3>\n";
+	$text.= "<form name=\"dtrange\" action=\"\" method=\"get\">\n";
+	$text.= "<input type=\"hidden\" name=\"module\" value=\"balance\">\n";
+	$text.= "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
+	$text.= "<table cellpadding=\"5px\" cellspacing=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("From date");
-	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
-?>
-<script type="text/javascript">
-	addDatePicker("#begindate","<?print "$bdate"; ?>");
-	
-</script>
-<?PHP
-	print "</td>\n";
+	$text.= "<td>$l: </td>\n";
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
+
+	$text.= "</td>\n";
 	$l = _("To date");
-	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
-?>
-<script type="text/javascript">
-		addDatePicker("#enddate","<?print "$edate"; ?>");
-</script>
-<?PHP
-	print "</td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td>$l: </td>\n";
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
+
+	$text.= "</td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Execute");
-	print "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
-	print "</tr></table>\n";
-	print "</form>\n";
-	print "</div>\n";
+	$text.= "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+	$text.= "</tr></table>\n";
+	$text.= "</form>\n";
+	//print "</div>\n";
 	
 }
 if($step == 2) {
@@ -149,19 +122,19 @@ if($step >= 1) {
 	$begindate = $_GET['begindate'];
 	$enddate = $_GET['enddate'];
 	$l = _("For period");
-	print "<h2>$l: $begindate - $enddate</h2>\n";
+	$text.= "<h2>$l: $begindate - $enddate</h2>\n";
 
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
 	if($step == 1) {
 		if(!isset($module)) {
-			print "<table border=\"0\" width=\"100%\"><tr><td align=\"center\">\n";
-			print "<table border=\"0\" cellpadding=\"3px\" class=\"printtbl\" align=\"center\">\n";
+			$text.= "<table border=\"0\" width=\"100%\"><tr><td align=\"center\">\n";
+			$text.= "<table border=\"0\" cellpadding=\"3px\" class=\"printtbl\" align=\"center\">\n";
 		}
 		else
-			print "<table id=\"balancetbl\" border=\"0\" style=\"margin-right:2%\" cellpadding=\"3px\" class=\"tablesorter\">\n";
+			$text.= "<table id=\"balancetbl\" border=\"0\" style=\"margin-right:2%\" cellpadding=\"3px\" class=\"tablesorter\">\n";
 		if(!isset($module))
-			print "<tr class=\"tblheadprt\" style=\"border-top:1px solid\">\n";
+			$text.= "<tr class=\"tblheadprt\" style=\"border-top:1px solid\">\n";
 		else
 			$curtablehd= "<thead><tr class=\"tblhead\" style=\"border-top:1px solid;border-bottom:1px solid\">\n";
 			$l = _("Account");
@@ -192,10 +165,10 @@ if($step >= 1) {
 		$tstr = $AcctType[$type];
 		if($step == 1) {
 			if(!isset($module))
-				print "<tr class=\"tblheadprt\" style=\"border-top:1px solid\">\n";
+				$text.= "<tr class=\"tblheadprt\" style=\"border-top:1px solid\">\n";
 			else
-				print "<tr class=\"tblhead\" style=\"border-top:1px solid;border-bottom:1px solid\">\n";
-			print "<td colspan=\"5\" align=\"right\">$tstr</td></tr>\n<tr><td colspan=\"5\">";
+				$text.= "<tr class=\"tblhead\" style=\"border-top:1px solid;border-bottom:1px solid\">\n";
+			$text.= "<td colspan=\"5\" align=\"right\">$tstr</td></tr>\n<tr><td colspan=\"5\">";
 			//$curtable="<table id=\"tbl$tstr\"><thead>$tblhd</thead><tfoot>";
 			$tables.="$(\"#tbl$tstr\").tablesorter();"; //"tbl$module";
 			$curtablebody="<tbody>";
@@ -262,32 +235,22 @@ if($step >= 1) {
 		$total += $sum;
 		$curtablefoot.= "</tfoot>";
 		//print table
-		print "<table id=\"tbl$tstr\">$curtablehd $curtablefoot $curtablebody</table>";
-		print "</td></tr>\n";
+		$text.= "<table id=\"tbl$tstr\">$curtablehd $curtablefoot $curtablebody</table>";
+		$text.= "</td></tr>\n";
 	}
-	print "<tr class=\"sumline\">\n";
+	$text.= "<tr class=\"sumline\">\n";
 	$l = _("Total");
-	print "<td colspan=\"2\" align=\"left\"><b>$l: &nbsp;</b></td>\n";
-	print "<td>$totaldb</td><td>$totalcrd</td>\n";
+	$text.= "<td colspan=\"2\" align=\"left\"><b>$l: &nbsp;</b></td>\n";
+	$text.= "<td>$totaldb</td><td>$totalcrd</td>\n";
 	$tstr = number_format($total);
-	print "<td>$tstr</td>\n";
-	print "</tr>\n";
-	print "</table>\n";
-	print "
-	<script type=\"text/javascript\">\n
-	$(document).ready(function() 
-		    { 
-		    	$tables
-		        
-		    } 
-		); 
-	</script>
-	
-	";
+	$text.= "<td>$tstr</td>\n";
+	$text.= "</tr>\n";
+	$text.= "</table>\n";
+	$text.= "	<script type=\"text/javascript\">\n	$(document).ready(function()  { $tables  } ); </script>	";
 	if(isset($module) && ($step == 1)) {
 		$url = "balance.php?print=1&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate";
 		$url .= "&amp;prefix=$prefix";
-		print "<div class=\"repbottom\">\n";
+		$text.= "<div class=\"repbottom\">\n";
 		$l = _("Print");
 		//print "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\" />\n";
 		//print "&nbsp;&nbsp;";
@@ -295,22 +258,22 @@ if($step >= 1) {
 		if($percent)
 			$url .= "&amp;percent=on";
 		$l = _("File export");
-		print "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\" />\n";
-		print "</div>\n";
+		$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\" />\n";
+		$text.= "</div>\n";
 	}
 	else if($step == 2) {
 		fclose($fd);
 		Conv1255($filename);
 		$l = _("Click here to download");
-		print "<h2>$l: ";
+		$text.= "<h2>$l: ";
 		$url = "download.php?file=$filename&amp;name=profloss.csv";
-		print "<a href=\"$filename\">balance.csv</a></h2>\n";
+		$text.= "<a href=\"$filename\">balance.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
-		print "<h2>$l</h2>\n";
-		print "<script type=\"text/javascript\">\n";
-		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		print "</script>\n";
+		$text.= "<h2>$l</h2>\n";
+		$text.= "<script type=\"text/javascript\">\n";
+		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		$text.= "</script>\n";
 	}
 }
-
+createForm($text, $header,'',750,'','',1,getHelp());
 ?>

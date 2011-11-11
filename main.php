@@ -44,9 +44,9 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 		print "prefix: $prefix<br>\n";
 	} */
 	if($n == 0) {
-		print "<br />\n";
+		//print "<br />\n";
 		$l = _("No companies for this user");
-		print "<h1>$l</h1>\n";
+		ErrorReport($l);
 		return;
 	}
 	if($n >= 1) {
@@ -164,13 +164,13 @@ $text.= "<input type=\"hidden\" name=\"module\" value=\"main\" />\n";
 $l = _("Begin date");
 $style="style=\"padding-right: 10px;width: 120px;text-align:right;color: #186ABF;   font-weight: bold;\"";
 $text.= "<table style=\"\"><tr><td $style>$l: <br />\n";
-$text.= "<input type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindmy\" size=\"7\" />\n";
+$text.= "<input class=\"date\" type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindmy\" size=\"7\" />\n";
 //color="#f7f7f7"color="#f2f2f2"color="#dedede"
 $text.= "</td><td $style>\n";
 $l = _("End date");
 $text.= "$l: <br />\n";
-$text.= "<input type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\" />\n";
-$text.='<script type="text/javascript">	addDatePicker("#begin","'.$begindmy.'");addDatePicker("#end","'.$enddmy.'");</script>';
+$text.= "<input class=\"date\" type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\" />\n";
+//$text.='<script type="text/javascript">	addDatePicker("#begin","'.$begindmy.'");addDatePicker("#end","'.$enddmy.'");</script>';
 //print "&nbsp;&nbsp;<input type=\"submit\" value=\"׳³ג€˜׳³ֲ¦׳³ֲ¢\" />\n";
 $l=_('Go');
 $text.= "</td><td $style><a href='javascript:document.main.submit();' class='btnsmall'>$l</a></td></tr></table>";

@@ -14,7 +14,7 @@ if(!isset($module)) {
 
 
 	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	$reptitle = "׳“׳•׳— ׳ ׳™׳›׳•׳™ ׳�׳¡ ׳‘׳�׳§׳•׳¨";
+	$reptitle = "דוח ניכוי מס במקור";
 	include('printhead.inc.php');
 	print $header;
 	
@@ -31,7 +31,7 @@ else {
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳‘׳—׳™׳¨׳× ׳¢׳¡׳§</h1>\n";
+	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
 	return;
 }
 
@@ -59,16 +59,16 @@ function PrintTitle($customer, $step, $fd) {
 	if($step < 2) {
 		print "<br><h2>$customer</h2>\n";
 		print "<table border=\"1\" dir=\"rtl\"><tr class=\"tblhead\">\n";
-		print "<td>׳×׳ ׳•׳¢׳”</td>\n";
-		print "<td>׳§׳‘׳�׳”</td>\n";
-		print "<td>׳×׳�׳¨׳™׳�</td>\n";
-		print "<td>׳¡׳›׳•׳�</td>\n";
+		print "<td>תנועה</td>\n";
+		print "<td>קבלה</td>\n";
+		print "<td>תאריך</td>\n";
+		print "<td>סכום</td>\n";
 		print "</tr>\n";
 	}
 	else {
 		fwrite($fd, "$customer\n");
-		fwrite($fd, "\"׳×׳ ׳•׳¢׳”\",");
-		fwrite($fd, "\"׳§׳‘׳�׳”\",\"׳×׳�׳¨׳™׳�\",\"׳¡׳›׳•׳�\"\n");
+		fwrite($fd, "\"תנועה\",");
+		fwrite($fd, "\"קבלה\",\"תאריך\",\"סכום\"\n");
 	}
 }
 
@@ -80,7 +80,7 @@ if(!isset($module)) {
 	print "<h1>$str</h1>\n";	
 }
 else if($step != 0)
-	print "<br><h1>׳“׳•׳— ׳ ׳™׳›׳•׳™ ׳�׳¡ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳×</h1>\n";
+	print "<br><h1>דוח ניכוי מס במקור מלקוחות</h1>\n";
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 if($step == 0) {	/* Get date range */
@@ -89,13 +89,13 @@ if($step == 0) {	/* Get date range */
 	$bdate = "1-1-$y";
 	print "<div class=\"righthalf2\">\n";
 	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>׳“׳•\"׳— ׳ ׳™׳›׳•׳™ ׳�׳¡ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳×</b>\n";
+	print "<b>דו\"ח ניכוי מס במקור מלקוחות</b>\n";
 	print "</div></div>\n";
 	print "<form name=\"dtrange\" method=\"get\">\n";
 	print "<input type=\"hidden\" name=\"module\" value=\"srctax\">\n";
 	print "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
 	print "<table dir=\"rtl\" cellpadding=\"20px\" cellspacing=\"20px\"><tr>\n";
-	print "<td>׳‘׳—׳¨ ׳×׳�׳¨׳™׳� ׳×׳—׳™׳�׳”: </td>\n";
+	print "<td>בחר תאריך תחילה: </td>\n";
 	print "<td><input type=\"text\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
 ?>
 <script language="JavaScript">
@@ -108,7 +108,7 @@ if($step == 0) {	/* Get date range */
 </script>
 <?PHP
 	print "</td>\n";
-	print "<td>׳‘׳—׳¨ ׳×׳�׳¨׳™׳� ׳¡׳™׳•׳�: </td>\n";
+	print "<td>בחר תאריך סיום: </td>\n";
 	print "<td><input type=\"text\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
 ?>
 <script language="JavaScript">
@@ -121,11 +121,13 @@ if($step == 0) {	/* Get date range */
 </script>
 <?PHP
 	print "</td>\n";
-	print "<td><input type=\"submit\" value=\"׳”׳₪׳§\"></td>\n";
+	print "<td><input type=\"submit\" value=\"הפק\"></td>\n";
 	print "</tr></table>\n";
 	print "</form>\n";
 	print "</div>\n";
-	
+	print "<div class=\"lefthalf2\">\n";
+	ShowText('srctax');
+	print "</div>\n";
 }
 if($step == 2) {
 	$filename = "tmp/srctax.csv";
@@ -134,7 +136,7 @@ if($step == 2) {
 if($step >= 1) {
 	$begindate = $_GET['begindate'];
 	$enddate = $_GET['enddate'];
-	print "<h2>׳�׳×׳§׳•׳₪׳”: $begindate - $enddate</h2>\n";
+	print "<h2>לתקופה: $begindate - $enddate</h2>\n";
 
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
@@ -174,13 +176,13 @@ if($step >= 1) {
 				if($custacct != $lastacct) {
 					if($lastacct != 0) {
 						if($step == 2)
-							fwrite($fd, "\"׳¡׳”׳› ׳�׳�׳§׳•׳—\", $custsum\n");
+							fwrite($fd, "\"סהכ ללקוח\", $custsum\n");
 						else {
 							if(!isset($module))
 								print "<tr class=\"sumlineprt\">\n";
 							else
 								print "<tr class=\"sumline\">\n";
-							print "<td colspan=\"3\">׳¡׳”\"׳› ׳�׳�׳§׳•׳—</td>\n";
+							print "<td colspan=\"3\">סה\"כ ללקוח</td>\n";
 							print "<td>$custsum</td></tr>\n";
 							print "</table>\n";	/* close previous table */
 						}
@@ -210,12 +212,12 @@ if($step >= 1) {
 				print "<tr class=\"sumlineprt\">\n";
 			else
 				print "<tr class=\"sumline\">\n";
-			print "<td colspan=\"3\">׳¡׳”\"׳› ׳�׳�׳§׳•׳—</td>\n";
+			print "<td colspan=\"3\">סה\"כ ללקוח</td>\n";
 			print "<td>$custsum</td></tr>\n";
 			print "</table>\n";
 		}
 		print "</td><td valign=\"top\">\n";
-		
+		ShowText('srctax1');
 		print "</td></tr></table>\n";
 		print "<br>\n";
 	}
@@ -223,20 +225,20 @@ if($step >= 1) {
 		print "&nbsp;&nbsp;";
 		$url = "srctax.php?print=1&step=1&begindate=$begindate&enddate=$enddate";
 		$url .= "&prefix=$prefix";
-		print "<input type=\"button\" value=\"׳”׳“׳₪׳¡\" onclick=\"PrintWin('$url')\">\n";
+		print "<input type=\"button\" value=\"הדפס\" onclick=\"PrintWin('$url')\">\n";
 		print "&nbsp;&nbsp;";
-		print "<input type=\"button\" value=\"׳™׳¦׳•׳� ׳�׳§׳•׳‘׳¥\" onclick=\"window.location.href='?module=srctax&step=2&begindate=$begindate&enddate=$enddate'\">\n";
+		print "<input type=\"button\" value=\"יצוא לקובץ\" onclick=\"window.location.href='?module=srctax&step=2&begindate=$begindate&enddate=$enddate'\">\n";
 	}
 	else if($step == 2) {
 		fclose($fd);
 		Conv1255($filename);
-		print "<h2>׳�׳”׳•׳¨׳“׳× ׳”׳“׳•׳— ׳�׳—׳¥ ׳›׳�׳�: ";
+		print "<h2>להורדת הדוח לחץ כאן: ";
 		$url = "/download.php?file=$filename&name=srctax.csv";
 		print "<a href=\"$filename\">srctax.csv</a></h2>\n";
-		print "<h2>׳�׳—׳¥ ׳¢׳� ׳©׳� ׳”׳§׳•׳‘׳¥ ׳¢׳� ׳›׳₪׳×׳•׳¨ ׳™׳�׳ ׳™ ׳•׳‘׳—׳¨ \"׳©׳�׳•׳¨ ׳‘׳©׳�\"</h2>\n";
+		print "<h2>לחץ על שם הקובץ עם כפתור ימני ובחר \"שמור בשם\"</h2>\n";
 		print "<script type=\"text/javascript\">\n";
 		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
 		print "</script>\n";
 	}
 }
-
+?>

@@ -6,14 +6,15 @@
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 global $montharr;
 
-$montharr = array('׳™׳ ׳•׳�׳¨', '׳₪׳‘׳¨׳•׳�׳¨', '׳�׳¨׳¥', '׳�׳₪׳¨׳™׳�', '׳�׳�׳™', '׳™׳•׳ ׳™', '׳™׳•׳�׳™', '׳�׳•׳’׳•׳¡׳˜',
-	'׳¡׳₪׳˜׳�׳‘׳¨', '׳�׳•׳§׳˜׳•׳‘׳¨', '׳ ׳•׳‘׳�׳‘׳¨', '׳“׳¦׳�׳‘׳¨');
+$montharr = array(_("January"), _("February"), _("March"), _("April"),
+	_("May"), _("June"), _("July"), _("August"), _("September"), 
+	_("October"), _("November"), _("December"));
 
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳‘׳—׳™׳¨׳× ׳¢׳¡׳§</h1>\n";
+	ErrorReport(_("This operation can not be executed without choosing a business first"));
 	return;
 }
-
+$text='';
 function GetLastDayOfMonth($month, $year) {
 	$last = 31;
 	
@@ -29,13 +30,14 @@ function GetLastDayOfMonth($month, $year) {
 function PrintMonthSelect($def, $name) {
 	global $montharr;
 	
-	print "<select name=\"$name\">\n";
+	$str= "<select name=\"$name\">\n";
 	foreach($montharr as $i => $m) {
 		$i++;
 		$d = ($def == $i) ? " selected" : "";
-		print "<option value=\"$i\"$d>$m</option>\n";
+		$str.= "<option value=\"$i\"$d>$m</option>\n";
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 		
 function GetSumForAcct($acct, $begin, $end) {
@@ -127,32 +129,32 @@ if($step == 0) {	/* print date select form */
 	$begindate = "1-$beginmonth-$beginyear";
 	$enddate = "$last2-$endmonth-$endyear";
 	
-	print "<div class=\"righthalf2\">\n";
-	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”</b>\n";
-	print "</div></div>\n";
-	print "<form action=\"?module=taxrep&step=1\" method=\"post\">\n";
-	print "<input type=\"hidden\" name=\"beginyear\" value=\"$beginyear\">\n";
-	print "<input type=\"hidden\" name=\"endyear\" value=\"$endyear\">\n";
-	print "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-	print "<td>׳¦׳•׳¨ ׳“׳•׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳—׳•׳“׳©׳™׳�: &nbsp;</td>\n";
-	print "<td>\n";
-	PrintMonthSelect($beginmonth, 'beginmonth');
-	print "&nbsp;</td>\n";
-	print "<td> &nbsp; </td>\n";	/* just to create small space */
-	print "<td>\n";
-	PrintMonthSelect($endmonth, 'endmonth');
-	print "</td>\n";
-	print "<td>\n";
-	print "&nbsp;&nbsp;<input type=\"submit\" value=\"׳‘׳¦׳¢\"></td></tr>\n";
-	print "</table>\n";
-	print "</form>\n";
-	print "<br>\n";
-	print "</div>\n";
-	
+	//print "<div class=\"righthalf2\">\n";
+	$text.= "<div class=\"caption_out\"><div class=\"caption\">";
+	$text.= "<b>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”</b>\n";
+	$text.= "</div></div>\n";
+	$text.= "<form action=\"?module=taxrep&step=1\" method=\"post\">\n";
+	$text.= "<input type=\"hidden\" name=\"beginyear\" value=\"$beginyear\">\n";
+	$text.= "<input type=\"hidden\" name=\"endyear\" value=\"$endyear\">\n";
+	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	$text.= "<td>׳¦׳•׳¨ ׳“׳•׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳—׳•׳“׳©׳™׳�: &nbsp;</td>\n";
+	$text.= "<td>\n";
+	$text.=PrintMonthSelect($beginmonth, 'beginmonth');
+	$text.= "&nbsp;</td>\n";
+	$text.= "<td> &nbsp; </td>\n";	/* just to create small space */
+	$text.= "<td>\n";
+	$text.=PrintMonthSelect($endmonth, 'endmonth');
+	$text.= "</td>\n";
+	$text.= "<td>\n";
+	$text.= "&nbsp;&nbsp;<input type=\"submit\" value=\"׳‘׳¦׳¢\"></td></tr>\n";
+	$text.= "</table>\n";
+	$text.= "</form>\n";
+	$text.= "<br>\n";
+	//print "</div>\n";
+	createForm($text, $haeder,'',750,'','',1,getHelp());
 	return;
 }
-
+$header="׳“׳•\"׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳×׳§׳•׳₪׳”: $bm - $em";
 if($step == 1) {
 	$beginmonth = $_POST['beginmonth'];
 	$endmonth = $_POST['endmonth'];
@@ -167,52 +169,53 @@ if($step == 1) {
 	
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
-	print "<br><h1>׳“׳•\"׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
-	print "<div class=\"righthalf2\">\n";
-	print "<form action=\"?module=taxrep&step=2\" method=\"post\">\n";
-	print "<table dir=\"ltr\" border=\"0\" cellpadding=\"10\"><tr>\n";
-	print "<input type=\"hidden\" name=\"beginmonth\" value=\"$beginmonth\">\n";
-	print "<input type=\"hidden\" name=\"endmonth\" value=\"$endmonth\">\n";
-	print "<input type=\"hidden\" name=\"begindate\" value=\"$begindate\">\n";
-	print "<input type=\"hidden\" name=\"enddate\" value=\"$enddate\">\n";
-	print "<td align=\"center\">\n";
+	//print 
+	
+	//print "<div class=\"righthalf2\">\n";
+	$text.= "<form action=\"?module=taxrep&step=2\" method=\"post\">\n";
+	$text.= "<table dir=\"ltr\" border=\"0\" cellpadding=\"10\"><tr>\n";
+	$text.= "<input type=\"hidden\" name=\"beginmonth\" value=\"$beginmonth\">\n";
+	$text.= "<input type=\"hidden\" name=\"endmonth\" value=\"$endmonth\">\n";
+	$text.= "<input type=\"hidden\" name=\"begindate\" value=\"$begindate\">\n";
+	$text.= "<input type=\"hidden\" name=\"enddate\" value=\"$enddate\">\n";
+	$text.= "<td align=\"center\">\n";
 	$income = round(GetSumForAcctType(INCOME, $begin, $end), 0);
-	print "׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™ ׳‘׳©\"׳—<br>";
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"income\" value=\"$income\">\n";
-	print "</td><td style=\"width:7em\">\n";
+	$text.= "׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™ ׳‘׳©\"׳—<br>";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"income\" value=\"$income\">\n";
+	$text.= "</td><td style=\"width:7em\">\n";
 	$query = "SELECT tax FROM $companiestbl WHERE prefix='$prefix'";
 	$result = DoQuery($query, "taxrep.php");
 	$line = mysql_fetch_array($result, MYSQL_ASSOC);
 	$taxpercent = $line['tax'];
-	print "<br> &nbsp;X";
-	print "<input type=\"text\" readonly name=\"taxpercent\" value=\"$taxpercent\" size=\"4\">%\n";
-	print "</td><td align=\"center\">\n";
-	print "׳�׳§׳“׳�׳” ׳¢\"׳₪ % ׳�׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™<br>\n";
+	$text.= "<br> &nbsp;X";
+	$text.= "<input type=\"text\" readonly name=\"taxpercent\" value=\"$taxpercent\" size=\"4\">%\n";
+	$text.= "</td><td align=\"center\">\n";
+	$text.= "׳�׳§׳“׳�׳” ׳¢\"׳₪ % ׳�׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™<br>\n";
 	$tax = round($income * $taxpercent / 100.0, 0);
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"tax\" value=\"$tax\">\n";
-	print "</td></tr>\n";
-	print "<td align=\"center\">\n";
-	print "׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳× ׳�׳×׳§׳•׳₪׳”<br>";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"tax\" value=\"$tax\">\n";
+	$text.= "</td></tr>\n";
+	$text.= "<td align=\"center\">\n";
+	$text.= "׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳× ׳�׳×׳§׳•׳₪׳”<br>";
 	$custtax = GetSumForAcct(CUSTTAX, $begin, $end) * -1.0;
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"custtaxtotal\" value=\"$custtax\">\n";
-	print "</td><td>\n";
-	print "&nbsp;\n";		/* spacer column */
-	print "</td><td align=\"center\">\n";
-	print "׳ ׳™׳›׳•׳™׳™׳� ׳‘׳�׳§׳•׳¨ ׳�׳§׳™׳–׳•׳–<br>\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"custtaxtotal\" value=\"$custtax\">\n";
+	$text.= "</td><td>\n";
+	$text.= "&nbsp;\n";		/* spacer column */
+	$text.= "</td><td align=\"center\">\n";
+	$text.= "׳ ׳™׳›׳•׳™׳™׳� ׳‘׳�׳§׳•׳¨ ׳�׳§׳™׳–׳•׳–<br>\n";
 	$custtax = GetSumForAcct(CUSTTAX, 0, $end) * -1.0;
 	if($custtax > $tax)
 		$custtax = $tax;
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"custtax\" value=\"$custtax\">\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"custtax\" value=\"$custtax\">\n";
 	
-	print "</td></tr><tr>\n";
-	print "<td colspan=\"2\">&nbsp;</td><td align=\"center\">\n";
-	print "׳¡׳”\"׳› ׳�׳×׳©׳�׳•׳�<br>\n";
+	$text.= "</td></tr><tr>\n";
+	$text.= "<td colspan=\"2\">&nbsp;</td><td align=\"center\">\n";
+	$text.= "׳¡׳”\"׳› ׳�׳×׳©׳�׳•׳�<br>\n";
 	$taxtopay = $tax - $custtax;
-	print "<input dir=\"ltr\" type=\"text\" readonly name=\"taxtopay\" value=\"$taxtopay\">\n";
-	print "</tr><tr><td colspan=\"3\" align=\"center\">\n";
-	print "<input type=\"submit\" value=\"׳¨׳©׳•׳�\"></td></tr>\n";
-	print "</table>\n";
-	print "</form>\n";
+	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"taxtopay\" value=\"$taxtopay\">\n";
+	$text.= "</tr><tr><td colspan=\"3\" align=\"center\">\n";
+	$text.= "<input type=\"submit\" value=\"׳¨׳©׳•׳�\"></td></tr>\n";
+	$text.= "</table>\n";
+	$text.= "</form>\n";
 }
 if($step == 2) {
 	$begindate = $_POST['begindate'];
@@ -228,7 +231,7 @@ if($step == 2) {
 	
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
-	print "<br><h1>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
+	$text.= "<br><h1>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
 
 	// Now the real thing, register transactions */
 		list($day1, $month1, $year1) = split("[/.-]", $begindate);
@@ -247,5 +250,6 @@ if($step == 2) {
 	$tnum = Transaction($tnum, TRAN_PRETAX, TAX, $ref1, $ref2, $date, $custtax);
 	$tnum = Transaction($tnum, TRAN_PRETAX, CUSTTAX, $ref1, $ref2, $date, $custtax * -1.0);
 }
+createForm($text, $header,'',750,'','',1,getHelp());
 ?>
 

@@ -6,11 +6,11 @@
  | This program is a free software licensed under the GPL 
  */
 if(!isset($prefix) || ($prefix == '')) {
-	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport( _("This operation can not be executed without choosing a business first"));
+	//print "<h1>$l</h1>\n";
 	return;
 }
-
+$text='';
 global $accountstbl, $transactionstbl;
 global $namecache;
 global $TranType;
@@ -109,11 +109,9 @@ function CalcCreditSum() {
 }
 </script>
 
-<br>
-<div class="form righthalf1">
 <?PHP
-$l = _("Accounts reconciliations");
-print "<h3>$l</h3>\n";
+$haeder = _("Accounts reconciliations");
+//print "<h3>$l</h3>\n";
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
@@ -130,11 +128,8 @@ if($step == 2) {
 		foreach($debit as $val) {
 			/* $val is transaction number in debit side */
 			$query = "SELECT sum FROM $transactionstbl WHERE num='$val' AND account='$account' AND prefix='$prefix'";
-			$result = mysql_query($query);
-			if(!$result) {
-				echo mysql_error();
-				exit;
-			}
+			$result = DoQuery($query,__FILE__.": ".__LINE__);
+			
 			while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 				$sum = $line[0];
 				$total += $sum;
@@ -150,11 +145,8 @@ if($step == 2) {
 		foreach($credit as $val) {
 			/* $val is transaction number in debit side */
 			$query = "SELECT sum FROM $transactionstbl WHERE num='$val' AND account='$account' AND prefix='$prefix'";
-			$result = mysql_query($query);
-			if(!$result) {
-				echo mysql_error();
-				exit;
-			}
+			$result = DoQuery($query,__FILE__.": ".__LINE__);
+			
 			while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 				$sum = $line[0];
 //				print "sum: $sum<br />\n";
@@ -181,20 +173,14 @@ if($step == 2) {
 		$query = "UPDATE $transactionstbl SET cor_num='$debit_str' ";
 		$query .= "WHERE num='$val' AND account='$account' AND prefix='$prefix'";
 //		print "Query: $query<BR>\n";
-		$result = mysql_query($query);
-		if(!$result) {
-			echo mysql_error();
-			exit;
-		}
+		$result = DoQuery($query,__FILE__.": ".__LINE__);
+		
 	}
 	foreach($debit as $val) {
 		$query = "UPDATE $transactionstbl SET cor_num='$credit_str' ";
 		$query .= "WHERE num='$val' AND account='$account' AND prefix='$prefix'";
-		$result = mysql_query($query);
-		if(!$result) {
-			echo mysql_error();
-			exit;
-		}
+		$result = DoQuery($query,__FILE__.": ".__LINE__);
+		
 	}
 	$step = 1;
 }
@@ -206,34 +192,35 @@ if($step == 1) {
 		ErrorReport("$l");
 		exit;
 	}
+	//adam:?
+	//print "</div>\n";	/* end of righthalf */
 	
-	print "</div>\n";	/* end of righthalf */
-	print "<div class=\"form innercontent\">\n";
+	//print "<div class=\"form innercontent\">\n";
 	$l = _("Account");
-	print "<h2>$l: \n";
-	echo GetAccountName($account);
-	print "</h2>\n";
+	$text.= "<h2>$l: \n";
+	$text.=  GetAccountName($account);
+	$text.=  "</h2>\n";
 	
-	print "<form name=\"form1\" action=\"?module=intmatch&amp;step=2\" method=\"post\">\n";
-	print "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
-	print "<table><tr>\n";
+	$text.=  "<form name=\"form1\" action=\"?module=intmatch&amp;step=2\" method=\"post\">\n";
+	$text.=  "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
+	$text.=  "<table><tr>\n";
 	$l = _("Debit transactions");
-	print "<td align=\"right\"><h2>$l</h2></td>\n";
-	print "<td style=\"background:white\">&nbsp;&nbsp;</td>\n";
+	$text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
+	$text.=  "<td style=\"background:white\">&nbsp;&nbsp;</td>\n";
 	$l = _("Credit transactions");
-	print "<td align=\"right\"><h2>$l</h2></td>\n";
-	print "</tr><tr><td valign=\"top\">\n";
-	print "<table dir=\ltr\" border=\"1\"><tr class=\"tblhead\">\n";
-	print "<td>&nbsp;</td>\n";
+	$text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
+	$text.=  "</tr><tr><td valign=\"top\">\n";
+	$text.=  "<table class=\"formy\" border=\"1\"><tr>\n";
+	$text.=  "<th>&nbsp;</th>\n";
 	$l = _("Tran. type");
-	print "<td>$l</td>\n";
+	$text.=  "<th>$l</th>\n";
 	$l = _("Date");
-	print "<td>$l</td>\n";
+	$text.=  "<th>$l</th>\n";
 	$l = _("Ref. num");
-	print "<td>$l</td>\n";
+	$text.=  "<th>$l</th>\n";
 	$l = _("Sum");
-	print "<td>$l</td>\n";
-	print "</tr>\n";
+	$text.=  "<th>$l</th>\n";
+	$text.=  "</tr>\n";
 	
 	/* Now the actual work of printing transactions in debit side */
 	$query = "SELECT * FROM $transactionstbl WHERE account='$account' AND sum<0 AND prefix='$prefix'";
@@ -248,38 +235,35 @@ if($step == 1) {
 		$refnum = $line['refnum1'];
 		$sum = $line['sum'];
 		$sum *= -1.0;
-		print "<tr>\n";
-		print "<td><input type=\"checkbox\" class=\"debit\" name=\"debit[]\" value=\"$num\" onchange=\"CalcDebitSum()\"></td>\n";
-		print "<td>$type_str</td>\n";
-		print "<td>$date</td>\n";
-		print "<td>$refnum</td>\n";
-		print "<td>$sum</td><input type=\"hidden\" class=\"debit_sum name=\"debit_sum[]\" value=\"$sum\"></TD>\n";
-		print "</TR>\n";
+		$text.=  "<tr>\n";
+		$text.=  "<td><input type=\"checkbox\" class=\"debit\" name=\"debit[]\" value=\"$num\" onchange=\"CalcDebitSum()\"></td>\n";
+		$text.=  "<td>$type_str</td>\n";
+		$text.=  "<td>$date</td>\n";
+		$text.=  "<td>$refnum</td>\n";
+		$text.=  "<td>$sum</td><input type=\"hidden\" class=\"debit_sum name=\"debit_sum[]\" value=\"$sum\"></TD>\n";
+		$text.=  "</tr>\n";
 	}
-	print "<tr><td colspan=\"4\">&nbsp;</td>\n";
-	print "<td><input type=\"text\" name=\"debit_total\" value=\"0\" size=\"5\" readonly></td></tr>\n";
-	print "</table>\n";
-	print "<td style=\"background:white\">&nbsp;&nbsp;</td>\n";
-	print "</td><td valign=\"top\">\n";
-	print "<table dir=\"$dir\" border=\"1\"><tr class=\"tblhead\">\n";
-	print "<td>&nbsp;</td>\n";
+	$text.=  "<tr><td colspan=\"4\">&nbsp;</td>\n";
+	$text.=  "<td><input type=\"text\" name=\"debit_total\" value=\"0\" size=\"5\" readonly></td></tr>\n";
+	$text.=  "</table>\n";
+	$text.=  "<td style=\"background:white\">&nbsp;&nbsp;</td>\n";
+	$text.=  "</td><td valign=\"top\">\n";
+	$text.=  "<table  class=\"formy\" border=\"1\"><tr>\n";
+	$text.=  "<th>&nbsp;</th>\n";
 	$l = _("Tran. type");
-	print "<td>$l</td>\n";
+	$text.=  "<th>$l</th>\n";
 	$l = _("Date");
-	print "<td>$l</td>\n";
+	$text.=  "<th>$l</th>\n";
 	$l = _("Ref. num");
-	print "<td>$l</td>\n";
+	$text.=  "<th>$l</th>\n";
 	$l = _("Sum");
-	print "<td>$l</td>\n";
-	print "</tr>\n";
+	$text.=  "<th>$l</th>\n";
+	$text.=  "</tr>\n";
 	
 	/* Now the actual work of printing transactions in credit side */
 	$query = "SELECT * FROM $transactionstbl WHERE account='$account' AND sum>0 AND prefix='$prefix'";
-	$result = mysql_query($query);
-	if(!$result) {
-		echo mysql_error();
-		exit;
-	}
+	$result = DoQuery($query,__FILE__.": ".__LINE__);
+
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$cor = $line['cor_num'];
 		if(($cor != '') && ($cor != 0))
@@ -289,46 +273,40 @@ if($step == 1) {
 		$date = FormatDate($line['date'], "mysql", "dmy");
 		$refnum = $line['refnum1'];
 		$sum = $line['sum'];
-		print "<tr>\n";
-		print "<td><input type=\"checkbox\" class=\"credit\" name=\"credit[]\" value=\"$num\" onchange=\"CalcCreditSum()\"></td>\n";
-		print "<td>$type_str</td>\n";
-		print "<td>$date</td>\n";
-		print "<td>$refnum</td>\n";
-		print "<td>$sum<input type=\"hidden\" class=\"credit_sum\" name=\"credit_sum[]\" value=\"$sum\"></td>\n";
-		print "</tr>\n";
+		$text.=  "<tr>\n";
+		$text.=  "<td><input type=\"checkbox\" class=\"credit\" name=\"credit[]\" value=\"$num\" onchange=\"CalcCreditSum()\"></td>\n";
+		$text.=  "<td>$type_str</td>\n";
+		$text.=  "<td>$date</td>\n";
+		$text.=  "<td>$refnum</td>\n";
+		$text.=  "<td>$sum<input type=\"hidden\" class=\"credit_sum\" name=\"credit_sum[]\" value=\"$sum\"></td>\n";
+		$text.=  "</tr>\n";
 	}
-	print "<tr><td colspan=\"4\">&nbsp;</td>\n";
-	print "<td><input type=\"text\" name=\"credit_total\" value=\"0\" size=\"5\" readonly></td></tr>\n";
-	print "</table>\n";
-	print "</td></tr>\n";
+	$text.=  "<tr><td colspan=\"4\">&nbsp;</td>\n";
+	$text.=  "<td><input type=\"text\" name=\"credit_total\" value=\"0\" size=\"5\" readonly></td></tr>\n";
+	$text.=  "</table>\n";
+	$text.=  "</td></tr>\n";
 	$l = _("Reconciliate");
-	print "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
-	print "</table>\n";
-	print "</form>\n";
-	print "<br><br>\n";
-	print "</div>\n";
-	print "<div class=\"form righthalf1\">\n";
+	$text.=  "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.=  "</table>\n";
+	$text.=  "</form>\n";
+	$text.=  "<br><br>\n";
+	//print "</div>\n";
+	//print "<div class=\"form righthalf1\">\n";
 }
 
-?>
-<form action="?module=intmatch&amp;step=1" method="post">
-<table border="0" width="100%" class="formtbl">
-<?PHP
+
+$text.= '<form action="?module=intmatch&amp;step=1" method="post"><table border="0" width="100%" class="formtbl">';
+
 $l = _("Select account");
-print "<tr><td>$l: </td>\n";
-?>
-<td>
-<?PHP print PrintAccountSelect(); ?>
-</td>
-</tr><tr><td>&nbsp;</td></tr>
-<?PHP
+$text.= "<tr><td>$l: </td>\n";
+$text.= '<td>';
+$text.=  PrintAccountSelect(); 
+$text.= '</td></tr><tr><td>&nbsp;</td></tr>';
 $l = _("Select");
-print "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
-?>
-</table>
-</form>
-</div>
-<?PHP
+$text.=  "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+
+$text.= '</table></form>';
+createForm($text, $haeder,'',750);
 if($step == 0) {
 	
 }

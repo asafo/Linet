@@ -1,4 +1,4 @@
-׳�ֲ»ֲ¿<?PHP
+<?PHP
 //M:׳³ג€�׳³ג€¢"׳³ג€” ׳³ֲ¨׳³ג€¢׳³ג€¢׳³ג€” ׳³ג€¢׳³ג€�׳³ג‚×׳³ֲ¡׳³ג€�
 /*
  | Profit & Loss report for Freelance accounting system
@@ -91,62 +91,54 @@ function GetGroupTotal($grp, $begin, $end) {
 	}
 	return round($total, 0);
 }
-
+/*
  if(!isset($module)) {
 	$query = "SELECT companyname FROM $companiestbl WHERE prefix='$prefix'";
 	$result = DoQuery($query, "GetAccountName");
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	$str = $line[0];
-	print "<h1>bla:$str</h1>\n";	
+	print "<h1>$str</h1>\n";	
 }// */
-
+$text='';
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
 $reptitle = _("Profit and loss report");
 if($step != 0) {
-	print "<br><h1>$reptitle</h1>\n";
+	//print "<br><h1>$reptitle</h1>\n";
 }
 
 if($step == 0) {	/* Get date range */
 	$edate = date("d-m-Y");
 	list($d, $m, $y) = explode('-', $edate);
 	$bdate = "1-1-$y";
-	print "<br>\n";
-	print "<div class=\"form righthalf1\">\n";
-	print "<h3>$reptitle</h3>\n";
-	print "<form name=\"dtrange\" action=\"\" method=\"get\">\n";
-	print "<input type=\"hidden\" name=\"module\" value=\"profloss\">\n";
-	print "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
-	print "<table cellpadding=\"5px\" cellspacing=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
+	//print "<br>\n";
+	//print "<div class=\"form righthalf1\">\n";
+	//print "<h3>$reptitle</h3>\n";
+	$text.= "<form name=\"dtrange\" action=\"\" method=\"get\">\n";
+	$text.= "<input type=\"hidden\" name=\"module\" value=\"profloss\">\n";
+	$text.= "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
+	$text.= "<table cellpadding=\"5px\" cellspacing=\"5px\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("From date");
-	print "<td>׳³ג€˜׳³ג€”׳³ֲ¨ ׳³ֳ—׳³ן¿½׳³ֲ¨׳³ג„¢׳³ן¿½ ׳³ֳ—׳³ג€”׳³ג„¢׳³ן¿½׳³ג€�: </td>\n";
-	print "<td><input type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
-?>
-<script type="text/javascript">
-		addDatePicker("#begindate","<?print "$bdate"; ?>");
-</script>
-<?PHP
-	print "</td>\n";
+	$text.= "<td>bla bla: </td>\n";
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
+
+	$text.= "</td>\n";
 	$l = _("To date");
-	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
-?>
-<script type="text/javascript">
-		addDatePicker("#enddate","<?print "$edate"; ?>");
-</script>
-<?PHP
-	print "</td>\n";
-	print "</tr><tr><td colspan=\"4\">\n";
+	$text.= "<td>$l: </td>\n";
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
+
+	$text.= "</td>\n";
+	$text.= "</tr><tr><td colspan=\"4\">\n";
 	$l = _("Show percent");
-	print "&nbsp;<input type=\"checkbox\" name=\"percent\" checked>$l\n";
+	$text.= "&nbsp;<input type=\"checkbox\" name=\"percent\" checked>$l\n";
 	$l = _("6111 clause");
-	print "&nbsp;<input type=\"checkbox\" name=\"d6111\" checked>$l\n";
-	print "</td><tr>\n";
+	$text.= "&nbsp;<input type=\"checkbox\" name=\"d6111\" checked>$l\n";
+	$text.= "</td><tr>\n";
 	$l = _("Execute");
-	print "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
-	print "</tr></table>\n";
-	print "</form>\n";
-	print "</div>\n";
+	$text.= "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+	$text.= "</tr></table>\n";
+	$text.= "</form>\n";
+	//print "</div>\n";
 	
 }
 if($step == 2) {
@@ -159,40 +151,40 @@ if($step >= 1) {
 	$begindate = $_GET['begindate'];
 	$enddate = $_GET['enddate'];
 	$l = _("For period");
-	print "<h2>$l: $begindate - $enddate</h2>\n";
+	$text.= "<h2>$l: $begindate - $enddate</h2>\n";
 
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
 	if($step == 1) {
 		if(!isset($module)) {
-			print "<table border=\"0\" width=\"100%\"><tr><td align=\"center\">\n";
-			print "<table border=\"0\" cellpadding=\"3px\" class=\"printtbl\" align=\"center\">\n";
+			$text.= "<table border=\"0\" width=\"100%\"><tr><td align=\"center\">\n";
+			$text.= "<table border=\"0\" cellpadding=\"3px\" class=\"printtbl\" align=\"center\">\n";
 		}
 		else
-			print "<table border=\"0\" style=\"margin-right:2%\" cellpadding=\"3px\" class=\"hovertbl\">\n";
+			$text.= "<table border=\"0\" style=\"margin-right:2%\" cellpadding=\"3px\" class=\"hovertbl\">\n";
 		if(!isset($module))
-			print "<tr class=\"tblheadprt\" align=\"right\" style=\"border-top:1px solid\">\n";
+			$text.= "<tr class=\"tblheadprt\" align=\"right\" style=\"border-top:1px solid\">\n";
 		else
-			print "<tr class=\"tblhead\" align=\"right\" style=\"border-top:1px solid;border-bottom:1px solid\">\n";
+			$text.= "<tr class=\"tblhead\" align=\"right\" style=\"border-top:1px solid;border-bottom:1px solid\">\n";
 		$l = _("Account");
-		print "<td style=\"width:15em\" align=\"right\" >$l</td>\n";
+		$text.= "<td style=\"width:15em\" align=\"right\" >$l</td>\n";
 		$l = _("Sum NIS");
-		print "<td style=\"width:7em\" align=\"right\" dir=\"ltr\">$l&nbsp;</td>\n";
+		$text.= "<td style=\"width:7em\" align=\"right\" dir=\"ltr\">$l&nbsp;</td>\n";
 		if($percent) {
 			$l = _("Percent");
-			print "<td align=\"right\" style=\"width:5em\">$l&nbsp;&nbsp;</td>\n";
+			$text.= "<td align=\"right\" style=\"width:5em\">$l&nbsp;&nbsp;</td>\n";
 		}
 		if($d6111) {
 			$l = _("6111 clause");
-			print "<td align=\"right\">$l</td>\n";
+			$text.= "<td align=\"right\">$l</td>\n";
 		}
 		if(!isset($module))
-			print "</tr><tr class=\"tblheadprt\">\n";
+			$text.= "</tr><tr class=\"tblheadprt\">\n";
 		else
-			print "</tr><tr class=\"tblhead\">\n";
+			$text.= "</tr><tr class=\"tblhead\">\n";
 		$l = _("Income");
-		print "<td colspan=\"4\" align=\"right\"><u>$l</u></td>\n";
-		print "</tr>\n";
+		$text.= "<td colspan=\"4\" align=\"right\"><u>$l</u></td>\n";
+		$text.= "</tr>\n";
 	}
 	else {
 		$l1 = _("Account");
@@ -248,14 +240,14 @@ if($step >= 1) {
 			$url = "?module=acctdisp&amp;account=$num&amp;begin=$begindate&amp;end=$enddate";
 			$tstr = number_format($total);
 			if(isset($module))
-				print "<td><a href=\"$url\">$acct</a></td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
+				$text.= "<td><a href=\"$url\">$acct</a></td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
 			else
-				print "<td>$acct</td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
+				$text.= "<td>$acct</td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
 			if($percent)
-				print "<td>% $p</td>";
+				$text.= "<td>% $p</td>";
 			if($d6111)
-				print "<td>$id6111</td>\n";
-			print "</tr>\n";
+				$text.= "<td>$id6111</td>\n";
+			$text.= "</tr>\n";
 		}
 		else {
 			fwrite($fd, "$acct,$total");
@@ -270,16 +262,16 @@ if($step >= 1) {
 	if($step == 1) {
 		$tstr = number_format($total_income);
 		if(!isset($module))
-			print "<tr class=\"sumlineprt\" align=\"right\">\n";
+			$text.= "<tr class=\"sumlineprt\" align=\"right\">\n";
 		else
-			print "<tr class=\"sumline\" align=\"right\">\n";
+			$text.= "<tr class=\"sumline\" align=\"right\">\n";
 		$l = _("Total");
-		print "<td align=\"right\"><b>$l</b></td><td align=\"right\">$tstr</td>\n";
+		$text.= "<td align=\"right\"><b>$l</b></td><td align=\"right\">$tstr</td>\n";
 		if($percent)
-			print "<td>% 100</td>\n";
+			$text.= "<td>% 100</td>\n";
 		if($d6111)
-			print "<td>&nbsp;</td>\n";
-		print "</tr>\n";
+			$text.= "<td>&nbsp;</td>\n";
+		$text.= "</tr>\n";
 	}
 	else {
 		$l = _("Total");
@@ -354,11 +346,11 @@ if($step >= 1) {
 	} */
 	if($step == 1) {
 		if(!isset($module))
-			print "<tr class=\"tblheadprt\" align=\"right\">\n";
+			$text.= "<tr class=\"tblheadprt\" align=\"right\">\n";
 		else
-			print "<tr class=\"tblhead\" align=\"right\">\n";
+			$text.= "<tr class=\"tblhead\" align=\"right\">\n";
 		$l = _("Outcome");
-		print "<td colspan=\"4\"><u>$l</u></td>\n";
+		$text.= "<td colspan=\"4\"><u>$l</u></td>\n";
 	}
 	else {
 		$l = _("Outcome");
@@ -386,14 +378,14 @@ if($step >= 1) {
 			$url = "?module=acctdisp&amp;account=$num&amp;begin=$begindate&amp;end=$enddate";
 			$tstr = number_format($total);
 			if(isset($module))
-				print "<td><a href=\"$url\">$acct</a></td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
+				$text.= "<td><a href=\"$url\">$acct</a></td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
 			else
-				print "<td>$acct</td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
+				$text.= "<td>$acct</td><td style=\"text-align:right;direction:ltr\">$tstr</td>\n";
 			if($percent)
-				print "<td>% $p</td>";
+				$text.= "<td>% $p</td>";
 			if($d6111)
-				print "<td>$id6111</td>\n";
-			print "</tr>\n";
+				$text.= "<td>$id6111</td>\n";
+			$text.= "</tr>\n";
 		}
 		else {
 			fwrite($fd, "$acct,$total");
@@ -407,21 +399,21 @@ if($step >= 1) {
 	if($step == 1) {
 		$tstr = number_format($total_outcome);
 		if(!isset($module))
-			print "<tr class=\"sumlineprt\" align=\"right\">\n";
+			$text.= "<tr class=\"sumlineprt\" align=\"right\">\n";
 		else
-			print "<tr class=\"sumline\" align=\"right\">\n";
+			$text.= "<tr class=\"sumline\" align=\"right\">\n";
 		$l = _("Total");
-		print "<td><b>$l</b></td><td>$tstr</td>\n";
+		$text.= "<td><b>$l</b></td><td>$tstr</td>\n";
 		if($percent)
-			print "<td>% $tp</td>";
+			$text.= "<td>% $tp</td>";
 		if($d6111)
-			print "<td>&nbsp;</td>\n";
-		print "</tr>\n";
+			$text.= "<td>&nbsp;</td>\n";
+		$text.= "</tr>\n";
 		if(!isset($module))
-			print "<tr class=\"sumlineprt\" align=\"right\">\n";
+			$text.= "<tr class=\"sumlineprt\" align=\"right\">\n";
 		else
-			print "<tr class=\"sumline\" align=\"right\" >\n";
-		print "<td>\n";
+			$text.= "<tr class=\"sumline\" align=\"right\" >\n";
+		$text.= "<td>\n";
 	}
 	else {
 		$l = _("Total");
@@ -434,26 +426,26 @@ if($step >= 1) {
 	if($total > 0) {
 		$l = _("Profit");
 		if($step == 1)
-			print "<b>$l</b>\n";
+			$text.= "<b>$l</b>\n";
 		else
 			fwrite($fd, "$l,");
 	}
 	else {
 		$l = _("Loss");
 		if($step == 1)
-			print "<b>$l</b>\n";
+			$text.= "<b>$l</b>\n";
 		else
 			fwrite($fd, "$l,");
 	}
 	if($step == 1) {
 		$tstr = number_format($total);
-		print "</td><td dir=\"ltr\" align=\"right\">$tstr</td>\n";
+		$text.= "</td><td dir=\"ltr\" align=\"right\">$tstr</td>\n";
 		if($percent)
-			print "<td>&nbsp;</td>";
+			$text.= "<td>&nbsp;</td>";
 		if($d6111)
-			print "<td>&nbsp;</td>\n";
-		print "</tr>\n";
-		print "</table>\n";
+			$text.= "<td>&nbsp;</td>\n";
+		$text.= "</tr>\n";
+		$text.= "</table>\n";
 	}
 	else
 		fwrite($fd, "$total\n");
@@ -465,33 +457,33 @@ if($step >= 1) {
 		if($d6111)
 			$url .= "&amp;d6111=on";
 		$url .= "&amp;prefix=$prefix";
-		print "<div class=\"repbottom\">\n";
+		//print "<div class=\"repbottom\">\n";
 		$l = _("Print");
-		print "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
-		print "&nbsp;&nbsp;";
+		$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
+		$text.= "&nbsp;&nbsp;";
 		$url = "?module=profloss&amp;step=2&amp;begindate=$begindate&amp;enddate=$enddate";
 		if($percent)
 			$url .= "&amp;percent=on";
 		$l = _("File export");
-		print "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\">\n";
-		print "</div>\n";
+		$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\">\n";
+		//print "</div>\n";
 	}
 	else if($step == 2) {
 		fclose($fd);
 		Conv1255($filename);
-		$l = _("File export");
-		print "<h2>$l: ";
+		$haeder = _("File export");
+		//print "<h2>$l: ";
 		$url = "download.php?file=$filename&amp;name=profloss.csv";
-		print "<a href=\"$filename\">profloss.csv</a></h2>\n";
+		$text.= "<a href=\"$filename\">profloss.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
-		print "<h2>$l</h2>\n";
-		print "<script type=\"text/javascript\">\n";
-		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		print "</script>\n";
+		$text.= "<h2>$l</h2>\n";
+		$text.= "<script type=\"text/javascript\">\n";
+		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		$text.= "</script>\n";
 
 	}
 
 }
-
+createForm($text, $haeder,'',750,'','',1,getHelp());
 ?>
 
