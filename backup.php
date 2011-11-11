@@ -5,18 +5,21 @@
  |
  | This program is a free software licensed under the GPL 
  */
-include('config.inc.php');
-if(!isset($prefix)) {
+//include('config.inc.php');
+/*if(!isset($prefix)) {
 	if(isset($_COOKIE['company']))
 		$prefix =  $_COOKIE['company'];
 		
+}*/
+if ($prefix==''){
+	ErrorReport( "cannot backup without setting company");
+	return ;
 }
-elseif ($prefix=='') echo "cannot backup without setting company";
 $cwd = getcwd();
 chdir("backup");
 @mkdir($path."/backup/".$prefix);
 chdir($path."/backup/".$prefix);
-
+$text='';
 
 function BackupTable($fd, $tbl) {
 	global $prefix;
@@ -71,7 +74,7 @@ if($step == 'backup') {
 	$l = _("Click here to download backup file");
 	$text.= "<h2><a href=\"download.php?file=$bakname&amp;name=$bakname\" target=\"_blank\">$l</a></h2>\n";
 	//print "</div>\n";
-	createForm($text,$header,'',350);
+	createForm($text,$header,'',750);
 	
 }
 
@@ -150,11 +153,11 @@ if($step == 'restore') {
 	$l = _("Choose file from server");
 	$text.= "<h3>$l</h3>\n";
 	
-	$text.= "<table width=\"100%\"><tr class=\"tblhead\">\n";
+	$text.= "<table  class=\"formy\" width=\"100%\"><tr>\n";
 	$l = _("File");
-	$text.=  "<td style=\"width:10em;text-align:right\" align=\"right\">$l</td>\n";
+	$text.=  "<th style=\"width:10em;text-align:right\" align=\"right\">$l</th>\n";
 	$l = _("Actions");
-	$text.= "<td>$l</td>\n";
+	$text.= "<th>$l</th>\n";
 	$dh = opendir(".");
 	while(($file = readdir($dh)) !== false) {
 		if(!is_dir("$file")) {
@@ -168,7 +171,7 @@ if($step == 'restore') {
 	}
 	$text.= "</table>\n";
 	//print "</div>\n";
-	createForm($text,$header,'',350);
+	createForm($text,$header,'',750);
 	
 }
 

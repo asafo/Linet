@@ -27,13 +27,15 @@ function TypeSelChange() {
 
 </script>
 <?PHP
-print "here";
+//print "here";
+$text='';
 global $prefix, $accountstbl, $supdocstbl;
 global $payemnttype;
 
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport("$l");
+	//print "<h1>$l</h1>\n";
 	return;
 }
 
@@ -51,9 +53,9 @@ function PrintPaymentSelect($def) {
 	global $accountstbl;
 	global $prefix;
 
-	print "<select name=\"payment\">\n";
+	$str= "<select name=\"payment\">\n";
 	$l = _("Payment type");
-	print "<option value=\"0\">-- $l --</option>\n";
+	$str.= "<option value=\"0\">-- $l --</option>\n";
 	
 	$banks = BANKS;
 	$query = "SELECT num,company FROM $accountstbl WHERE type='$banks' AND prefix='$prefix'"; // banks accounts
@@ -62,13 +64,14 @@ function PrintPaymentSelect($def) {
 		$num = $line['num'];
 		if($num > 100) {
 			$acct = $line['company'];
-			print "<option value=\"$num\" ";
+			$str.= "<option value=\"$num\" ";
 			if($num == $def)
-				print "selected";
-			print ">$acct</option>\n";
+				$str.= "selected";
+			$str.= ">$acct</option>\n";
 		}
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return  $str;
 }
 
 function GetAcctTotal($account, $dt) {
@@ -126,7 +129,8 @@ else if($opt == 'natins') {
 if($step == 2) {
 	if($name == 'demo') {
 		$l = _("Demo user is not allowed to update data");
-		print "<h1>$l</h1>\n";		
+		ErrorReport("$l");
+		//print "<h1>$l</h1>\n";		
 		return;
 	}
 
@@ -161,14 +165,14 @@ if($step == 2) {
 	$t = SUPPLIERPAYMENT;
 	if($opt == 'vat')
 		$t = VAT;
-	// Transaction 1 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ג€�׳³ֲ¡׳³ג‚×׳³ֲ§
+	// Transaction 1 ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ²ֲ§
 	$tnum = Transaction(0, $t, $account, $refnum, '', $dt, $comment, $total * -1.0);
-	// Transaction 2 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ן¿½׳³ן¿½׳³ֲ¦׳³ן¿½׳³ג„¢ ׳³ג€�׳³ֳ—׳³ֲ©׳³ן¿½׳³ג€¢׳³ן¿½
+	// Transaction 2 ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¦׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג€�ֲ¢ ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ©׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½
 	$tnum = Transaction($tnum, $t, $payment, $refnum, '', $dt, $comment, $total);
 	$step = 0;
 	if($opt) {
 		$l = _("Payment executed successfully");
-		print "<h1>$l</h1>\n";
+		ErrorReport($l);
 		return;
 	}
 }
@@ -197,134 +201,131 @@ if($step == 1) {
 	$refnum = GetPost('refnum');
 	$comment = GetPost('comment');
 	
-	print "<br /><div class=\"form righthalf1\">\n";
+	//print "<br /><div class=\"form righthalf1\">\n";
 	if($opt == 'vat') {
 		$l = _("VAT payment");
-		print "<h3>$l</h3>\n";
+		$text.= "<h3>$l</h3>\n";
 	}
 	else if($opt == 'natins') {
 		$l = _("National insurance payment");
-		print "<h3>$l</h3>\n";
+		$text.= "<h3>$l</h3>\n";
 	}
 	else {
 		$l = _("Supplier payment");
-		print "<h3>$l</h3>\n";
+		$text.= "<h3>$l</h3>\n";
 		$l = _("Check data and press update to register payment");
-		print "<h2>$l</h2>\n";
+		$text.= "<h2>$l</h2>\n";
 	}
 
 	$url = "?module=payment&amp;step=2";
 	if($opt)
 		$url .= "&amp;opt=$opt";
-	print "<form name=\"payment\" action=\"$url\" method=\"post\">\n";
-	print "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr><td>";
+	$text.= "<form name=\"payment\" action=\"$url\" method=\"post\">\n";
+	$text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr><td>";
 	$l = _("Supplier");
-	print "$l: </td>\n";
-	print "<td>\n";
+	$text.= "$l: </td>\n";
+	$text.= "<td>\n";
 	if($opt != '') {
 		$str = GetAccountName($supplier);
-		print "<input type=\"hidden\" name=\"supplier\" value=\"$supplier:0\" />\n";
-		print "$str\n";
+		$text.= "<input type=\"hidden\" name=\"supplier\" value=\"$supplier:0\" />\n";
+		$text.= "$str\n";
 	}
 	else
-		print PrintSupplierSelect($supplier);
-	print "</td>\n";
-	print "</tr><tr>\n";
+		$text.= PrintSupplierSelect($supplier);
+	$text.= "</td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Sum");
-	print "<td>$l: </td>";
-	print "<td><input type=\"text\" name=\"total\" value=\"$total\" size=\"7\" /></td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td>$l: </td>";
+	$text.= "<td><input type=\"text\" name=\"total\" value=\"$total\" size=\"7\" /></td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Payment type");
-	print "<td valign=\"top\">$l: </td><td>";
+	$text.= "<td valign=\"top\">$l: </td><td>";
 	PrintPaymentSelect($payment);
-	print "</td>\n";
-	print "</tr><tr>\n";
+	$text.= "</td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Ref. num");
-	print "<td>$l: </td>";
-	print "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" /></td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td>$l: </td>";
+	$text.= "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" /></td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Details");
-	print "<td>$l: </td>\n";
-	print "<td><input type=\"text\" name=\"comment\" value=\"$comment\" /></td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td>$l: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"comment\" value=\"$comment\" /></td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Date");
-	print "<td>$l: </td>";
+	$text.= "<td>$l: </td>";
 	if($dt == '')
 		$dt = date("d-m-Y");
-	print "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
-?>
-<script type="text/javascript">
-	addDatePicker("#date","<?print "$dt"; ?>");
-</script>
-<?PHP
-	print "</td>\n";
-	print "</tr><tr>\n";
+	$text.= "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
+
+$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
+
+	$text.= "</td>\n";
+	$text.= "</tr><tr>\n";
 	$l = _("Update");
-	print "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
-	print "</tr></table>\n";
-	print "</form>\n";
-	print "</div>\n";
-	
+	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
+	$text.= "</tr></table>\n";
+	$text.= "</form>\n";
+	//print "</div>\n";
+	createForm($text, $haeder,'',750);
 	return;
 }
-print "<br />\n";
+//print "<br />\n";
 // print "<br>\n";
-print "<div class=\"form righthalf1\">\n";
-$l = _("Supplier payment");
-print "<h3>$l</h3>\n";
-print "<form name=\"payment\" action=\"?module=payment&amp;step=1\" method=\"post\">\n";
-print "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
+//print "<div class=\"form righthalf1\">\n";
+$haeder = _("Supplier payment");
+//$text.= "<h3>$l</h3>\n";
+$text.= "<form name=\"payment\" action=\"?module=payment&amp;step=1\" method=\"post\">\n";
+$text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 $l = _("Choose supplier");
-print "<td>$l: </td>\n";
-print "<td>\n";
-print PrintSupplierSelect(0);
-print "</td>\n";
-print "</tr><tr>\n";
+$text.= "<td>$l: </td>\n";
+$text.= "<td>\n";
+$text.= PrintSupplierSelect(0);
+$text.= "</td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Total payment");
-print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"total\" size=\"7\" /></td>\n";
-print "</tr>\n";
+$text.= "<td>$l: </td>\n";
+$text.= "<td><input type=\"text\" name=\"total\" size=\"7\" /></td>\n";
+$text.= "</tr>\n";
 $l = _("Payment type");
-print "<tr><td valign=\"top\">$l: </td>";
-print "<td>\n";
-PrintPaymentSelect(0);
-print "</td></tr><tr><td>";
+$text.= "<tr><td valign=\"top\">$l: </td>";
+$text.= "<td>\n";
+$text.=PrintPaymentSelect(0);
+$text.= "</td></tr><tr><td>";
 $l = _("Ref. num");
-print "$l: </td>";
-print "<td><input type=\"text\" name=\"refnum\" /></td>\n";
-print "</tr><tr>\n";
+$text.= "$l: </td>";
+$text.= "<td><input type=\"text\" name=\"refnum\" /></td>\n";
+$text.= "</tr><tr>\n";
 $l = _("Details");
-print "<td>$l: </td>\n";
-print "<td><input type=\"text\" name=\"comment\" value=\"\" /></td>\n";
-print "</tr><tr><td>";
+$text.= "<td>$l: </td>\n";
+$text.= "<td><input type=\"text\" name=\"comment\" value=\"\" /></td>\n";
+$text.= "</tr><tr><td>";
 $l = _("Date");
-print "$l: </td>";
+$text.= "$l: </td>";
 $dt = date("d-m-Y");
-print "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
-?>
-<script type="text/javascript">addDatePicker("#date","<?print "$dt"; ?>");</script>
-<?PHP
-print "</td></tr>\n";
+$text.= "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
+$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
 
-print "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\"׳³ג€�׳³ן¿½׳³ֲ©׳³ן¿½\" /></td>\n";
-print "</tr></table>\n";
-print "</form>\n";
-print "</div>\n";
-print "<div class=\"lefthalf1\">\n";
+$text.= "</td></tr>\n";
+
+$text.= "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\""._("need to be")."\" /></td>\n";
+$text.= "</tr></table>\n";
+$text.= "</form>\n";
+//print "</div>\n";
+//print "<div class=\"lefthalf1\">\n";
 $t = SUPPLIER;
 $query = "SELECT num FROM $accountstbl WHERE prefix='$prefix' AND type='$t'";
 $result = DoQuery($query, "payment.php");
-print "<div class=\"form\">";
+$text. "<div class=\"form\">";
 $l = _("Suppliers accounts");
-print "<h3>$l</h3> \n";
-print "<br />\n";
-print "<table border=\"0\" dir=\"rtl\" cellpadding=\"5px\" cellspacing=\"5px\" width=\"100%\">\n";
-print "<tr class=\"tblhead\">\n";
+$text. "<h3>$l</h3> \n";
+$text. "<br />\n";
+$text. "<table class=\"tablesorter\" width=\"100%\">\n";
+$text. "<tr>\n";
 $l = _("Supplier");
-print "<td>$l &nbsp;&nbsp;</td>\n";			// supplier account 
+$text. "<th class=\"header\">$l &nbsp;&nbsp;</th>\n";			// supplier account 
 $l = _("Acc. balance");
-print "<td>$l</td>\n";
-print "</tr>\n";
+$text. "<th class=\"header\">$l</th>\n";
+$text. "</tr>\n";
 	
 $today = date("Y-m-d");
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -334,14 +335,14 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 //	print "$num $total, $acctname<br>\n";
 	if($total == 0.0)
 		continue;
-	print "<tr>\n";
+	$text. "<tr>\n";
 	$url = "?module=acctdisp&amp;account=$num&amp;begin=start&amp;end=today";
-	print "<td><a href=\"$url\">$acctname</a></td>\n";
-	print "<td>$total</td>\n";
-	print "</tr>\n";	
+	$text. "<td><a href=\"$url\">$acctname</a></td>\n";
+	$text. "<td>$total</td>\n";
+	$text. "</tr>\n";	
 }
-print "</table>\n";
-print "</div>";
-
-print "</div>\n";
+$text. "</table>\n";
+$text. "</div>";
+createForm($text, $haeder,'',750);
+//print "</div>\n";
 ?>

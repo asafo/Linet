@@ -7,10 +7,9 @@
  */
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport($l);
 	return;
 }
-
 global $accountstbl, $transactionstbl, $bankbooktbl;
 global $TranType;
 global $dir;
@@ -92,55 +91,41 @@ if($action == 'unmatch') {
 }
 
 //print "</div>\n";	/* end of righthalf used for caption */
-print "<br><br><br>\n";
-print "<div class=\"innercontent\">\n";
-print "<form name=\"form1\" action=\"?module=dispmatch&amp;action=unmatch&amp;bankacc=$bankacc&amp;begindate=$begindate&amp;enddate=$enddate\" method=\"post\">\n";
-?>
-<div style="border:1px solid">
-<table dir="ltr" border="1" width="100%"><tr>
-<?PHP
+//print "<br><br><br>\n";
+//print "<div class=\"innercontent\">\n";
+$text.= "<form name=\"form1\" action=\"?module=dispmatch&amp;action=unmatch&amp;bankacc=$bankacc&amp;begindate=$begindate&amp;enddate=$enddate\" method=\"post\">\n";
+$text.='<div style="border:1px solid"><table border="1" width="100%"><tr>';
+
 $l = _("External page transactions");
-print "<td colspan=\"4\" align=\"right\"><h2>$l</h2></td>\n";
-print "<td>&nbsp;</td>\n";
+$text.= "<td colspan=\"4\" align=\"right\"><h2>$l</h2></td>\n";
+$text.= "<td>&nbsp;</td>\n";
 $l = _("Internal bank account transactions");
-print "<td colspan=\"4\" align=\"right\"><h2>$l</h2></td>\n";
-?>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td colspan="4">
-<table dir="ltr" border="1" width="100%"><tr class="tblhead">
-<?PHP
+$text.= "<td colspan=\"4\" align=\"right\"><h2>$l</h2></td>\n";
+$text.='<td>&nbsp;</td></tr><tr><td colspan="4"><table class="formy" width="100%"><tr>';
 $l = _("Details");
-print "<td align=\"right\" width=\"40%\">$l</td>\n";
+$text.= "<th align=\"right\" width=\"40%\">$l</th>\n";
 $l = _("Sum");
-print "<td align=\"right\" width=\"20%\">$l</td>\n";
+$text.= "<th align=\"right\" width=\"20%\">$l</th>\n";
 $l = _("Ref. num");
-print "<td align=\"right\" width=\"20%\">$l</td>\n";
+$text.= "<th align=\"right\" width=\"20%\">$l</th>\n";
 $l = _("Date");
-print "<td align=\"right\" width=\"25%\">$l</td>\n";
-?>
-</tr>
-</table>
-</td>
-<td>&nbsp</td>
-<td align="right" colspan="4">
-<table dir="ltr" border="1" width="100%"><tr class="tblhead">
-<?PHP
+$text.= "<th align=\"right\" width=\"25%\">$l</th>\n";
+$text.='</tr></table></td><td>&nbsp</td><td align="right" colspan="4"><table class="formy" width="100%"><tr>';
+
 $l = _("Sum");
-print "<td  align=\"right\" width=\"25%\">$l</td>\n";
+$text.= "<th  align=\"right\" width=\"25%\">$l</th>\n";
 $l = _("Ref. num.");
-print "<td  align=\"right\" width=\"25%\">$l</td>\n";
+$text.= "<th  align=\"right\" width=\"25%\">$l</th>\n";
 $l = _("Date");
-print "<td  align=\"right\" width=\"25%\">$l</td>\n";
+$text.= "<th  align=\"right\" width=\"25%\">$l</th>\n";
 $l = _("Tran. type");
-print "<td  align=\"right\" width=\"25%\">$l</td>\n";
-?>
+$text.= "<th  align=\"right\" width=\"25%\">$l</th>\n";
+$text.='
 </tr>
 </table>
 </td>
-</tr>
-<?PHP
+</tr>';
+
 $match_str = '';	/* this string will contain both internal and external transactions numbers */
 /* Display transactions from bank books */
 $beginmysql = FormatDate($begindate, "dmy", "mysql");
@@ -158,9 +143,9 @@ while($match = mysql_fetch_array($bankbook, MYSQL_NUM)) {
 	$matches = array_unique($matches);
 	/* now we know how many matches we will have on the other side */
 	$query = "SELECT * FROM $bankbooktbl WHERE cor_num='$str' AND sum='$sum' AND prefix='$prefix' AND account='$bankacc'";
-	print "<tr>\n";
-	print "<td colspan=\"4\" valign=\"top\">\n";
-	print "<table border=\"1\" dir=\"ltr\" width=\"100%\">\n";
+	$text.= "<tr>\n";
+	$text.= "<td colspan=\"4\" valign=\"top\">\n";
+	$text.= "<table border=\"1\" dir=\"ltr\" width=\"100%\">\n";
 	$result = mysql_query($query);	/* now we get all bankbook transactions for this match */
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$num = $line['num'];
@@ -169,18 +154,18 @@ while($match = mysql_fetch_array($bankbook, MYSQL_NUM)) {
 		$details = stripslashes($line['details']);
 		$details = htmlspecialchars($details);
 		$sum = $line['sum'];
-		print "<tr>\n";
-		print "<td align=\"right\" dir=\"$dir\" width=\"40%\">$details</td>\n";
-		print "<td dir=\"ltr\" width=\"20%\" align=\"right\">$sum</td>\n";
-		print "<td dir=\"ltr\" width=\"20%\" align=\"right\">$refnum</td>\n";
-		print "<td dir=\"ltr\" width=\"25%\">$date</td>\n";
-		print "</tr>\n";
+		$text.= "<tr>\n";
+		$text.= "<td align=\"right\" dir=\"$dir\" width=\"40%\">$details</td>\n";
+		$text.= "<td dir=\"ltr\" width=\"20%\" align=\"right\">$sum</td>\n";
+		$text.= "<td dir=\"ltr\" width=\"20%\" align=\"right\">$refnum</td>\n";
+		$text.= "<td dir=\"ltr\" width=\"25%\">$date</td>\n";
+		$text.= "</tr>\n";
 	}
-	print "</table>\n";
-	print "</td>\n";
-	print "<td>&nbsp;</td>\n";
-	print "<td colspan=\"4\" valign=\"top\">\n";
-	print "<table border=\"1\" dir=\"ltr\" width=\"100%\">\n";
+	$text.= "</table>\n";
+	$text.= "</td>\n";
+	$text.= "<td>&nbsp;</td>\n";
+	$text.= "<td colspan=\"4\" valign=\"top\">\n";
+	$text.= "<table border=\"1\" dir=\"ltr\" width=\"100%\">\n";
 	/* now get matches for internal bank account */
 	$sum = $sum * -1.0;
 	foreach($matches as $m) {
@@ -198,25 +183,22 @@ while($match = mysql_fetch_array($bankbook, MYSQL_NUM)) {
 		if(($d == 0) && ($sum1 == 0.0))
 			continue;
 		$cor_num = $line['cor_num'];
-		print "<tr>\n";
-		print "<td align=\"right\" width=\"25%\">$sum1</td>\n";
-		print "<Td align=\"right\" width=\"25%\">$refnum</td>\n";
-		print "<Td align=\"right\" width=\"25%\">$date</td>\n";
-		print "<td align=\"right\" width=\"25%\">$TranType[$type]</td>\n";
-		print "</tr>\n";
+		$text.= "<tr>\n";
+		$text.= "<td align=\"right\" width=\"25%\">$sum1</td>\n";
+		$text.= "<td align=\"right\" width=\"25%\">$refnum</td>\n";
+		$text.= "<td align=\"right\" width=\"25%\">$date</td>\n";
+		$text.= "<td align=\"right\" width=\"25%\">$TranType[$type]</td>\n";
+		$text.= "</tr>\n";
 	}
 	$match_str .= "|$cor_num";
-	print "</table>\n";
-	print "</td>\n";
-	print "<td valign=\"middle\"><input type=\"checkbox\" name=\"matches[]\" value=\"$match_str\"></td>\n";
-	print "</tr>\n";
+	$text.= "</table>\n";
+	$text.= "</td>\n";
+	$text.= "<td valign=\"middle\"><input type=\"checkbox\" name=\"matches[]\" value=\"$match_str\"></td>\n";
+	$text.= "</tr>\n";
 }
 $l = _("Open reconciliations");
-print "<tr><td colspan=\"10\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.= "<tr><td colspan=\"10\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.='</table></div></form></div>';
+createForm($text, $haeder,'',750);
 
 ?>
-
-</table>
-</div>
-</form>
-</div>

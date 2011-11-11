@@ -49,7 +49,7 @@ $MainMenu = array(
 	 ),
 	  _("Reconciliations") . '|#'=>array(
 		 _("Bank docs entry") . '|?module=bankbook',
-		 _("Bank recon.") . '?|module=extmatch',
+		 _("Bank recon.") . '|?module=extmatch',
 		 _("Show recon.") . '|?module=dispmatch',
 		 _("Accts. recon.") . '|?module=intmatch'
 	 ),

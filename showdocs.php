@@ -107,21 +107,21 @@ if($step > 0) {
 		//print "<table width=\"100%\" class=\"tablesorter\" border=\"0\"><tr><td>\n";
 		$text= "<table class=\"tablesorter\" id=\"accadmintbl\"><tr>\n";
 		$l = _("Doc. type");
-		$text.= "<th style=\"width:6em\">$l</th>\n";
+		$text.= "<th class=\"header\" style=\"width:6em\">$l</th>\n";
 		$l = _("Num");
-		$text.= "<th style=\"width:3em\">$l</th>\n";
+		$text.= "<th class=\"header\" style=\"width:3em\">$l</th>\n";
 		$l = _("Date");
-		$text.= "<th style=\"width:7em\">$l</th>\n";
+		$text.= "<th class=\"header\" style=\"width:7em\">$l</th>\n";
 		$l = _("Customer");
-		$text.= "<th style=\"width:10em\">$l</th>\n";
+		$text.= "<th class=\"header\" style=\"width:10em\">$l</th>\n";
 		if($doctype != DOC_RECEIPT) {
 			$l = _("No VAT sum");
-			$text.= "<th style=\"width:8em\">$l</th>\n";
+			$text.= "<th class=\"header\" style=\"width:8em\">$l</th>\n";
 		}
 		$l = _("Total sum");
-		$text.= "<th style=\"width:5em\">$l</th>\n";
+		$text.= "<th class=\"header\" style=\"width:5em\">$l</th>\n";
 		$l = _("Actions");
-		$text.= "<th>$l</th>\n";
+		$text.= "<th class=\"header\">$l</th>\n";
 		$text.= "</tr>\n";
 		$novatsum = 0.0;
 		$totalsum = 0.0;
@@ -192,7 +192,7 @@ if($step > 0) {
 			$text.= "</a>&nbsp;&nbsp;";
 			$url = "?module=emaildoc&amp;account=$account&amp;doctype=$doctype&amp;docnum=$docnum";
 //			print "<input type=\"button\" onclick=\"window.location.href='$url'\"";
-//			print "value=\"׳³ֲ©׳³ן¿½׳³ג€” ׳³ג€˜׳³ג€�׳³ג€¢׳³ן¿½׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ֻ�׳³ֲ¨׳³ג€¢׳³ֲ ׳³ג„¢\">\n";
+//			print "value=\"׳³ֲ³ײ²ֲ©׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ג€� ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¨ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³ײ»ן¿½׳³ֲ³ײ²ֲ¨׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢\">\n";
 			$text.= "</td></tr>\n";
 		}
 		$text.= "<tr class=\"sumline\">\n";

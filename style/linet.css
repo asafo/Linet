@@ -613,8 +613,11 @@ background: none;
 .tablesorter tbody tr:nth-child(odd){background-color: #d5ebfc;}
 
 
+table.formy tbody tr th:first-child,
 th.header:first-child{border-radius:0px 15px 0px 0px;}
+table.formy tbody tr th:last-child,
 th.header:last-child{border-radius:15px 0px 0px 0px;}
+table.formy tbody tr th,
 th.header{
 	background-color: #1870ca;
 	color:white;

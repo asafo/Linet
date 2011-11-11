@@ -1,4 +1,4 @@
-׳�ֲ»ֲ¿<?PHP
+<?PHP
 /*
  | Open format files generation script for Drorit accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2009
@@ -15,7 +15,7 @@ global $bkrecnum, $regnum, $mainid, $softregnum, $softwarename, $Version, $softw
 
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport($l);
 	return;
 }
 
@@ -27,28 +27,6 @@ global $num_D110;
 global $num_C100;
 global $num_B110;
 global $num_B100;
-/*
-function utf8_to_windows1255($utf8) {
-    $windows1255 = "";
-    $chars = preg_split("//",$utf8);
-    for ($i=1; $i<count($chars)-1; $i++) {
-        $prefix = ord($chars[$i]);
-        $suffix = ord($chars[$i+1]);
-        //print ("<p>$prefix $suffix");
-        if ($prefix==215) {
-            $windows1255 .= chr($suffix+80);
-            $i++;
-        }
-        elseif ($prefix==214) {
-            $windows1255 .= chr($suffix+16);
-            $i++;
-        }
-        else {
-            $windows1255 .= $chars[$i];
-        }
-    }
-    return $windows1255;
-} //*/
 
 function utf8_to_windows1255($utf8) {
 	return iconv("utf-8", "windows-1255", $utf8);
@@ -361,7 +339,7 @@ function GetRefType($type) {
 		case INVOICE:
 			return TranslateDocumentType(DOC_INVOICE);
 		case SUPINV:
-			return 700;	/* ׳³ג€”׳³ֲ©׳³ג€˜׳³ג€¢׳³ֲ ׳³ג„¢׳³ֳ— ׳³ן¿½׳³ֲ¡ ׳³ֲ¨׳³ג€÷׳³ֲ© */
+			return 700;	/* ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¡ ׳³ֲ³ײ²ֲ¨׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³ײ²ֲ© */
 		case RECEIPT:
 			return TranslateDocumentType(DOC_RECEIPT);
 		case CHEQUEDEPOSIT:
@@ -422,7 +400,7 @@ function ExportTransactions($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate)
 	}
 	return $bkrecnum;
 }
-
+$text='';
 if($step == 0) {	/* First stage, choose dates for report */
 	/* Get begin and end dates */
 	$d = date("m-Y");
@@ -471,7 +449,7 @@ else if($step == 1) {
 	$cwd = getcwd();
 	/* change to reports directory */
 	if(!chdir('openfrmt')) {
-		print "Error: openfrmt directory does not exist<br />\n";
+		ErrorReport("Error: openfrmt directory does not exist");
 		exit;
 	}
 	/* Get the files path */
@@ -496,7 +474,7 @@ else if($step == 1) {
 	$basepath = "$regnum1.$y";
 	if(!@chdir($basepath)) {
 		if(!mkdir("$basepath")) {
-			print _("Unable to create directory").": $basepath<br />\n";
+			ErrorReport( _("Unable to create directory").": $basepath<br />\n");
 			chdir($cwd);
 			exit;
 		}
@@ -507,7 +485,7 @@ else if($step == 1) {
 	$dir = date("mdHi");
 	if(!@chdir($dir)) {
 		if(!mkdir($dir)) {
-			print _("Unable to create directory").": $dir<br />\n";
+			ErrorReport(_("Unable to create directory").": $dir<br />\n");
 			chdir($cwd);
 			exit;
 		}
@@ -530,7 +508,8 @@ else if($step == 1) {
 	/* Now go over documents and generate document head and document details records */
 	$bkrecnum = ExportDocuments($bkmvdata, $bkrecnum, $mainid, $regnum, $begindate, $enddate);
 //	print "Documents: $bkrecnum<br>\n";
-	$bkrecnum = ExportReceipts($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate);
+	//adam:! need to be crafted
+	//$bkrecnum = ExportReceipts($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate);
 //	print "Receipts: $bkrecnum<br>\n";
 	$bkrecnum = ExportAcct($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate);
 //	print "Accounts: $bkrecnum<br>\n";
@@ -577,12 +556,12 @@ else if($step == 1) {
 	fclose($inifd);
 	chdir($cwd);
 
-	print "<div class=\"form righthalf1\">\n";
+	//print "<div class=\"form righthalf1\">\n";
 	$l = _("Link to file");
-	print "<br>$l: ";
-	print "<a href=download.php?file=openfrmt/$basepath/$dir/bkmvdata.txt&name=bkmvdata.txt>bkmvdata.txt</a><br />\n";
-	print "$l: ";
-	print "<a href=download.php?file=openfrmt/$basepath/$dir/ini.txt&name=ini.txt>ini.txt</a><br />\n";
+	$text.= "<br>$l: ";
+	$text.=  "<a href=download.php?file=openfrmt/$basepath/$dir/bkmvdata.txt&name=bkmvdata.txt>bkmvdata.txt</a><br />\n";
+	$text.=  "$l: ";
+	$text.=  "<a href=download.php?file=openfrmt/$basepath/$dir/ini.txt&name=ini.txt>ini.txt</a><br />\n";
 
 /* //adam can be delted now need to delete Right click and choose 'save as...'
 	$l = _("Right click and choose 'save as...'");
@@ -601,7 +580,7 @@ else if($step == 1) {
 	fwrite($fd, "$l: $e<br>\n");
 	$l = _("Open format files created successfully");
 	fwrite($fd, "<br>$l<br>\n");
-//	fwrite($fd, "<br>׳³ג€˜׳³ג„¢׳³ֲ¦׳³ג€¢׳³ֲ¢ ׳³ן¿½׳³ן¿½׳³ֲ©׳³ֲ§ ׳³ג‚×׳³ֳ—׳³ג€¢׳³ג€” ׳³ג€�׳³ֲ¡׳³ֳ—׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ג€˜׳³ג€�׳³ֲ¦׳³ן¿½׳³ג€”׳³ג€�<br>\n");
+//	fwrite($fd, "<br>׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ²ֲ¦׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¢ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ©׳³ֲ³ײ²ֲ§ ׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ³ג€”׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ג€� ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¡׳³ֲ³ײ³ג€”׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¦׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ן¿½<br>\n");
 	$l = _("Records types details");
 	fwrite($fd, "<h2>$l</h2>\n");
 	fwrite($fd, "<table border=\"1\"><tr class=\"tblhead\">\n");
@@ -633,14 +612,14 @@ else if($step == 1) {
 	fwrite($fd, "</tr>\n</table>\n");
 	fclose($fd);	
 
-	readfile("tmp/$prefix.html");
+	$text.=file_get_contents("tmp/$prefix.html");
 	
-	print "<br>&nbsp;&nbsp;&nbsp;\n";
+	$text.=  "<br>&nbsp;&nbsp;&nbsp;\n";
 	$l = _("Print");
-	print "<input type=\"button\" value=\"$l\" ";
-	print "onclick=\"window.open('openfrmtprnt.php?prefix=$prefix')\">\n";
-	
-	print "</div>\n";
+	$text.=  "<input type=\"button\" value=\"$l\" ";
+	$text.=  "onclick=\"window.open('openfrmtprnt.php?prefix=$prefix')\">\n";
+	createForm($text,$header,'',750);
+	//print "</div>\n";
 	
 }
 

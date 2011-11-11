@@ -1,44 +1,17 @@
-ן»¿<?PHP
-//M:׳³ג€�׳³ֲ¦׳³ג€™׳³ֳ— ׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€¢׳³ֳ— ׳³ן¿½׳³ג€÷׳³ֲ¨׳³ֻ�׳³ג„¢׳³ֲ¡
+<?PHP
 /*
  | Display transactions for card
  | Written by Ori Idan Helicon technologies Ltd. 2004
  | Modifed By Adam Ben Hour 10/2011
  | This program is a free software licensed under the GPL 
  */
-/*if(!isset($module)) {
-	//adam:
-	//header('Content-type: text/html;charset=UTF-8');
-
-	//include('config.inc.php');
-	//include('func.inc.php');
-
-	//$link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
-	//mysql_select_db($database) or die("Could not select database: $database");
-
-
-	//$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	//$reptitle = _("Display transactions for account");
-//	$reptitle = "׳³ג€�׳³ֲ¦׳³ג€™׳³ֳ— ׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€¢׳³ֳ— ׳³ן¿½׳³ג€÷׳³ֲ¨׳³ֻ�׳³ג„¢׳³ֲ¡";
-	//include('printhead.inc.php');
-	//print $header;
-	
-}
-else {
-	// open window script 
-	print "<script type=\"text/javascript\">\n";
-	print "function PrintWin(url) {\n";
-	print "\twindow.open(url, 'PrintWin', 'width=800,height=600,scrollbar=yes');\n";
-	print "}\n";
-	print "</script>\n";
-}*/
 
 global $transactionstbl, $accountstbl;
 global $TranType;
 
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport($l);
 	return;
 }
 
@@ -162,17 +135,19 @@ if($end != '') {
 
 	if($filerep) {
 		$l = _("Transactions report for account");
-		print "<br /><h1>$l: $company</h1>\n<br />\n";
+		//$haeder= "$l: $company\n";
 	}
 	else {
 		$l = _("Display transactions for account");
-		print "<br /><h1>$l: $company</h1>\n<br />\n";
-	}
+	
+	}	
+	$haeder= "$l: $company";
+	$text='';
 	if($begin != '') {
 		$l = _("From date");
-		print "<h2>$l: $begin ";
+		$text.= "<h2>$l: $begin ";
 		$l = _("To date");
-		print "$l: $end</h2>\n";
+		$text.= "$l: $end</h2>\n";
 	}
 	
 //	print "<div class=\"innercontent\">\n";
@@ -232,10 +207,10 @@ if($end != '') {
 		$curtablehd.= "</tr></thead>\n";
 		$curtablebody='<tbody>';
 	}
-/*	$openonly = isset($_GET['openonly']) ? $_GET['openonly'] : 0; // ׳³ג€�׳³ֲ¦׳³ג€™ ׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€¢׳³ֳ— ׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ֳ—׳³ג€¢׳³ן¿½׳³ן¿½׳³ג€¢׳³ֳ— ׳³ג€˜׳³ן¿½׳³ג€˜׳³ג€� 
+/*	$openonly = isset($_GET['openonly']) ? $_GET['openonly'] : 0; // ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¦׳³ֲ³׳’ג‚¬ג„¢ ׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¢׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ³ג€”׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½ 
 
 	if($openonly)
-		print "<H2 align=center dir=RTL>׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€¢׳³ֳ— ׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ֳ—׳³ג€¢׳³ן¿½׳³ן¿½׳³ג€¢׳³ֳ— ׳³ג€˜׳³ן¿½׳³ג€˜׳³ג€�</H2>\n<BR>\n";
+		print "<H2 align=center dir=RTL>׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¢׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ³ג€”׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½</H2>\n<BR>\n";
 */
 
 	if(($accttype != INCOME) && ($accttype != OUTCOME))
@@ -389,46 +364,47 @@ if($end != '') {
 		$curtablefoot.= "<td dir=\"ltr\" align=\"right\">$tstr</td>";
 		$curtablefoot.= "<td></td></tr></tfoot>\n";
 		$curtablebody.="</tbody>";
-		print "<table class=\"tablesorter\" id=\"acctbl\">$curtablehd $curtablefoot $curtablebody</table>\n
+		$text.= "<table class=\"tablesorter\" id=\"acctbl\">$curtablehd $curtablefoot $curtablebody</table>\n
 <script type=\"text/javascript\">\$(\"#acctbl\").tablesorter(); </script>";
- 
+ 		//printform
+ 		
 //	print "</div>\n";
 		if(isset($module)) {
 			$url = "acctdisp.php?account=$acct&begin=$begin&end=$end&prefix=$prefix";
 			//$url .= "";
-			print "<div class=\"repbottom\">\n";
+			$text.= "<div class=\"repbottom\">\n";
 			$l = _("Export");
 			//print "<a href=\"javascript:PrintWin('$url');\" class='btn'>$l</a>";
 			//print "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
-			print "&nbsp;&nbsp;";
-			//print "<input type=\"button\" value=\"׳³ג„¢׳³ֲ¦׳³ג€¢׳³ן¿½ ׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€˜׳³ֲ¥\" onclick=\"window.location.href='?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1'\">\n";
-			print "<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btn'>$l</a>";
-			print "</div>\n";
+			$text.= "&nbsp;&nbsp;";
+			//print "<input type=\"button\" value=\"׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ²ֲ¦׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ²ֲ¥\" onclick=\"window.location.href='?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1'\">\n";
+			$text.= "<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btn'>$l</a>";
+			$text.= "</div>\n";
 		}
 	}
-	return;
+	//return;
 }
 
 $l = _("Display transactions for account");
-print "<br /><h1>$l: $company</h1>\n<br />\n";
+//$text.= "<br /><h1>$l: $company</h1>\n<br />\n";
 $d = date("m-Y");
 list($m, $y) = explode('-', $d);
 $begindate = "1-1-$y";
 $enddate = date("d-m-Y");
-print "<form method=\"get\">\n";
-print "	<input type=\"hidden\" name=\"module\" value=\"acctdisp\" />\n";
-print "	<input type=\"hidden\" name=\"account\" value=\"$acct\" />\n";
-print "	<table dir=\"rtl\"><tr>\n";
+$text.= "<form method=\"get\">\n";
+$text.= "	<input type=\"hidden\" name=\"module\" value=\"acctdisp\" />\n";
+$text.= "	<input type=\"hidden\" name=\"account\" value=\"$acct\" />\n";
+$text.= "	<table dir=\"rtl\"><tr>\n";
 $l = _("From date: ");
-print "		<td>$l: </td>\n";
-print "		<td><input type=\"text\" name=\"begin\" value=\"$begindate\" /></td>\n";
+$text.= "		<td>$l: </td>\n";
+$text.= "		<td><input type=\"text\" name=\"begin\" value=\"$begindate\" /></td>\n";
 $l = _("To date");
-print "		<td>$l: </td>\n";
-print "		<td><input type=\"text\" name=\"end\" value=\"$enddate\" /></td>\n";
-print "	</tr><tr>\n";
+$text.= "		<td>$l: </td>\n";
+$text.= "		<td><input type=\"text\" name=\"end\" value=\"$enddate\" /></td>\n";
+$text.= "	</tr><tr>\n";
 $l = _("Display");
-print "		<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
-print "	</table>\n</form>\n";
-
+$text.= "		<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
+$text.= "	</table>\n</form>\n";
+createForm($text, $haeder,'',750);
 ?>
 
