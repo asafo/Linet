@@ -11,13 +11,12 @@ $print_win=1;
 if (!$print_win==1)
  header('Content-type: text/html;charset=UTF-8');
 
-include('config.inc.php');
-include('include/i18n.inc.php');
-include('include/core.inc.php');
-include('include/func.inc.php');
-
-include('class/company.php');
-
+require('config.inc.php');
+require('include/i18n.inc.php');
+require('include/core.inc.php');
+require('include/func.inc.php');
+require('class/company.php');
+require('class/document.php');
 $link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
 mysql_query("SET NAMES 'utf8'");//adam:
 mysql_select_db($database) or die("Could not select database: $database");
@@ -90,12 +89,19 @@ function isdate($dt) {
 		return 0;
 	return checkdate($m, $d, $y);
 }
-
+/*get doc detiales in array*/
+//SELECT * FROM $docdetailstbl WHERE num='$idnum' AND prefix='$prefix'
+//$detiales=selectSql(array('num'=>$idnum,'prefix'=>$prefix),$docdetailstbl);
+/* getdoc */
+$doc=new document();
+$doc->num=$idnum;
+$doc->getDocument();
+//print_r($doc);
 function TemplateReplace($r) {
 	global $prefix;
 	global $doctype, $docnum,$idnum;
 	global $DocType, $paymenttype,$banksarr, $creditcompanies;
-	global $company;
+	global $company,$doc;
 	global $docstbl, $docdetailstbl,$chequestbl;
 	global $ln, $lasttbl, $docref;
 	global $result, $line;
@@ -117,9 +123,6 @@ function TemplateReplace($r) {
 		else
 			return "";
 	}
-	else if($p == 'regnum') {
-		return $company->regnum;
-	}
 	else if($p == 'dealer') {
 		return _("Authorized dealer");
 	}
@@ -138,71 +141,54 @@ function TemplateReplace($r) {
 	}
 	else if($p == 'docnum')
 		return $docnum;
-	else if(($p == 'header')||($p == 'footer')) {
+	else if(($p == 'header')||($p == 'footer')||($p == 'companyname')||($p == 'web')||($p == 'regnum')) {
 		return $company->{$p};
 	}
-	else if(($p == 'zip') ||($p == 'city')||($p == 'cellular')||($p == 'regnum')||($p == 'phone')||($p == 'address')||($p == 'company')){
-		return _($p).":".$company->{$p};
+	else if ($p == 'address'){
+		return $company->address.', '.$company->city." ".$company->zip;
 	}
-	list($tbl, $fld, $n) = explode(':', $p);
-	if(!$fld)
-		return '';
-//	print "$tbl, $fld, $n, $lasttbl<br>\n";
-	if($lasttbl != $tbl) {
-		if($tbl == 'docs')
-			$query = "SELECT * FROM $docstbl WHERE prefix='$prefix' AND doctype='$dt' AND docnum='$docnum'";
-		else if($tbl == 'receipts')//adam:  || ($tbl == 'cheques'))
-			$query = "SELECT * FROM $docstbl WHERE prefix='$prefix' AND doctype='$dt' AND docnum='$docnum'";
-		else if($tbl == 'docdetails')
-			$query = "SELECT * FROM $docdetailstbl WHERE num='$idnum' AND prefix='$prefix'";
-		else if($tbl == 'cheques')//adam:
-			//$query = "SELECT * FROM $chequestbl WHERE refnum='$docnum' AND prefix='$prefix'";
-			$query = "SELECT * FROM $chequestbl WHERE refnum='$idnum' AND prefix='$prefix'";
-		//	print $query."<br />\n";
-		$lasttbl = $tbl;
-		//print "tbl: $tbl, fld: $fld Query: $query<br>\n";
-		$result = DoQuery($query, "TemplateReplace");
-		$ln = 0;
+	else if ($p=='phones'){
+		return _('phone').": ".$company->phone." | "._("fax").": ".$company->cellular;
 	}
-	if(($n && ($n != $ln)) || ($ln == 0)) {
-//	print "n: $n, ln: $ln<br>\n";
-		$line = mysql_fetch_array($result, MYSQL_ASSOC);
-		if(($tbl == 'docs') || ($tbl == 'receipts'))
-			$docref = $line['num'];
-		$ln++;
-	}
-	$s = $line[$fld];
-	/*if(isdate($s))//adam: no need
-		$s = FormatDate($s, "mysql", "dmy");
-	*/
-	if($fld == 'type'){		/* Payment type */
-		if (!$s=='') return '<tr><td>'.$paymenttype[$s].'</td>';
-	}else if($fld == 'creditcompany'){
-		if (!$creditcompanies[$s]=='') return '<td>'.$creditcompanies[$s].'</td>';//$creditcompanies[$s]
-	}
-	else if($fld == 'bank') {
-		$bs = $banksarr[$s];
-		return '<td>'."$s-$bs".'</td>';
-	}else if(($fld=='cheque_num')  || ($fld=='branch') || ($fld=='cheque_acct') || ($fld=='cheque_date')){
-		return '<td>'.$s.'</td>';
-	}else if($fld=='sum'){
-		if ($tbl == 'cheques') {
-			return '<td>'.$s.'</td></tr>';
+	else if($p=='docdet'){
+		$detiales=$doc->docdetials;
+		$str='';
+		foreach ($detiales as $detial){
+			$str.='<tr>';
+			$str.='<td>'.$detial->description.'</td>';
+			$str.='<td>'.$detial->qty.'</td>';
+			$str.='<td>'.$detial->unit_price.'</td>';
+			$str.='<td>'.$detial->price.'</td>';
+			$str.='</tr>';
 		}
-		return $s;
-	}else if($fld=='description'){//adam: invoice
-		return '<tr><td width="370">'.$s.'</td>';
-	}else if(($fld=='qty')  || ($fld=='unit_price')){
-		return '<td width="60">'.$s.'</td>';
-	}else if ($fld=='price'){
-		return '<td width="60">'.$s.'</td></tr>';
-		
+		return $str;
 	}
-	if($s == '')//&nbsp;adam fucks the pdf
-		$s = "";
-	//print($fld);
+	else if ($p=='rcpt'){
+		$rcpt=$doc->rcptdetials;
+		$str='';
+		foreach ($rcpt as $detial){
+			$str.='<tr>';
+			$str.='<td>'.$detial->type.'</td>';
+			$str.='<td>'.$detial->creditcompany.'</td>';
+			$str.='<td>'.$detial->cheque_num.'</td>';
+			$str.='<td>'.$detial->bank.'</td>';
+			$str.='<td>'.$detial->branch.'</td>';
+			$str.='<td>'.$detial->cheque_acct.'</td>';
+			$str.='<td>'.$detial->cheque_date.'</td>';
+			$str.='<td>'.$detial->sum.'</td>';
+			$str.='</tr>';
+		}
+		return $str;
+	}
+	//else 
+	list($frm, $fld) = explode(':', $p);
+	if(!$frm)
+		return '';
+	if($frm=='docs'){
+		return $doc->{$fld};
+	}
 	return "$s";
-}
+	}
 $file = fopen($template, "r");
 if(!$file) {
 	print "Unable to open: $template<br />\n";

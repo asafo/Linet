@@ -416,14 +416,14 @@ if($step == 0) {	/* First stage, choose dates for report */
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("From date");
 	$text.= "<td>$l: </td>\n";
-	$text.= "<td><input type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$begindate\" size=\"7\">\n";
-$text.='<script type="text/javascript">addDatePicker("#begindate","'.$begindate.'");</script>';
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$begindate\" size=\"7\">\n";
+//$text.='<script type="text/javascript">addDatePicker("#begindate","'.$begindate.'");</script>';
 	$text.= "</td>\n";
 	$text.= "</tr><tr><td colspan=\"2\">&nbsp;</td></tr><tr>\n";
 	$l = _("To date");
 	$text.= "<td>$l: </td>\n";
-	$text.= "<td><input type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$enddate\" size=\"7\">\n";
-$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$enddate\" size=\"7\">\n";
+//$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
 
 	$text.= "</td>\n";
 	$text.= "</tr><tr><td colspan=\"2\">&nbsp;</td></tr><tr>\n";

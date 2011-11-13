@@ -8,273 +8,128 @@
 </head>
 <body dir="rtl">
 ~header~
-<div>
-	~logo~
-</div>
-<!--<div>
-	~company~<br>
-	~address~<br>
-	~city~ ~zip~<br>
-	~phone~
-	~cellular~<br>
-	~dealer~: ~regnum~<br>
-</div>-->
-
-<div>
-	<table border="1">
+<table style="text-align:right;">
 		<tr>
-			<td width="50">לכבוד:</td>
-			<td width="288">~docs:company~ ~docs:vatnum~</td>
-			<td width="100">תאריך:</td>
-			<td width="100">~docs:issue_date~</td>
-		</tr>
-		<tr>
-			<td width="50"></td>
-			<td width="288">~docs:address~</td>
-		</tr>
-		<tr>
-			<td width="50"></td>
-			<td width="288">~docs:city~ ~docs:zip~</td>
-			<td width="100">~docs:refnum~<br /><br /></td>
-		</tr>
-		<tr>
-			<td width="400" align="center"><h1>
+			<td colspan="3" width="650">
+			<h7>~companyname~</h7><br />
+			~address~<br />
+			~phones~<br />
+			~web~<br />
+			</td>
 			
-			~doctype~ ~docnum~
-			</h1></td>
-			<td><h1>~copy~</h1></td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<div>
-					<table border="1" style="text-align:right;">
-						<tr>
-							<td width="388">תיאור</td>
-							<td width="50">כמות</td>
-							<td width="50">מחיר</td>
-							<td width="50">סה"כ</td>
-						</tr>
-
-						~docdetails:description:1~
-						~docdetails:qty:1~
-						~docdetails:unit_price:1~
-						~docdetails:price:1~
-
-						~docdetails:description:2~
-						~docdetails:qty:2~
-						~docdetails:unit_price:2~
-						~docdetails:price:2~
-
-						~docdetails:description:3~
-						~docdetails:qty:3~
-						~docdetails:unit_price:3~
-						~docdetails:price:3~
-
-						~docdetails:description:4~
-						~docdetails:qty:4~
-						~docdetails:unit_price:4~
-						~docdetails:price:4~
-
-						~docdetails:description:5~
-						~docdetails:qty:5~
-						~docdetails:unit_price:5~
-						~docdetails:price:5~
-
-						~docdetails:description:6~
-						~docdetails:qty:6~
-						~docdetails:unit_price:6~
-						~docdetails:price:6~
-
-						~docdetails:description:7~
-						~docdetails:qty:7~
-						~docdetails:unit_price:7~
-						~docdetails:price:7~
-
-						~docdetails:description:8~
-						~docdetails:qty:8~
-						~docdetails:unit_price:8~
-						~docdetails:price:8~
-
-						~docdetails:description:9~
-						~docdetails:qty:9~
-						~docdetails:unit_price:9~
-						~docdetails:price:9~
-
-						~docdetails:description:10~
-						~docdetails:qty:10~
-						~docdetails:unit_price:10~
-						~docdetails:price:10~
-
-						~docdetails:description:11~
-						~docdetails:qty:11~
-						~docdetails:unit_price:11~
-						~docdetails:price:11~
-
-						~docdetails:description:12~
-						~docdetails:qty:12~
-						~docdetails:unit_price:12~
-						~docdetails:price:12~
-
-						<tr>
-							<td width="388" style="border-style: hidden;"></td>
-							
-							<td width="100" colspan="2">סה"כ חייב מע"מ</td>
-							<td width="50">~docs:sub_total~</td>
-						</tr>
-						<tr>
-							<td width="388" style="border-style: hidden;"></td>
-							<td width="100" colspan="2">סה"כ פטור ממע"מ</td>
-							<td width="50">~docs:novat_total~</td>
-						</tr>
-						<tr>
-							<td width="388" style="border-style: hidden;"></td>
-							<td width="100" colspan="2">מע"מ: </td>
-							<td width="50">~docs:vat~</td>
-						</tr>
-						<tr>
-							<td width="388" style="border-style: hidden;"></td>
-							
-							<td width="100" colspan="2">סה"כ לתשלום: </td>
-							<td width="50">~docs:total~</td>
-						</tr>
-					</table>
-				</div>
-				<h1>קבלה</h1>
-				<table border="1">
-					<tr>
-						<td>אמצעי תשלום</td>
-						<td>חברת אשראי</td>
-						<td>אסמכתא</td>
-						<td>בנק</td>
-						<td>סניף</td>
-						<td>מס' חשבון</td>
-						<td>תאריך</td>
-						<td>סכום</td>
-					</tr>
-					~cheques:type:1~
-					~cheques:creditcompany:1~
-					~cheques:cheque_num:1~
-					~cheques:bank:1~
-					~cheques:branch:1~
-					~cheques:cheque_acct:1~
-					~cheques:cheque_date:1~
-					~cheques:sum:1~
-				
-					~cheques:type:2~
-					~cheques:creditcompany:2~
-					~cheques:cheque_num:2~
-					~cheques:bank:2~
-					~cheques:branch:2~
-					~cheques:cheque_acct:2~
-					~cheques:cheque_date:2~
-					~cheques:sum:2~
-				
-					~cheques:type:3~
-					~cheques:creditcompany:3~
-					~cheques:cheque_num:3~
-					~cheques:bank:3~
-					~cheques:branch:3~
-					~cheques:cheque_acct:3~
-					~cheques:cheque_date:3~
-					~cheques:sum:3~
-					
-					~cheques:type:4~
-					~cheques:creditcompany:4~
-					~cheques:cheque_num:4~
-					~cheques:bank:4~
-					~cheques:branch:4~
-					~cheques:cheque_acct:4~
-					~cheques:cheque_date:4~
-					~cheques:sum:4~
-					
-					~cheques:type:5~
-					~cheques:creditcompany:5~
-					~cheques:cheque_num:5~
-					~cheques:bank:5~
-					~cheques:branch:5~
-					~cheques:cheque_acct:5~
-					~cheques:cheque_date:5~
-					~cheques:sum:5~
-					
-					~cheques:type:6~
-					~cheques:creditcompany:6~
-					~cheques:cheque_num:6~
-					~cheques:bank:6~
-					~cheques:branch:6~
-					~cheques:cheque_acct:6~
-					~cheques:cheque_date:6~
-					~cheques:sum:6~
-					
-					~cheques:type:7~
-					~cheques:creditcompany:7~
-					~cheques:cheque_num:7~
-					~cheques:bank:7~
-					~cheques:branch:7~
-					~cheques:cheque_acct:7~
-					~cheques:cheque_date:7~
-					~cheques:sum:7~
-					
-					~cheques:type:8~
-					~cheques:creditcompany:8~
-					~cheques:cheque_num:8~
-					~cheques:bank:8~
-					~cheques:branch:8~
-					~cheques:cheque_acct:8~
-					~cheques:cheque_date:8~
-					~cheques:sum:8~
-					
-					~cheques:type:9~
-					~cheques:creditcompany:9~
-					~cheques:cheque_num:9~
-					~cheques:bank:9~
-					~cheques:branch:9~
-					~cheques:cheque_acct:9~
-					~cheques:cheque_date:9~
-					~cheques:sum:9~
-					
-					~cheques:type:10~
-					~cheques:creditcompany:10~
-					~cheques:cheque_num:10~
-					~cheques:bank:10~
-					~cheques:branch:10~
-					~cheques:cheque_acct:10~
-					~cheques:cheque_date:10~
-					~cheques:sum:10~
-					
-					~cheques:type:11~
-					~cheques:creditcompany:11~
-					~cheques:cheque_num:11~
-					~cheques:bank:11~
-					~cheques:branch:11~
-					~cheques:cheque_acct:11~
-					~cheques:cheque_date:11~
-					~cheques:sum:11~
-					
-					~cheques:type:12~
-					~cheques:creditcompany:12~
-					~cheques:cheque_num:12~
-					~cheques:bank:12~
-					~cheques:branch:12~
-					~cheques:cheque_acct:12~
-					~cheques:cheque_date:12~
-					~cheques:sum:12~
-					<tr>
-						<td colspan="6" ></td>
-						<td>ניכוי במקור: </td>
-						<td>~receipts:src_tax~</td>
-					</tr>
-						<tr>
-						<td colspan="6" ></td>
-						<td><b>סה"כ</b></td>
-						<td>~receipts:sum~</td>
-					</tr>
-				</table>
+			<td>
+			~logo~	
+			ח.פ/ע.מ:~regnum~
 			</td>
 		</tr>
 	</table>
-
-
-</div>
-
+	<hr />
+	<table>	
+		<tr>
+			<td width="50" style="text-align:top;">לכבוד:</td>
+			<td width="600" >~docs:company~</td>
+			<td width="150" >תאריך הפקת מסמך:</td>
+			<td>~docs:issue_date~</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>~docs:address~</td>
+			<td>תאריך אחרון לתשלום :</td>
+			<td>~docs:due_date~</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>~docs:city~ ~docs:zip~</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>ח.פ/ע.מ:~docs:vatnum~</td>
+			<td></td>
+			<td></td>
+		</tr>
+			
+		<tr>
+			<td colspan="4">
+				<div align="center"><h1>~doctype~ <span style="font-size:20px;"> מס' ~docnum~ </span>~copy~</h1></div>
+			</td>
+		</tr>
+	</table>	
+	<table style="text-align:right;" class="doc" style="width: 100%;">
+		<thead>
+		<tr>
+			<th width="370">תיאור</th>
+			<th width="60">כמות</th>
+			<th width="60">מחיר</th>
+			<th width="60">סה"כ</th>
+		</tr>
+		</thead>
+		<tfoot>
+		<tr>
+			<td rowspan=4 colspan="2" width="670">
+				<div align="right">
+				מוצרים שסופקו/יסופקו ללקוח נשארים בבעלות ארי בן חור- מחשוב מהיר עד לפירעון מלא של החשבון.<br />
+				תנאי תשלום:העברה בנקאית או המחאה לפירעון תוך 30 יום מיום הפקת חשבונית.<br />
+				מחשוב מהיר זכאית להפיק חשבונית עם סיום העבודה/אספקת המוצרים.<br />
+				</div>
+			</td>
+			<td width="120">סה"כ חייב מע"מ</td>
+			<td width="60">~docs:sub_total~</td>
+		</tr>
+		<tr>
+			<td width="120">סה"כ פטור ממע"מ</td>
+			<td width="60" >~docs:novat_total~</td>
+		</tr>
+		<tr>
+			<td width="120">מע"מ: </td>
+			<td width="60">~docs:vat~</td>
+		</tr>
+		<tr>
+			<td width="120">סה"כ לתשלום: </td>
+			<td width="60">~docs:total~</td>
+		</tr>
+		<tr>
+		</tfoot>
+		<tbody>
+		~docdet~
+		</tbody>
+	</table>
+	<br /><br /><br />
+	<table class="doc">
+		<thead>
+			<tr>
+				<th>אמצעי תשלום</th>
+				<th>חברת אשראי</th>
+				<th>אסמכתא</th>
+				<th>בנק</th>
+				<th>סניף</th>
+				<th>מס' חשבון</th>
+				<th>תאריך</th>
+				<th>סכום</th>
+			</tr>
+		</thead>
+		<tfoot>
+		<tr>
+			<td colspan="6" rowspan="2"></td>
+			<td>ניכוי במקור: </td>
+			<td>~docs:src_tax~</td>
+		</tr>
+		<tr>
+			
+			<td><b>סה"כ</b></td>
+			<td>~docs:total~</td>
+		</tr>
+		</tfoot>
+		<tbody>
+			~rcpt~
+		</tbody>
+	</table>
+		<br />
+		הערות: ~docs:comments~
+	~footer~
+	
+	
+	
 </body>
 </html>

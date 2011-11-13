@@ -133,7 +133,7 @@ class document{
 			}
 			if ((DOC_RECEIPT==$this->doctype) ||(DOC_INVRCPT==$this->doctype)){
 				$b = new receiptDetail;
-				$b->num=$this->num;
+				$b->refnum=$this->num;
 				$this->rcptdetials=$b->getDetials();	
 			}
 			//if ($b->getDetials()){

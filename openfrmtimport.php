@@ -35,13 +35,13 @@ if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 	
 	$l = _("Begin date");
 	$text.= "&nbsp;&nbsp;$l: \n";
-	$text.= "<input type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindmy\" size=\"7\" />\n";
+	$text.= "<input class=\"date\" type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindmy\" size=\"7\" />\n";
 	$text.= "&nbsp;&nbsp;\n";
 	$l = _("End date");
 	$text.= "$l: \n";
-	$text.= "<input type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\" />\n";
+	$text.= "<input class=\"date\" type=\"text\" id=\"end\" name=\"end\" value=\"$enddmy\" size=\"7\" />\n";
 	
-	$text.="<script type=\"text/javascript\">addDatePicker(\"#begin\",\"$begindmy\");addDatePicker(\"#end\",\"$enddmy\");</script>";
+	//$text.="<script type=\"text/javascript\">addDatePicker(\"#begin\",\"$begindmy\");addDatePicker(\"#end\",\"$enddmy\");</script>";
 		
 	
 	$l = _("Next");

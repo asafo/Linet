@@ -217,8 +217,8 @@ EHF;
 	$text.="<table style=\"width:100%\"><tr><td>";
 	//print "</div>\n";
 	//$text.= "<div class=\"lefthalf1\">\n";
-	$l = _("Activity history");
-	$text.= "<h3>$l</h3>\n";
+	$haeder = _("Activity history");
+	//$text.= "<h3>$l</h3>\n";
 	$l = _("Business documents");
 	$text.= "<h2>$l</h2>\n";	
 	// Search business documents 
@@ -291,7 +291,7 @@ EHF;
 	}
 	$text.= "</table>\n</td></tr></table>";		
 	//$text.= "</div>\n";
-	createForm($text,$haeder,'',750,'','logo',1,getHelp());
+	createForm($text,$haeder,'',750,'','img/icon_contact.png',1,getHelp());
 	return;
 }
 /*if($action == 'add') {
@@ -376,9 +376,9 @@ EOT;
 
 $type = (int)$_GET['type'];
 if($type=='0')
-	$l = _("Customers managmenet");
+	$haeder = _("Customers managmenet");
 else
-	$l = _("Suppliers managmenet");
+	$haeder = _("Suppliers managmenet");
 //print "<h3>$l</h3>\n";
 //print "$srchform";
 
@@ -444,6 +444,6 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
 $text.= "</tbody></table>\n";
 
-createForm($srchform.$text, $l,'',700,'','img/icon_contact.png',1,getHelp());
+createForm($srchform.$text, $haeder,'',700,'','img/icon_contact.png',1,getHelp());
 ?>
 

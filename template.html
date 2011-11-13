@@ -61,6 +61,7 @@
 			$('#'+id).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});
 			$('#'+id).datepicker( "option", "dateFormat", "dd-mm-yy" );
 			$('#'+id).val(value);
+			$('#'+id).after('<img src="img/icon_cel.png" width="18" onclick="$(\'#'+id+'\').focus()"/>');
 		}
 
 		
