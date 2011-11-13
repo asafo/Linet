@@ -5,6 +5,7 @@ class company{
 	private $_prefix;
 	
 	public function getCompany(){
+		$this->_prefix=$this->prefix;
 		$cond['prefix']=$this->_prefix;
 		//$cond['num']=$this->num;
 		$list=selectSql($cond,$this->_table);
