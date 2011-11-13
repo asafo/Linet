@@ -30,6 +30,36 @@ function newWindow($text,$href,$width,$height,$title=0,$class=0){
 	$text= "<a href=\"$href\" $class onClick=\"window.open('$href','$title','width=$width,height=$height,menubar=no,status=no,directories=no,toolbar=no,location=no,resizable=no'); return false;\" target=\"_blank\"\">$text</a>\n";
 	return $text;
 }
+function printHtml(){
+	print '
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<link rel="stylesheet" type="text/css" href="style/mcalendar.css" />
+	<link rel="stylesheet" href="js/jquery-ui-1.8.13.custom.css" type="text/css" />
+	<link rel="stylesheet" href="js/jquery.tablesorter.min.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="style/linet.css" />
+	<script type="text/javascript" src=\'js/jquery.min.js\'></script>
+	<script type="text/javascript" src=\'js/jquery.ui.custom.min.js\'></script>
+
+	<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script> 
+	<script type="text/javascript" src="js/java.js"></script>
+
+	
+	
+	
+</head>
+	<body dir="rtl">
+	
+	
+	
+	
+	
+	';
+	
+}
 /*
  | GetPost
  | Get a value from $_POST array escaping special HTML characters to prevent XSS

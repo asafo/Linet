@@ -3,6 +3,7 @@
  | menu for Linet
  */
 $help=getHelp();
+global $curcompany;
 $MainMenu = array(
 	_("Settings") . "|module=main" => array(
 			 _("Bussines details") . '|?module=defs',
@@ -28,7 +29,7 @@ $MainMenu = array(
 		     _("Invoice receipt") . '|?module=docsadmin&amp;targetdoc=9',
 		   //  _("Parchace Order") . '|module=docsadmin&amp;targetdoc=10',
 		  	 _("Print docs.") . '|?module=showdocs',
-		  	 _("Register manual income") . '|?module=income',
+		  	// _("Register manual income") . '|?module=income',
 			 
 	),
 	 _("Outcome") . '|#'=>array(
@@ -46,7 +47,7 @@ $MainMenu = array(
 	 		_("Payment") . '|?module=payment',
 			 _("VAT payment") . '|?module=payment&amp;opt=vat',
 			 _("Nat. Ins. payment") . '|?module=payment&amp;opt=natins',
-			 _("Manual recipet").'|?module=receipts'
+			// _("Manual recipet").'|?module=receipts'
 	 ),
 	  _("Reconciliations") . '|#'=>array(
 		 _("Bank docs entry") . '|?module=bankbook',
@@ -61,9 +62,9 @@ $MainMenu = array(
 			 _("Monthly Prof. & loss") . '|?module=mprofloss',
 			 _("VAT calculation") . '|?module=vatrep',
 			 _("Balance") . '|?module=balance',
-			 _("Mokdamot").'|?module=taxrep',
-			 _("Nikoi mass Bamkor").'|?module=srctax',
-			 _("Takbulim tashlomim").'|?module=inout'
+			 _("Income tax advances").'|?module=taxrep',
+			// _("Nikoi mass Bamkor").'|?module=srctax',
+			 _("Receipts and payments").'|?module=inout'
 	 ),
 	 _("Import Export") . '|#' => array(
 			 _("Open docs") . '|?module=openfrmt',
@@ -73,6 +74,7 @@ $MainMenu = array(
 			 _("PCN874") . '|?module=pcn874',
 			 
 	 ),
+	 ' '=>array(),
 	 _("Support") . '|#' => array(
 		 _("Update"). '|module/update/',
 		 _("Support") . '|?module=support',
@@ -83,8 +85,10 @@ $MainMenu = array(
 	//'main1' => _("Main") . '|id=main',
 	//'mainlogin' => _("Login") . '|action=login'
 );
-
-
+if ($curcompany->bidi!=2)
+	unset($MainMenu[_("Reconciliations") . '|#']);
+else
+	unset($MainMenu[' ']);
 $str='<div class="navBar" dir="rtl"><ul id="drop_down_menu" dir="rtl">';
 $firsty=true;
 $numItems = count($MainMenu);

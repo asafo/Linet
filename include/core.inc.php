@@ -2,7 +2,6 @@
 $updatesrv ='http://update.linet.org.il';//http://localhost/server/';
 
 $table["articles"]="articles";
-$table["pics"] = "pics";
 $table["companies"] = "companies";
 $table["contacthist"] = "contacthist";
 $table["login"] = "login";
@@ -17,10 +16,8 @@ $table["catalog"] = "catalog";
 $table["transactions"] = "transactions";
 $table["supdocs"] = "supdocs";
 $table["supdocdetails"] = "supdocdetails";
-//$table["receipts"] = "receipts";
 $table["bankbook"] = "bankbook";
 $table["cheques"] = "cheques";
-//$table["tranpatt"] = "tranpatt";
 $table["tranrep"] = "tranrep";
 $table["stat"] = "items";
 $table["articles"] = "stat";
@@ -28,7 +25,6 @@ $table["openformat"] ="openformat";
 $table["openformattype"]="openformattype";
 
 $articlestbl = "articles";
-$picstbl = "pics";
 $companiestbl = "companies";
 $histtbl = "contacthist";
 $logintbl = "login";
@@ -36,17 +32,15 @@ $permissionstbl = "premissions";
 $currencytbl = "currency";
 $ratestbl = "rates";
 $accountstbl = "accounts";
-$contactstbl = "contacts";
 $docstbl = "docs";
 $docdetailstbl = "docdetails";
 $catalogtbl = "catalog";
 $transactionstbl = "transactions";
 $supdocstbl = "supdocs";
 $supdocdetailstbl = "supdocdetails";
-//$receiptstbl = "receipts";
 $bankbooktbl = "bankbook";
 $chequestbl = "cheques";
-$tranpattbl = "tranpatt";
+
 $tranreptbl = "tranrep";
 $itemstbl = "items";
 $stattbl = "stat";
