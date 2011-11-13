@@ -284,9 +284,10 @@ if($step==1) {
 	}
 	unset($tnout);
 } //end step
+$haeder = _("Bank papers input");
 if(!$account) {
 	$text='';
-	$header = _("Bank papers input");
+
 	//print "<h3>$l</h3>\n";
 
 	/* Choose account */
@@ -314,11 +315,12 @@ if(!$account) {
 	}
 	$text.= "<br />\n";
 	$l = _("Display");
-	$text.= "<div style=\"text-align:center\"><br><input type=submit value=\"$l\" /></div>\n";
+	$text.= "<div style=\"text-align:center\"><br><a href=\"javascript:document.choosebank.submit();\" class=\"btnaction\">$l</a></div>\n";
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text,$haeder,$sClass,500,600,'',1,getHelp());
+	//createForm($text,$haeder,'',500,600,'',1,getHelp());
+	createForm($text, $haeder,'',750,'','',1,getHelp());
 	exit;
 }
 
@@ -326,8 +328,8 @@ if(!$account) {
 //import gui here
 $text.= "<form name=\"import\" action=\"?module=bankbook&amp;account=$account&amp;start=1&step=1\" method=\"post\"  enctype=\"multipart/form-data\">\n";
 $text.=_("Import bank book from Hashvsvet file(tnout.dat):");
-$text.="<input type=\"file\" name=\"tnout\" /><br />\n";
-$text.="<a class=\"btn\" href=\"javascript:document.import.submit();\">בצע</a>";
+$text.="<input type=\"file\" name=\"tnout\" />\n";
+$text.="<a class=\"btnaction\" href=\"javascript:document.import.submit();\">"._("submit")."</a>";
 $text.="</form>";
 
 
@@ -422,7 +424,7 @@ if($start > 1) {
 	$text.=  "<input type=\"button\" value=\"$l\" onclick=\"document.location='index.php?module=bankbook&amp;start=$prev&amp;account=$account'\" />&nbsp;\n";
 }
 $l = _("Update");
-$text.=  "&nbsp;<input type=\"submit\" value=\"$l\" />&nbsp;&nbsp;\n";
+$text.=  "&nbsp;<a class=\"btnaction\" href=\"javascript:document.form1.submit();\">$l</a>&nbsp;&nbsp;\n";
 if($LastLine >= ($start + ($linesperpage-1))) {
 	$next = $start + ($linesperpage-1);
 	$l = _("Next page");

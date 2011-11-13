@@ -53,7 +53,9 @@ if (isset($_REQUEST['data'])){
 if (isset($_REQUEST['form'])){
 	$form=$_REQUEST['form'];
 	$smallprint=true;
+	printHtml();
 	if ($form=='items'){
+		printHtml();
 		include('items.php');
 	}
 	if ($form=='account'){

@@ -64,7 +64,7 @@ function AddUser() {
 	$text.= "<tr><td>$l: </td>\n";
 	$text.= "<td><input type=\"password\" name=\"verpassword\" /></td></tr>\n";
 //	print "<tr>\n";
-/*	print "<td>׳”׳¨׳©׳�׳•׳×: </td>\n";
+/*	print "<td>׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€¢׳³ֳ—: </td>\n";
 	print "<td>\n";
 	print "<select name=level>\n";
 	foreach($levelsarr as $key => $val) {
@@ -82,7 +82,7 @@ function AddUser() {
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
 //	print "</tr></td></table>\n";
-	createForm($text, $haeder,'',750,'','logo',1,'help');
+	createForm($text, $haeder,'',750,'','img/icon_adduser.png',1,getHelp());
 }
 
 /*if($action == 'delname') {
@@ -157,7 +157,7 @@ if($action == 'doadduser') {
 			$l = _("User added to business");
 			print "<h1  class=\"login\">$l</H1>\n";
 			$l = _("Click here to continue");
-			print "<h2  class=\"login\"><A HREF=index.php>$l</A></H2>\n";
+			print "<h2  class=\"login\"><a href=index.php>$l</A></H2>\n";
 			return;
 		}
 	}
@@ -254,12 +254,6 @@ if($action == 'forgot') {
 	mail($email, $subject, $body, $headers);
 	
 	
-	$to      = 'adam2314@gmail.com';
-$subject = 'the subject';
-$message = 'hello';
-$headers = 'From: webmaster@example.com' ;
-
-mail($to, $subject, $message, $headers);
 	
 	$l = _("Password sent to email");
 	print "<br /><h1>$l</h1>\n";
@@ -269,6 +263,7 @@ if($action == 'login') {
 	//$bla=Get
 	$password = GetPost('password');//[];
 	$name = GetPost('name');//['name'];
+	$rememberme=GetPost('rememberme');
 //	print "<div dir=ltr>\n";
 //	print "Name: $name, password: $password<br />\n";
 //	print "</div>\n";
@@ -295,7 +290,7 @@ if($action == 'login') {
 /*	$line = mysql_fetch_array($result, MYSQL_NUM);
 	if($line[1] != '') {
 	//	print_r($line);
-		print "<h1>׳�׳©׳×׳�׳© ׳�׳� ׳¡׳™׳™׳� ׳�׳× ׳×׳”׳�׳™׳� ׳”׳”׳¨׳©׳�׳”</h1>\n";
+		print "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ן¿½׳³ן¿½ ׳³ֲ¡׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ֳ— ׳³ֳ—׳³ג€�׳³ן¿½׳³ג„¢׳³ן¿½ ׳³ג€�׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€�</h1>\n";
 		return;
 	} */
 	
@@ -306,15 +301,16 @@ if($action == 'login') {
 	$result = DoQuery($query, "dologin");
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	$data = md5($line[0]);
-	if($remmberme)
+	//print $rememberme;
+	if($rememberme='on')
 		$query = "UPDATE $logintbl SET cookie='$data' WHERE name='$name'";
 	else 
 		$query = "UPDATE $logintbl SET cookie='' WHERE name='$name'";
 	$result = DoQuery($query, __FILE__.": ".__LINE__);
 	//if(!$result) {
 	//	echo mysql_error();
-	//	exit;
 	//}
+	//	exit;
 	$cookietime = time() + 60*60*24*30;
 	//$cookiestr = "name,$name,$cookietime:data,$data,$cookietime";
 	$url = "index.php";
@@ -381,7 +377,7 @@ if($action == 'edituser') {
 	print_r($acc);
 	
     $acc->pay_terms ='60';
-    $acc->company ='׳�׳§׳•׳— ׳—׳“׳™׳©';
+    $acc->company ='׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” ׳³ג€”׳³ג€�׳³ג„¢׳³ֲ©';
 	print(';'.$acc->newAccount().';');
 	$acc->num ='210';
 	$acc->vatnum ='300777778';
@@ -461,7 +457,7 @@ if($action == 'edituser') {
 	$l = _("App Key");
 	$text.= "<tr><td>$l: </td>\n";
 	$text.= "<td><font>$hash</font></td></tr>\n";
-/*	print "<tr><td>׳”׳¨׳©׳�׳•׳×: </td>\n";
+/*	print "<tr><td>׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€¢׳³ֳ—: </td>\n";
 	print "<td>\n";
 	print "<select name=\"level\">\n";
 	foreach($levelsarr as $key => $val) {
@@ -477,7 +473,7 @@ if($action == 'edituser') {
 	$text.="<a href=\"javascript:$('#edituser').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
-	createForm($text, $haeder, 'login',750,'','img/icon_login.png',1,'help');
+	createForm($text, $haeder, '',750,'','img/icon_edituser.png',1,getHelp());
 	return;
 }
 if($action == 'adduser') {
@@ -512,14 +508,17 @@ else {
 	$text.=  "<input type=\"text\" name=\"name\" size=\"17\" /></td></tr>\n";
 	$l = _("Password");
 	$text.=  "<tr><td>$l: <br />";
-	$text.=  "<input type=\"password\" name=\"password\" size=\"17\" /></td>\n";
+	$text.=  "<input type=\"password\" name=\"password\" size=\"17\" /></td></tr>\n";
+	$l = _("Remember me");
+	$text.=  "<tr><td>";
+	$text.=  "<input type=\"checkbox\" name=\"rememberme\" />$l\n";
+	$l = _("I forgot my password");
+	$text.='<a href="#" id="btnfrgt">'.$l.'</a></td></tr>';
 	$l = _("Login");
 	$text.=  "<tr><td colspan=\"2\" align=\"center\">";
-	
 	$text.="<a href=\"javascript:$('#login').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$text.=  "</table>\n";
-	$l = _("I forgot my password");
-	$text.='<a href="#" id="btnfrgt">'.$l.'</a>';
+	
 	$text.=  "</form>\n";
 	$text.=  "<br />\n";
 
@@ -543,7 +542,7 @@ else {
 	
 	//$text.="</div>";
 	$haeder=_("Login");
-	createForm($text, $haeder, 'login',500,400,'img/icon_login.png');
+	createForm($text, $haeder, 'login',500,400,'img/icon_login.png',null,getHelp());
 
 }
 

@@ -57,7 +57,7 @@ function GetAccountName($val) {
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
 $reptitle = _("Income outcome report");
-if(!isset($module)) {
+/*if(!isset($module)) {
 	$query = "SELECT companyname FROM $companiestbl WHERE prefix='$prefix'";
 	$result = DoQuery($query, "GetAccountName");
 	$line = mysql_fetch_array($result, MYSQL_NUM);
@@ -65,7 +65,8 @@ if(!isset($module)) {
 	print "<h1>$str</h1>\n";
 	print "<h1>$reptitle</h1>\n";
 }
-else if($step != 0) {
+else*/
+ if($step != 0) {
 	//adam: no need print "<h1>$reptitle</h1>";
 	//print "<br />test";
 }
@@ -102,7 +103,8 @@ if($step == 0) {	/* Get date range */
 	$text.= "</form>\n";
 	//print "</div>\n";
 	//print "test";
-	createForm($text,$reptitle,'',500);
+	createForm($text,$reptitle,'',750,'','',1,getHelp());
+
 	
 	//print "test";
 }
@@ -118,7 +120,8 @@ if($step >= 1) {
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
 	//$text= '';
-	$text.= "<h2>׳�׳×׳§׳•׳₪׳”: $begindate - $enddate</h2>\n";
+	$l=_("For period");
+	$text.= "<h2>$l: $begindate - $enddate</h2>\n";
 	//print "test";
 	//$numorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=num";
 	//$dtorderurl = "?module=tranrep&amp;step=1&amp;begindate=$begindate&amp;enddate=$enddate&amp;order=date";
@@ -133,38 +136,39 @@ if($step >= 1) {
 		$text.= "</tr><tr>\n";
 		$l = _("Transaction");
 		if(isset($module))
-			$text.= "<th>$l&nbsp;</th>\n";
+			$text.= "<td>$l&nbsp;</td>\n";
 		else
-			$text.= "<th>$l&nbsp;</th>\n";
+			$text.= "<td>$l&nbsp;</td>\n";
 		if(isset($module)) {
 			$l = _("Date");
-			$text.= "<th style=\"width:5.5em\">$l</th>\n";
+			$text.= "<td style=\"width:5.5em\">$l</td>\n";
 			$l = _("Account");
-			$text.= "<th>$l&nbsp;</th>\n";
+			$text.= "<td>$l&nbsp;</td>\n";
 		}
 		else {
 			$l = _("Date");
-			$text.= "<th style=\"width:5.5em\">$l</th>\n";
+			$text.= "<td style=\"width:5.5em\">$l</td>\n";
 			$l = _("Account");
-			$text.= "<th>$l&nbsp;</th>\n";
+			$text.= "<td>$l&nbsp;</td>\n";
 		}
 		$l = _("Ref. num");
-		$text.= "<th style=\"width:3.5em\">&nbsp;$l&nbsp;</th>\n";
+		$text.= "<td style=\"width:3.5em\">&nbsp;$l&nbsp;</td>\n";
 		$l = _("Customer//Supplier");
-		$text.= "<th>$l&nbsp;</th>\n";
+		$text.= "<td>$l&nbsp;</td>\n";
 		$l = _("Details");
-		$text.= "<th>$l&nbsp;&nbsp;&nbsp;</th>\n";
-		$text.= "<th style=\"width:4em\">׳¡׳›׳•׳�&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>\n";
-		$l = _("VAT");
-		$text.= "<th style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</th>\n";
-		$l = _("Inc. VAT");
-		$text.= "<th >$l&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "<td>$l&nbsp;&nbsp;&nbsp;</td>\n";
 		$l = _("Sum");
-		$text.= "<th style=\"width:4em\">$l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "<td style=\"width:4em\">$l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
 		$l = _("VAT");
-		$text.= "<th style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "<td style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</td>\n";
 		$l = _("Inc. VAT");
-		$text.= "<th>$l&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "<td >$l&nbsp;&nbsp;&nbsp;</td>\n";
+		$l = _("Sum");
+		$text.= "<td style=\"width:4em\">$l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
+		$l = _("VAT");
+		$text.= "<td style=\"width:3.5em\">$l&nbsp;&nbsp;&nbsp;</td>\n";
+		$l = _("Inc. VAT");
+		$text.= "<td>$l&nbsp;&nbsp;&nbsp;</td>\n";
 		$text.= "</tr>\n";
 	}
 	else if($step == 2) {
@@ -420,7 +424,7 @@ if($step >= 1) {
 		$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='?module=tranrep&amp;step=2&amp;begindate=$begindate&amp;enddate=$enddate'\">\n";
 		//print "</div>\n";
 	}
-createForm($text,$reptitle,'',750);
+createForm($text,$reptitle,'',750,'','',1,getHelp());
 }
 
 //if(!isset($module))

@@ -410,6 +410,7 @@ $text.= "		<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\
 
 </td></tr>\n";
 $text.= "	</table>\n</form>\n";
-createForm($text, $haeder,'',750);
+createForm($text, $haeder,'',750,'','logo',1,getHelp());
+
 ?>
 

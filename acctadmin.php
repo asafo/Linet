@@ -1,5 +1,5 @@
 <?PHP
-//M:׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½
+//
 /*
  | account administration module for Drorit accounting system
  | Written by Ori Idan Helicon technologies ltd.
@@ -12,7 +12,7 @@ global $lang, $dir;
 //global $help;
 require_once('class/account.php');
 $text='';
-$haeder='';
+$haeder=_("accounts");
 $help=getHelp();
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
@@ -94,7 +94,7 @@ function Print6111id($def) {
 }
 
 function PrintVatPercent($def) {
-	$p = array('100' => '100 %', '66.66' => '66 %', '25' => '25 %', '0' => '0 %', '--' => '׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨');
+	$p = array('100' => '100 %', '66.66' => '66 %', '25' => '25 %', '0' => '0 %', '--' => _('other'));
 
 //	print "def: $def<br>\n";
 	if($def == '')
@@ -292,7 +292,7 @@ if($action == 'editacct') {
 	//print "<br>\n";
 	//print "<div class=\"form righthalf1\" style=\"width:50%\"\n";
 	$text=EditAcct($num, $type);
-	createForm($text,$haeder,"",450,null,"img/icon_acc.png",1,$help);
+	createForm($text,$haeder,"",450,null,"img/icon_acctadmin.png",1,$help);
 	//print "</div>\n";
 	return;
 }
@@ -327,7 +327,7 @@ if($action == 'addacct') {
 			break;
 	}
 	$text.=EditAcct(0, $type);
-	createForm($text,$haeder,"",450,null,"img/icon_acc.png",1,$help);
+	createForm($text,$haeder,"",450,null,"img/icon_acctadmin.png",1,$help);
 	return;
 }
 
@@ -367,7 +367,7 @@ if (!$smallprint){
 	$curtablehd.= "<thead><tr>\n";
 	$l = _("Internal number");
 	$curtablehd.= "<th style=\"width:5em\">$l </th>\n";
-	// print "<td style=\"width:4.5em\">׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¡׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½ </td>\n";
+	// print "<td style=\"width:4.5em\">
 	$l = _("Name");
 	$curtablehd.= "<th style=\"width:9em\">$l</th>\n";
 	if(($type == INCOME) || ($type == OUTCOME) || ($type == ASSETS)) {
@@ -390,7 +390,7 @@ if (!$smallprint){
 	/*	$l = _("Email");
 		print "<td style=\"width:7em\">$l</td>\n"; */
 	}
-	// print "<TD>׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ© ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ§׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨</TD>\n";
+	// print "<TD></TD>\n";
 	$l = _("Acc. balance");
 	$curtablehd.= "<th style=\"width:4em\">$l</th>\n";
 	if($option == '') {
@@ -455,7 +455,7 @@ if (!$smallprint){
 			$url = "?module=acctadmin&amp;action=delacct&amp;num=$num&amp;type=$type";
 			//print "<input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\"></td>\n";
 			$curtablebody.= "<a href='$url' class='btnremove'></a></td>";
-	//	print "<a href=\"?module=acctdisp&account=$num&end=today\">׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½</a></td>\n";
+	//	print "<a href=\"?module=acctdisp&account=$num&end=today\"></a></td>\n";
 		}
 		$curtablebody.= "</tr>\n";
 	}
@@ -485,6 +485,9 @@ if (!$smallprint){
 	//createForm($text,$haeder,"righthalf1",450);
 	// EditAcct(0, $type);
 }
-createForm($text,$haeder,"",780,null,"img/icon_acc.png",1,$help);
+if ($smallprint)
+	createForm($text,$haeder,"",480,null,"img/icon_acctadmin.png",0,$help);
+else
+	createForm($text,$haeder,"",780,null,"img/icon_acctadmin.png",1,$help);
 ?>
 

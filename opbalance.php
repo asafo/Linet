@@ -58,7 +58,7 @@ $step = isset($_GET['step']) ? $_GET['step'] : 0;
 //print "<br><div class=\"form righthalf1\">\n";
 $t = _("Openning balances");
 //print "<h3>$t</h3>\n";
-$header=$l;
+$header=$t;
 $text='';
 if($step == 1) {
 	$year = $_POST['year'];
@@ -105,6 +105,6 @@ $text.= "<tr><td colspan=\"2\" align=\"center\">\n";
 $text.= "<input type=\"submit\" value=\"$l\"></td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
-createForm($text,$header,'',750,'','logo',1,'help');
+createForm($text,$header,'',750,'','img/icon_opbalance.png',1,getHelp());
 //print "</div>\n";
 ?>

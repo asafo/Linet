@@ -4,7 +4,7 @@
  | Written by: Ori Idan December 2009
  | Modifed by adam bh
  */
-global $accountstbl, $transactionstbl, $docstbl, $receiptstbl, $histtbl;
+global $accountstbl, $transactionstbl, $docstbl, $histtbl;
 global $AcctType;
 global $DocType;
 global $dir;
@@ -196,20 +196,37 @@ if($action == 'edit') {
 	$num = (int)$_GET['num'];
 	//print "<br>\n";
 	//print "<div class=\"righthalf1\">\n";
-	$text=EditAcct($num, 0);	// type is ignored for editing 
-	createForm($text,$haeder,'',450);
+	$text="<div>".EditAcct($num, 0)."</div>";	// type is ignored for editing 
+	
+	
+	$l = _("Contact history");
+	$text.= "<div><h2>$l</h2>\n";
+$addhistfrm = <<<EHF
+<form name="addhist" action="?module=contact&amp;num=$num&amp;action=addhist" method="post">
+$date1: 
+<input class="date" type="text" id="dt" name="dt" value="$dt" size="8" />
+<br />
+<textarea name="details" cols="40" rows="4"></textarea>
+<br />
+<a href="javascript:document.addhist.submit();" class="btnaction">$submit</a>
+</form>
+EHF;
+	$text.= "$addhistfrm\n</div>";
+	
+	
+	$text.="<table style=\"width:100%\"><tr><td>";
 	//print "</div>\n";
-	print "<div class=\"lefthalf1\">\n";
+	//$text.= "<div class=\"lefthalf1\">\n";
 	$l = _("Activity history");
-	print "<h3>$l</h3>\n";
+	$text.= "<h3>$l</h3>\n";
 	$l = _("Business documents");
-	print "<h2>$l</h2>\n";	
+	$text.= "<h2>$l</h2>\n";	
 	// Search business documents 
 	$query = "SELECT * FROM $docstbl WHERE account='$num' AND prefix='$prefix' ";
 	$query .= "ORDER BY issue_date DESC";
-	print $query;
+	//$text.= $query;
 	$result = DoQuery($query, __LINE__);
-	print "<table class=\"hovertbl\">\n";
+	$text.= "<table class=\"formy\">\n";
 	if(mysql_num_rows($result)) {
 		while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			$doctype = $line['doctype'];
@@ -219,14 +236,14 @@ if($action == 'edit') {
 			$sum = number_format($sum);
 			$total = number_format($line['total']);
 			$url = "printdoc.php?win=1&doctype=$doctype&docnum=$docnum&prefix=$prefix";
-			NewRow();
-			print "<td>\n";
-			print "<a href=\"$url\">$doctypestr $docnum</a>\n";
+			$text.="<tr>";
+			$text.= "<td>\n";
+			$text.= "<a href=\"$url\">$doctypestr $docnum</a>\n";
 			$l = _("Sum");
-			print "$l: $sum ";
+			$text.= "$l: $sum ";
 			$l = _("Including VAT");
-			print "$l: $total</td>\n";
-			print "</tr>\n";
+			$text.= "$l: $total</td>\n";
+			$text.= "</tr>\n";
 		}
 	}
 	//adam: no need
@@ -242,54 +259,39 @@ if($action == 'edit') {
 			$sum = number_format($sum);
 			$total = number_format($line['total']);
 			$url = "printdoc.php?win=1&doctype=$type&docnum=$docnum&prefix=$prefix";
-			NewRow();
-			print "<td>\n";
-			print "<a href=\"$url\">$doctypestr $docnum</a>\n";
+			$text.="<tr>";
+			$text.= "<td>\n";
+			$text.= "<a href=\"$url\">$doctypestr $docnum</a>\n";
 			$l = _("Sum");
-			print "$l: $sum </td>";
-			print "</tr>\n";
+			$text.= "$l: $sum </td>";
+			$text.= "</tr>\n";
 		}
 	}//*/
-	print "</table>\n";
-	$l = _("Contact history");
-	print "<br><h2>$l</h2>\n";
-$addhistfrm = <<<EHF
-<form name="addhist" action="?module=contact&amp;num=$num&amp;action=addhist" method="post">
-$date1: 
-<input type="text" name="dt" value="$dt" size="8" />
-<script type="text/javascript">
-new tcal ({
-	// form name
-	'formname': 'addhist',
-	// input name
-	'controlname': 'dt'
-});
-</script>
-<br />
-<textarea name="details" cols="40" rows="4"></textarea>
-<br />
-<input type="submit" value="$submit">
-</form>
-EHF;
-	print "$addhistfrm<br>\n";
+	$text.= "</table></td><td>\n";
+	
 	
 	$query = "SELECT * FROM $histtbl WHERE num='$num' AND prefix='$prefix' ";
 	$query .= "ORDER BY dt DESC";
 	$result = DoQuery($query, __LINE__);
-	print "<table class=\"tablesorter\" >\n";
+	//$l = _("Activity history");
+	//$text.= "<h3>$l</h3>\n";
+	$l = _("Contact history");
+	$text.= "<div><h2>$l</h2>\n";
+	$text.= "<table class=\"formy\" >\n";
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		print "<tr>\n";
+		$text.= "<tr>\n";
 		$dt = FormatDate($line['dt'], "mysql", "dmy");
-		print "<td>$date1: $dt<br>\n";
+		$text.= "<td>$date1: $dt<br>\n";
 		$details = nl2br($line['details']);
-		print "$details";
+		$text.= "$details";
 		$url = "?module=contact&action=delhist&num=$num&dt=$dt";
 		$del = _("Delete");
-		print "<a href=\"$url\">$del</a>\n";
-		print "</td></tr>\n";
+		$text.= "<a href=\"$url\">$del</a>\n";
+		$text.= "</td></tr>\n";
 	}
-	print "</table>\n";		
-	print "</div>\n";
+	$text.= "</table>\n</td></tr></table>";		
+	//$text.= "</div>\n";
+	createForm($text,$haeder,'',750,'','logo',1,getHelp());
 	return;
 }
 /*if($action == 'add') {
@@ -311,7 +313,7 @@ $city1 = _("City");
 $zip1 = _("Zip");
 $search = _("Search");
 $srchform = <<<EOF1
-<form action="?module=contact&amp;action=search&amp;type=$type" method="post">
+<form action="?module=contact&amp;action=search&amp;type=$type" name="searchfrm" method="post">
 <table class="formtbl" width="100%">
 	<tr>
 		<td>$company1: </td>
@@ -328,7 +330,8 @@ $srchform = <<<EOF1
 		<td><input type="text" name="city" value="$city" /></td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center"><input type="submit" value="$search" /></td>
+	
+		<td colspan="2" align="center"><a href="javascript:document.searchfrm.submit();" class="btnaction">$search</a></td>
 	</tr>
 </table>
 </form>
@@ -357,8 +360,7 @@ $text
 	<thead>
 <tr >
 		<th class="header" style="width:3em">$n </th>
-		<th class="header" style="width:4em">$type1</th>
-		<th class="header" style="width:12em">$company1</th>
+		<th class="header" style="width:50em">$company1</th>
 		<th class="header" style="width:12em">$contact1</th>
 		<th class="header" style="width:8em">$address1</th>
 		<th class="header" style="width:8em">$city1</th>
@@ -423,27 +425,25 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$address = $line['address'];
 	$city = $line['city'];
 	$zip = $line['zip'];
-	//NewRow();
 	$url = "?module=contact&amp;action=edit&amp;num=$num";
 	$text.= "<tr><td><a href=\"$url\">$num</a></td>\n";
 	if ($line['type']== CUSTOMER) $t = _("Customer");
 	if ($line['type']== SUPPLIER) $t=  _("Supplier");
-	$text.= "<td>$t</td>\n";
 	$text.= "<td><a href=\"$url\">$company</a></td>\n";
 	$text.= "<td>$contact</td>\n";
 	$text.= "<td>$address</td>\n";
 	$text.= "<td>$city</td>\n";
 	$text.= "<td>$zip</td>\n";
-	$sum = GetAcctTotal($num, $beginmysql, $endmysql);
+	$sum = round (GetAcctTotal($num, $beginmysql, $endmysql),2);
 	$text.= "<td>$sum</td>\n";
 	$url = "?module=acctdisp&amp;account=$num&amp;begin=$begindmy&amp;end=$enddmy";
 	$l = _("Transactions");
-	$text.= "<td><input type=\"button\" value=\"$l\" onClick=\"window.location.href='$url'\" /></td>\n";
+	$text.= "<td><a href=\"$url\" class=\"btnsmall\">$l</a></td>\n";
 	$text.= "</tr>\n";
 }
 
 $text.= "</tbody></table>\n";
 
-createForm($srchform.$text, $l,'',700);
+createForm($srchform.$text, $l,'',700,'','img/icon_contact.png',1,getHelp());
 ?>
 

@@ -39,7 +39,7 @@ include('include/core.inc.php');
 include('include/version.inc.php');
 include('include/func.inc.php');
 include('class/user.php');
-
+include('class/company.php');
 $Uname = isset($_COOKIE['name']) ? $_COOKIE['name'] : '';
 $Udata = isset($_COOKIE['data']) ? $_COOKIE['data'] : '';
 $Sname = isset($_SESSION['name']) ? $_SESSION['name'] : '';
@@ -54,37 +54,48 @@ $abspath = GetURI();
 if(!isset($tinymcepath))//adam:?
 	$tinimcepath = $abspath;
 
-$loggedin = 0;
-/*chk if logged in improved */
-if(isset($Uname) && ($Uname != '')) 
-	if((isset($Udata)) && ($Udata!='')){
-		//if session isnt set get from db
-		if(($Uname==$Sname) && ($Udata==$Sdata)){
-			$loggedin = 1;
-			$name = urldecode($Uname);
-			$cookietime = time() + 60*60*24*30;
-			//chk if user has permisions to company
-			setcookie('company', $prefix, $cookietime);
-		}
-	}
-//else
-	
-//if(isset($_GET['nonlogin']))
-//	$simulatenolog = 1;
 
 if(($module == '') && ($action == '')) 
-//	if(($loggedin) && (!$simulatenolog))
 		$module = 'main';
 
 
 $link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
 mysql_query("SET NAMES 'utf8'");
 mysql_select_db($database) or die("Could not select database: $database");
-//adam: current user
-$curuser=new user;
-$curuser->name=$name;
-$curuser->getUser();
+$loggedin = 0;
+/*chk if logged in improved */
+if(isset($Uname) && ($Uname != '')) 
+	if((isset($Udata)) && ($Udata!='')){
+		//if session isnt set get from db
+		//adam: current user
+		$name = urldecode($Uname);
+		$curuser=new user;
+		$curuser->name=$name;
+		$curuser->getUser();
+		if($Sdata=='') $Sdata=$curuser->cookie;
+		if($Sname=='') $Sname=$curuser->name;
+		if(($Uname==$Sname) && ($Udata==$Sdata)){
+			$loggedin = 1;
+			
+			$_SESSION['name']=$Uname;
+			$_SESSION['data']= $Udata;
+			$cookietime = time() + 60*60*24*30;
+			//chk if user has permisions to company
+			setcookie('company', $prefix, $cookietime);
+		}
+	}
 
+$curcompany= new company;
+$curcompany->prefix=$prefix;
+if(!$curcompany->getCompany()){
+	setcookie('company', '', -1);
+	unset($_COOKIE['company']);
+	unset($prefix);
+}
+
+$title = $curcompany->companyname;
+$template = $curcompany->template;
+$logo=$curcompany->logo;
 if($loggedin) {
 	$query = "SELECT * FROM $permissionstbl WHERE name='$name'";
 	$result = DoQuery($query, "index.php");
@@ -130,16 +141,17 @@ if (!$cheaked){
 
 /* Make sure we have a valid company and set $title */
 if(isset($prefix)) {
-	$query = "SELECT companyname,template,logo FROM $companiestbl WHERE prefix='$prefix'";
-	$result = DoQuery($query, "main");
-	if(mysql_num_rows($result)) {
-		$line = mysql_fetch_array($result, MYSQL_ASSOC);
-		$title = $line['companyname'];
-		$template = $line['template'];
-		$logo=$line['logo'];
-	}
-	else
-		unset($prefix);
+	//$query = "SELECT companyname,template,logo FROM $companiestbl WHERE prefix='$prefix'";
+	//$result = DoQuery($query, "main");
+	
+	//if(mysql_num_rows($result)) {
+		//$line = mysql_fetch_array($result, MYSQL_ASSOC);
+		//$title = //$line['companyname'];
+		//$template = $line['template'];
+		//$logo=$line['logo'];
+	//}
+	//else
+		//unset($prefix);
 }
 //if($cssfile == '')
 	$cssfile = 'style/linet.css';

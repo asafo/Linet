@@ -66,8 +66,6 @@ if(!$result) {
 while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 	if($line[0] == $articlestbl)
 		$articles = 1;
-	if($line[0] == $picstbl)
-		$pics = 1;
 	if($line[0] == $logintbl)
 		$login = 1;
 	if($line[0] == $permissionstbl)
@@ -78,8 +76,6 @@ while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$history = 1;
 	if($line[0] == $accountstbl)
 		$accounts = 1;
-	if($line[0] == $contactstbl)
-		$contacts = 1;
 	if($line[0] == $transactionstbl)
 		$transactions = 1;
 	if($line[0] == $accttrantbl)
@@ -123,22 +119,6 @@ if(!$articles) {
 		exit;
 	}
 	print "Table $articlestbl created.<BR>\n";
-}
-if(!$pics) {
-	print "Table pics does not exist...<BR>\n";
-	$query = "CREATE TABLE $picstbl (\n";
-	$query .= "num INTEGER UNSIGNED AUTO_INCREMENT, PRIMARY KEY (num), ";
-	$query .= "ext CHAR(5), \n";
-	$query .= "gallery VARCHAR(50), \n";
-	$query .= "description TEXT \n";
-	$query .= ")";
-	$result = mysql_query($query);
-	if(!$result) {
-		print "Query: $query<BR>\n";
-		echo mysql_error();
-		exit;
-	}
-	print "Table $picstbl created.<BR>\n";
 }
 if(!$login) {
 	print "Login table does not exist...<BR>\n";
@@ -263,34 +243,6 @@ if(!$accounts) {
 		exit;
 	}
 	print "Accounts table created.<BR>\n";
-}
-if(!$contacts) {
-	print "Contacts table does not exist...<BR>\n";
-	$query = "CREATE TABLE $contactstbl (";
-	$query .= "num INTEGER UNSIGNED, ";
-	$query .= "prefix VARCHAR(40), ";
-	$query .= "account INTEGER UNSIGNED, ";
-	$query .= "name VARCHAR(80), ";
-	$query .= "role VARCHAR(80), ";
-	$query .= "company VARCHAR(80), ";
-	$query .= "department VARCHAR(60), ";
-	$query .= "email VARCHAR(50), ";
-	$query .= "phone VARCHAR(20), ";
-	$query .= "dir_phone VARCHAR(20), ";
-	$query .= "cellular VARCHAR(20), ";
-	$query .= "fax VARCHAR(20), ";
-	$query .= "web VARCHAR(60), ";
-	$query .= "address VARCHAR(80), ";
-	$query .= "city VARCHAR(40), ";
-	$query .= "zip VARCHAR(10), ";
-	$query .= "comments TEXT";
-	$query .= ")";
-	$result = mysql_query($query);
-	if(!$result) {
-		echo mysql_error();
-		exit;
-	}
-	print "Contacts table created.<BR>\n";
 }
 if(!$transactions) {
 	print "Transactions table does not exist...<BR>\n";

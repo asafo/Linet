@@ -1,28 +1,13 @@
-<?PHP
+﻿<?PHP
 /*
  | Create transactions report (תקבולים תשלומים)
  | This is part of Freelance accounting system.
  | Written by Ori Idan for Shay Harel
+ | Modified by Adam BH 11/2011
 
  */
-if(!isset($module)) {
-	header('Content-type: text/html;charset=UTF-8');
-
-	include('config.inc.php');
-	include('func.inc.php');
-
-	$link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
-	mysql_select_db($database) or die("Could not select database: $database");
-
-
-	$prefix = isset($_GET['prefix']) ? $_GET['prefix'] : $_COOKIE['prefix'];
-	$reptitle = "ספר תקבולים תשלומים";
-	include('printhead.inc.php');
-	print $header;
-}
-
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
-
+$text='';
 /* open window script */
 if(isset($module)) {
 	print "<script type=\"text/javascript\">\n";
@@ -32,7 +17,7 @@ if(isset($module)) {
 	print "</script>\n";
 }
 if(!isset($prefix) || ($prefix == '')) {
-	print "<h1>לא ניתן לבצע פעולה זו ללא בחירת עסק</h1>\n";
+	ErrorReport("לא ניתן לבצע פעולה זו ללא בחירת עסק");
 
 	return;
 }
@@ -55,17 +40,17 @@ function GetAccountName($val) {
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	return $line[0];
 }
-
+$haeder='ספר תקבולים תשלומים';
 if(!isset($module)) {
 	$query = "SELECT companyname FROM $companiestbl WHERE prefix='$prefix'";
 	$result = DoQuery($query, "GetAccountName");
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	$str = $line[0];
-	print "<h1>$str</h1>\n";	
-	print "<h1>ספר תקבולים תשלומים</h1>\n";
+	//print "<h1>$str</h1>\n";	
+	//print "<h1>ספר תקבולים תשלומים</h1>\n";
 }
 else if($step != 0) {
-	print "<h1>ספר תקבולים תשלומים</h1>";
+	//print "<h1>ספר תקבולים תשלומים</h1>";
 }
 /* prepare temporary table */
 $query = "DELETE FROM $tranreptbl WHERE prefix='$prefix'";
@@ -76,26 +61,26 @@ if($step == 0) {	/* Get date range */
 	$edate = date("d-m-Y");
 	list($d, $m, $y) = explode('-', $edate);
 	$bdate = "1-1-$y";
-	print "<div class=\"righthalf2\">\n";
-	print "<div class=\"caption_out\"><div class=\"caption\">";
-	print "<b>ספר תקבולים תשלומים</b>\n";
-	print "</div></div>\n";
-	print "<form name=\"dtrange\" method=\"get\">\n";
-	print "<input type=\"hidden\" name=\"module\" value=\"inout\">\n";
-	print "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
-	print "<table dir=\"rtl\" cellpadding=\"20px\" cellspacing=\"20px\"><tr>\n";
-	print "<td>בחר תאריך תחילה: </td>\n";
-	print "<td><input class=\"date\" id=\"begindate\" type=\"text\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
+	//$text.= "<div class=\"righthalf2\">\n";
+	//$text.= "<div class=\"caption_out\"><div class=\"caption\">";
+	$text.= "<b>ספר תקבולים תשלומים</b>\n";
+	//$text.= "</div></div>\n";
+	$text.= "<form name=\"dtrange\" method=\"get\">\n";
+	$text.= "<input type=\"hidden\" name=\"module\" value=\"inout\">\n";
+	$text.= "<input type=\"hidden\" name=\"step\" value=\"1\">\n";
+	$text.= "<table dir=\"rtl\" cellpadding=\"20px\" cellspacing=\"20px\"><tr>\n";
+	$text.= "<td>בחר תאריך תחילה: </td>\n";
+	$text.= "<td><input class=\"date\" id=\"begindate\" type=\"text\" name=\"begindate\" value=\"$bdate\" size=\"7\">\n";
 
-	print "</td>\n";
-	print "<td>בחר תאריך סיום: </td>\n";
-	print "<td><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
+	$text.= "</td>\n";
+	$text.= "<td>בחר תאריך סיום: </td>\n";
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
 
-	print "</td>\n";
-	print "<td><input type=\"submit\" value=\"הפק\"></td>\n";
-	print "</tr></table>\n";
-	print "</form>\n";
-	print "</div>\n";
+	$text.= "</td>\n";
+	$text.= "<td><input type=\"submit\" value=\"הפק\"></td>\n";
+	$text.= "</tr></table>\n";
+	$text.= "</form>\n";
+	//print "</div>\n";
 	//print "<div class=\"lefthalf2\">\n";
 	//ShowText('inout');
 	//print "</div>\n";
@@ -113,31 +98,31 @@ if($step >= 1) {
 	$bdate = FormatDate($begindate, "dmy", "mysql");
 	$edate = FormatDate($enddate, "dmy", "mysql");
 	
-	print "<h2>לתקופה: $begindate - $enddate</h2>\n";
+	$text.= "<h2>לתקופה: $begindate - $enddate</h2>\n";
 	
-	$numorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=num";
-	$dtorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=date";
-	$typeorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=opacctname";
+	//$numorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=num";
+	//$dtorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=date";
+	//$typeorderurl = "?module=tranrep&step=1&begindate=$begindate&enddate=$enddate&order=opacctname";
 	if($step == 1) {
-		print "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
-		if(isset($module))
-			print "<td><a href=\"$numorderurl\">תנועה</a>&nbsp;</td>\n";
-		else
-			print "<td>תנועה&nbsp;</td>\n";
-		if(isset($module)) {
-			print "<td style=\"width:5.5em\"><a href=\"$dtorderurl\">תאריך</a></td>\n";
-			print "<td><a href=\"$typeorderurl\">סעיף&nbsp;</a></td>\n";
-		}
-		else {
-			print "<td style=\"width:5.5em\">תאריך</td>\n";
-			print "<td>סעיף&nbsp;</td>\n";
-		}
-		print "<td style=\"width:3.5em\">&nbsp;אסמכתא&nbsp;</td>\n";
-		print "<td>לקוח\\ספק&nbsp;</td>\n";
-		print "<td>פירוט&nbsp;&nbsp;&nbsp;</td>\n";
-		print "<td style=\"width:4em\">תקבול&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
-		print "<td style=\"width:4em\">תשלום&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
-		print "</tr>\n";
+		$text.= "<table class=\"tablesorter\"><thead><tr>\n";
+		//if(isset($module))
+			$text.= "<th>תנועה</th>\n";
+		//else
+		//	$text.= "<th>תנועה&nbsp;</th>\n";
+		//if(isset($module)) {
+		//	$text.= "<td style=\"width:5.5em\"><a href=\"$dtorderurl\">תאריך</a></th>\n";
+		//	$text.= "<td><a href=\"$typeorderurl\">סעיף&nbsp;</a></td>\n";
+		//}
+		//else {
+			$text.= "<th style=\"width:5.5em\">תאריך</th>\n";
+			$text.= "<th>סעיף&nbsp;</th>\n";
+		//}
+		$text.= "<th style=\"width:3.5em\">&nbsp;אסמכתא&nbsp;</th>\n";
+		$text.= "<th>לקוח\\ספק&nbsp;</th>\n";
+		$text.= "<th>פירוט&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "<th style=\"width:4em\">תקבול&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "<th style=\"width:4em\">תשלום&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>\n";
+		$text.= "</tr></thead>\n";
 	}
 	else if($step == 2) {
 		fwrite($fd, "\"תנועה\",");
@@ -237,8 +222,9 @@ if($step >= 1) {
 			$query .= " DESC";
 	}
 //	print "Query: $query<br>\n";
-	$result = DoQuery($query, "tranrep.php");
+	$result = DoQuery($query, __FILE__.": ".__LINE__);
 	$e = 0;
+	$tbody='';
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$num = $line['num'];
 		$dtdmy = FormatDate($line['date'], "mysql", "dmy");
@@ -265,77 +251,72 @@ if($step >= 1) {
 			}
 		}
 		if($step == 1) {
-			if($e == 1) {
-				print "<tr class=\"otherline\">\n";
-				$e = 0;
+			
+			$tbody.= "<tr>\n";
+			
+			$tbody.= "<td>$num</td><td>$dtdmy</td><td>";
+			//if(isset($module)) {
+			$tbody.= "<a href=\"?module=acctdisp&account=$opacct&begin=$begindate&end=$enddate\">$opacctname</a></td><td>&nbsp;$refnum</td>";
+			$tbody.= "<td><a href=\"?module=acctdisp&account=$acctnum&begin=$begindate&end=$enddate\">$acctname</a></td>";
 			}
-			else {
-				print "<tr>\n";
-				$e = 1;
-			}
-			print "<td>$num</td><td>$dtdmy</td><td>";
-			if(isset($module)) {
-				print "<a href=\"?module=acctdisp&account=$opacct&begin=$begindate&end=$enddate\">$opacctname</a></td><td>&nbsp;$refnum</td>";
-				print "<td><a href=\"?module=acctdisp&account=$acctnum&begin=$begindate&end=$enddate\">$acctname</a></td>";
-			}
-			else {
-				print "$opacctname</td><td>&nbsp;$refnum</td>";
-				print "<td>$acctname</td>";
-			}
-			print "<td>$details</td>\n";
+			//else {
+			//	$text.= "$opacctname</td><td>&nbsp;$refnum</td>";
+			//	$text.= "<td>$acctname</td>";
+			//}
+			$tbody.= "<td>$details</td>\n";
 			if($accttype == SUPPLIER) {
-				print "<td>&nbsp;</td>\n";
+				$tbody.= "<td>&nbsp;</td>\n";
 				$tstr = number_format($sum);
-				print "<td dir=\"ltr\" align=\"right\" >$tstr</td>\n";
+				$tbody.= "<td dir=\"ltr\" align=\"right\" >$tstr</td>\n";
 				$td_sum += $sum;
 			}
 			else {
 				$tstr = number_format($sum);
-				print "<td dir=\"ltr\" align=\"right\" >$tstr</td>\n";
-				print "<td>&nbsp;</td>\n";
+				$tbody.= "<td dir=\"ltr\" align=\"right\" >$tstr</td>\n";
+				$tbody.= "<td>&nbsp;</td>\n";
 				$tc_sum += $sum;
 			}
-			print "</tr>\n";
+			$tbody.= "</tr>\n";
 		}
 	}
 	if($step == 1) {
-		if(!isset($module))
-			print "<tr class=\"sumlineprt\">\n";
-		else
-			print "<tr class=\"sumline\">\n";
-		print "<td colspan=\"6\" align=\"left\"><b>סה\"כ: &nbsp;</b></td>\n";
+		//if(!isset($module))
+			$text.= "<tfoot><tr class=\"sumlineprt\">\n";
+		//else
+		//	$text.= "<tr class=\"sumline\">\n";
+		$text.= "<td colspan=\"6\" align=\"left\"><b>סה\"כ: &nbsp;</b></td>\n";
 		$tstr = number_format($tc_sum);
-		print "<td>$tstr</td>\n";
+		$text.= "<td>$tstr</td>\n";
 		$tstr = number_format($td_sum);
-		print "<td>$tstr</td>\n";
-		print "</tr>\n";
-		print "</table>\n";
+		$text.= "<td>$tstr</td>\n";
+		$text.= "</tr></tfoot>\n";
+		$text.= "$tbody</table>\n";
 	}
 	else if($step == 2) {
 		fclose($fd);
 		Conv1255($filename);
-		print "<h2>להורדת הדוח לחץ כאן: ";
+		$text.= "<h2>להורדת הדוח לחץ כאן: ";
 		$url = "/download.php?file=$filename&name=tranrep.csv";
-		print "<a href=\"$filename\">tranrep.csv</a></h2>\n";
-		print "<h2>לחץ על שם הקובץ עם כפתור ימני ובחר \"שמור בשם\"</h2>\n";
-		print "<script type=\"text/javascript\">\n";
-		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		print "</script>\n";
+		$text.= "<a href=\"$filename\">tranrep.csv</a></h2>\n";
+		$text.= "<h2>לחץ על שם הקובץ עם כפתור ימני ובחר \"שמור בשם\"</h2>\n";
+		$text.= "<script type=\"text/javascript\">\n";
+		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		$text.= "</script>\n";
 	}
 
 	if(isset($module) && ($step == 1)) {
-		$url = "tranrep.php?print=1&step=1&begindate=$begindate&enddate=$enddate";
+		$url = "?module=tranrep&print=1&step=1&begindate=$begindate&enddate=$enddate";
 		$url .= "&prefix=$prefix";
 		if($order)
 			$url .= "&order=$order";
-		print "<div class=\"repbottom\">\n";
-		print "<input type=\"button\" value=\"הדפס\" onclick=\"PrintWin('$url')\">\n";
-		print "&nbsp;&nbsp;";
-		print "<input type=\"button\" value=\"יצוא לקובץ\" onclick=\"window.location.href='?module=tranrep&step=2&begindate=$begindate&enddate=$enddate'\">\n";
-		print "</div>\n";
+		$text.= "<div class=\"repbottom\">\n";
+		$text.= "<input type=\"button\" value=\"הדפס\" onclick=\"PrintWin('$url')\">\n";
+		$text.= "&nbsp;&nbsp;";
+		$text.= "<input type=\"button\" value=\"יצוא לקובץ\" onclick=\"window.location.href='?module=tranrep&step=2&begindate=$begindate&enddate=$enddate'\">\n";
+		$text.= "</div>\n";
 	}
 
-}
-
+//}
+createForm($text,$haeder,'',750,'','',1,getHelp());
 
 ?>

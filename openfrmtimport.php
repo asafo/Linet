@@ -8,13 +8,13 @@
  * 
  */
 global $table;
-require('class/company.php');
-require('class/account.php');
-require('class/document.php');
+require_once('class/company.php');
+require_once('class/account.php');
+require_once('class/document.php');
 require_once('class/documentdetail.php');
 require_once('class/receiptdetail.php');
-require('class/transaction.php');
-require('class/item.php');
+require_once('class/transaction.php');
+require_once('class/item.php');
 if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 	$haeder="Select files to Import";
 	$text= "<form action=\"?module=$module&amp;step=1\" method=\"post\" enctype=\"multipart/form-data\">\n<br />";
@@ -49,7 +49,8 @@ if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 		
 	$text.= "</form>\n";
 	
-	createForm($text,$haeder,'',450);
+	createForm($text,$haeder,'',750,'','',1,getHelp());
+	
 }
 if ($_REQUEST['step']==1){
 	$bkmv = "tmp/bkmv$prefix.txt";
@@ -388,7 +389,7 @@ if ($_REQUEST['step']==1){
 		
 	$text.= "</form>\n";
 	
-	createForm($text,$haeder,'',450);
+	createForm($text,$haeder,'',750,'','',1,getHelp());
 	
 	//unlink($bkmv);
 	//print_r($analze);

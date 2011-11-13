@@ -77,11 +77,11 @@ if(!isset($module)) {
 	$str = $line[0];
 	print "<h1>$str</h1>\n";	
 }
-if($step != 0) {
+//if($step != 0) {
 	$header = _("Balance report");
 	//print "<br /><h1>$l</h1>\n";
 	
-}
+//}
 if($step == 0) {	/* Get date range */
 	$edate = date("d-m-Y");
 	list($d, $m, $y) = explode('-', $edate);
@@ -155,13 +155,13 @@ if($step >= 1) {
 		$l4 = _("Credit");
 		$l5 = _("Acc. balance");
 		fwrite($fd, "$l1,$l2,$l3,$l4,$l5");
-//		fwrite($fd, "׳¡׳¢׳™׳£,׳¡׳¢׳™׳£ 6111,׳—׳•׳‘׳”,׳–׳›׳•׳×,׳¡׳›׳•׳�");
+//		fwrite($fd, "׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£,׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ 6111,׳³ג€”׳³ג€¢׳³ג€˜׳³ג€�,׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ—,׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½");
 		fwrite($fd, "\n");
 	}
 	$totaldb = 0;
 	$totalcrd = 0;
 	$total = 0;
-	for($type = 0; $type <= 12; $type++) {
+	for($type = 0; $type <= 7; $type++) {
 		$tstr = $AcctType[$type];
 		if($step == 1) {
 			if(!isset($module))

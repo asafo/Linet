@@ -1,6 +1,6 @@
 <?php
 /*Written By Adam BH pcn874 for linet*/
-global $prefix, $accountstbl, $companiestbl, $transactionstbl, $chequestbl, $receiptstbl, $creditcompanies, $docstbl, $itemstbl;
+global $prefix, $accountstbl, $companiestbl, $transactionstbl, $chequestbl, $creditcompanies, $docstbl, $itemstbl;
 global $bkrecnum, $regnum, $mainid, $softregnum, $softwarename, $Version, $softwaremakerregnum, $softwaremaker;
 include 'class/account.php';
 $text='';
@@ -11,12 +11,12 @@ if(!isset($prefix) || ($prefix == '')) {
 }
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
-
+$header = _("Export pcn874 files for tax authorities"); 
 if($step == 0) {	/* First stage, choose dates for report */
 	$date = date('m-Y',mktime(0, 0, 0, (date('m')), 0, date('Y'))); //date("31-12-$y");
 
 	//print "<div class=\"form righthalf1\">\n";
-	$header = _("Export pcn874 files for tax authorities"); 
+	
 	$text.= "<form name=\"dtrange\" action=\"?module=pcn874&amp;step=1\" method=\"post\">\n";
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 
@@ -45,7 +45,7 @@ $text.="<script type=\"text/javascript\">$(function() {
 	$text.= "</tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
-	createForm($text,$header,'',750);
+	
 	
 }
 else if($step == 1) {
@@ -188,12 +188,12 @@ else if($step == 1) {
 		$text.= "<br />$l: ";
 		$text.= "<a href=\"$dir/pcn874.txt\">pcn874.txt</a><br />\n";
 		}else{
-		$text.= '׳�׳™׳� ׳�׳₪׳©׳¨׳•׳× ׳�׳™׳¦׳•׳¨ ׳§׳•׳‘׳¥';
+		$text.= 'Error: while creating file.';
 	}
 	//print "</div>";
 	
-	createForm($text,$header,'',750);
 }
+createForm($text,$header,'',750,'','',1,getHelp());
 function strrip($str,$i,$plus=null,$zero='0'){
 	if (!is_null($plus)) 
 		if ($str>=0) $plus='+'; else $plus='-';

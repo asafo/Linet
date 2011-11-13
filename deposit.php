@@ -74,9 +74,9 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 //print "<br>\n";
 //print "<div class=\"form righthalf1\">\n";
-$l = _("Cheque, credit and cash deposit");
-$text= "<h3>$l</h3>\n";
-// print "<h3>׳”׳₪׳§׳“׳× ׳©׳§׳™׳�, ׳�׳–׳•׳�׳ ׳™׳� ׳•׳¨׳™׳©׳•׳� ׳¡׳�׳™׳§׳”</h3>\n";
+$haeder = _("Cheque, credit and cash deposit");
+$text= '';//"<h3>$l</h3>\n";
+// print "<h3>׳³ג€�׳³ג‚×׳³ֲ§׳³ג€�׳³ֳ— ׳³ֲ©׳³ֲ§׳³ג„¢׳³ן¿½, ׳³ן¿½׳³ג€“׳³ג€¢׳³ן¿½׳³ֲ ׳³ג„¢׳³ן¿½ ׳³ג€¢׳³ֲ¨׳³ג„¢׳³ֲ©׳³ג€¢׳³ן¿½ ׳³ֲ¡׳³ן¿½׳³ג„¢׳³ֲ§׳³ג€�</h3>\n";
 
 if($action == 'submit') {
 	$account = $_POST['account'];
@@ -123,7 +123,7 @@ if($action == 'submit') {
 			if($n != '0000-00-00')
 				continue;
 			$t = $line['type'];
-			// First part ׳–׳›׳•׳× ׳§׳•׳₪׳× ׳©׳™׳§׳™׳� 
+			// First part ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ֲ§׳³ג€¢׳³ג‚×׳³ֳ— ׳³ֲ©׳³ג„¢׳³ֲ§׳³ג„¢׳³ן¿½ 
 			$total = (float)$sum;
 			if($t == 1)
 				$cheque_acct = CASH;
@@ -131,7 +131,7 @@ if($action == 'submit') {
 				$cheque_acct = CHEQUE;
 			$tnum = Transaction($tnum, CHEQUEDEPOSIT, $cheque_acct, $bank_refnum, $val, $dep_date, '', $total);
 
-			// Second part ׳—׳•׳‘׳× ׳”׳‘׳ ׳§
+			// Second part ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ג€�׳³ג€˜׳³ֲ ׳³ֲ§
 			$tnum = Transaction($tnum, CHEQUEDEPOSIT, $account, $bank_refnum, $val, $dep_date, '', $total * -1.0);
 			/* Now mark cheque as deposited */
 			$dep_date1 = FormatDate($dep_date, "dmy", "mysql");
@@ -152,12 +152,12 @@ $text.=  "<form name=\"form1\" action=\"?module=deposit&amp;action=submit\" meth
 $text.=  "<table width=\"100%\" class=\"formtbl\"><tr>\n";
 $l = _("Bank account");
 $text.=  "<td>$l: \n";
-PrintBankSelect();
+$text.=PrintBankSelect();
 $l = _("Deposit date");
 $text.=  "</td><td>$l: \n";
 $dep_date = date("d-m-Y");
-$text.=  "<input type=\"text\" id=\"dep_date\" name=\"dep_date\" value=\"$dep_date\" size=\"8\">\n";
-$text.= '<script type="text/javascript">addDatePicker("#dep_date","'.$dep_date.'");</script>';
+$text.=  "<input class=\"date\" type=\"text\" id=\"dep_date\" name=\"dep_date\" value=\"$dep_date\" size=\"8\">\n";
+//$text.= '<script type="text/javascript">addDatePicker("#dep_date","'.$dep_date.'");</script>';
 
 $text.= "</td></tr>\n";
 $text.= "<tr><td colspan=\"2\">\n";
@@ -222,10 +222,10 @@ $text.= "</tr>\n";
 $text.= "</table>\n";
 $text.= "</td></tr>\n";
 $l = _("Deposit");
-$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+$text.= "<tr><td colspan=\"2\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
-createForm($text, $haeder,'',750,'','logo',1,getHelp());
+createForm($text, $haeder,'',750,'','',1,getHelp());
 //print "</div>\n";
 
 ?>

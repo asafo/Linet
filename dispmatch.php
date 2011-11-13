@@ -49,20 +49,20 @@ if(!$bankacc) {
 	$l = _("From date");
 	$text.= "$l: ";
 	$begindate = date("1-1-Y");
-	$text.= "<input type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$begindate\" size=\"7\">\n";
-$text.='<script type="text/javascript">	addDatePicker("#begindate","'.$begindate.'");</script>';
+	$text.= "<input class=\"date\" type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$begindate\" size=\"7\" />\n";
+//$text.='<script type="text/javascript">	addDatePicker("#begindate","'.$begindate.'");</script>';
 	$l = _("To date");
 	$text.= "&nbsp;&nbsp;$l: ";
 	$enddate = date("d-m-Y");
-	$text.= "<input type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$enddate\" size=\"7\">\n";
-$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
+	$text.= "<input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$enddate\" size=\"7\" />\n";
+//$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
 	$text.= "<br>\n";
 	$l = _("Display");
-	$text.= "<div style=\"text-align:center\"><br><input type=submit value=\"$l\"></div>\n";
+	$text.= "<div style=\"text-align:center\"><br><a href=\"javascript:document.choosebank.submit();\" class=\"btnaction\">$l</a></div>\n";
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text,$haeder,'',400);
+	createForm($text,$haeder,'',750,'','',1,getHelp());
 	
 	return;
 }
@@ -197,8 +197,8 @@ while($match = mysql_fetch_array($bankbook, MYSQL_NUM)) {
 	$text.= "</tr>\n";
 }
 $l = _("Open reconciliations");
-$text.= "<tr><td colspan=\"10\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.= "<tr><td colspan=\"10\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 $text.='</table></div></form></div>';
-createForm($text, $haeder,'',750);
+createForm($text,$haeder,'',750,'','',1,getHelp());
 
 ?>

@@ -61,7 +61,7 @@ if($action == 'defsubmit') {
 	//	if(!$resend)
 		$l = _("New user created succesfully");
 		print "<h2>$l</h2>\n";
-			print "<h2>׳”׳�׳©׳×׳�׳© ׳”׳—׳“׳© ׳ ׳•׳¦׳¨ ׳‘׳”׳¦׳�׳—׳”.</h2>\n";
+			print "<h2>׳³ג€�׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ג€�׳³ג€”׳³ג€�׳³ֲ© ׳³ֲ ׳³ג€¢׳³ֲ¦׳³ֲ¨ ׳³ג€˜׳³ג€�׳³ֲ¦׳³ן¿½׳³ג€”׳³ג€�.</h2>\n";
 	}
 	else {
 		$line = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -73,7 +73,6 @@ if($action == 'defsubmit') {
 			print "<h2>";
 			$l = _("User password updated");
 			print "$l";
-//			print "׳¡׳¡׳�׳× ׳�׳©׳×׳�׳© ׳¢׳•׳“׳›׳ ׳”";
 			print "</h2>\n";
 		}
 	}
@@ -97,7 +96,6 @@ if($action == 'defsubmit') {
 	DoQuery($query, "defs.php");
 	$l = _("Business added succesfully");
 	print "<h2>$l</h2>\n";
-//	print "<h2>׳”׳—׳‘׳¨׳” ׳ ׳•׳¡׳₪׳” ׳‘׳”׳¦׳�׳—׳”</h2>\n";
 	return;	
 }
 if($action == 'register') {
@@ -107,7 +105,7 @@ if($action == 'register') {
 	if(mysql_num_rows($result) == 0) {
 		_("Error registering to system");
 		print "<h1>$l</h1>\n";
-//		print "<h1>׳×׳§׳�׳” ׳‘׳”׳¨׳©׳�׳” ׳�׳�׳¢׳¨׳›׳×</h1>\n";
+
 		return;
 	}
 	$line = mysql_fetch_array($result, MYSQL_NUM);
@@ -116,20 +114,18 @@ if($action == 'register') {
 	DoQuery($query, "defs.php");
 	$l = _("Hello");
 	print "<h1>$l $fullname</h1>\n";
-//	print "<h1>׳©׳�׳•׳� $fullname</h1>\n";
 	$l = _("Your registration to linet is completed");
 	print "<h1>$l</h1>\n";
-//	print "<h1>׳”׳¨׳©׳�׳×׳� ׳�׳�׳¢׳¨׳›׳× ׳“׳¨׳•׳¨׳™׳× ׳”׳•׳©׳�׳�׳”</h1>\n";
 	$l1 = _("Click");
 	$l2 = _("here to connect");
 	print "<h2>$l1 <a href=\"?action=login\">$l</a></h2>\n";
-	print "<h2>׳�׳—׳¦\\׳™ <a href=\"?action=login\">׳›׳�׳� ׳�׳”׳×׳—׳‘׳¨׳•׳×</a></h2>\n";
+	print "<h2>׳³ן¿½׳³ג€”׳³ֲ¦\\׳³ג„¢ <a href=\"?action=login\">׳³ג€÷׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ג€�׳³ֳ—׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€¢׳³ֳ—</a></h2>\n";
 	return;
 }
 if($action == 'defupdate') {
 //	print_r($_POST);
 	if($name == 'demo') {
-		print "<h1>׳�׳©׳×׳�׳© ׳“׳•׳’׳�׳” ׳�׳™׳ ׳• ׳¨׳©׳�׳™ ׳�׳¢׳“׳›׳� ׳ ׳×׳•׳ ׳™׳�</h1>\n";
+		print "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ג€�׳³ג€¢׳³ג€™׳³ן¿½׳³ג€� ׳³ן¿½׳³ג„¢׳³ֲ ׳³ג€¢ ׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג„¢ ׳³ן¿½׳³ֲ¢׳³ג€�׳³ג€÷׳³ן¿½ ׳³ֲ ׳³ֳ—׳³ג€¢׳³ֲ ׳³ג„¢׳³ן¿½</h1>\n";
 		return;
 	}
 	$companyname = htmlspecialchars($_POST['companyname'], ENT_QUOTES);
@@ -179,7 +175,6 @@ if($action == 'defupdate') {
 	$result = DoQuery($query, "defs.php");
 	$l = _("Details succesfully updated");
 	print "<h1>$l</h1>\n";
-//	print "<h1>׳”׳ ׳×׳•׳ ׳™׳� ׳¢׳•׳“׳›׳ ׳• ׳‘׳”׳¦׳�׳—׳”</h1>\n";
 }
 
 $text='';
@@ -193,17 +188,15 @@ if(!$line) {
 	if(!$superuser) {
 		$l = _("Can not execute this operation without logging in to system");
 		$text.= "<br><br><h1>$l</h1>\n";
-//		print "<br><br><h1>׳�׳� ׳ ׳™׳×׳� ׳�׳‘׳¦׳¢ ׳₪׳¢׳•׳�׳” ׳–׳• ׳�׳�׳� ׳”׳×׳—׳‘׳¨׳•׳× ׳�׳�׳¢׳¨׳›׳×</h1>\n";
 		return;
 	}
-	$text.= "<form action=\"?module=defs&amp;action=defsubmit\" method=\"post\" enctype=\"multipart/form-data\">\n";
+	$text.= "<form name=\"form1\" action=\"?module=defs&amp;action=defsubmit\" method=\"post\" enctype=\"multipart/form-data\">\n";
 //	print "<div class=\"caption_out\"><div class=\"caption\">";
 	$haeder = _("Entering new business");
 	//print "<h3>$l</h3>\n<br>\n";
-//	print "<h3>׳”׳’׳“׳¨׳× ׳—׳‘׳¨׳” ׳—׳“׳©׳”</h3>\n<br>\n";
 }
 else {
-	$text.= "<form action=\"?module=defs&amp;action=defupdate\" method=\"post\" enctype=\"multipart/form-data\">\n";
+	$text.= "<form name=\"form1\" action=\"?module=defs&amp;action=defupdate\" method=\"post\" enctype=\"multipart/form-data\">\n";
 	$companyname = $line['companyname'];
 	$manager = $line['manager'];
 	$regnum = $line['regnum'];
@@ -236,27 +229,27 @@ if(!$editdata) {
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr><td>\n";
 	$l = _("Email");
 	$text.= "$l: </td>";
-//	print "׳“׳•׳�׳¨ ׳�׳�׳§׳˜׳¨׳•׳ ׳™: </td>";
+//	print "׳³ג€�׳³ג€¢׳³ן¿½׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ֻ�׳³ֲ¨׳³ג€¢׳³ֲ ׳³ג„¢: </td>";
 	$text.= "<td><input type=\"text\" name=\"email\" value=\"\" dir=\"ltr\"></td>\n";
 	$l = _("Password");
 	$text.= "</tr><tr><td>$l: </td>\n";
-//	print "</tr><tr><td>׳¡׳™׳¡׳�׳”: </td>\n";
+//	print "</tr><tr><td>׳³ֲ¡׳³ג„¢׳³ֲ¡׳³ן¿½׳³ג€�: </td>\n";
 	$text.= "<td><input type=\"password\" name=\"passwd\" value=\"\"></td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Password verify");
 	$text.= "<td>$l: </td>\n";
-//	print "<td>׳�׳™׳�׳•׳× ׳¡׳™׳¡׳�׳”: </td>\n";
+//	print "<td>׳³ן¿½׳³ג„¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ֲ¡׳³ג„¢׳³ֲ¡׳³ן¿½׳³ג€�: </td>\n";
 	$text.= "<td><input type=\"password\" name=\"verpasswd\" value=\"\"></td></tr>\n";
 	$text.= "<tr>\n";
 	$l = _("Full name");
 	$text.= "<td>$l: </td>\n";
-//	print "<td>׳©׳� ׳�׳�׳�: </td>\n";
+//	print "<td>׳³ֲ©׳³ן¿½ ׳³ן¿½׳³ן¿½׳³ן¿½: </td>\n";
 	
 	$text.= "<td><input type=\"text\" name=\"fullname\" value=\"\"></td></tr>\n";
 	//$text.= "<tr>\n";
 	//$l = _("Prefix: ");
 	//$text.= "<td>$l: </td>\n";
-//	print "<td>׳§׳™׳“׳•׳�׳× ׳—׳‘׳¨׳”: </td>\n";
+//	print "<td>׳³ֲ§׳³ג„¢׳³ג€�׳³ג€¢׳³ן¿½׳³ֳ— ׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€�: </td>\n";
 	//$text.= "<td><input type=\"text\" name=\"prefix\" value=\"\" dir=\"ltr\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "<br />\n";
@@ -268,7 +261,7 @@ if($editdata) {
 $text.= "<table dir=\"$dir\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 $l = _("General definitions");
 $text.= "<td colspan=\"2\"><b>$l: </b></td>\n";
-// print "<td colspan=\"2\"><b>׳”׳’׳“׳¨׳•׳× ׳›׳�׳�׳™׳•׳×: </b></td>\n";
+// print "<td colspan=\"2\"><b>׳³ג€�׳³ג€™׳³ג€�׳³ֲ¨׳³ג€¢׳³ֳ— ׳³ג€÷׳³ן¿½׳³ן¿½׳³ג„¢׳³ג€¢׳³ֳ—: </b></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Business name");
 $text.= "<td>$l: </td>\n";
@@ -287,12 +280,12 @@ $text.= "<td>$l: </td>\n";
 $text.= "<td><input type=\"text\" name=\"city\" value=\"$city\" size=\"10\">&nbsp;&nbsp;\n";
 $l = _("Zip");
 $text.= "$l: \n";
-// print "׳�׳™׳§׳•׳“: \n";
+// print "׳³ן¿½׳³ג„¢׳³ֲ§׳³ג€¢׳³ג€�: \n";
 $text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\"></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Phone");
 $text.= "<td>$l: </td>\n";
-// print "<td>׳˜׳�׳₪׳•׳�: </td>\n";
+// print "<td>׳³ֻ�׳³ן¿½׳³ג‚×׳³ג€¢׳³ן¿½: </td>\n";
 $text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\"></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Cellular");
@@ -306,7 +299,7 @@ $text.= "<td><input type=\"text\" name=\"cellular\" value=\"$cellular\"></td>\n"
 //if (isnull($logo)) {
 //$text.= "<input name=\"logofile\" type=\"file\" /><br />"."</td>\n";
 //}else{
-//$text.='<img src="index.php?action=lister&data=logo" alt="logo" /><a href="">׳©׳ ׳” ׳�׳•׳’׳•</a>';	
+//$text.='<img src="index.php?action=lister&data=logo" alt="logo" /><a href="">׳³ֲ©׳³ֲ ׳³ג€� ׳³ן¿½׳³ג€¢׳³ג€™׳³ג€¢</a>';	
 	
 //}
 //adam:logo
@@ -320,12 +313,12 @@ $text.= "</tr><tr>\n";
 $text.= "<td>\n";
 $l = _("Registration number");
 $text.= "$l: \n";
-// print "׳�׳¡׳₪׳¨ ׳¢׳•׳¡׳§: \n";
+// print "׳³ן¿½׳³ֲ¡׳³ג‚×׳³ֲ¨ ׳³ֲ¢׳³ג€¢׳³ֲ¡׳³ֲ§: \n";
 $text.= "<td><input type=\"text\" name=\"regnum\" value=\"$regnum\" size=\"8\"></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Accounting Type");
 $text.= "<td>$l: </td>\n";
-// print "<td> ׳“׳™׳•׳•׳— ׳�׳§׳“׳�׳•׳×: </td>\n";
+// print "<td> ׳³ג€�׳³ג„¢׳³ג€¢׳³ג€¢׳³ג€” ׳³ן¿½׳³ֲ§׳³ג€�׳³ן¿½׳³ג€¢׳³ֳ—: </td>\n";
 $text.= "<td><select name=\"bidi\">\n";
 $l = _("One Sided");
 $text.= "<option value=\"1\">$l</option>\n";
@@ -335,7 +328,7 @@ $text.= "</select></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Tax rep. period");
 $text.= "<td>$l: </td>\n";
-// print "<td> ׳“׳™׳•׳•׳— ׳�׳§׳“׳�׳•׳×: </td>\n";
+// print "<td> ׳³ג€�׳³ג„¢׳³ג€¢׳³ג€¢׳³ג€” ׳³ן¿½׳³ֲ§׳³ג€�׳³ן¿½׳³ג€¢׳³ֳ—: </td>\n";
 $text.= "<td><select name=\"taxrep\">\n";
 $l = _("Monthly");
 $text.= "<option value=\"1\">$l</option>\n";
@@ -347,13 +340,13 @@ else
 $text.= "</select></td>\n";
 $l = _("Tax percent");
 $text.= "<td>$l: </td>\n";
-// print "<td>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”: </td>\n";
+// print "<td>׳³ן¿½׳³ֲ§׳³ג€�׳³ן¿½׳³ג€¢׳³ֳ— ׳³ן¿½׳³ֲ¡ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€�: </td>\n";
 $text.= "<td><input type=\"text\" name=\"tax\" value=\"$tax\" size=\"5\"></td>\n";
 $text.= "</tr><tr>\n";
 $text.= "<td>\n";
 $l = _("VAT report");
 $text.= "$l: </td>\n";
-// print "׳“׳™׳•׳•׳— ׳�׳¢\"׳�: </td>\n";
+// print "׳³ג€�׳³ג„¢׳³ג€¢׳³ג€¢׳³ג€” ׳³ן¿½׳³ֲ¢\"׳³ן¿½: </td>\n";
 $text.= "<td><select name=\"vatrep\">\n";
 $l = _("Monthly");
 $text.= "<option value=\"1\">$l</option>\n";
@@ -368,25 +361,25 @@ $text.= "</option>\n";
 $text.= "</select></td>\n";
 $l = _("VAT percent");
 $text.= "<td>$l: </td>\n";
-// print "<td>׳�׳—׳•׳– ׳�׳¢\"׳�: ";
+// print "<td>׳³ן¿½׳³ג€”׳³ג€¢׳³ג€“ ׳³ן¿½׳³ֲ¢\"׳³ן¿½: ";
 $text.= "<td><input type=\"text\" name=\"vat\" value=\"$vat\" size=\"5\"></td>\n";
 $text.= "</tr>\n";
 /*
 if(!$editdata) {
 	print "<tr><td colspan=\"4\">\n";
-	print "<input type=\"checkbox\" name=\"read\">׳§׳¨׳�׳×׳™ ׳•׳�׳ ׳™ ׳�׳¡׳›׳™׳�\\׳” ׳�";
-	print "<a href=\"?id=conditions\">׳×׳ ׳�׳™ ׳”׳©׳™׳�׳•׳©</a><br>\n";
+	print "<input type=\"checkbox\" name=\"read\">׳³ֲ§׳³ֲ¨׳³ן¿½׳³ֳ—׳³ג„¢ ׳³ג€¢׳³ן¿½׳³ֲ ׳³ג„¢ ׳³ן¿½׳³ֲ¡׳³ג€÷׳³ג„¢׳³ן¿½\\׳³ג€� ׳³ן¿½";
+	print "<a href=\"?id=conditions\">׳³ֳ—׳³ֲ ׳³ן¿½׳³ג„¢ ׳³ג€�׳³ֲ©׳³ג„¢׳³ן¿½׳³ג€¢׳³ֲ©</a><br>\n";
 	print "</td></tr>\n";
 
 } */
 $text.= "<tr><td colspan=\"4\" align=\"center\">\n";
 $l = _("Update");
-$text.= "<br><input type=\"submit\" value=\"$l\">&nbsp;&nbsp;";
-// print "<input type=\"button\" onclick=\"parent.location='index.php?module=defs'\" value=\"׳‘׳˜׳� ׳©׳™׳ ׳•׳™׳™׳�\">\n";
+$text.= "<br><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>&nbsp;&nbsp;";
+// print "<input type=\"button\" onclick=\"parent.location='index.php?module=defs'\" value=\"׳³ג€˜׳³ֻ�׳³ן¿½ ׳³ֲ©׳³ג„¢׳³ֲ ׳³ג€¢׳³ג„¢׳³ג„¢׳³ן¿½\">\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
-createForm($text,$haeder,"",410,'','logo',1,'help');
+createForm($text,$haeder,"",750,'','img/icon_defs.png',1,getHelp());
 //print "</div>\n";
 
 //print "<div class=\"lefthalf1\">\n";
@@ -402,9 +395,9 @@ createForm($text,$haeder,"",410,'','logo',1,'help');
 	$l = _("For more information");
 	$l1 = _("Click here");
 	print "$l <a href=\"id=firefox\">$l1</a>\n";
-//	print "׳�׳•׳�׳�׳¥ ׳�׳”׳©׳×׳�׳© ׳‘׳×׳•׳›׳ ׳” ׳¢׳� ׳“׳₪׳“׳₪׳� ׳₪׳™׳™׳¨׳₪׳•׳§׳¡<br>\n";
-//	print "׳�׳”׳×׳§׳ ׳” ׳�׳—׳¥ ׳¢׳� ׳”׳�׳•׳’׳•, ׳�׳₪׳¨׳˜׳™׳� ׳ ׳•׳¡׳₪׳™׳� ׳�׳—׳¥ ";
-//	print "<a href=\"?id=firefox\">׳›׳�׳�</a>\n";
+//	print "׳³ן¿½׳³ג€¢׳³ן¿½׳³ן¿½׳³ֲ¥ ׳³ן¿½׳³ג€�׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ג€˜׳³ֳ—׳³ג€¢׳³ג€÷׳³ֲ ׳³ג€� ׳³ֲ¢׳³ן¿½ ׳³ג€�׳³ג‚×׳³ג€�׳³ג‚×׳³ן¿½ ׳³ג‚×׳³ג„¢׳³ג„¢׳³ֲ¨׳³ג‚×׳³ג€¢׳³ֲ§׳³ֲ¡<br>\n";
+//	print "׳³ן¿½׳³ג€�׳³ֳ—׳³ֲ§׳³ֲ ׳³ג€� ׳³ן¿½׳³ג€”׳³ֲ¥ ׳³ֲ¢׳³ן¿½ ׳³ג€�׳³ן¿½׳³ג€¢׳³ג€™׳³ג€¢, ׳³ן¿½׳³ג‚×׳³ֲ¨׳³ֻ�׳³ג„¢׳³ן¿½ ׳³ֲ ׳³ג€¢׳³ֲ¡׳³ג‚×׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ג€”׳³ֲ¥ ";
+//	print "<a href=\"?id=firefox\">׳³ג€÷׳³ן¿½׳³ן¿½</a>\n";
 	print "</td></tr></table>\n";
 }//*/
 //print "</div>\n";	/* close left half */

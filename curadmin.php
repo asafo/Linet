@@ -188,7 +188,7 @@ if($action == 'rate') {
 	$text.= "<input type=\"submit\" value=\"$l\"></td>\n";
 	$text.= "</tr>\n</table>\n";
 	$text.= "</form>\n";
-	createForm($text,$header,'',750,'','logo',1,'help');
+	createForm($text,$header,'',750,'','img/icon_curadmin.png',1,getHelp());
 }
 /*
 if(!isset($module)) 

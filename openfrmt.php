@@ -10,7 +10,7 @@
  | authorized for use in Israel to be able to export all transactions in a predefined format.
  | This script will create the files as needed by this format.
  */
-global $prefix, $accountstbl, $companiestbl, $transactionstbl, $chequestbl, $receiptstbl, $creditcompanies, $docstbl, $itemstbl;
+global $prefix, $accountstbl, $companiestbl, $transactionstbl, $chequestbl, $creditcompanies, $docstbl, $itemstbl;
 global $bkrecnum, $regnum, $mainid, $softregnum, $softwarename, $Version, $softwaremakerregnum, $softwaremaker;
 
 if(!isset($prefix) || ($prefix == '')) {
@@ -41,7 +41,7 @@ function TranslateDocumentType($doctype) {
 
 function ReceiptsDetails($bkmvdata, $bkrecnum, $regnum, $docnum) {
 	global $prefix;
-	global $chequestbl, $receiptstbl;
+	global $chequestbl;
 	global $creditcompanies;
 	global $num_D120;
 	//adam: need to cover DOC_INVRCPT
@@ -209,7 +209,7 @@ function ExportDocuments($bkmvdata, $bkrecnum, $mainid, $regnum, $begindate, $en
 
 function ExportReceipts($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate) {
 	global $prefix;
-	global $receiptstbl, $accountstbl;
+	global $accountstbl;
 	global $num_C100;
 
 	$query = "SELECT * FROM $docsstbl WHERE prefix='$prefix' ";
@@ -339,7 +339,7 @@ function GetRefType($type) {
 		case INVOICE:
 			return TranslateDocumentType(DOC_INVOICE);
 		case SUPINV:
-			return 700;	/* ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¡ ׳³ֲ³ײ²ֲ¨׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³ײ²ֲ© */
+			return 700;	
 		case RECEIPT:
 			return TranslateDocumentType(DOC_RECEIPT);
 		case CHEQUEDEPOSIT:
@@ -431,7 +431,7 @@ $text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");
 	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
 	$text.= "</tr>\n";
 	$text.= "</table>\n</form>\n";
-	createForm($text,$header,'',350);
+	createForm($text,$header,'',750,'','',1,getHelp());
 	//print "</div>\n";
 	
 }
@@ -580,7 +580,7 @@ else if($step == 1) {
 	fwrite($fd, "$l: $e<br>\n");
 	$l = _("Open format files created successfully");
 	fwrite($fd, "<br>$l<br>\n");
-//	fwrite($fd, "<br>׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ²ֲ¦׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¢ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ©׳³ֲ³ײ²ֲ§ ׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ³ג€”׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ג€� ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¡׳³ֲ³ײ³ג€”׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¦׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ן¿½<br>\n");
+
 	$l = _("Records types details");
 	fwrite($fd, "<h2>$l</h2>\n");
 	fwrite($fd, "<table border=\"1\"><tr class=\"tblhead\">\n");
@@ -618,7 +618,7 @@ else if($step == 1) {
 	$l = _("Print");
 	$text.=  "<input type=\"button\" value=\"$l\" ";
 	$text.=  "onclick=\"window.open('openfrmtprnt.php?prefix=$prefix')\">\n";
-	createForm($text,$header,'',750);
+	createForm($text,$header,'',750,'','',1,getHelp());
 	//print "</div>\n";
 	
 }

@@ -1,4 +1,4 @@
-<?PHP
+п»ї<?PHP
 /*
  | Get last rows from transactions tbl
  */
@@ -52,17 +52,17 @@ function GetOppositAccount($num, $sum) {
 }
 
 $text.= "<div class=\"caption_out\" style=\"margin-top:5px\"><div class=\"caption\">";
-$text.= "<b>длрсеъ азшереъ</b>\n";
+$text.= "<b>Ч”Ч›Ч ЧЎЧ•ЧЄ ЧђЧ—ЧЁЧ•Ч Ч•ЧЄ</b>\n";
 $text.= "</div></div><br>\n";
 $text.= "<table border=\"0\" class=\"hovertbl\"><tr class=\"tblhead\">\n";
-$text.= "<td style=\"width:2.5em\">осфш</td>\n";
-$text.= "<td style=\"width:6em\">ъашйк</td>\n";
-$text.= "<td style=\"width:10em\">мчез</td>\n";
-$text.= "<td style=\"width:10em\">зщбеп длрсеъ</td>\n";
-$text.= "<td style=\"width:5em\">асолъа</td>\n";
-$text.= "<td style=\"width:5em\">фшийн</td>\n";
-$text.= "<td style=\"width:5em\">мфрй от\"о</td>\n";
-$text.= "<td style=\"width:4em\">слен</td>\n";
+$text.= "<td style=\"width:2.5em\">ЧћЧЎЧ¤ЧЁ</td>\n";
+$text.= "<td style=\"width:6em\">ЧЄЧђЧЁЧ™Чљ</td>\n";
+$text.= "<td style=\"width:10em\">ЧњЧ§Ч•Ч—</td>\n";
+$text.= "<td style=\"width:10em\">Ч—Ч©Ч‘Ч•Чџ Ч”Ч›Ч ЧЎЧ•ЧЄ</td>\n";
+$text.= "<td style=\"width:5em\">ЧђЧЎЧћЧ›ЧЄЧђ</td>\n";
+$text.= "<td style=\"width:5em\">Ч¤ЧЁЧЧ™Чќ</td>\n";
+$text.= "<td style=\"width:5em\">ЧњЧ¤Ч Ч™ ЧћЧў\"Чћ</td>\n";
+$text.= "<td style=\"width:4em\">ЧЎЧ›Ч•Чќ</td>\n";
 $text.= "</tr>\n";
 $t = MANINVOICE;
 $query = "SELECT * FROM $transactionstbl WHERE prefix='$prefix' ";

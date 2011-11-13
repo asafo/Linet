@@ -96,7 +96,7 @@ function TemplateReplace($r) {
 	global $doctype, $docnum,$idnum;
 	global $DocType, $paymenttype,$banksarr, $creditcompanies;
 	global $company;
-	global $docstbl, $docdetailstbl,$chequestbl;//$receiptstbl,
+	global $docstbl, $docdetailstbl,$chequestbl;
 	global $ln, $lasttbl, $docref;
 	global $result, $line;
 	global $stdheader;

@@ -74,8 +74,7 @@ if($step == 'backup') {
 	$l = _("Click here to download backup file");
 	$text.= "<h2><a href=\"download.php?file=$bakname&amp;name=$bakname\" target=\"_blank\">$l</a></h2>\n";
 	//print "</div>\n";
-	createForm($text,$header,'',750);
-	
+	createForm($text,$header,'',750,'','',1,getHelp());
 }
 
 if($step == 'delbak') {
@@ -171,8 +170,7 @@ if($step == 'restore') {
 	}
 	$text.= "</table>\n";
 	//print "</div>\n";
-	createForm($text,$header,'',750);
-	
+	createForm($text,$header,'',750,'','logo',1,getHelp());
 }
 
 chdir($cwd);

@@ -90,8 +90,8 @@ function addItem(last) {
 	var cg = document.createElement('td');
 	r.setAttribute("id",trIdName);
 	
-	ca.innerHTML = "<input type=\"text\" id=\"AC"+num+"\" class=\"cat_num\" name=\"cat_num[]\" onblur=\"SetPartDetails("+num+")\" size=\"10\"/>\n";
-	cb.innerHTML = "<input type=\"text\" id=\"DESC"+num+"\" class=\"description\" name=\"description[]\" size=\"23\" />";
+	ca.innerHTML = "<input type=\"text\" id=\"AC"+num+"\" class=\"cat_num\" name=\"cat_num[]\" onblur=\"SetPartDetails("+num+")\" size=\"5\"/>\n";
+	cb.innerHTML = "<input type=\"text\" id=\"DESC"+num+"\" class=\"description\" name=\"description[]\" size=\"20\" />";
 	cc.innerHTML ="<input type=\"text\" id=\"QTY"+num+"\" class=\"qty\" name=\"qty[]\" size=\"3\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("QTY",num,1);
 	cd.innerHTML ="<input type=\"text\" id=\"UNT"+num+"\" class=\"unit_price\" name=\"unit_price[]\" size=\"6\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("UNT",num,10);
 	ce.innerHTML ="<select class=\"currency\" id=\"CUR"+num+"\" name=\"currency[]\"><option value=\"0\">NIS</option></select>";
@@ -840,7 +840,7 @@ if($step == 0) {	/* First step, select document type and customer */
 	$text.= "<br />\n";
 	$l = _("Comments");
 	$text.= "$l: <br />\n";
-	$text.= "<textarea name=\"comments\"  cols=\"80\" rows=\"4\">$comments</textarea>\n";
+	$text.= "<textarea name=\"comments\"  cols=\"75\" rows=\"4\">$comments</textarea>\n";
 	$l = _("Next");
 	//$text.= "<br /><input type=\"submit\" value=\"$l >>>\" />\n";
 	$text.="<br /><a href=\"javascript:$('#documenet').submit();\" class=\"btnaction\">$l</a>";

@@ -1,5 +1,5 @@
 <?PHP
-//M:׳³ג‚×׳³ֲ¨׳³ג„¢׳³ֻ�׳³ג„¢׳³ן¿½
+//M:׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ²ֲ¨׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ»ן¿½׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳�ֲ¿ֲ½
 /*
  | items
  | This module is part of Drorit free accounting system
@@ -41,10 +41,10 @@ function PrintIncomeSelect($def) {
 		$v = $line[2]; 
 		if(($v != '') && ($v == 0))
 			$company .= _("0% VAT");
-//			$company .= " (׳³ן¿½׳³ֲ¢\"׳³ן¿½ 0%)";
+//			$company .= " (׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¢\"׳³ֲ³׳�ֲ¿ֲ½ 0%)";
 		else 
 			$company .= _("100% VAT");
-//			$company .= " (׳³ן¿½׳³ֲ¢\"׳³ן¿½ 100%)";
+//			$company .= " (׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¢\"׳³ֲ³׳�ֲ¿ֲ½ 100%)";
 		if($n == $def)
 			$text.= "<option value=\"$n\" selected=\"selected\">$company</option>\n";
 		else
@@ -158,7 +158,7 @@ $enddmy = isset($_GET['end']) ? $_GET['end'] : $enddmy;
 
 if($action == 'edit') {
 	$text=EditItem($num);
-	createForm($text,$haeder,"",350);
+	createForm($text,$haeder,"",350,'','img/icon_items.png',1,getHelp());
 	return;
 }
 if($action == 'additem') {
@@ -204,8 +204,7 @@ else if($action == 'del') {
 // print "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
 $text=EditItem(0);
 if ($smallprint)
-	createForm($text,$haeder,"",350);
-
+	createForm($text,$haeder,"",350,'','img/icon_items.png',1,getHelp());
 if (!$smallprint){
 	$l = _("Existing items");
 	$text.= "<h2>$l</h2>";
@@ -246,6 +245,6 @@ if (!$smallprint){
 	//print "<div class=\"lefthalf1\">\n";
 	
 	//print "</div>\n";
-	createForm($text,$haeder,"",750);
+	createForm($text,$haeder,"",750,'','img/icon_items.png',1,getHelp());
 }
 ?>

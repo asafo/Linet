@@ -162,7 +162,7 @@ if($step == 2) {
 //	print "credit_str: $credit_str<BR>\n";
 	if(($total > 0.01) || ($total < -0.01)) {
 		$l = _("Unbalanced reconciliation");
-		ErrorReport("$l");
+		ErrorReport($l);
 		exit;
 	}
 	/* balanced match so put debit_str for all credit side transactions and credit_str for all debit side */
@@ -189,7 +189,7 @@ if($step == 1) {
 	
 	if($account == 0) {
 		$l = _("No account chosen");
-		ErrorReport("$l");
+		ErrorReport($l);
 		exit;
 	}
 	//adam:?
@@ -286,7 +286,7 @@ if($step == 1) {
 	$text.=  "</table>\n";
 	$text.=  "</td></tr>\n";
 	$l = _("Reconciliate");
-	$text.=  "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.=  "<tr><td colspan=\"3\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$text.=  "</table>\n";
 	$text.=  "</form>\n";
 	$text.=  "<br><br>\n";
@@ -295,7 +295,7 @@ if($step == 1) {
 }
 
 
-$text.= '<form action="?module=intmatch&amp;step=1" method="post"><table border="0" width="100%" class="formtbl">';
+$text.= '<form name="form2" action="?module=intmatch&amp;step=1" method="post"><table border="0" width="100%" class="formtbl">';
 
 $l = _("Select account");
 $text.= "<tr><td>$l: </td>\n";
@@ -303,11 +303,9 @@ $text.= '<td>';
 $text.=  PrintAccountSelect(); 
 $text.= '</td></tr><tr><td>&nbsp;</td></tr>';
 $l = _("Select");
-$text.=  "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.=  "<tr><td colspan=\"2\" align=\"center\"><a href=\"javascript:document.form2.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 
 $text.= '</table></form>';
-createForm($text, $haeder,'',750);
-if($step == 0) {
-	
-}
+createForm($text,$haeder,'',750,'','',1,getHelp());
+
 ?>

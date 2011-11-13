@@ -16,21 +16,16 @@ if($lang == 'he')
 	$align = 'right';
 else
 	$align = 'left';
-/*
+
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 if($action == 'delcomp') {
+	
+	
 	$p = $_GET['company'];
 //	print "Transactions <br>\n";
-	$query = "DELETE FROM $transactionstbl WHERE prefix='$p'";
-	DoQuery($query, "main");
-//	print "accounts<br>\n";
-	$query = "DELETE FROM $accountstbl WHERE prefix='$p'";
-	DoQuery($query, "main");
-	$query = "DELETE FROM $itemstbl WHERE prefix='$p'";
-	DoQuery($query, "main");
-	$query = "DELETE FROM $companiestbl WHERE prefix='$p'";
-	DoQuery($query, "main");
-}*/
+	delCompany($p);
+	
+}
 $text='';
 if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 	$query = "SELECT company FROM $permissionstbl WHERE name='$name'";
@@ -59,8 +54,9 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 		}
 
 		$haeder = _("Choose business to work on");
-		
-		$text.= "<ul>\n";
+		$compname=_("Company Name");
+		$actions=_("Actions");
+		$text.= "<table class=\"formy\"><tr><th>$compname</th><th>$actions</th></tr>\n";
 		while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 			$s = $line[0];
 			// print "prefix: $s<br>\n";
@@ -71,14 +67,15 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$cookietime = time() + 60*60*24*30;
 			$url = "index.php?company=$s";
 			//setcookie('company', $s, $cookietime);
-			$text.= "<li><a href=\"$url\">$n</a>&nbsp;\n";
+			$text.= "<td><a href=\"$url\">$n</a></td><td>&nbsp;\n";
 			if($superuser) {
-				$l = _("Delete");
-				$text.= "<a href=\"?module=main&amp;action=delcomp&amp;company=$s\">$l</a>";
+				//$l = _("Delete");
+				$text.= "<a class=\"btnremove\" href=\"?module=main&amp;action=delcomp&amp;company=$s\"></a>";
+				$text.= "<a class=\"btnedit\" href=\"?module=defs&amp;company=$s\"></a>";
 			}
-			$text.= "</li>\n";
+			$text.= "</td></tr>\n";
 		}
-		$text.= "</ul>\n";
+		$text.= "</table>\n";
 		if($superuser) {
 			$l = _("Add new business");
 //			print "<br><br><a href=\"?module=defs\">׳³ג€�׳³ג€™׳³ג€�׳³ֲ¨׳³ֳ— ׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€� ׳³ג€”׳³ג€�׳³ֲ©׳³ג€�</a><br>\n";

@@ -1,4 +1,4 @@
-<?PHP
+﻿<?PHP
 /*
  | Income
  | This file is part of freelance accounting system

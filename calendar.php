@@ -6,7 +6,7 @@
  */
 
 global $prefix, $accountstbl, $transactionstbl, $docstbl;
-global $histtbl, $chequstbl;//, $receiptstbl;
+global $histtbl, $chequstbl;
 global $DocType;
 $text='';
 if(!isset($prefix) || ($prefix == '')) {
@@ -39,7 +39,7 @@ if(!function_exists('GetAccountName')) {
 }
 
 function NumEvents($d, $m, $y) {
-	global $transactionstbl, $docstbl, $receiptstbl, $chequestbl, $histtbl, $prefix;
+	global $transactionstbl, $docstbl, $chequestbl, $histtbl, $prefix;
 	global $table;
 	
 	$events = 0;
@@ -82,7 +82,7 @@ function NumEvents($d, $m, $y) {
 
 function FindEvents($d, $m, $y) {
 	//global $text;
-	global $transactionstbl, $docstbl, $receiptstbl, $chequestbl, $histtbl, $prefix;
+	global $transactionstbl, $docstbl, $chequestbl, $histtbl, $prefix;
 	global $DocType;
 
 	$begindate = "1-1-$y";

@@ -85,10 +85,12 @@ if($step == 0) {	/* print date select form */
 	list($day, $month, $year) = split("-", $today);
 
 	/* Check if we report each month or two month */
-	$query = "SELECT taxrep FROM $companiestbl WHERE prefix='$prefix'";
-	$result = DoQuery($query, "vatrep.php");
-	$line = mysql_fetch_array($result, MYSQL_ASSOC);
+	//$query = "SELECT taxrep FROM $companiestbl WHERE prefix='$prefix'";
+	//$result = DoQuery($query, "vatrep.php");
+	//$line = mysql_fetch_array($result, MYSQL_ASSOC);
 	$taxrep = $line['taxrep'];
+	global $curcompany;
+	$taxrep = $curcompany->taxrep;
 	if($taxrep == 2) {
 		if($month % 2) {	/* this is odd month number */
 			$beginmonth = $month - 2;
@@ -130,14 +132,14 @@ if($step == 0) {	/* print date select form */
 	$enddate = "$last2-$endmonth-$endyear";
 	
 	//print "<div class=\"righthalf2\">\n";
-	$text.= "<div class=\"caption_out\"><div class=\"caption\">";
-	$text.= "<b>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”</b>\n";
-	$text.= "</div></div>\n";
+	//$text.= "<div class=\"caption_out\"><div class=\"caption\">";
+	$haeder= "מקדמות מס הכנסה";
+	//$text.= "</div></div>\n";
 	$text.= "<form action=\"?module=taxrep&step=1\" method=\"post\">\n";
 	$text.= "<input type=\"hidden\" name=\"beginyear\" value=\"$beginyear\">\n";
 	$text.= "<input type=\"hidden\" name=\"endyear\" value=\"$endyear\">\n";
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-	$text.= "<td>׳¦׳•׳¨ ׳“׳•׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳—׳•׳“׳©׳™׳�: &nbsp;</td>\n";
+	$text.= "<td>צור דוח מקדמות מס לחודשים: &nbsp;</td>\n";
 	$text.= "<td>\n";
 	$text.=PrintMonthSelect($beginmonth, 'beginmonth');
 	$text.= "&nbsp;</td>\n";
@@ -146,7 +148,7 @@ if($step == 0) {	/* print date select form */
 	$text.=PrintMonthSelect($endmonth, 'endmonth');
 	$text.= "</td>\n";
 	$text.= "<td>\n";
-	$text.= "&nbsp;&nbsp;<input type=\"submit\" value=\"׳‘׳¦׳¢\"></td></tr>\n";
+	$text.= "&nbsp;&nbsp;<input type=\"submit\" value=\"בצע\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	$text.= "<br>\n";
@@ -154,12 +156,10 @@ if($step == 0) {	/* print date select form */
 	createForm($text, $haeder,'',750,'','',1,getHelp());
 	return;
 }
-$header="׳“׳•\"׳— ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳�׳×׳§׳•׳₪׳”: $bm - $em";
-if($step == 1) {
-	$beginmonth = $_POST['beginmonth'];
-	$endmonth = $_POST['endmonth'];
-	$beginyear = $_POST['beginyear'];
-	$endyear = $_POST['endyear'];
+	$beginmonth = GetPost('beginmonth');
+	$endmonth = GetPost('endmonth');
+	$beginyear = GetPost('beginyear');
+	$endyear = GetPost('endyear');
 	$begindate = "1-$beginmonth-$beginyear";
 	$d = GetLastDayOfMonth($endmonth, $endyear);
 	$enddate = "$d-$endmonth-$endyear";
@@ -169,6 +169,9 @@ if($step == 1) {
 	
 	$bm = $montharr[$beginmonth - 1];
 	$em = $montharr[$endmonth - 1];
+$header="דו\"ח מקדמות מס לתקופה: $bm - $em";
+if($step == 1) {
+
 	//print 
 	
 	//print "<div class=\"righthalf2\">\n";
@@ -180,7 +183,7 @@ if($step == 1) {
 	$text.= "<input type=\"hidden\" name=\"enddate\" value=\"$enddate\">\n";
 	$text.= "<td align=\"center\">\n";
 	$income = round(GetSumForAcctType(INCOME, $begin, $end), 0);
-	$text.= "׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™ ׳‘׳©\"׳—<br>";
+	$text.= "המחזור העסקי בש\"ח<br>";
 	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"income\" value=\"$income\">\n";
 	$text.= "</td><td style=\"width:7em\">\n";
 	$query = "SELECT tax FROM $companiestbl WHERE prefix='$prefix'";
@@ -190,18 +193,18 @@ if($step == 1) {
 	$text.= "<br> &nbsp;X";
 	$text.= "<input type=\"text\" readonly name=\"taxpercent\" value=\"$taxpercent\" size=\"4\">%\n";
 	$text.= "</td><td align=\"center\">\n";
-	$text.= "׳�׳§׳“׳�׳” ׳¢\"׳₪ % ׳�׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™<br>\n";
+	$text.= "מקדמה ע\"פ % מהמחזור העסקי<br>\n";//"׳�׳§׳“׳�׳” ׳¢\"׳₪ % ׳�׳”׳�׳—׳–׳•׳¨ ׳”׳¢׳¡׳§׳™<br>\n";
 	$tax = round($income * $taxpercent / 100.0, 0);
 	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"tax\" value=\"$tax\">\n";
 	$text.= "</td></tr>\n";
 	$text.= "<td align=\"center\">\n";
-	$text.= "׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳× ׳�׳×׳§׳•׳₪׳”<br>";
+	$text.= "ניכוי במקור מלקוחות לתקופה<br>\n";//"׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳× ׳�׳×׳§׳•׳₪׳”<br>";
 	$custtax = GetSumForAcct(CUSTTAX, $begin, $end) * -1.0;
 	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"custtaxtotal\" value=\"$custtax\">\n";
 	$text.= "</td><td>\n";
 	$text.= "&nbsp;\n";		/* spacer column */
 	$text.= "</td><td align=\"center\">\n";
-	$text.= "׳ ׳™׳›׳•׳™׳™׳� ׳‘׳�׳§׳•׳¨ ׳�׳§׳™׳–׳•׳–<br>\n";
+	$text.= "ניכויים במקור לקיזוז<br />\n";;
 	$custtax = GetSumForAcct(CUSTTAX, 0, $end) * -1.0;
 	if($custtax > $tax)
 		$custtax = $tax;
@@ -209,16 +212,16 @@ if($step == 1) {
 	
 	$text.= "</td></tr><tr>\n";
 	$text.= "<td colspan=\"2\">&nbsp;</td><td align=\"center\">\n";
-	$text.= "׳¡׳”\"׳› ׳�׳×׳©׳�׳•׳�<br>\n";
+	$text.= "סה\"כ לתשלום"."<br />";
 	$taxtopay = $tax - $custtax;
 	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"taxtopay\" value=\"$taxtopay\">\n";
 	$text.= "</tr><tr><td colspan=\"3\" align=\"center\">\n";
-	$text.= "<input type=\"submit\" value=\"׳¨׳©׳•׳�\"></td></tr>\n";
+	$text.= "<input type=\"submit\" value=\""."רשום"."\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 }
 if($step == 2) {
-	$begindate = $_POST['begindate'];
+	/*$begindate = $_POST['begindate'];
 	$enddate = $_POST['enddate'];
 	$beginmonth = $_POST['beginmonth'];
 	$endmonth = $_POST['endmonth'];
@@ -230,8 +233,8 @@ if($step == 2) {
 	$taxtopay = $_POST['taxtopay'];
 	
 	$bm = $montharr[$beginmonth - 1];
-	$em = $montharr[$endmonth - 1];
-	$text.= "<br><h1>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
+	$em = $montharr[$endmonth - 1];*/
+	//$text.= "<br><h1>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
 
 	// Now the real thing, register transactions */
 		list($day1, $month1, $year1) = split("[/.-]", $begindate);

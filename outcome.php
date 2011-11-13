@@ -155,7 +155,7 @@ function PrintOutcomeSelect($def) {
 			$v = 100;
 		$l = _("Credited VAT");
 		$val = "$o ($l: $v%)";
-//		$val = "$o (׳�׳¢\"׳� ׳�׳•׳›׳¨: $v%)";
+//		$val = "$o (׳³ן¿½׳³ֲ¢\"׳³ן¿½ ׳³ן¿½׳³ג€¢׳³ג€÷׳³ֲ¨: $v%)";
 //		$val .= " $v";
 		if($n == $def)
 			$text.= "<option value=\"$n\" selected>$val</option>\n";
@@ -219,14 +219,14 @@ if($step == 2) {
 	}
 	if(abs($total) > 0.01) {	
 		/* write transactions */
-		// Transaction 1 ׳–׳›׳•׳× ׳”׳¡׳₪׳§ ׳‘׳›׳� ׳”׳¡׳›׳•׳�
+		// Transaction 1 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ג€�׳³ֲ¡׳³ג‚×׳³ֲ§ ׳³ג€˜׳³ג€÷׳³ן¿½ ׳³ג€�׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½
 		$tnum = Transaction(0, SUPINV, $supplier, $refnum, '', $dt, $details, $total);
-		// Transaction 2 ׳—׳•׳‘׳× ׳�׳¢"׳� ׳×׳©׳•׳�׳•׳× ׳�׳₪׳™ ׳”׳�׳¢"׳� ׳”׳�׳•׳’׳“׳¨ ׳�׳¡׳¢׳™׳£ ׳”׳”׳•׳¦׳�׳”
+		// Transaction 2 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ן¿½׳³ֲ¢"׳³ן¿½ ׳³ֳ—׳³ֲ©׳³ג€¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ן¿½׳³ג‚×׳³ג„¢ ׳³ג€�׳³ן¿½׳³ֲ¢"׳³ן¿½ ׳³ג€�׳³ן¿½׳³ג€¢׳³ג€™׳³ג€�׳³ֲ¨ ׳³ן¿½׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ ׳³ג€�׳³ג€�׳³ג€¢׳³ֲ¦׳³ן¿½׳³ג€�
 		$tvat = $novattotal * $av / 100.0;
 //		print "novattotal: $novattotal, av: $av, tvat: $tvat<br>\n";
 		$acct = ($opt == 'asset') ? ASSETVAT : BUYVAT;
 		$tnum = Transaction($tnum, SUPINV, $acct, $refnum, '', $dt, '', $tvat * -1.0);
-		// Transaction 3 ׳—׳•׳‘׳× ׳¡׳¢׳™׳£ ׳”׳”׳•׳¦׳�׳” ׳‘׳™׳×׳¨׳”
+		// Transaction 3 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ ׳³ג€�׳³ג€�׳³ג€¢׳³ֲ¦׳³ן¿½׳³ג€� ׳³ג€˜׳³ג„¢׳³ֳ—׳³ֲ¨׳³ג€�
 		$novattotal = $total - $tvat;
 		$tnum = Transaction($tnum, SUPINV, $outcome, $refnum, '', $dt, $details, $novattotal * -1.0);
 		if($opt == 'asset') {
@@ -303,7 +303,7 @@ else {
 }
 $text.= "<td>\n";
 
-/* print "(׳�׳¢\"׳� ׳�׳•׳›׳¨: "; */
+/* print "(׳³ן¿½׳³ֲ¢\"׳³ן¿½ ׳³ן¿½׳³ג€¢׳³ג€÷׳³ֲ¨: "; */
 if(!isset($pvat))
 	$pvat = 100;
 $text.= "<input type=\"hidden\" name=\"pvat\" value=\"$pvat\" size=\"3\" />\n";
@@ -367,7 +367,7 @@ $text.= "</form>\n";
 if($step == 0) {
 	require('lasttran.inc.php');
 }
-createForm($text,$header,'',750,'','logo',1,'help');
+createForm($text,$header,'',750,'','img/icon_acc.png',1,getHelp());
 
 
 //print "<div class=\"innercontent\">\n";

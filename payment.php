@@ -165,9 +165,9 @@ if($step == 2) {
 	$t = SUPPLIERPAYMENT;
 	if($opt == 'vat')
 		$t = VAT;
-	// Transaction 1 ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ²ֲ§
+	// Transaction 1 ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ»ן¿½׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¡׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ³ג€”׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ§
 	$tnum = Transaction(0, $t, $account, $refnum, '', $dt, $comment, $total * -1.0);
-	// Transaction 2 ׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¦׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג€�ֲ¢ ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ©׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½
+	// Transaction 2 ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ³ֲ·׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¦׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢ ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½
 	$tnum = Transaction($tnum, $t, $payment, $refnum, '', $dt, $comment, $total);
 	$step = 0;
 	if($opt) {
@@ -255,18 +255,18 @@ if($step == 1) {
 	$text.= "<td>$l: </td>";
 	if($dt == '')
 		$dt = date("d-m-Y");
-	$text.= "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
+	$text.= "<td><input class=\"date\" type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
 
-$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
+//$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
 
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Update");
-	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
+	$text.= "<td colspan=\"2\" align=\"center\"><a href=\"javascript:document.payment.submit();\" class=\"btnaction\">$l</a></td>\n";
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text, $haeder,'',750);
+	createForm($text, $haeder,'',750,'','',1,getHelp());
 	return;
 }
 //print "<br />\n";
@@ -302,12 +302,12 @@ $text.= "</tr><tr><td>";
 $l = _("Date");
 $text.= "$l: </td>";
 $dt = date("d-m-Y");
-$text.= "<td><input type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
-$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
+$text.= "<td><input class=\"date\" type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
+//$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
 
 $text.= "</td></tr>\n";
-
-$text.= "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\""._("need to be")."\" /></td>\n";
+$l = _("Update");
+$text.= "<tr><td align=\"center\" colspan=\"2\"><a href=\"javascript:document.payment.submit();\" class=\"btnaction\">$l</a></td>\n";
 $text.= "</tr></table>\n";
 $text.= "</form>\n";
 //print "</div>\n";
@@ -343,6 +343,6 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 }
 $text. "</table>\n";
 $text. "</div>";
-createForm($text, $haeder,'',750);
+createForm($text, $haeder,'',750,'','',1,getHelp());
 //print "</div>\n";
 ?>

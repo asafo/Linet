@@ -7,7 +7,6 @@
  | Modifed By adam BH 10/2010
  */
 global $prefix;//, $accountstbl, $supdocstbl, $itemstbl;
-//adam: global $receiptstbl; 
 //global $chequestbl;
 global $docstbl;//, $docdetailstbl;
 //global $creditcompanies;
@@ -17,7 +16,7 @@ global $DocType;
 global $paymentarr;
 global $creditarr;
 global $banksarr;
-
+$text='';
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
 /* Get begin and end dates */
@@ -67,7 +66,7 @@ if($step > 0) {
 	$doctype = $_POST['doctype'];
 	if($doctype == 0) {
 		$l = _("Document type must be chosen");
-		print "<h1>$l</h1><br>\n";
+		$text.= "<h1>$l</h1><br>\n";
 		$step = 0;
 	}
 	else {
@@ -105,7 +104,7 @@ if($step > 0) {
 		//print "<h2>$doctypestr</h2>\n";
 		$haeder=$doctypestr;
 		//print "<table width=\"100%\" class=\"tablesorter\" border=\"0\"><tr><td>\n";
-		$text= "<table class=\"tablesorter\" id=\"accadmintbl\"><tr>\n";
+		$text.= "<table class=\"tablesorter\" id=\"accadmintbl\"><thead><tr>\n";
 		$l = _("Doc. type");
 		$text.= "<th class=\"header\" style=\"width:6em\">$l</th>\n";
 		$l = _("Num");
@@ -122,10 +121,11 @@ if($step > 0) {
 		$text.= "<th class=\"header\" style=\"width:5em\">$l</th>\n";
 		$l = _("Actions");
 		$text.= "<th class=\"header\">$l</th>\n";
-		$text.= "</tr>\n";
+		$text.= "</thead></tr>\n";
 		$novatsum = 0.0;
 		$totalsum = 0.0;
 		$e = 0;
+		$tbody.="<tbody>";
 		while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 //			print "DocType: $doctype<br>\n";
 			//if($doctype != DOC_RECEIPT)
@@ -160,19 +160,19 @@ if($step > 0) {
 			$doctypestr = $DocType[$doctype];
 			/*if($doctype == DOC_INVRCPT)
 				$doctypestr = _("Invoice receipt");*/
-			$text.= "<tr><td>$doctypestr</td>\n";
-			$text.= "<td>$docnum</td>\n";
+			$tbody.= "<tr><td>$doctypestr</td>\n";
+			$tbody.= "<td>$docnum</td>\n";
 			$issue_date = FormatDate($issue_date, "mysql", "dmy");
-			$text.= "<td>$issue_date</td>\n";
-			$text.= "<td>$accountstr</td>\n";
+			$tbody.= "<td>$issue_date</td>\n";
+			$tbody.= "<td>$accountstr</td>\n";
 			if($doctype != DOC_RECEIPT) {
-				$text.= "<td>$sub_total</td>\n";
+				$tbody.= "<td>$sub_total</td>\n";
 				$novatsum += $sub_total;
 			}
 			$tstr = number_format($total);
-			$text.= "<td>$tstr</td>\n";
+			$tbody.= "<td>$tstr</td>\n";
 			$totalsum += $total;
-			$text.= "<td>";
+			$tbody.= "<td>";
 			if($step == 1) {
 				$url = "printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix";
 				$target = "docswin";
@@ -185,17 +185,18 @@ if($step > 0) {
 				$l = _("Copy");
 			}
 			if($target == 'docswin')
-				$text.= "<input type=\"button\" onclick=\"window.open('$url', 'docswin')\"";
+				$tbody.= "<input type=\"button\" onclick=\"window.open('$url', 'docswin')\"";
 			else
-				$text.= "<input type=\"button\" onclick=\"window.location.href='$url'\"";
-			$text.= "value=\"$l\">";
-			$text.= "</a>&nbsp;&nbsp;";
+				$tbody.= "<input type=\"button\" onclick=\"window.location.href='$url'\"";
+			$tbody.= "value=\"$l\">";
+			$tbody.= "</a>&nbsp;&nbsp;";
 			$url = "?module=emaildoc&amp;account=$account&amp;doctype=$doctype&amp;docnum=$docnum";
 //			print "<input type=\"button\" onclick=\"window.location.href='$url'\"";
-//			print "value=\"׳³ֲ³ײ²ֲ©׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ג€� ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¨ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³ײ»ן¿½׳³ֲ³ײ²ֲ¨׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢\">\n";
-			$text.= "</td></tr>\n";
+//			print "value=\"׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½ ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ»ן¿½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¨ ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ§׳³ֲ³ײ²ֲ³׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢\">\n";
+			$tbody.= "</td></tr>\n";
 		}
-		$text.= "<tr class=\"sumline\">\n";
+		$tbody.="</tbody>";
+		$text.= "<tfoot><tr class=\"sumline\">\n";
 		//if($doctype != DOC_RECEIPT)
 			$text.= "<td colspan=\"4\" align=\"left\">\n";
 		//else
@@ -206,9 +207,9 @@ if($step > 0) {
 			$text.= "<td>$novatsum</td>\n";
 		$text.= "<td>$totalsum</td>\n";
 		$text.= "<td>&nbsp;</td>\n";
-		$text.= "</tr>\n";
-		$text.= "</table>\n";
-		createForm($text, $haeder,'',750,'','logo',1,'help');
+		$text.= "</tr></tfoot>\n";
+		$text.= "$tbody</table>\n";
+		createForm($text, $haeder,'',750,'','img/icon_showdocs1.png',1,getHelp());
 	/*	print "</td><td width=\"48%\" valign=\"top\">\n"; */
 		//print "</td></tr></table>\n";
 	}
@@ -218,7 +219,7 @@ if($step == 0) {
 	//print "<div class=\"form righthalf1\">\n";
 	$haeder = _("Search business document");
 	//print "<h3>$l</h3>\n";
-	$text= "<form name=\"form1\" action=\"?module=showdocs&amp;step=1\" method=\"post\">\n";
+	$text.= "<form name=\"form1\" action=\"?module=showdocs&amp;step=1\" method=\"post\">\n";
 	$text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("Doc. type");
 	$text.= "<td>$l: </td>\n";
@@ -246,12 +247,12 @@ if($step == 0) {
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Search");
-	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\">\n";
+	$text.= "<td colspan=\"2\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>\n";
 	$text.= "</td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text,$haeder,'',600);
+	createForm($text,$haeder,'',750,'','img/icon_showdocs.png',1,getHelp());
 	
 }
 ?>

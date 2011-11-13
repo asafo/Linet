@@ -6,8 +6,8 @@
  | This program is a free software licensed under the GPL 
  */
 if(!isset($prefix) || ($prefix == '')) {
-	$l = _("This operation can not be executed without choosing a business first");
-	print "<h1>$l</h1>\n";
+	ErrorReport(_("This operation can not be executed without choosing a business first"));
+	// "<h1>$l</h1>\n";
 	return;
 }
 
@@ -19,20 +19,18 @@ function PrintAccountSelect() {
 	global $prefix, $accountstbl;
 
 	$query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' ORDER BY company";
-	$result = mysql_query($query);
-	if(!$result) {
-		echo mysql_error();
-		exit;
-	}
-	print "<select id=\"account\" name=\"account[]\">\n";
+	$result = DoQuery($query,__FILE__.": ".__LINE__);
+	
+	$str= "<select id=\"account\" name=\"account[]\">\n";
 	$l = _("Choose account");
-	print "<option value=\"0\">-- $l --</option>\n";
+	$str.= "<option value=\"0\">-- $l --</option>\n";
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$num = $line['num'];
 		$name = stripslashes($line['company']);
-		print "<option value=\"$num\">$name</option>\n";
+		$str.= "<option value=\"$num\">$name</option>\n";
 	}
-	print "</select>\n";
+	$str.= "</select>\n";
+	return $str;
 }
 
 function GetAccountName($account) {
@@ -47,11 +45,8 @@ function GetAccountName($account) {
 	
 	$query = "SELECT company FROM $accountstbl WHERE num='$account' AND prefix='$prefix'";
 //	print "Query: $query<BR>\n";
-	$result = mysql_query($query);
-	if(!$result) {
-		echo mysql_error();
-		exit;
-	}
+	$result = DoQuery($query,__FILE__.": ".__LINE__);
+	
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	$name = $line[0];
 	$namecache[$account] = $name;
@@ -159,11 +154,11 @@ if(!$bankacc) {
 	}
 	$text.= "<br>\n";
 	$l = _("Execute");
-	$text.= "<div style=\"text-align:center\"><br><input type=submit value=\"$l\"></div>\n";
+	$text.= "<div style=\"text-align:center\"><a href=\"javascript:document.choosebank.submit();\" class=\"btnaction\">$l</a></div>\n";
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text,$haeder,'',400,'','logo',1,'help');
+	createForm($text,$haeder,'',750,'','',1,getHelp());
 	return;
 }
 
@@ -228,7 +223,7 @@ if($action == 'extbalance') {
 			$sum_str = $sum[$i];
 		$tnum = Transaction($tnum, BANKMATCH, $account, $refnum1, $refnum2, $date, $details, $sum[$i]);
 	}
-//	print "<h2>׳”׳×׳ ׳•׳¢׳” ׳ ׳¨׳©׳�׳” ׳‘׳”׳¦׳�׳—׳”</h2>\n";
+//	print "<h2>׳³ג€�׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€� ׳³ֲ ׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€� ׳³ג€˜׳³ג€�׳³ֲ¦׳³ן¿½׳³ג€”׳³ג€�</h2>\n";
 	$s = $sum[$i] * -1.0;
 	$int[] = "$tnum:$s";
 	$action = 'match';
@@ -308,7 +303,7 @@ if($action == 'extmatch') {
 	else {
 		$l = _("Unbalanced reconciliation, please create balancing transaction");
 		$text.= "<h2>$l</h2>\n";
-//		print "<h2>׳”׳×׳�׳�׳” ׳�׳� ׳�׳�׳•׳–׳ ׳×, ׳™׳© ׳�׳™׳¦׳•׳¨ ׳×׳ ׳•׳¢׳” ׳�׳�׳–׳ ׳×</h2>\n";
+//		print "<h2>׳³ג€�׳³ֳ—׳³ן¿½׳³ן¿½׳³ג€� ׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ן¿½׳³ג€¢׳³ג€“׳³ֲ ׳³ֳ—, ׳³ג„¢׳³ֲ© ׳³ן¿½׳³ג„¢׳³ֲ¦׳³ג€¢׳³ֲ¨ ׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€� ׳³ן¿½׳³ן¿½׳³ג€“׳³ֲ ׳³ֳ—</h2>\n";
 		$text.=  "<div class=\"formtbl\">\n";
 		$text.=  "<form name=\"form1\" action=\"?module=extmatch&amp;action=extbalance&amp;bankacc=$bankacc\" method=\"post\">\n";
 		$text.=  "<input type=\"hidden\" name=\"int_str\" value=\"$int_str\">\n";
@@ -367,12 +362,12 @@ if($action == 'extmatch') {
 		$text.= "</table>\n";
 		$text.= "</td></tr>\n";
 		$l = _("Submit");
-		$text.= "<tr><td align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+		$text.= "<tr><td align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 		$text.= "</table>\n";
 		$text.= "</form>\n";
 		//$text.= "</div>\n";
 		//print "</div>\n";	/* end righthalf */
-		createForm($text,$haeder,'',400,'','logo',1,'help');
+		createForm($text,$haeder,'',750,'','',1,getHelp());
 		
 		return;
 	}
@@ -389,7 +384,7 @@ $text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
 $text.=  "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>\n";
 $l = _("Internal bank account transactions");
 $text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
-// <td align=\"right\"><h2>׳×׳ ׳•׳¢׳•׳× ׳‘׳›׳¨׳˜׳™׳¡ ׳‘׳ ׳§</h2></td>
+// <td align=\"right\"><h2>׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€¢׳³ֳ— ׳³ג€˜׳³ג€÷׳³ֲ¨׳³ֻ�׳³ג„¢׳³ֲ¡ ׳³ג€˜׳³ֲ ׳³ֲ§</h2></td>
 $text.= '</tr><tr><td valign="top">';
 
 $text.=  "<table class=\"formy\"><tr>\n";
@@ -470,7 +465,7 @@ $text.=  "<td><input type=\"text\" name=\"int_total\" size=\"6\" readonly value=
 $text.= '</table></td>';
 
 $l = _("Reconciliate");
-$text.=  "</tr><tr><td colspan=\"3\" align=\"center\"><br><input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.=  "</tr><tr><td colspan=\"3\" align=\"center\"><br><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 $text.=  "</table>\n</form>\n</div>";
-createForm($text, $haeder,'',750);
+createForm($text,$haeder,'',750,'','',1,getHelp());
 ?>

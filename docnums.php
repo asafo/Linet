@@ -100,7 +100,7 @@ $logo = $line['logo'];
 $haeder = _("Business documents definitions");
 //print "<h3>$l</h3>\n";
 $text= '';
-$text.= "<form enctype=\"multipart/form-data\" action=\"?module=docnums&amp;action=update\" method=\"post\">\n";
+$text.= "<form name=\"form1\" enctype=\"multipart/form-data\" action=\"?module=docnums&amp;action=update\" method=\"post\">\n";
 $text.= "<table border=\"0\" cellpadding=\"1px\" class=\"formtbl\" width=\"100%\"><tr>\n";
 $l = _("Base numbers");
 $text.= "<td colspan=\"4\"><h2>$l</h2></td>\n";
@@ -152,17 +152,17 @@ if($logo) {
 	$text.= "</tr><tr>\n";
 	$text.= "<td colspan=\"3\" align=\"center\"><img src=\"img/logo/$logo\" alt=\"$l\" width=\"100px\"></td>\n";
 	$l1 = _("Delete");
-	$text.= "<td><input type=\"button\" value=\"$l1 $l\" ";
-	$text.= "onClick=\"window.location.href='?module=docnums&amp;action=logodel'\"></td>\n";
+	$text.= "<td><a class=\"btnsmall\" href=\"?module=docnums&amp;action=logodel\">$l1 $l</a></td>";
+	//$text.= "onClick=\"window.location.href=''\"></td>\n";
 }
 $text.= "</tr>\n";
 $text.= "<tr><td colspan=\"4\" align=\"center\">\n";
 $l = _("Update");
-$text.= "<input type=\"submit\" value=\"$l\">&nbsp;&nbsp;\n";
+$text.= "<a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>&nbsp;&nbsp;\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
 //print "</div>\n";
-createForm($text,$haeder,'',450);
+createForm($text,$haeder,'',750,'',"img/icon_docnums.png",1,getHelp());
 
 ?>
