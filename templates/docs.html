@@ -8,8 +8,7 @@
 </head>
 <body dir="rtl">
 
-	~header~
-			
+	~header~		
 	<table style="text-align:right;">
 		<tr>
 			<td colspan="3" width="650">
@@ -55,52 +54,53 @@
 			
 		<tr>
 			<td colspan="4">
-				<div align="center"><h1>~doctype~ <span style="font-size:20px;"> מס' ~docnum~ </span>~copy~</h1></div>
+				<div align="center"><h1>~doctype~ <span style="font-size:25px;"> מס' ~docnum~ </span>~copy~</h1></div>
 			</td>
 		</tr>
-	</table>	
+	</table>
+	<div class="table">
+		<div class="hrow row">
+		  	<div class="rhdata" style="width:370px;">תיאור</div>
+		  	<div class="rhdata" style="width:60px;">כמות</div>
+		  	<div class="rhdata" style="width:60px;">מחיר</div>
+		  	<div class="rhdata" style="width:60px;">סה"כ</div>
+		</div>
+		
+		~docdet~
+		<div class="frow row">
+		  	<div class="rdata clear"></div>
+		  	<div class="rdata clear"></div>
+			<div class="rdata clear">סה"כ חייב מע"מ</div>
+		  	<div class="rdata">~docs:sub_total~</div>
+		</div>
+		<div class="frow row">
+		  	<div class="rdata clear"></div>
+		  	<div class="rdata clear"></div>
+			<div class="rdata clear">סה"כ פטור ממע"מ</div>
+		  	<div class="rdata">~docs:novat_total~</div>
+		</div>
+		<div class="frow row">
+		  	<div class="rdata clear"></div>
+		  	<div class="rdata clear"></div>
+			<div class="rdata clear">מע"מ</div>
+		  	<div class="rdata">~docs:vat~</div>
+		</div>
+		<div class="frow row">
+		  	<div class="rdata clear"></div>
+		  	<div class="rdata clear"></div>
+			<div class="rdata clear">סה"כ לתשלום</div>
+		  	<div class="rdata">~docs:total~</div>
+		</div>		
+	</div>
 				
-	
-				<table style="text-align:right;" class="doc" style="width: 100%;">
-					<thead>
-					<tr>
-						<th width="370">תיאור</th>
-						<th width="60">כמות</th>
-						<th width="60">מחיר</th>
-						<th width="60">סה"כ</th>
-					</tr>
-					</thead>
-					<tfoot>
-					<tr>
-						<td rowspan=4 colspan="2" width="670">
+
+				<!--
 							<div align="right">
 							מוצרים שסופקו/יסופקו ללקוח נשארים בבעלות ארי בן חור- מחשוב מהיר עד לפירעון מלא של החשבון.<br />
 							תנאי תשלום:העברה בנקאית או המחאה לפירעון תוך 30 יום מיום הפקת חשבונית.<br />
 							מחשוב מהיר זכאית להפיק חשבונית עם סיום העבודה/אספקת המוצרים.<br />
 							</div>
-						</td>
-						<td width="120">סה"כ חייב מע"מ</td>
-						<td width="60">~docs:sub_total~</td>
-					</tr>
-					<tr>
-						<td width="120">סה"כ פטור ממע"מ</td>
-						<td width="60" >~docs:novat_total~</td>
-					</tr>
-					<tr>
-						<td width="120">מע"מ: </td>
-						<td width="60">~docs:vat~</td>
-					</tr>
-					<tr>
-						<td width="120">סה"כ לתשלום: </td>
-						<td width="60">~docs:total~</td>
-					</tr>
-					<tr>
-					</tfoot>
-					<tbody>
-					~docdet~
-					</tbody>
-					
-				</table>
+						-->
 			<br />
 		הערות: ~docs:comments~
 	~footer~

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Linet 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-12 15:14+0200\n"
-"PO-Revision-Date: 2011-11-12 15:14+0200\n"
+"POT-Creation-Date: 2011-11-15 15:24+0200\n"
+"PO-Revision-Date: 2011-11-15 20:33+0200\n"
 "Last-Translator: adam ben hour <adam@speedcomp.co.il>\n"
 "Language-Team: Hebrew <adam@speedcomp.co.il>\n"
 "Language: he\n"
@@ -17,2419 +17,2484 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: /home/kickasss/linetdev/linet/linet\n"
+"X-Poedit-SearchPath-0: /home/kickasss/linetdev/linet\n"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:12
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:15
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:19
-#: /home/kickasss/linetdev/linet/linet/balance.php:19
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:7
-#: /home/kickasss/linetdev/linet/linet/tedit.php:10
-#: /home/kickasss/linetdev/linet/linet/deposit.php:12
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:33
+#: /home/kickasss/linetdev/linet/items.php:12
+#: /home/kickasss/linetdev/linet/vatrep.php:15
+#: /home/kickasss/linetdev/linet/docsadmin.php:19
+#: /home/kickasss/linetdev/linet/balance.php:19
+#: /home/kickasss/linetdev/linet/opbalance.php:7
+#: /home/kickasss/linetdev/linet/tedit.php:10
+#: /home/kickasss/linetdev/linet/deposit.php:12
+#: /home/kickasss/linetdev/linet/tranrep.php:33
 msgid "This operation can not be executed without choosing a business first"
 msgstr "לא ניתן לבצע פעולה זו ללא בחירת חברה"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:35
+#: /home/kickasss/linetdev/linet/items.php:35
 msgid "Choose income account"
 msgstr "בחר חשבון הכנסות"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:43
+#: /home/kickasss/linetdev/linet/items.php:43
 msgid "0% VAT"
 msgstr "מע\"מ 0%"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:46
+#: /home/kickasss/linetdev/linet/items.php:46
 msgid "100% VAT"
 msgstr "מע\"מ 100%"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:63
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:27
+#: /home/kickasss/linetdev/linet/items.php:63
+#: /home/kickasss/linetdev/linet/docsadmin.php:27
 msgid "NIS"
 msgstr "ש\"ח"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:89
+#: /home/kickasss/linetdev/linet/items.php:89
 msgid "Edit item"
 msgstr "ערוך פריט"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:95
+#: /home/kickasss/linetdev/linet/items.php:95
 msgid "New item"
 msgstr "פריט חדש"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:101
-#: /home/kickasss/linetdev/linet/linet/items.php:219
+#: /home/kickasss/linetdev/linet/items.php:101
+#: /home/kickasss/linetdev/linet/items.php:219
 msgid "Income account"
 msgstr "חשבון הכנסות"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:107
-#: /home/kickasss/linetdev/linet/linet/items.php:217
+#: /home/kickasss/linetdev/linet/items.php:107
+#: /home/kickasss/linetdev/linet/items.php:217
 msgid "Item name"
 msgstr "שם פריט"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:111
+#: /home/kickasss/linetdev/linet/items.php:111
 msgid "Supplier cat. num."
 msgstr "מספר קטלוגי ספק"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:115
-#: /home/kickasss/linetdev/linet/linet/items.php:221
+#: /home/kickasss/linetdev/linet/items.php:115
+#: /home/kickasss/linetdev/linet/items.php:221
 msgid "Unit price"
 msgstr "מחיר יחידה"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:119
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:784
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:945
+#: /home/kickasss/linetdev/linet/items.php:119
+#: /home/kickasss/linetdev/linet/docsadmin.php:783
+#: /home/kickasss/linetdev/linet/docsadmin.php:944
 msgid "Currency"
 msgstr "מטבע"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:125
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:103
+#: /home/kickasss/linetdev/linet/items.php:125
+#: /home/kickasss/linetdev/linet/opbalance.php:103
 msgid "Update"
 msgstr "עדכן"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:147
+#: /home/kickasss/linetdev/linet/items.php:147
 msgid "Items for business documents"
 msgstr "פריטים למסמכים עסקיים"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:166
-#: /home/kickasss/linetdev/linet/linet/items.php:183
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:391
+#: /home/kickasss/linetdev/linet/items.php:166
+#: /home/kickasss/linetdev/linet/items.php:184
+#: /home/kickasss/linetdev/linet/docsadmin.php:391
 msgid "Demo user is not allowed to update data"
 msgstr "משתמש דוגמה אינו רשאי לעדכן נתונים"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:210
+#: /home/kickasss/linetdev/linet/items.php:210
 msgid "Existing items"
 msgstr "פריטים קיימים"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:223
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:123
+#: /home/kickasss/linetdev/linet/items.php:223
+#: /home/kickasss/linetdev/linet/main.php:58
+#: /home/kickasss/linetdev/linet/showdocs.php:121
 msgid "Actions"
 msgstr "פעולות"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:236
+#: /home/kickasss/linetdev/linet/items.php:236
 msgid "Edit"
 msgstr "ערוך"
 
-#: /home/kickasss/linetdev/linet/linet/items.php:238
-#: /home/kickasss/linetdev/linet/linet/main.php:76
+#: /home/kickasss/linetdev/linet/items.php:238
 msgid "Delete"
 msgstr "מחק"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:10
+#: /home/kickasss/linetdev/linet/vatrep.php:10
 msgid "January"
 msgstr "ינואר"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:10
+#: /home/kickasss/linetdev/linet/vatrep.php:10
 msgid "February"
 msgstr "פברואר"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:10
+#: /home/kickasss/linetdev/linet/vatrep.php:10
 msgid "March"
 msgstr "מרץ"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:10
+#: /home/kickasss/linetdev/linet/vatrep.php:10
 msgid "April"
 msgstr "אפריל"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:11
+#: /home/kickasss/linetdev/linet/vatrep.php:11
 msgid "May"
 msgstr "מאי"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:11
+#: /home/kickasss/linetdev/linet/vatrep.php:11
 msgid "June"
 msgstr "יוני"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:11
+#: /home/kickasss/linetdev/linet/vatrep.php:11
 msgid "July"
 msgstr "יולי"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:11
+#: /home/kickasss/linetdev/linet/vatrep.php:11
 msgid "August"
 msgstr "אוגוסט"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:11
+#: /home/kickasss/linetdev/linet/vatrep.php:11
 msgid "September"
 msgstr "ספטמבר"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:12
+#: /home/kickasss/linetdev/linet/vatrep.php:12
 msgid "October"
 msgstr "אוקטובר"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:12
+#: /home/kickasss/linetdev/linet/vatrep.php:12
 msgid "November"
 msgstr "נובמבר"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:12
+#: /home/kickasss/linetdev/linet/vatrep.php:12
 msgid "December"
 msgstr "דצמבר"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:168
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:211
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:278
+#: /home/kickasss/linetdev/linet/vatrep.php:168
+#: /home/kickasss/linetdev/linet/vatrep.php:211
+#: /home/kickasss/linetdev/linet/vatrep.php:278
 msgid "VAT report for period"
 msgstr "דוח מע\"מ לתקופה"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:174
+#: /home/kickasss/linetdev/linet/vatrep.php:174
 msgid "Calculate VAT report for month"
 msgstr "צור דוח מע\"מ לחודשים"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:186
-#: /home/kickasss/linetdev/linet/linet/balance.php:108
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:98
+#: /home/kickasss/linetdev/linet/vatrep.php:186
+#: /home/kickasss/linetdev/linet/balance.php:108
+#: /home/kickasss/linetdev/linet/tranrep.php:99
 msgid "Execute"
 msgstr "בצע"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:225
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:308
+#: /home/kickasss/linetdev/linet/vatrep.php:225
+#: /home/kickasss/linetdev/linet/vatrep.php:308
 #, fuzzy
 msgid "VAT exempt transactions"
 msgstr "תנועות בחובה"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:228
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:311
+#: /home/kickasss/linetdev/linet/vatrep.php:228
+#: /home/kickasss/linetdev/linet/vatrep.php:311
 msgid "Sales without VAT"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:233
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:314
+#: /home/kickasss/linetdev/linet/vatrep.php:233
+#: /home/kickasss/linetdev/linet/vatrep.php:314
 #, fuzzy
 msgid "Sales VAT"
 msgstr "הזמנת מכירות"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:239
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:319
+#: /home/kickasss/linetdev/linet/vatrep.php:239
+#: /home/kickasss/linetdev/linet/vatrep.php:319
 msgid "VAT paid for Inputs and assets"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:247
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:324
+#: /home/kickasss/linetdev/linet/vatrep.php:247
+#: /home/kickasss/linetdev/linet/vatrep.php:324
 msgid "VAT paid for other input"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:255
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:329
+#: /home/kickasss/linetdev/linet/vatrep.php:255
+#: /home/kickasss/linetdev/linet/vatrep.php:329
 msgid "Sum to pay"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:259
-#, fuzzy
+#: /home/kickasss/linetdev/linet/vatrep.php:259
 msgid "register"
 msgstr "קופה"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:339
+#: /home/kickasss/linetdev/linet/vatrep.php:339
 #, fuzzy
 msgid "pay"
 msgstr "מאי"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:358
+#: /home/kickasss/linetdev/linet/vatrep.php:358
 #, fuzzy
 msgid "View VAT Transactions"
 msgstr "תנועות"
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:363
+#: /home/kickasss/linetdev/linet/vatrep.php:363
 msgid "begin"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/vatrep.php:366
+#: /home/kickasss/linetdev/linet/vatrep.php:366
 #, fuzzy
 msgid "end"
 msgstr "ד"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:469
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:578
+#: /home/kickasss/linetdev/linet/docsadmin.php:470
+#: /home/kickasss/linetdev/linet/docsadmin.php:579
 msgid "Income account not defined"
 msgstr "חשבון הכנסות לא הוגדר"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:651
+#: /home/kickasss/linetdev/linet/docsadmin.php:650
 msgid "Create"
 msgstr "צור"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:656
+#: /home/kickasss/linetdev/linet/docsadmin.php:655
 msgid "Document type not defined"
 msgstr "לא נבחר סוג מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:671
+#: /home/kickasss/linetdev/linet/docsadmin.php:670
 msgid "Copy proforma"
 msgstr "העתק חשבונית עסקה"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:678
+#: /home/kickasss/linetdev/linet/docsadmin.php:677
 msgid "Copy delivery doc."
 msgstr "העתק ת. משלוח"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:692
+#: /home/kickasss/linetdev/linet/docsadmin.php:691
 msgid "Copy invoice"
 msgstr "העתק חשבונית"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:712
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:115
+#: /home/kickasss/linetdev/linet/docsadmin.php:711
+#: /home/kickasss/linetdev/linet/showdocs.php:113
 msgid "Customer"
 msgstr "לקוח"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:716
+#: /home/kickasss/linetdev/linet/docsadmin.php:715
 msgid "New customer"
 msgstr "לקוח חדש"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:721
+#: /home/kickasss/linetdev/linet/docsadmin.php:720
 msgid "Company"
 msgstr "חברה"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:725
+#: /home/kickasss/linetdev/linet/docsadmin.php:724
 msgid "Address"
 msgstr "כתובת"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:730
+#: /home/kickasss/linetdev/linet/docsadmin.php:729
 msgid "City"
 msgstr "עיר"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:734
+#: /home/kickasss/linetdev/linet/docsadmin.php:733
 msgid "Zip"
 msgstr "מיקוד"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:737
+#: /home/kickasss/linetdev/linet/docsadmin.php:736
 msgid "Reg. num"
 msgstr "עוסק מורשה"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:748
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:813
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:907
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1073
-#: /home/kickasss/linetdev/linet/linet/tedit.php:141
-#: /home/kickasss/linetdev/linet/linet/deposit.php:184
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:140
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:146
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:173
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:113
+#: /home/kickasss/linetdev/linet/docsadmin.php:747
+#: /home/kickasss/linetdev/linet/docsadmin.php:812
+#: /home/kickasss/linetdev/linet/docsadmin.php:906
+#: /home/kickasss/linetdev/linet/docsadmin.php:1072
+#: /home/kickasss/linetdev/linet/tedit.php:141
+#: /home/kickasss/linetdev/linet/deposit.php:184
+#: /home/kickasss/linetdev/linet/tranrep.php:143
+#: /home/kickasss/linetdev/linet/tranrep.php:149
+#: /home/kickasss/linetdev/linet/tranrep.php:177
+#: /home/kickasss/linetdev/linet/showdocs.php:111
 msgid "Date"
 msgstr "תאריך"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:755
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1011
+#: /home/kickasss/linetdev/linet/docsadmin.php:754
+#: /home/kickasss/linetdev/linet/docsadmin.php:1010
 msgid "To be paid until"
 msgstr "לתשלום עד"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:761
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:913
+#: /home/kickasss/linetdev/linet/docsadmin.php:760
+#: /home/kickasss/linetdev/linet/docsadmin.php:912
 msgid "Order number"
 msgstr "מספר הזמנה"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:771
+#: /home/kickasss/linetdev/linet/docsadmin.php:770
 msgid "New Item"
 msgstr "פריט חדש"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:776
+#: /home/kickasss/linetdev/linet/docsadmin.php:775
 msgid "Item"
 msgstr "פריט"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:778
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:939
+#: /home/kickasss/linetdev/linet/docsadmin.php:777
+#: /home/kickasss/linetdev/linet/docsadmin.php:938
 msgid "Description"
 msgstr "תיאור"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:780
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:941
+#: /home/kickasss/linetdev/linet/docsadmin.php:779
+#: /home/kickasss/linetdev/linet/docsadmin.php:940
 msgid "Qty."
 msgstr "כמות"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:782
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:943
+#: /home/kickasss/linetdev/linet/docsadmin.php:781
+#: /home/kickasss/linetdev/linet/docsadmin.php:942
 msgid "Price"
 msgstr "מחיר"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:786
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:947
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1033
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1117
-#: /home/kickasss/linetdev/linet/linet/balance.php:229
-#: /home/kickasss/linetdev/linet/linet/balance.php:242
-#: /home/kickasss/linetdev/linet/linet/deposit.php:218
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:379
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:203
+#: /home/kickasss/linetdev/linet/docsadmin.php:785
+#: /home/kickasss/linetdev/linet/docsadmin.php:946
+#: /home/kickasss/linetdev/linet/docsadmin.php:1032
+#: /home/kickasss/linetdev/linet/docsadmin.php:1116
+#: /home/kickasss/linetdev/linet/balance.php:229
+#: /home/kickasss/linetdev/linet/balance.php:242
+#: /home/kickasss/linetdev/linet/deposit.php:218
+#: /home/kickasss/linetdev/linet/tranrep.php:383
+#: /home/kickasss/linetdev/linet/showdocs.php:204
 msgid "Total"
 msgstr "סה\"כ"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:788
+#: /home/kickasss/linetdev/linet/docsadmin.php:787
 msgid "Remove"
 msgstr "הסר"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:801
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1061
+#: /home/kickasss/linetdev/linet/docsadmin.php:800
+#: /home/kickasss/linetdev/linet/docsadmin.php:1060
 msgid "Payment method"
 msgstr "אמצעי תשלום"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:803
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1063
+#: /home/kickasss/linetdev/linet/docsadmin.php:802
+#: /home/kickasss/linetdev/linet/docsadmin.php:1062
 msgid "Credit company"
 msgstr "חברת אשראי"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:805
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1065
+#: /home/kickasss/linetdev/linet/docsadmin.php:804
+#: /home/kickasss/linetdev/linet/docsadmin.php:1064
 msgid "Number"
 msgstr "מספר"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:807
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1067
-#: /home/kickasss/linetdev/linet/linet/deposit.php:178
+#: /home/kickasss/linetdev/linet/docsadmin.php:806
+#: /home/kickasss/linetdev/linet/docsadmin.php:1066
+#: /home/kickasss/linetdev/linet/deposit.php:178
 msgid "Bank"
 msgstr "בנק"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:809
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1069
-#: /home/kickasss/linetdev/linet/linet/deposit.php:180
+#: /home/kickasss/linetdev/linet/docsadmin.php:808
+#: /home/kickasss/linetdev/linet/docsadmin.php:1068
+#: /home/kickasss/linetdev/linet/deposit.php:180
 msgid "Branch"
 msgstr "סניף"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:811
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1071
+#: /home/kickasss/linetdev/linet/docsadmin.php:810
+#: /home/kickasss/linetdev/linet/docsadmin.php:1070
 msgid "Account no."
 msgstr "מספר חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:815
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1075
-#: /home/kickasss/linetdev/linet/linet/deposit.php:186
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:162
+#: /home/kickasss/linetdev/linet/docsadmin.php:814
+#: /home/kickasss/linetdev/linet/docsadmin.php:1074
+#: /home/kickasss/linetdev/linet/deposit.php:186
+#: /home/kickasss/linetdev/linet/tranrep.php:160
+#: /home/kickasss/linetdev/linet/tranrep.php:166
 msgid "Sum"
 msgstr "סכום"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:833
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1113
+#: /home/kickasss/linetdev/linet/docsadmin.php:832
+#: /home/kickasss/linetdev/linet/docsadmin.php:1112
 msgid "Source tax"
 msgstr "ניכוי במקור"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:841
+#: /home/kickasss/linetdev/linet/docsadmin.php:840
 msgid "Comments"
 msgstr "הערות"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:844
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1152
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:47
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:386
+#: /home/kickasss/linetdev/linet/docsadmin.php:843
+#: /home/kickasss/linetdev/linet/docsadmin.php:1151
 msgid "Next"
 msgstr "הבא"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:859
+#: /home/kickasss/linetdev/linet/docsadmin.php:858
 msgid "No document type chosen"
 msgstr "לא נבחר סוג מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:867
+#: /home/kickasss/linetdev/linet/docsadmin.php:866
 msgid "No customer was chosen"
 msgstr "לא נבחר לקוח"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:881
+#: /home/kickasss/linetdev/linet/docsadmin.php:880
 msgid "Invalid date"
 msgstr "תאריך לא תקין"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:903
+#: /home/kickasss/linetdev/linet/docsadmin.php:902
 msgid "To"
 msgstr "לכבוד"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:930
+#: /home/kickasss/linetdev/linet/docsadmin.php:929
 msgid "Source"
 msgstr "מקור"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:949
+#: /home/kickasss/linetdev/linet/docsadmin.php:948
 msgid "Total NIS"
 msgstr "סה\"כ ש\"ח"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:962
+#: /home/kickasss/linetdev/linet/docsadmin.php:961
 msgid "No item was chosen on line: "
 msgstr "לא נבחר פריט בשורה:"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:986
+#: /home/kickasss/linetdev/linet/docsadmin.php:985
 msgid "Set rate"
 msgstr "קבע שער עדכני"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1005
+#: /home/kickasss/linetdev/linet/docsadmin.php:1004
 msgid "Total for VAT"
 msgstr "סה\"כ חייב מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1017
+#: /home/kickasss/linetdev/linet/docsadmin.php:1016
 msgid "No vat total"
 msgstr "סה\"כ פטור ממע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1025
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:158
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:164
+#: /home/kickasss/linetdev/linet/docsadmin.php:1024
+#: /home/kickasss/linetdev/linet/tranrep.php:162
+#: /home/kickasss/linetdev/linet/tranrep.php:168
 msgid "VAT"
 msgstr "מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1133
+#: /home/kickasss/linetdev/linet/docsadmin.php:1132
 msgid "Back"
 msgstr "חזור"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1134
+#: /home/kickasss/linetdev/linet/docsadmin.php:1133
 msgid "The sum of the invoice and the receipt is not the same"
 msgstr "סכום הקבלה והחשבונית אינם זהים אנא תקן."
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1139
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1169
+#: /home/kickasss/linetdev/linet/docsadmin.php:1138
+#: /home/kickasss/linetdev/linet/docsadmin.php:1168
 msgid "Documenet Preview"
 msgstr "תצוגה מקדימה"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1146
+#: /home/kickasss/linetdev/linet/docsadmin.php:1145
 msgid "Create & print"
 msgstr "רשום והדפס"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1160
-#: /home/kickasss/linetdev/linet/linet/balance.php:254
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:416
+#: /home/kickasss/linetdev/linet/docsadmin.php:1159
+#: /home/kickasss/linetdev/linet/balance.php:254
+#: /home/kickasss/linetdev/linet/tranrep.php:420
 msgid "Print"
 msgstr "הדפס"
 
-#: /home/kickasss/linetdev/linet/linet/docsadmin.php:1162
+#: /home/kickasss/linetdev/linet/docsadmin.php:1161
 msgid "Document Print"
 msgstr "הדפסת מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:81
-#: /home/kickasss/linetdev/linet/linet/balance.php:91
+#: /home/kickasss/linetdev/linet/balance.php:81
+#: /home/kickasss/linetdev/linet/balance.php:91
 msgid "Balance report"
 msgstr "מאזן"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:97
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:87
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:235
+#: /home/kickasss/linetdev/linet/balance.php:97
+#: /home/kickasss/linetdev/linet/tranrep.php:88
+#: /home/kickasss/linetdev/linet/showdocs.php:236
 msgid "From date"
 msgstr "מתאריך"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:102
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:93
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:242
+#: /home/kickasss/linetdev/linet/balance.php:102
+#: /home/kickasss/linetdev/linet/tranrep.php:94
+#: /home/kickasss/linetdev/linet/showdocs.php:243
 msgid "To date"
 msgstr "עד תאריך"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:124
+#: /home/kickasss/linetdev/linet/balance.php:124
+#: /home/kickasss/linetdev/linet/tranrep.php:123
 msgid "For period"
 msgstr "לתקופה"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:140
-#: /home/kickasss/linetdev/linet/linet/balance.php:152
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:89
-#: /home/kickasss/linetdev/linet/linet/tedit.php:33
-#: /home/kickasss/linetdev/linet/linet/deposit.php:182
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:142
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:148
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:175
+#: /home/kickasss/linetdev/linet/balance.php:140
+#: /home/kickasss/linetdev/linet/balance.php:152
+#: /home/kickasss/linetdev/linet/opbalance.php:89
+#: /home/kickasss/linetdev/linet/tedit.php:33
+#: /home/kickasss/linetdev/linet/deposit.php:182
+#: /home/kickasss/linetdev/linet/tranrep.php:145
+#: /home/kickasss/linetdev/linet/tranrep.php:151
+#: /home/kickasss/linetdev/linet/tranrep.php:179
 msgid "Account"
 msgstr "חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:142
-#: /home/kickasss/linetdev/linet/linet/balance.php:153
+#: /home/kickasss/linetdev/linet/balance.php:142
+#: /home/kickasss/linetdev/linet/balance.php:153
 msgid "6111 clause"
 msgstr "סעיף 6111"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:144
-#: /home/kickasss/linetdev/linet/linet/balance.php:154
-#: /home/kickasss/linetdev/linet/linet/tedit.php:35
+#: /home/kickasss/linetdev/linet/balance.php:144
+#: /home/kickasss/linetdev/linet/balance.php:154
+#: /home/kickasss/linetdev/linet/tedit.php:35
 msgid "Debit"
 msgstr "חובה"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:146
-#: /home/kickasss/linetdev/linet/linet/balance.php:155
-#: /home/kickasss/linetdev/linet/linet/tedit.php:37
+#: /home/kickasss/linetdev/linet/balance.php:146
+#: /home/kickasss/linetdev/linet/balance.php:155
+#: /home/kickasss/linetdev/linet/tedit.php:37
 msgid "Credit"
 msgstr "זכות"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:148
-#: /home/kickasss/linetdev/linet/linet/balance.php:156
+#: /home/kickasss/linetdev/linet/balance.php:148
+#: /home/kickasss/linetdev/linet/balance.php:156
 msgid "Acc. balance"
 msgstr "יתרה"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:260
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:419
+#: /home/kickasss/linetdev/linet/balance.php:260
+#: /home/kickasss/linetdev/linet/tranrep.php:423
 msgid "File export"
 msgstr "יצוא לקובץ"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:267
+#: /home/kickasss/linetdev/linet/balance.php:267
 msgid "Click here to download"
 msgstr "לחץ כאן להורדת הקובץ"
 
-#: /home/kickasss/linetdev/linet/linet/balance.php:271
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:403
+#: /home/kickasss/linetdev/linet/balance.php:271
+#: /home/kickasss/linetdev/linet/tranrep.php:407
 msgid "Right click and choose 'save as...'"
 msgstr "להורדת הקובץ לחץ כפתור ימני ובחר שמור בשם"
 
-#: /home/kickasss/linetdev/linet/linet/shurtcut.php:3
+#: /home/kickasss/linetdev/linet/shurtcut.php:3
 msgid "Short cuts"
 msgstr "קיצורי דרך"
 
-#: /home/kickasss/linetdev/linet/linet/shurtcut.php:4
+#: /home/kickasss/linetdev/linet/shurtcut.php:4
 msgid "Invoice"
 msgstr "חשבונית מס"
 
-#: /home/kickasss/linetdev/linet/linet/shurtcut.php:7
-#: /home/kickasss/linetdev/linet/linet/deposit.php:174
+#: /home/kickasss/linetdev/linet/shurtcut.php:7
+#: /home/kickasss/linetdev/linet/deposit.php:174
 msgid "Receipt"
 msgstr "קבלה"
 
-#: /home/kickasss/linetdev/linet/linet/shurtcut.php:9
-#: /home/kickasss/linetdev/linet/linet/deposit.php:224
+#: /home/kickasss/linetdev/linet/shurtcut.php:9
+#: /home/kickasss/linetdev/linet/deposit.php:224
 msgid "Deposit"
 msgstr "הפקדות"
 
-#: /home/kickasss/linetdev/linet/linet/shurtcut.php:11
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:189
+#: /home/kickasss/linetdev/linet/shurtcut.php:11
+#: /home/kickasss/linetdev/linet/tranrep.php:193
 msgid "Outcome"
 msgstr "הוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/shurtcut.php:13
+#: /home/kickasss/linetdev/linet/shurtcut.php:13
 msgid "Payment"
 msgstr "תשלומים"
 
-#: /home/kickasss/linetdev/linet/linet/shurtcut.php:16
+#: /home/kickasss/linetdev/linet/shurtcut.php:16
 msgid "Contacts"
 msgstr "אנשי קשר"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:48
+#: /home/kickasss/linetdev/linet/main.php:43
 msgid "No companies for this user"
 msgstr "אין חברות למשתמש זה"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:61
+#: /home/kickasss/linetdev/linet/main.php:56
 msgid "Choose business to work on"
 msgstr "בחר חברה לעבודה"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:83
+#: /home/kickasss/linetdev/linet/main.php:57
+#, fuzzy
+msgid "Company Name"
+msgstr "חברה"
+
+#: /home/kickasss/linetdev/linet/main.php:80
 msgid "Add new business"
 msgstr "הוסף חברה חדשה"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:148
+#: /home/kickasss/linetdev/linet/main.php:145
 msgid "Business details (NIS)"
 msgstr "נתונים עסקיים"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:164
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:36
+#: /home/kickasss/linetdev/linet/main.php:161
 msgid "Begin date"
 msgstr "תאריך תחילה"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:170
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:40
+#: /home/kickasss/linetdev/linet/main.php:167
 msgid "End date"
 msgstr "תאריך סיום"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:175
+#: /home/kickasss/linetdev/linet/main.php:172
 msgid "Go"
-msgstr "סע"
+msgstr "בצע"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:185
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:187
+#: /home/kickasss/linetdev/linet/main.php:182
+#: /home/kickasss/linetdev/linet/tranrep.php:191
 msgid "Total income"
 msgstr "סה\"כ הכנסות"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:191
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:193
+#: /home/kickasss/linetdev/linet/main.php:188
+#: /home/kickasss/linetdev/linet/tranrep.php:197
 msgid "Total outcome"
 msgstr "סה\"כ הוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:198
+#: /home/kickasss/linetdev/linet/main.php:195
 msgid "Total profit"
 msgstr "סה\"כ רווח"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:202
+#: /home/kickasss/linetdev/linet/main.php:199
 msgid "Total loss"
 msgstr "סה\"כ הפסד"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:214
+#: /home/kickasss/linetdev/linet/main.php:211
 msgid "Total customers"
 msgstr "סה\"כ חוב של לקוחות"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:222
+#: /home/kickasss/linetdev/linet/main.php:219
 msgid "Total suppliers"
 msgstr "סה\"כ חוב לספקים"
 
-#: /home/kickasss/linetdev/linet/linet/main.php:231
+#: /home/kickasss/linetdev/linet/main.php:228
 msgid "Events according to date"
 msgstr "אירועים לפי תאריך"
 
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:40
+#: /home/kickasss/linetdev/linet/opbalance.php:40
 msgid "Select account"
 msgstr "בחר חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:59
+#: /home/kickasss/linetdev/linet/opbalance.php:59
 msgid "Openning balances"
 msgstr "יתרות פתיחה"
 
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:77
+#: /home/kickasss/linetdev/linet/opbalance.php:77
 msgid "Openning balances updated"
 msgstr "יתרות פתיחה עודכנו"
 
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:84
+#: /home/kickasss/linetdev/linet/opbalance.php:84
 msgid "Select year"
 msgstr "בחר שנה"
 
-#: /home/kickasss/linetdev/linet/linet/opbalance.php:91
+#: /home/kickasss/linetdev/linet/opbalance.php:91
 msgid "Acct. balance"
 msgstr "יתרה"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:63
+#: /home/kickasss/linetdev/linet/tedit.php:63
 msgid "Storeno transaction registered"
 msgstr "תנועת ביטול נרשמה"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:88
+#: /home/kickasss/linetdev/linet/tedit.php:88
 msgid "Transaction updated"
 msgstr "התנועה עודכנה בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:116
+#: /home/kickasss/linetdev/linet/tedit.php:116
 msgid "Edit transaction"
 msgstr "ערוך תנועה"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:122
+#: /home/kickasss/linetdev/linet/tedit.php:122
 msgid "Transaction number"
 msgstr "מספר תנועה"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:126
+#: /home/kickasss/linetdev/linet/tedit.php:126
 msgid "Tran. type"
 msgstr "סוג תנועה"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:131
+#: /home/kickasss/linetdev/linet/tedit.php:131
 msgid "Debit account"
 msgstr "חשבון חובה"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:136
+#: /home/kickasss/linetdev/linet/tedit.php:136
 msgid "Credit account"
 msgstr "חשבון זכות"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:146
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:151
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:177
+#: /home/kickasss/linetdev/linet/tedit.php:146
+#: /home/kickasss/linetdev/linet/tranrep.php:154
+#: /home/kickasss/linetdev/linet/tranrep.php:181
 msgid "Ref. num"
 msgstr "אסמכתא"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:150
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:155
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:181
+#: /home/kickasss/linetdev/linet/tedit.php:150
+#: /home/kickasss/linetdev/linet/tranrep.php:158
+#: /home/kickasss/linetdev/linet/tranrep.php:185
 msgid "Details"
 msgstr "פרטים"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:154
+#: /home/kickasss/linetdev/linet/tedit.php:154
 msgid "Storeno transaction"
 msgstr "רישום סטורנו"
 
-#: /home/kickasss/linetdev/linet/linet/tedit.php:157
+#: /home/kickasss/linetdev/linet/tedit.php:157
 msgid "Submit"
 msgstr "בצע"
 
-#: /home/kickasss/linetdev/linet/linet/demoreg.php:45
+#: /home/kickasss/linetdev/linet/about.php:2
+msgid "About"
+msgstr "אודות"
+
+#: /home/kickasss/linetdev/linet/about.php:4
+msgid "Linet"
+msgstr "לינט"
+
+#: /home/kickasss/linetdev/linet/about.php:5
+msgid "Accounting software"
+msgstr "תוכנת הנהלת חשבונות"
+
+#: /home/kickasss/linetdev/linet/about.php:6
+msgid "Version"
+msgstr "גרסה"
+
+#: /home/kickasss/linetdev/linet/about.php:8
+msgid "Software license"
+msgstr "רישיון תוכנה"
+
+#: /home/kickasss/linetdev/linet/about.php:8
+msgid "General-Public-License"
+msgstr "רישיון כללי ציבורי"
+
+#: /home/kickasss/linetdev/linet/about.php:11
+msgid "Registration certificate from the Tax Israeli Authority"
+msgstr "אישור רישום מרשות המיסים"
+
+#: /home/kickasss/linetdev/linet/about.php:11
+msgid "No."
+msgstr "מס'"
+
+#: /home/kickasss/linetdev/linet/demoreg.php:45
 msgid "You have registered in the past to the demo version"
 msgstr "נרשמת בעבר לגרסת ההדגמה"
 
-#: /home/kickasss/linetdev/linet/linet/demoreg.php:47
+#: /home/kickasss/linetdev/linet/demoreg.php:47
 msgid "Login to software using this email with no password"
 msgstr "להתחברות נוספת יש להכניס את כתובת המייל ללא ססמה"
 
-#: /home/kickasss/linetdev/linet/linet/demoreg.php:49
+#: /home/kickasss/linetdev/linet/demoreg.php:49
 msgid "Click here to login"
 msgstr "לחץ כאן להתחברות"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:77
+#: /home/kickasss/linetdev/linet/deposit.php:77
 msgid "Cheque, credit and cash deposit"
 msgstr "הפקדת שיקים, מזומנים וסליקת אשראי"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:84
+#: /home/kickasss/linetdev/linet/deposit.php:84
 msgid "Bank account not defined"
 msgstr "לא הוגדר חשבון בנק"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:90
+#: /home/kickasss/linetdev/linet/deposit.php:90
 msgid "Deposit date not defined"
 msgstr "לא הוגדר תאריך הפקדה"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:98
+#: /home/kickasss/linetdev/linet/deposit.php:98
 msgid "Bank refnum must be filled"
 msgstr "יש למלא אסמכתא בבנק"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:104
+#: /home/kickasss/linetdev/linet/deposit.php:104
 msgid "Nothing to deposit"
 msgstr "לא נבחרו סכומים להפקדה"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:147
+#: /home/kickasss/linetdev/linet/deposit.php:147
 msgid "Deposit executed successfully"
 msgstr "ההפקדה בוצעה בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:153
+#: /home/kickasss/linetdev/linet/deposit.php:153
 msgid "Bank account"
 msgstr "חשבון בנק"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:156
+#: /home/kickasss/linetdev/linet/deposit.php:156
 msgid "Deposit date"
 msgstr "תאריך הפקדה"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:164
+#: /home/kickasss/linetdev/linet/deposit.php:164
 msgid "Bank refnum"
 msgstr "אסמכתא בבנק"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:172
+#: /home/kickasss/linetdev/linet/deposit.php:172
 msgid "Type"
 msgstr "סוג"
 
-#: /home/kickasss/linetdev/linet/linet/deposit.php:176
+#: /home/kickasss/linetdev/linet/deposit.php:176
 msgid "Refnum"
 msgstr "אסמכתא"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:59
+#: /home/kickasss/linetdev/linet/tranrep.php:59
 msgid "Income outcome report"
 msgstr "ספר הכנסות והוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:129
+#: /home/kickasss/linetdev/linet/tranrep.php:132
 msgid "Incomes"
 msgstr "הכנסות"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:131
+#: /home/kickasss/linetdev/linet/tranrep.php:134
 msgid "Outcomes"
 msgstr "הוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:134
+#: /home/kickasss/linetdev/linet/tranrep.php:137
 msgid "Transaction"
 msgstr "תנועה"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:153
+#: /home/kickasss/linetdev/linet/tranrep.php:156
 msgid "Customer//Supplier"
 msgstr "לקוחות\\ספקים"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:160
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:166
+#: /home/kickasss/linetdev/linet/tranrep.php:164
+#: /home/kickasss/linetdev/linet/tranrep.php:170
 msgid "Inc. VAT"
 msgstr "כולל מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:171
+#: /home/kickasss/linetdev/linet/tranrep.php:175
 msgid "Tran."
 msgstr "תנועה"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:179
+#: /home/kickasss/linetdev/linet/tranrep.php:183
 msgid "Customer/Supplier"
 msgstr "לקוח\\ספק"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:183
+#: /home/kickasss/linetdev/linet/tranrep.php:187
 msgid "Income"
 msgstr "מכירות"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:185
+#: /home/kickasss/linetdev/linet/tranrep.php:189
 msgid "Income VAT"
 msgstr "מע\"מ תקבולים"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:191
+#: /home/kickasss/linetdev/linet/tranrep.php:195
 msgid "Outcome VAT"
 msgstr "מע\"מ תשלומים"
 
-#: /home/kickasss/linetdev/linet/linet/tranrep.php:399
+#: /home/kickasss/linetdev/linet/tranrep.php:403
 msgid "Click here to download report"
 msgstr "לחץ כאן להורדת הקובץ"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:34
+#: /home/kickasss/linetdev/linet/showdocs.php:30
 msgid "Select document type"
 msgstr "בחר סוג מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:69
+#: /home/kickasss/linetdev/linet/showdocs.php:69
 msgid "Document type must be chosen"
 msgstr "לא נבחר סוג מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:109
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:223
+#: /home/kickasss/linetdev/linet/showdocs.php:107
+#: /home/kickasss/linetdev/linet/showdocs.php:224
 msgid "Doc. type"
 msgstr "סוג מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:111
+#: /home/kickasss/linetdev/linet/showdocs.php:109
 msgid "Num"
 msgstr "מס'"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:118
+#: /home/kickasss/linetdev/linet/showdocs.php:116
 msgid "No VAT sum"
 msgstr "סכום לפני מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:121
+#: /home/kickasss/linetdev/linet/showdocs.php:119
 msgid "Total sum"
 msgstr "סכום כולל"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:179
+#: /home/kickasss/linetdev/linet/showdocs.php:178
 msgid "Display"
 msgstr "הצג"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:185
+#: /home/kickasss/linetdev/linet/showdocs.php:184
 msgid "Copy"
 msgstr "העתק"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:219
+#: /home/kickasss/linetdev/linet/showdocs.php:220
 msgid "Search business document"
 msgstr "חיפוש מסמכים עסקיים"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:229
+#: /home/kickasss/linetdev/linet/showdocs.php:230
 msgid "Select customer"
 msgstr "בחר לקוח"
 
-#: /home/kickasss/linetdev/linet/linet/showdocs.php:248
+#: /home/kickasss/linetdev/linet/showdocs.php:249
 msgid "Search"
 msgstr "חפש"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:24
+#: /home/kickasss/linetdev/linet/showdocs.php:259
+msgid "Your browser does not support iframes."
+msgstr ""
+
+#: /home/kickasss/linetdev/linet/openfrmtimport.php:24
 msgid "Data to Import:"
 msgstr "מידע לייבוא"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:26
+#: /home/kickasss/linetdev/linet/openfrmtimport.php:26
 msgid "Accounts"
 msgstr "חשבונות"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:28
+#: /home/kickasss/linetdev/linet/openfrmtimport.php:28
 msgid "Accounts And Items"
 msgstr "חשבונות ופרטים"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:30
+#: /home/kickasss/linetdev/linet/openfrmtimport.php:30
 msgid "Everything"
 msgstr "הכל"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:406
+#: /home/kickasss/linetdev/linet/openfrmtimport.php:407
 msgid "Data Import Complted Sucsesfuly"
 msgstr "הנתונים יובאו בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:407
+#: /home/kickasss/linetdev/linet/openfrmtimport.php:408
 msgid "Finish"
 msgstr "סיום"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmtimport.php:415
+#: /home/kickasss/linetdev/linet/openfrmtimport.php:416
 msgid "Select type"
 msgstr "בחר סוג"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:57
-#: /home/kickasss/linetdev/linet/linet/payment.php:241
-#: /home/kickasss/linetdev/linet/linet/payment.php:289
+#: /home/kickasss/linetdev/linet/bag.php:29
+msgid "Subject"
+msgstr "נושא"
+
+#: /home/kickasss/linetdev/linet/bag.php:30
+msgid "Full name"
+msgstr "שם מלא"
+
+#: /home/kickasss/linetdev/linet/bag.php:31
+msgid "Email"
+msgstr "דואל"
+
+#: /home/kickasss/linetdev/linet/bag.php:32
+msgid "Message"
+msgstr "הודעה"
+
+#: /home/kickasss/linetdev/linet/bag.php:34
+msgid "I want to send a detialed automatic error report genrated by the system"
+msgstr "אני מעוניין לשלוח דוח פרטי מערכת מפורט "
+
+#: /home/kickasss/linetdev/linet/bag.php:35
+msgid "Hello"
+msgstr "שלום"
+
+#: /home/kickasss/linetdev/linet/bag.php:81
+msgid "From: "
+msgstr "מ"
+
+#: /home/kickasss/linetdev/linet/bag.php:82
+msgid "Regarding company"
+msgstr "לגבי חברה"
+
+#: /home/kickasss/linetdev/linet/bag.php:103
+msgid "Message sent to linet team"
+msgstr "ההודעה נשלחה למערכת לינט"
+
+#: /home/kickasss/linetdev/linet/bag.php:105
+msgid "We will do our best to answer you shortly"
+msgstr "נשתדל לענות לך בהקדם"
+
+#: /home/kickasss/linetdev/linet/bag.php:107
+msgid "Click here to continue"
+msgstr "לחץ כאן להמשך"
+
+#: /home/kickasss/linetdev/linet/bag.php:113
+msgid "Support"
+msgstr "תמיכה"
+
+#: /home/kickasss/linetdev/linet/payment.php:57
+#: /home/kickasss/linetdev/linet/payment.php:241
+#: /home/kickasss/linetdev/linet/payment.php:289
 msgid "Payment type"
 msgstr "אמצעי תשלום"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:146
+#: /home/kickasss/linetdev/linet/payment.php:146
 msgid "No supplier was chosen"
 msgstr "לא נבחר ספק"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:153
+#: /home/kickasss/linetdev/linet/payment.php:153
 msgid "No payment method selected"
 msgstr "לא נבחר אמצעי תשלום"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:174
+#: /home/kickasss/linetdev/linet/payment.php:174
 msgid "Payment executed successfully"
 msgstr "התשלום נרשם בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:206
+#: /home/kickasss/linetdev/linet/payment.php:206
 msgid "VAT payment"
 msgstr "תשלום מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:210
+#: /home/kickasss/linetdev/linet/payment.php:210
 msgid "National insurance payment"
 msgstr "תשלום ביטוח לאומי"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:214
-#: /home/kickasss/linetdev/linet/linet/payment.php:275
+#: /home/kickasss/linetdev/linet/payment.php:214
+#: /home/kickasss/linetdev/linet/payment.php:275
 msgid "Supplier payment"
 msgstr "תשלום לספק"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:216
+#: /home/kickasss/linetdev/linet/payment.php:216
 msgid "Check data and press update to register payment"
 msgstr "בדוק את הפרטים ולחץ עדכן"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:225
-#: /home/kickasss/linetdev/linet/linet/payment.php:324
-#: /home/kickasss/linetdev/linet/linet/lasttran.inc.php:61
-#: /home/kickasss/linetdev/linet/linet/contact.php:430
+#: /home/kickasss/linetdev/linet/payment.php:225
+#: /home/kickasss/linetdev/linet/payment.php:324
+#: /home/kickasss/linetdev/linet/lasttran.inc.php:61
+#: /home/kickasss/linetdev/linet/contact.php:431
 msgid "Supplier"
 msgstr "ספק"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:279
+#: /home/kickasss/linetdev/linet/payment.php:279
 msgid "Choose supplier"
 msgstr "בחר ספק"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:285
+#: /home/kickasss/linetdev/linet/payment.php:285
 msgid "Total payment"
 msgstr "תשלום מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/payment.php:310
-msgid "need to be"
-msgstr ""
-
-#: /home/kickasss/linetdev/linet/linet/payment.php:319
+#: /home/kickasss/linetdev/linet/payment.php:319
 msgid "Suppliers accounts"
 msgstr "חשבונות ספקים"
 
-#: /home/kickasss/linetdev/linet/linet/lasttran.inc.php:54
+#: /home/kickasss/linetdev/linet/lasttran.inc.php:54
 msgid "Last outcomes"
 msgstr "הוצאות אחרונות"
 
-#: /home/kickasss/linetdev/linet/linet/lasttran.inc.php:57
+#: /home/kickasss/linetdev/linet/lasttran.inc.php:57
 msgid "Num."
 msgstr "מספר"
 
-#: /home/kickasss/linetdev/linet/linet/lasttran.inc.php:63
+#: /home/kickasss/linetdev/linet/lasttran.inc.php:63
 msgid "Outcome acc."
 msgstr "חשבון הוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/lasttran.inc.php:69
+#: /home/kickasss/linetdev/linet/lasttran.inc.php:69
 msgid "Before VAT"
 msgstr "לפני מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/contact.php:203
-msgid "Activity history"
-msgstr "הסטורית פעילות"
-
-#: /home/kickasss/linetdev/linet/linet/contact.php:205
-msgid "Business documents"
-msgstr "מסמכים עסקיים"
-
-#: /home/kickasss/linetdev/linet/linet/contact.php:227
-msgid "Including VAT"
-msgstr "כולל מע\"מ"
-
-#: /home/kickasss/linetdev/linet/linet/contact.php:254
+#: /home/kickasss/linetdev/linet/contact.php:202
+#: /home/kickasss/linetdev/linet/contact.php:278
 msgid "Contact history"
 msgstr "הסטורית קשר"
 
-#: /home/kickasss/linetdev/linet/linet/contact.php:308
+#: /home/kickasss/linetdev/linet/contact.php:220
+msgid "Activity history"
+msgstr "הסטורית פעילות"
+
+#: /home/kickasss/linetdev/linet/contact.php:222
+msgid "Business documents"
+msgstr "מסמכים עסקיים"
+
+#: /home/kickasss/linetdev/linet/contact.php:244
+msgid "Including VAT"
+msgstr "כולל מע\"מ"
+
+#: /home/kickasss/linetdev/linet/contact.php:310
 msgid "Contact"
 msgstr "איש קשר"
 
-#: /home/kickasss/linetdev/linet/linet/contact.php:347
+#: /home/kickasss/linetdev/linet/contact.php:350
 msgid "Add customer"
 msgstr "הוספת לקוח"
 
-#: /home/kickasss/linetdev/linet/linet/contact.php:350
+#: /home/kickasss/linetdev/linet/contact.php:353
 msgid "Add supplier"
 msgstr "הוספת ספק"
 
-#: /home/kickasss/linetdev/linet/linet/contact.php:377
+#: /home/kickasss/linetdev/linet/contact.php:379
 msgid "Customers managmenet"
 msgstr "ניהול לקוחות"
 
-#: /home/kickasss/linetdev/linet/linet/contact.php:379
+#: /home/kickasss/linetdev/linet/contact.php:381
 msgid "Suppliers managmenet"
 msgstr "ניהול ספקים"
 
-#: /home/kickasss/linetdev/linet/linet/contact.php:440
+#: /home/kickasss/linetdev/linet/contact.php:440
 msgid "Transactions"
 msgstr "תנועות"
 
-#: /home/kickasss/linetdev/linet/linet/curadmin.php:109
+#: /home/kickasss/linetdev/linet/curadmin.php:109
 msgid "Currency rates"
 msgstr "שערי מטבע"
 
-#: /home/kickasss/linetdev/linet/linet/curadmin.php:131
-#: /home/kickasss/linetdev/linet/linet/curadmin.php:182
+#: /home/kickasss/linetdev/linet/curadmin.php:131
+#: /home/kickasss/linetdev/linet/curadmin.php:182
 msgid "Sign"
 msgstr "סמל"
 
-#: /home/kickasss/linetdev/linet/linet/curadmin.php:135
+#: /home/kickasss/linetdev/linet/curadmin.php:135
 msgid "Rate"
 msgstr "שער"
 
-#: /home/kickasss/linetdev/linet/linet/curadmin.php:171
+#: /home/kickasss/linetdev/linet/curadmin.php:171
 msgid "Add currency"
 msgstr "הוסף מטבע"
 
-#: /home/kickasss/linetdev/linet/linet/curadmin.php:178
+#: /home/kickasss/linetdev/linet/curadmin.php:178
 msgid "Currency name"
 msgstr "שם מטבע"
 
-#: /home/kickasss/linetdev/linet/linet/pcn874.php:19
+#: /home/kickasss/linetdev/linet/pcn874.php:14
 #, fuzzy
 msgid "Export pcn874 files for tax authorities"
 msgstr "יצוא קבצים במבנה אחיד עבור מס הכנסה"
 
-#: /home/kickasss/linetdev/linet/linet/pcn874.php:187
+#: /home/kickasss/linetdev/linet/pcn874.php:187
 msgid "Link to file"
 msgstr "קישור לקובץ"
 
-#: /home/kickasss/linetdev/linet/linet/intmatch.php:113
+#: /home/kickasss/linetdev/linet/intmatch.php:113
 msgid "Accounts reconciliations"
 msgstr "התאמת כרטיסים"
 
-#: /home/kickasss/linetdev/linet/linet/intmatch.php:164
+#: /home/kickasss/linetdev/linet/intmatch.php:164
 msgid "Unbalanced reconciliation"
 msgstr "התאמה לא מאוזנת"
 
-#: /home/kickasss/linetdev/linet/linet/intmatch.php:191
+#: /home/kickasss/linetdev/linet/intmatch.php:191
 msgid "No account chosen"
 msgstr "לא נבחר חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/intmatch.php:207
+#: /home/kickasss/linetdev/linet/intmatch.php:207
 msgid "Debit transactions"
 msgstr "תנועות בחובה"
 
-#: /home/kickasss/linetdev/linet/linet/intmatch.php:210
+#: /home/kickasss/linetdev/linet/intmatch.php:210
 msgid "Credit transactions"
 msgstr "תנועות בזכות"
 
-#: /home/kickasss/linetdev/linet/linet/intmatch.php:288
+#: /home/kickasss/linetdev/linet/intmatch.php:288
 msgid "Reconciliate"
 msgstr "התאמה"
 
-#: /home/kickasss/linetdev/linet/linet/intmatch.php:305
+#: /home/kickasss/linetdev/linet/intmatch.php:305
 msgid "Select"
 msgstr "בחר"
 
-#: /home/kickasss/linetdev/linet/linet/owe.php:40
+#: /home/kickasss/linetdev/linet/owe.php:40
 msgid "Customers owing money"
 msgstr "לקוחות חייבים"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:119
+#: /home/kickasss/linetdev/linet/calendar.php:119
 msgid "Pay supplier"
 msgstr "לשלם לספק"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:124
-#: /home/kickasss/linetdev/linet/linet/calendar.php:177
-#: /home/kickasss/linetdev/linet/linet/calendar.php:209
-#: /home/kickasss/linetdev/linet/linet/calendar.php:258
+#: /home/kickasss/linetdev/linet/calendar.php:124
+#: /home/kickasss/linetdev/linet/calendar.php:177
+#: /home/kickasss/linetdev/linet/calendar.php:209
+#: /home/kickasss/linetdev/linet/calendar.php:258
 msgid "Reference"
 msgstr "אסמכתא"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:291
+#: /home/kickasss/linetdev/linet/calendar.php:291
 msgid "To customer"
 msgstr "ללקוח"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:331
+#: /home/kickasss/linetdev/linet/calendar.php:331
 msgid "Cheque deposit"
 msgstr "הפקדת שיק"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:334
-msgid "From: "
-msgstr "מ"
-
-#: /home/kickasss/linetdev/linet/linet/calendar.php:336
+#: /home/kickasss/linetdev/linet/calendar.php:336
 msgid "Total of"
 msgstr "סך של"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:347
+#: /home/kickasss/linetdev/linet/calendar.php:347
 msgid "Contact with"
 msgstr "קשר עם"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:363
+#: /home/kickasss/linetdev/linet/calendar.php:363
 msgid "Jan."
 msgstr "ינואר"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:363
+#: /home/kickasss/linetdev/linet/calendar.php:363
 msgid "Feb."
 msgstr "פברואר"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:363
+#: /home/kickasss/linetdev/linet/calendar.php:363
 msgid "Apr."
 msgstr "אפריל"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:364
+#: /home/kickasss/linetdev/linet/calendar.php:364
 msgid "Aug."
 msgstr "אוגוסט"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:364
+#: /home/kickasss/linetdev/linet/calendar.php:364
 msgid "Sep."
 msgstr "ספטמבר"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:364
+#: /home/kickasss/linetdev/linet/calendar.php:364
 msgid "Oct."
 msgstr "אוקטובר"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:364
+#: /home/kickasss/linetdev/linet/calendar.php:364
 msgid "Nov."
 msgstr "נובמבר"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:364
+#: /home/kickasss/linetdev/linet/calendar.php:364
 msgid "Dec."
 msgstr "דצמבר"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:368
+#: /home/kickasss/linetdev/linet/calendar.php:368
 msgid "Sun"
 msgstr "א"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:368
+#: /home/kickasss/linetdev/linet/calendar.php:368
 msgid "Mon"
 msgstr "ב"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:368
+#: /home/kickasss/linetdev/linet/calendar.php:368
 msgid "Tue"
 msgstr "ג"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:368
+#: /home/kickasss/linetdev/linet/calendar.php:368
 msgid "Wed"
 msgstr "ד"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:368
+#: /home/kickasss/linetdev/linet/calendar.php:368
 msgid "Thu"
 msgstr "ה"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:368
+#: /home/kickasss/linetdev/linet/calendar.php:368
 msgid "Fri"
 msgstr "ו"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:368
+#: /home/kickasss/linetdev/linet/calendar.php:368
 msgid "Sat"
 msgstr "ש"
 
-#: /home/kickasss/linetdev/linet/linet/calendar.php:516
+#: /home/kickasss/linetdev/linet/calendar.php:516
 msgid "Events for date"
 msgstr "אירועים לתאריך"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:86
+#: /home/kickasss/linetdev/linet/acctadmin.php:16
+#: /home/kickasss/linetdev/linet/acctadmin.php:363
+msgid "accounts"
+msgstr "חשבונות"
+
+#: /home/kickasss/linetdev/linet/acctadmin.php:87
 msgid "Choose 6111 clause"
 msgstr "בחר סעיף 6111"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:180
+#: /home/kickasss/linetdev/linet/acctadmin.php:98
+msgid "other"
+msgstr ""
+
+#: /home/kickasss/linetdev/linet/acctadmin.php:181
 msgid "Account name must be specified"
 msgstr "לא צוין שם חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:307
+#: /home/kickasss/linetdev/linet/acctadmin.php:309
 msgid "Account with transactions can not be deleted"
 msgstr "לא ניתן למחוק חשבון עם תנועות"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:360
+#: /home/kickasss/linetdev/linet/acctadmin.php:362
 #, php-format
 msgid "Existing %s accounts"
 msgstr "חשבונות %s קיימים"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:361
-#, fuzzy
-msgid "accounts"
-msgstr "חשבונות"
-
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:368
+#: /home/kickasss/linetdev/linet/acctadmin.php:370
 msgid "Internal number"
 msgstr "מספר פנימי"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:371
+#: /home/kickasss/linetdev/linet/acctadmin.php:373
 msgid "Name"
 msgstr "שם"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:374
+#: /home/kickasss/linetdev/linet/acctadmin.php:376
 msgid "Recognized VAT"
 msgstr "מע\"מ מוכר"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:376
+#: /home/kickasss/linetdev/linet/acctadmin.php:378
 msgid "6111 caluse"
 msgstr "סעיף 6111"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:378
+#: /home/kickasss/linetdev/linet/acctadmin.php:380
 msgid "6111 description"
 msgstr "תיאור 6111"
 
-#: /home/kickasss/linetdev/linet/linet/acctadmin.php:388
+#: /home/kickasss/linetdev/linet/acctadmin.php:390
 msgid "Phone"
 msgstr "טלפון"
 
-#: /home/kickasss/linetdev/linet/linet/mprofloss.php:129
+#: /home/kickasss/linetdev/linet/mprofloss.php:129
 msgid "Profit & loss per month"
 msgstr "רווח והפסד לפי חודש"
 
-#: /home/kickasss/linetdev/linet/linet/mprofloss.php:133
+#: /home/kickasss/linetdev/linet/mprofloss.php:133
 msgid "For year"
 msgstr "לשנת"
 
-#: /home/kickasss/linetdev/linet/linet/mprofloss.php:512
-#: /home/kickasss/linetdev/linet/linet/mprofloss.php:525
+#: /home/kickasss/linetdev/linet/mprofloss.php:512
+#: /home/kickasss/linetdev/linet/mprofloss.php:525
 msgid "Profit & loss"
 msgstr "רווח והפסד"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:100
+#: /home/kickasss/linetdev/linet/docnums.php:100
 msgid "Business documents definitions"
 msgstr "הגדרות למסמכים עסקיים"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:105
+#: /home/kickasss/linetdev/linet/docnums.php:105
 msgid "Base numbers"
 msgstr "מספרי בסיס"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:109
+#: /home/kickasss/linetdev/linet/docnums.php:109
 msgid "Proforma"
 msgstr "חשבונית עסקה"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:112
+#: /home/kickasss/linetdev/linet/docnums.php:112
 msgid "Delivery doc."
 msgstr "ת. משלוח"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:119
+#: /home/kickasss/linetdev/linet/docnums.php:119
 msgid "Credit invoice"
 msgstr "חשבונית זיכוי"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:124
+#: /home/kickasss/linetdev/linet/docnums.php:124
 msgid "Return document"
 msgstr "תעודת החזרה"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:134
+#: /home/kickasss/linetdev/linet/docnums.php:134
 msgid "Document layout"
 msgstr "עיצוב מסמכים"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:138
+#: /home/kickasss/linetdev/linet/docnums.php:138
 msgid "Header"
 msgstr "כותרת עילית"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:143
+#: /home/kickasss/linetdev/linet/docnums.php:143
 msgid "Footer"
 msgstr "כותרת תחתית"
 
-#: /home/kickasss/linetdev/linet/linet/docnums.php:148
+#: /home/kickasss/linetdev/linet/docnums.php:148
 msgid "Logo"
 msgstr "לוגו"
 
-#: /home/kickasss/linetdev/linet/linet/profloss.php:20
-#: /home/kickasss/linetdev/linet/linet/profloss.php:105
+#: /home/kickasss/linetdev/linet/profloss.php:20
+#: /home/kickasss/linetdev/linet/profloss.php:105
 msgid "Profit and loss report"
 msgstr "דוח רווח והפסד"
 
-#: /home/kickasss/linetdev/linet/linet/profloss.php:132
+#: /home/kickasss/linetdev/linet/profloss.php:132
 msgid "Show percent"
 msgstr "הצג אחוזים"
 
-#: /home/kickasss/linetdev/linet/linet/profloss.php:171
+#: /home/kickasss/linetdev/linet/profloss.php:171
 msgid "Sum NIS"
 msgstr "סכום ש\"ח"
 
-#: /home/kickasss/linetdev/linet/linet/profloss.php:174
-#: /home/kickasss/linetdev/linet/linet/profloss.php:194
+#: /home/kickasss/linetdev/linet/profloss.php:174
+#: /home/kickasss/linetdev/linet/profloss.php:194
 msgid "Percent"
 msgstr "אחוז"
 
-#: /home/kickasss/linetdev/linet/linet/profloss.php:427
+#: /home/kickasss/linetdev/linet/profloss.php:427
 msgid "Profit"
 msgstr "רווח"
 
-#: /home/kickasss/linetdev/linet/linet/profloss.php:434
+#: /home/kickasss/linetdev/linet/profloss.php:434
 msgid "Loss"
 msgstr "הפסד"
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:189
+#: /home/kickasss/linetdev/linet/bankbook.php:189
 msgid "Invalid date at line: "
 msgstr "תאריך לא תקין בשורה:"
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:276
+#: /home/kickasss/linetdev/linet/bankbook.php:276
 msgid "Unkown file format"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:281
+#: /home/kickasss/linetdev/linet/bankbook.php:281
 msgid "Import Complted!"
 msgstr "ייבוא הושלם"
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:289
+#: /home/kickasss/linetdev/linet/bankbook.php:287
 msgid "Bank papers input"
 msgstr "הזנת דפי בנק"
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:299
-#: /home/kickasss/linetdev/linet/linet/dispmatch.php:34
+#: /home/kickasss/linetdev/linet/bankbook.php:300
+#: /home/kickasss/linetdev/linet/dispmatch.php:34
 msgid "Choose bank account"
 msgstr "בחירת חשבון בנק"
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:328
+#: /home/kickasss/linetdev/linet/bankbook.php:330
 msgid "Import bank book from Hashvsvet file(tnout.dat):"
 msgstr "יבא תנועת חשבון בנק מקובץ חשבשבת(tnout.dat)"
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:421
+#: /home/kickasss/linetdev/linet/bankbook.php:332
+#, fuzzy
+msgid "submit"
+msgstr "בצע"
+
+#: /home/kickasss/linetdev/linet/bankbook.php:423
 msgid "Prev. page"
 msgstr "דף קודם"
 
-#: /home/kickasss/linetdev/linet/linet/bankbook.php:428
+#: /home/kickasss/linetdev/linet/bankbook.php:430
 msgid "Next page"
 msgstr "דף הבא"
 
-#: /home/kickasss/linetdev/linet/linet/dispmatch.php:19
+#: /home/kickasss/linetdev/linet/dispmatch.php:19
 msgid "Display bank reconciliations"
 msgstr "הצגת התאמות בנק"
 
-#: /home/kickasss/linetdev/linet/linet/dispmatch.php:99
+#: /home/kickasss/linetdev/linet/dispmatch.php:99
 msgid "External page transactions"
 msgstr "תנועות בדף חיצוני"
 
-#: /home/kickasss/linetdev/linet/linet/dispmatch.php:102
+#: /home/kickasss/linetdev/linet/dispmatch.php:102
 msgid "Internal bank account transactions"
 msgstr "תנועות בכרטיס בנק"
 
-#: /home/kickasss/linetdev/linet/linet/dispmatch.php:117
+#: /home/kickasss/linetdev/linet/dispmatch.php:117
 msgid "Ref. num."
 msgstr "אסמכתא"
 
-#: /home/kickasss/linetdev/linet/linet/dispmatch.php:199
+#: /home/kickasss/linetdev/linet/dispmatch.php:199
 msgid "Open reconciliations"
 msgstr "פתח התאמות"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:233
+#: /home/kickasss/linetdev/linet/index.php:235
 msgid "Module not implemented yet"
 msgstr "מודול לא קיים"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:266
+#: /home/kickasss/linetdev/linet/index.php:260
 msgid "Update Notice"
 msgstr "עדכון"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:267
+#: /home/kickasss/linetdev/linet/index.php:261
 msgid "You are working on an old Version of Linet you must update"
 msgstr "אתה עובד בגירסה ישנה של לינט שמחייבת עדכון"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:275
+#: /home/kickasss/linetdev/linet/index.php:269
 msgid "Update Now"
 msgstr "עדכן עכשיו"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:279
+#: /home/kickasss/linetdev/linet/index.php:273
 msgid "no thanks"
 msgstr "לא תודה"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:289
+#: /home/kickasss/linetdev/linet/index.php:283
 msgid "Working in a "
 msgstr "עבודה ב"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:290
+#: /home/kickasss/linetdev/linet/index.php:284
 msgid "OLD Version"
 msgstr "גרסה ישנה"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:314
+#: /home/kickasss/linetdev/linet/index.php:308
 msgid "Log in to system"
 msgstr "התחבר למערכת"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:318
+#: /home/kickasss/linetdev/linet/index.php:312
 msgid "Logout"
 msgstr "יציאה"
 
-#: /home/kickasss/linetdev/linet/linet/index.php:334
-msgid "Hello"
-msgstr "שלום"
-
-#: /home/kickasss/linetdev/linet/linet/index.php:337
+#: /home/kickasss/linetdev/linet/index.php:331
 msgid "Change company"
 msgstr "שנה חברה"
 
-#: /home/kickasss/linetdev/linet/linet/printdoc.php:124
+#: /home/kickasss/linetdev/linet/printdoc.php:113
 msgid "Authorized dealer"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/contactus.php:15
+#: /home/kickasss/linetdev/linet/printdoc.php:137
+#, fuzzy
+msgid "phone"
+msgstr "טלפון"
+
+#: /home/kickasss/linetdev/linet/printdoc.php:137
+#, fuzzy
+msgid "fax"
+msgstr "פקס"
+
+#: /home/kickasss/linetdev/linet/printdoc.php:249
+#, fuzzy
+msgid "print"
+msgstr "הדפס"
+
+#: /home/kickasss/linetdev/linet/contactus.php:15
 msgid "If you don't specify email, we will not be able to answer"
 msgstr "אם לא תציין דואר אלקטרוני לא נוכל לענות לך"
 
-#: /home/kickasss/linetdev/linet/linet/contactus.php:23
+#: /home/kickasss/linetdev/linet/contactus.php:23
 msgid "Message sent to drorit team"
 msgstr "ההודעה נשלחה למערכת לינט"
 
-#: /home/kickasss/linetdev/linet/linet/contactus.php:25
-#: /home/kickasss/linetdev/linet/linet/support.php:68
-msgid "We will do our best to answer you shortly"
-msgstr "נשתדל לענות לך בהקדם"
-
-#: /home/kickasss/linetdev/linet/linet/contactus.php:27
-#: /home/kickasss/linetdev/linet/linet/support.php:70
-msgid "Click here to continue"
-msgstr "לחץ כאן להמשך"
-
-#: /home/kickasss/linetdev/linet/linet/contactus.php:33
-#: /home/kickasss/linetdev/linet/linet/defs.php:251
-#: /home/kickasss/linetdev/linet/linet/support.php:26
-msgid "Full name"
-msgstr "שם מלא"
-
-#: /home/kickasss/linetdev/linet/linet/contactus.php:34
-#: /home/kickasss/linetdev/linet/linet/defs.php:237
-#: /home/kickasss/linetdev/linet/linet/support.php:27
-msgid "Email"
-msgstr "דואל"
-
-#: /home/kickasss/linetdev/linet/linet/contactus.php:35
-#: /home/kickasss/linetdev/linet/linet/support.php:28
-msgid "Message"
-msgstr "הודעה"
-
-#: /home/kickasss/linetdev/linet/linet/contactus.php:61
+#: /home/kickasss/linetdev/linet/contactus.php:61
 msgid "Contact us"
 msgstr "צור קשר"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:26
+#: /home/kickasss/linetdev/linet/defs.php:26
 msgid "Business name not specified"
 msgstr "לא צוין שם עסק"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:31
+#: /home/kickasss/linetdev/linet/defs.php:31
 msgid "Full name not specified"
 msgstr "לא צוין שם מלא"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:35
+#: /home/kickasss/linetdev/linet/defs.php:35
 msgid "No email entered"
 msgstr "לא הוכנס דואר אלקטרוני"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:39
+#: /home/kickasss/linetdev/linet/defs.php:39
 msgid "No password entered"
 msgstr "לא הוכנסה סיסמא"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:43
+#: /home/kickasss/linetdev/linet/defs.php:43
 msgid "Passwords are not equal"
 msgstr "ססמאות אינן זהות"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:59
+#: /home/kickasss/linetdev/linet/defs.php:59
 msgid "Creating new user"
 msgstr "יצירת משתמש חדש"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:62
+#: /home/kickasss/linetdev/linet/defs.php:62
 msgid "New user created succesfully"
 msgstr "המשתמש החדש נוצר בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:74
+#: /home/kickasss/linetdev/linet/defs.php:74
 msgid "User password updated"
 msgstr "סיסמת משתמש עודכנה"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:98
+#: /home/kickasss/linetdev/linet/defs.php:97
 msgid "Business added succesfully"
 msgstr "העסק נוסף בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:108
+#: /home/kickasss/linetdev/linet/defs.php:106
 msgid "Error registering to system"
 msgstr "תקלה בהרשמה למערכת"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:120
+#: /home/kickasss/linetdev/linet/defs.php:117
 #, fuzzy
 msgid "Your registration to linet is completed"
 msgstr "הרשמתך לתוכנת לינט הושלמה"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:123
+#: /home/kickasss/linetdev/linet/defs.php:119
 msgid "Click"
 msgstr "לחץ"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:124
+#: /home/kickasss/linetdev/linet/defs.php:120
 msgid "here to connect"
 msgstr "כאן להתחברות"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:180
+#: /home/kickasss/linetdev/linet/defs.php:176
 msgid "Details succesfully updated"
 msgstr "הנתונים עודכנו בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:194
+#: /home/kickasss/linetdev/linet/defs.php:189
 msgid "Can not execute this operation without logging in to system"
 msgstr "לא ניתן לבצע פעולה זו ללא התחברות למערכת"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:201
+#: /home/kickasss/linetdev/linet/defs.php:195
 msgid "Entering new business"
 msgstr "הכנסת פרטי עסק"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:241
+#: /home/kickasss/linetdev/linet/defs.php:234
 msgid "Password"
 msgstr "סיסמא"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:246
+#: /home/kickasss/linetdev/linet/defs.php:239
 msgid "Password verify"
 msgstr "אמות סיסמא"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:265
+#: /home/kickasss/linetdev/linet/defs.php:258
 msgid "Edit business details"
 msgstr "עריכת פרטי עסק"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:269
+#: /home/kickasss/linetdev/linet/defs.php:262
 msgid "General definitions"
 msgstr "הגדרות כלליות"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:273
+#: /home/kickasss/linetdev/linet/defs.php:266
 msgid "Business name"
 msgstr "שם עסק"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:277
+#: /home/kickasss/linetdev/linet/defs.php:270
 msgid "Manager name"
 msgstr "שם מנהל"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:298
+#: /home/kickasss/linetdev/linet/defs.php:291
 msgid "Cellular"
 msgstr "סלולרי"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:317
+#: /home/kickasss/linetdev/linet/defs.php:310
 msgid "Definitions for tax"
 msgstr "הגדרות לצרכי מס"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:321
+#: /home/kickasss/linetdev/linet/defs.php:314
 msgid "Registration number"
 msgstr "מספר עוסק מורשה"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:326
+#: /home/kickasss/linetdev/linet/defs.php:319
 msgid "Accounting Type"
 msgstr "סוגי חשבונות"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:330
+#: /home/kickasss/linetdev/linet/defs.php:323
 msgid "One Sided"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:332
+#: /home/kickasss/linetdev/linet/defs.php:325
 msgid "Double Sided"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:336
+#: /home/kickasss/linetdev/linet/defs.php:329
 msgid "Tax rep. period"
 msgstr "דיווח מקדמות"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:340
-#: /home/kickasss/linetdev/linet/linet/defs.php:358
+#: /home/kickasss/linetdev/linet/defs.php:333
+#: /home/kickasss/linetdev/linet/defs.php:351
 msgid "Monthly"
 msgstr "חודשי"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:342
-#: /home/kickasss/linetdev/linet/linet/defs.php:365
+#: /home/kickasss/linetdev/linet/defs.php:335
+#: /home/kickasss/linetdev/linet/defs.php:358
 msgid "BiMonthly"
 msgstr "דו חודשי"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:348
+#: /home/kickasss/linetdev/linet/defs.php:341
 msgid "Tax percent"
 msgstr "אחוז מקדמות"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:354
+#: /home/kickasss/linetdev/linet/defs.php:347
 msgid "VAT report"
 msgstr "דיווח מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/defs.php:369
+#: /home/kickasss/linetdev/linet/defs.php:362
 msgid "VAT percent"
 msgstr "אחוז מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:202
+#: /home/kickasss/linetdev/linet/outcome.php:202
 msgid "No outcome account was chosen"
 msgstr "לא נבחר חשבון הוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:233
+#: /home/kickasss/linetdev/linet/outcome.php:233
 msgid "Asset outcome registered"
 msgstr "הוצאה זו כבר נרשמה"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:237
+#: /home/kickasss/linetdev/linet/outcome.php:237
 msgid "Outcome registered"
 msgstr "הוצאה נרשמה"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:256
+#: /home/kickasss/linetdev/linet/outcome.php:256
 msgid "Validate registration of asset outcome"
 msgstr "אישור רישום רכוש קבוע"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:260
+#: /home/kickasss/linetdev/linet/outcome.php:260
 msgid "Validate registration of outcome"
 msgstr "אישור רישום הוצאה"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:263
+#: /home/kickasss/linetdev/linet/outcome.php:263
 msgid "Check the details and press update"
 msgstr "בדוק את הפרטים ולחץ עדכן"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:270
+#: /home/kickasss/linetdev/linet/outcome.php:270
 msgid "Registration of asset outcome"
 msgstr "רישום רכוש קבוע"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:274
+#: /home/kickasss/linetdev/linet/outcome.php:274
 msgid "Registration of outcome"
 msgstr "רישום הוצאה"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:289
+#: /home/kickasss/linetdev/linet/outcome.php:289
 msgid "new supplier"
 msgstr "ספק חדש"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:297
+#: /home/kickasss/linetdev/linet/outcome.php:297
 msgid "Asset outcome account"
 msgstr "סעיף נכסים"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:301
+#: /home/kickasss/linetdev/linet/outcome.php:301
 msgid "Outcome account"
 msgstr "חשבון הוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:313
+#: /home/kickasss/linetdev/linet/outcome.php:313
 msgid "new assets"
 msgstr "נכס חדש"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:320
+#: /home/kickasss/linetdev/linet/outcome.php:320
 msgid "new outcome"
 msgstr "הוצעה חדשה"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:346
+#: /home/kickasss/linetdev/linet/outcome.php:346
 msgid "Sum before VAT"
 msgstr "סכום לפני מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/outcome.php:356
+#: /home/kickasss/linetdev/linet/outcome.php:356
 msgid "Sum including VAT"
 msgstr "כולל מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/support.php:25
-msgid "Subject"
-msgstr "נושא"
+#: /home/kickasss/linetdev/linet/support.php:22
+msgid "Paid support"
+msgstr "תמיכה בתשלום"
 
-#: /home/kickasss/linetdev/linet/linet/support.php:60
-msgid "Regarding company"
-msgstr "לגבי חברה"
-
-#: /home/kickasss/linetdev/linet/linet/support.php:66
-msgid "Message sent to linet team"
-msgstr "ההודעה נשלחה למערכת לינט"
-
-#: /home/kickasss/linetdev/linet/linet/support.php:76
-msgid "Support"
-msgstr "תמיכה"
-
-#: /home/kickasss/linetdev/linet/linet/extmatch.php:28
+#: /home/kickasss/linetdev/linet/extmatch.php:25
 msgid "Choose account"
 msgstr "בחירת חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/extmatch.php:133
+#: /home/kickasss/linetdev/linet/extmatch.php:128
 msgid "Bank reconciliation"
 msgstr "התאמת בנקים"
 
-#: /home/kickasss/linetdev/linet/linet/extmatch.php:208
+#: /home/kickasss/linetdev/linet/extmatch.php:203
 msgid "Unbalanced transaction"
 msgstr "תנועה לא מאוזנת"
 
-#: /home/kickasss/linetdev/linet/linet/extmatch.php:215
+#: /home/kickasss/linetdev/linet/extmatch.php:210
 msgid "No account specified"
 msgstr "לא נבחר חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/extmatch.php:309
+#: /home/kickasss/linetdev/linet/extmatch.php:304
 msgid "Unbalanced reconciliation, please create balancing transaction"
 msgstr "התאמה לא מאוזנת, יש ליצור תנועה מאזנת"
 
-#: /home/kickasss/linetdev/linet/linet/extmatch.php:325
+#: /home/kickasss/linetdev/linet/extmatch.php:320
 msgid "Ref. num. 1"
 msgstr "אסמכתא 1"
 
-#: /home/kickasss/linetdev/linet/linet/extmatch.php:328
+#: /home/kickasss/linetdev/linet/extmatch.php:323
 msgid "Ref. num. 2"
 msgstr "אסמכתא 2"
 
-#: /home/kickasss/linetdev/linet/linet/edit.php:10
+#: /home/kickasss/linetdev/linet/edit.php:10
 msgid "Manage content pages"
 msgstr "ניהול דפי תוכן"
 
-#: /home/kickasss/linetdev/linet/linet/edit.php:23
+#: /home/kickasss/linetdev/linet/edit.php:23
 msgid "Add page"
 msgstr "הוסף דף"
 
-#: /home/kickasss/linetdev/linet/linet/edit.php:40
+#: /home/kickasss/linetdev/linet/edit.php:40
 msgid "New page"
 msgstr "דף חדש"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:137
+#: /home/kickasss/linetdev/linet/acctdisp.php:137
 msgid "Transactions report for account"
 msgstr "דו\"ח תנועות לכרטיס"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:141
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:390
+#: /home/kickasss/linetdev/linet/acctdisp.php:141
+#: /home/kickasss/linetdev/linet/acctdisp.php:390
 msgid "Display transactions for account"
 msgstr "הצגת תנועות לכרטיס"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:172
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:197
+#: /home/kickasss/linetdev/linet/acctdisp.php:172
+#: /home/kickasss/linetdev/linet/acctdisp.php:197
 msgid "Opp. account"
 msgstr "חשבון נגדי"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:205
+#: /home/kickasss/linetdev/linet/acctdisp.php:205
 msgid "Operations"
 msgstr "פעולות"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:223
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:228
+#: /home/kickasss/linetdev/linet/acctdisp.php:223
+#: /home/kickasss/linetdev/linet/acctdisp.php:228
 msgid "Openning balance"
 msgstr "יתרות פתיחה"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:336
+#: /home/kickasss/linetdev/linet/acctdisp.php:336
 msgid "Edit/Storeno"
 msgstr "עריכה/סטורנו"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:378
+#: /home/kickasss/linetdev/linet/acctdisp.php:378
 msgid "Export"
 msgstr "ייצוא"
 
-#: /home/kickasss/linetdev/linet/linet/acctdisp.php:400
+#: /home/kickasss/linetdev/linet/acctdisp.php:400
 msgid "From date: "
 msgstr "מתאריך:"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:49
+#: /home/kickasss/linetdev/linet/backup.php:49
 msgid "Data backup"
 msgstr "גיבוי נתונים"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:67
+#: /home/kickasss/linetdev/linet/backup.php:67
 msgid "Backuping table"
 msgstr "מגבה טבלה"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:72
+#: /home/kickasss/linetdev/linet/backup.php:72
 msgid "Backup done"
 msgstr "הגיבוי בוצע בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:74
+#: /home/kickasss/linetdev/linet/backup.php:74
 msgid "Click here to download backup file"
 msgstr "לחץ כאן להורדת קובץ הגיבוי למחשב האישי"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:85
+#: /home/kickasss/linetdev/linet/backup.php:84
 msgid "File deleted successfully"
 msgstr "הקובץ נמחק בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:112
+#: /home/kickasss/linetdev/linet/backup.php:111
 msgid "Error transfering file or empty file"
 msgstr "שגיאה בהעברת קובץ או קובץ ריק"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:133
+#: /home/kickasss/linetdev/linet/backup.php:132
 msgid "Data restored successfully"
 msgstr "הנתונים שוחזרו בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:140
+#: /home/kickasss/linetdev/linet/backup.php:139
 msgid "Restore data from backup"
 msgstr "שחזור נתונים מגיבוי"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:144
+#: /home/kickasss/linetdev/linet/backup.php:143
 msgid "Backup file"
 msgstr "קובץ גיבוי"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:153
+#: /home/kickasss/linetdev/linet/backup.php:152
 msgid "Choose file from server"
 msgstr "בחר קובץ מהשרת"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:157
+#: /home/kickasss/linetdev/linet/backup.php:156
 msgid "File"
 msgstr "קובץ"
 
-#: /home/kickasss/linetdev/linet/linet/backup.php:165
+#: /home/kickasss/linetdev/linet/backup.php:164
 msgid "Restore"
 msgstr "שחזר"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:413
+#: /home/kickasss/linetdev/linet/openfrmt.php:413
 msgid "Export open format files for tax authorities"
 msgstr "יצוא קבצים במבנה אחיד עבור מס הכנסה"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:477
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:488
+#: /home/kickasss/linetdev/linet/openfrmt.php:477
+#: /home/kickasss/linetdev/linet/openfrmt.php:488
 msgid "Unable to create directory"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:571
+#: /home/kickasss/linetdev/linet/openfrmt.php:571
 msgid "Create open format files"
 msgstr "הפקת קבצים במבנה אחיד"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:581
+#: /home/kickasss/linetdev/linet/openfrmt.php:581
 msgid "Open format files created successfully"
 msgstr "ביצוע ממשק פתוח הסתיים בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:584
+#: /home/kickasss/linetdev/linet/openfrmt.php:584
 msgid "Records types details"
 msgstr "פירוט סוגי רשומות"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:587
+#: /home/kickasss/linetdev/linet/openfrmt.php:587
 msgid "Total records"
 msgstr "סה\"כ רשומות"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:588
+#: /home/kickasss/linetdev/linet/openfrmt.php:588
 msgid "Record description"
 msgstr "תיאור רשומה"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:589
+#: /home/kickasss/linetdev/linet/openfrmt.php:589
 msgid "Record code"
 msgstr "קוד רשומה"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:591
+#: /home/kickasss/linetdev/linet/openfrmt.php:591
 msgid "Opening record"
 msgstr "רשומת פתיחה"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:595
+#: /home/kickasss/linetdev/linet/openfrmt.php:595
 msgid "Transactions in accounting"
 msgstr "תנועות בהנהלת חשבונות"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:598
+#: /home/kickasss/linetdev/linet/openfrmt.php:598
 msgid "Account in accounting"
 msgstr "כרטיס בהנהלת חשבונות"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:601
+#: /home/kickasss/linetdev/linet/openfrmt.php:601
 msgid "Document header"
 msgstr "כותרת מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:604
+#: /home/kickasss/linetdev/linet/openfrmt.php:604
 msgid "Document details"
 msgstr "פרטי מסמך"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:607
+#: /home/kickasss/linetdev/linet/openfrmt.php:607
 msgid "Receipts details"
 msgstr "פרטי קבלות"
 
-#: /home/kickasss/linetdev/linet/linet/openfrmt.php:610
+#: /home/kickasss/linetdev/linet/openfrmt.php:610
 msgid "End record"
 msgstr "רשומת סיום"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:50
+#: /home/kickasss/linetdev/linet/login.php:50
 msgid "Add user"
 msgstr "הוסף משתמש"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:63
-#: /home/kickasss/linetdev/linet/linet/login.php:458
+#: /home/kickasss/linetdev/linet/login.php:63
+#: /home/kickasss/linetdev/linet/login.php:454
 msgid "Verify password"
 msgstr "אימות סיסמא"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:141
+#: /home/kickasss/linetdev/linet/login.php:141
 msgid "Email already exists"
 msgstr "דואר אלקטרוני קיים במערכת"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:157
+#: /home/kickasss/linetdev/linet/login.php:157
 msgid "User added to business"
 msgstr "המשתמש הוסף לחברה"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:187
+#: /home/kickasss/linetdev/linet/login.php:187
 msgid "User successfully added"
 msgstr "המשתמש עודכן בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:226
+#: /home/kickasss/linetdev/linet/login.php:226
 msgid "User successfully updated"
 msgstr "המשתמש עודכן בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:236
+#: /home/kickasss/linetdev/linet/login.php:236
 msgid "No user with this email"
 msgstr "אין משתמש עם דואר אלקטרוני זה"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:246
+#: /home/kickasss/linetdev/linet/login.php:246
 #, fuzzy
 msgid "New password for Linet accounting software"
 msgstr "ססמה חדשה לתוכנת לינט"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:251
+#: /home/kickasss/linetdev/linet/login.php:251
 #, fuzzy
 msgid "Your new Linet password is: "
 msgstr "ססמתך החדשה לתוכנת לינט היא:"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:264
+#: /home/kickasss/linetdev/linet/login.php:258
 msgid "Password sent to email"
 msgstr "הססמה החדשה נשלחה לדואר האלקטרוני"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:288
+#: /home/kickasss/linetdev/linet/login.php:283
 msgid "Incorrect email or password"
 msgstr "דואר אלקטרוני או ססמה לא נכונים"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:325
+#: /home/kickasss/linetdev/linet/login.php:321
 msgid "You have succesfully entered the system"
 msgstr "נכנסת בהצלחה למערכת"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:441
+#: /home/kickasss/linetdev/linet/login.php:437
 msgid "Edit user details"
 msgstr "עריכת פרטי משתמש"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:461
+#: /home/kickasss/linetdev/linet/login.php:457
 msgid "App Key"
 msgstr "מפתח תוכנה"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:503
+#: /home/kickasss/linetdev/linet/login.php:499
 msgid "Dear Custmer,"
 msgstr "לקוח יקר,"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:505
+#: /home/kickasss/linetdev/linet/login.php:501
 msgid "Entrance is only for registerd users"
 msgstr "הכניסה למערכת למשתמשים רשומים בלבד"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:516
-#: /home/kickasss/linetdev/linet/linet/login.php:545
-msgid "Login"
-msgstr "כניסה"
+#: /home/kickasss/linetdev/linet/login.php:512
+msgid "Remember me"
+msgstr "זכור אותי"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:521
+#: /home/kickasss/linetdev/linet/login.php:515
 msgid "I forgot my password"
 msgstr "שכחתי סיסמא"
 
-#: /home/kickasss/linetdev/linet/linet/login.php:539
+#: /home/kickasss/linetdev/linet/login.php:517
+#: /home/kickasss/linetdev/linet/login.php:544
+msgid "Login"
+msgstr "כניסה"
+
+#: /home/kickasss/linetdev/linet/login.php:538
 msgid "Cancel"
 msgstr "ביטול"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/look.php:29
+#: /home/kickasss/linetdev/linet/module/update/look.php:29
 #, fuzzy
 msgid "Linet Update Wizard"
 msgstr "עידכון לינט:"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:12
+#: /home/kickasss/linetdev/linet/module/update/index.php:12
 msgid "Version Verify"
 msgstr "בדיקת גרסה"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:13
+#: /home/kickasss/linetdev/linet/module/update/index.php:13
 msgid "Backup"
 msgstr "גיבוי"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:50
+#: /home/kickasss/linetdev/linet/module/update/index.php:50
 msgid "This User has no permssion to update the system"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:52
+#: /home/kickasss/linetdev/linet/module/update/index.php:52
 msgid "You Must login to Update the system"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:77
+#: /home/kickasss/linetdev/linet/module/update/index.php:77
 #, fuzzy
 msgid "Linet Update "
 msgstr "עידכון לינט:"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:82
+#: /home/kickasss/linetdev/linet/module/update/index.php:82
 msgid "Welcome To Linet update wizard your system version is: "
 msgstr "ברוך הבא לאשף עדכון לינט גרסת התוכנה שלך היא: "
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:82
+#: /home/kickasss/linetdev/linet/module/update/index.php:82
 msgid "The current version is: "
 msgstr "הגרסה העדכנית היא: "
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:82
+#: /home/kickasss/linetdev/linet/module/update/index.php:82
 msgid "You need to update your system."
 msgstr "אתה צריך לעדכן את התוכנה"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:89
+#: /home/kickasss/linetdev/linet/module/update/index.php:89
 msgid "Please Wait"
 msgstr "אנא המתן"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:96
+#: /home/kickasss/linetdev/linet/module/update/index.php:96
 msgid "Backup system and database, it is heighly advised to save a local copy of the bakup files"
 msgstr "מגבה את התוכנה ואת מסד הנתונים, מומלץ ביותר לשמור עותק מקומי של קבצי הגיבויי"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:97
+#: /home/kickasss/linetdev/linet/module/update/index.php:97
 msgid "Backuping system files"
 msgstr "מגבה מערכת קבצים"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:107
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:112
+#: /home/kickasss/linetdev/linet/module/update/index.php:107
+#: /home/kickasss/linetdev/linet/module/update/index.php:112
 msgid "Done"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:108
+#: /home/kickasss/linetdev/linet/module/update/index.php:108
 msgid "Downlod System Files"
 msgstr "שמירת קבצי התוכנה"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:109
+#: /home/kickasss/linetdev/linet/module/update/index.php:109
 #, fuzzy
 msgid "Backuping database"
 msgstr "מגבה טבלה"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:114
+#: /home/kickasss/linetdev/linet/module/update/index.php:114
 #, fuzzy
 msgid "Download Database file"
 msgstr "שמירת קבצי התוכנה"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:127
+#: /home/kickasss/linetdev/linet/module/update/index.php:127
 msgid "aksing file list for update"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:130
+#: /home/kickasss/linetdev/linet/module/update/index.php:130
 msgid "checking permissions"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:139
+#: /home/kickasss/linetdev/linet/module/update/index.php:139
 msgid "Error: cant write log file"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:147
+#: /home/kickasss/linetdev/linet/module/update/index.php:147
 msgid "-Please check write permissions to: "
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:152
+#: /home/kickasss/linetdev/linet/module/update/index.php:152
 msgid "Finished permission check"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:152
+#: /home/kickasss/linetdev/linet/module/update/index.php:152
 #, fuzzy
 msgid "Begin updating files"
 msgstr "תאריך תחילה"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:170
+#: /home/kickasss/linetdev/linet/module/update/index.php:170
 msgid "Finished updating files"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:172
+#: /home/kickasss/linetdev/linet/module/update/index.php:172
 msgid "aksing database update"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:196
+#: /home/kickasss/linetdev/linet/module/update/index.php:196
 msgid "Can Not Continue Withot!"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:206
+#: /home/kickasss/linetdev/linet/module/update/index.php:206
 #, fuzzy
 msgid "Linet has been successfully updated"
 msgstr "הנתונים עודכנו בהצלחה"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:207
+#: /home/kickasss/linetdev/linet/module/update/index.php:207
 #, fuzzy
 msgid "log file"
 msgstr "קישור לקובץ"
 
-#: /home/kickasss/linetdev/linet/linet/module/update/index.php:208
+#: /home/kickasss/linetdev/linet/module/update/index.php:208
 msgid "Finished"
 msgstr "סיים"
 
-#: /home/kickasss/linetdev/linet/linet/include/linet.inc.php:4
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:55
+#: /home/kickasss/linetdev/linet/include/linet.inc.php:4
+#: /home/kickasss/linetdev/linet/include/core.inc.php:49
 msgid "Linet - Free accounting software based on Drorit"
 msgstr "לינט  - הנהלת חשבונות חופשית"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:22
+#: /home/kickasss/linetdev/linet/include/func.inc.php:22
 msgid "To correct the mistake hit back"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:28
+#: /home/kickasss/linetdev/linet/include/func.inc.php:28
 msgid "New"
 msgstr ""
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:228
+#: /home/kickasss/linetdev/linet/include/func.inc.php:258
 msgid "We advise to use this software with Firefox browser"
 msgstr "מומלץ להשתמש בתוכנה זו עם דפדפן פיירפוקס"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:230
+#: /home/kickasss/linetdev/linet/include/func.inc.php:260
 msgid "To install press the logo on the left"
 msgstr "להתקנה לחץ על הלוגו מימין"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:246
+#: /home/kickasss/linetdev/linet/include/func.inc.php:276
 msgid "Linet accounting Project is<br /> suported by the ISOC-IL"
-msgstr ""
+msgstr "פרויקט לינט הנהלת חשבונות <br /> נתמך על ידי איגוד האינטרנט הישראלי"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:271
+#: /home/kickasss/linetdev/linet/include/func.inc.php:301
 msgid "Help"
 msgstr "עזרה"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:345
+#: /home/kickasss/linetdev/linet/include/func.inc.php:375
 msgid "Edit account details"
 msgstr "עריכת פרטי חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:351
+#: /home/kickasss/linetdev/linet/include/func.inc.php:381
 msgid "New account"
 msgstr "חשבון חדש"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:368
+#: /home/kickasss/linetdev/linet/include/func.inc.php:398
 msgid "Account type"
 msgstr "סוג חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:375
+#: /home/kickasss/linetdev/linet/include/func.inc.php:405
 msgid "Account name"
 msgstr "שם חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:398
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:407
+#: /home/kickasss/linetdev/linet/include/func.inc.php:428
+#: /home/kickasss/linetdev/linet/include/func.inc.php:437
 msgid "Recocnized VAT"
 msgstr "מע\"מ מוכר"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:421
+#: /home/kickasss/linetdev/linet/include/func.inc.php:451
 msgid "Account number"
 msgstr "מספר חשבון"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:430
+#: /home/kickasss/linetdev/linet/include/func.inc.php:460
 msgid "Fax"
 msgstr "פקס"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:436
+#: /home/kickasss/linetdev/linet/include/func.inc.php:466
 msgid "Source clearing"
 msgstr "ניכוי במקור"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:440
+#: /home/kickasss/linetdev/linet/include/func.inc.php:470
 msgid "Valid date"
 msgstr "תוקף אישור"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:450
+#: /home/kickasss/linetdev/linet/include/func.inc.php:480
 msgid "Direct phone"
 msgstr "טלפון נייד"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:464
+#: /home/kickasss/linetdev/linet/include/func.inc.php:494
 msgid "Department"
 msgstr "מחלקה"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:478
+#: /home/kickasss/linetdev/linet/include/func.inc.php:508
 msgid "Payment terms"
 msgstr "תנאי תשלום"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:480
+#: /home/kickasss/linetdev/linet/include/func.inc.php:510
 msgid "Add + for current +"
 msgstr "הוסף + לתנאי תשלום שוטף +"
 
-#: /home/kickasss/linetdev/linet/linet/include/func.inc.php:487
+#: /home/kickasss/linetdev/linet/include/func.inc.php:517
 msgid "Web site"
 msgstr "אתר אינטרנט"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:7
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:12
 msgid "Settings"
 msgstr "הגדרות"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:8
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:13
 msgid "Bussines details"
 msgstr "עריכת פרטי עסק"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:10
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:15
 msgid "Business docs"
 msgstr "מסמכים עסקיים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:12
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:17
 msgid "Items"
 msgstr "פריטים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:15
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:20
 msgid "Edit user"
 msgstr "ערוך פרטי משתמש"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:19
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:24
 msgid "Manage Customers"
 msgstr "ניהול לקוחות"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:23
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:28
 msgid "Credit inv."
 msgstr "חשבונית זיכוי"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:24
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:29
 msgid "Return doc."
 msgstr "תעודת החזרה"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:25
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:162
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:30
+#: /home/kickasss/linetdev/linet/include/core.inc.php:156
 msgid "Quote"
 msgstr "הצעת מחיר"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:26
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:163
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:31
+#: /home/kickasss/linetdev/linet/include/core.inc.php:157
 msgid "Sales Order"
 msgstr "הזמנת מכירות"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:28
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:33
 msgid "Invoice receipt"
 msgstr "חשבונית מס קבלה"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:30
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:35
 msgid "Print docs."
 msgstr "הדפסת מסמכים עסקיים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:35
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:40
 msgid "Manage Suppliers"
 msgstr "ניהול ספקים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:36
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:165
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:41
+#: /home/kickasss/linetdev/linet/include/core.inc.php:159
 msgid "Parchace Order"
 msgstr "הזמנת רכש"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:37
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:42
 msgid "inseret Buisness outcome"
 msgstr "קליטת הוצאה עסקית"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:38
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:43
 msgid "insert Asstes outcome"
 msgstr "קליטת רכוש קבוע"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:43
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:48
 msgid "Register"
 msgstr "קופה"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:45
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:50
 msgid "Bank deposits"
 msgstr "הפקדות בנק"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:48
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:53
 msgid "Nat. Ins. payment"
 msgstr "תשלום ביטוח לאומי"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:51
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:56
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:93
 msgid "Reconciliations"
 msgstr "התאמות"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:52
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:57
 msgid "Bank docs entry"
 msgstr "הכנסת דפי בנק"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:53
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:58
 msgid "Bank recon."
 msgstr "התאמת בנקים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:54
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:59
 msgid "Show recon."
 msgstr "הצג התאמות"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:55
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:60
 msgid "Accts. recon."
 msgstr "התאמת כרטיסים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:57
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:62
 msgid "Reports"
 msgstr "דוחות"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:58
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:63
 msgid "Incomes outcomes"
 msgstr "הכנסות והוצאות"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:59
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:64
 msgid "Customers owes"
 msgstr "לקוחות חייבים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:61
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:66
 msgid "Monthly Prof. & loss"
 msgstr "רווח והפסד חודשי"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:62
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:67
 msgid "VAT calculation"
 msgstr "חישוב מע\"מ"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:63
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:68
 msgid "Balance"
 msgstr "מאזן"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:64
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:69
 msgid "Income tax advances"
 msgstr "מקדמות למס"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:66
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:71
 msgid "Receipts and payments"
 msgstr "תקבולים תשלומים"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:68
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:73
 msgid "Import Export"
 msgstr "ייבוא\\ייצוא"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:69
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:74
 msgid "Open docs"
 msgstr "יצוא קובץ אחיד"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:70
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:75
 msgid "Open docs Import"
 msgstr "ייבוא קובץ אחיד"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:71
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:76
 msgid "General backup"
 msgstr "גיבוי כללי"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:72
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:77
 msgid "Backup restore"
 msgstr "שחזור גיבוי"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:73
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:78
 msgid "PCN874"
 msgstr "PCN874"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:79
-msgid "About"
-msgstr "אודות"
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:84
+msgid "Paid Support"
+msgstr "תמיכה בתשלום"
 
-#: /home/kickasss/linetdev/linet/linet/include/menu.inc.php:80
+#: /home/kickasss/linetdev/linet/include/menu.inc.php:86
 msgid "Bag Report"
 msgstr "דווח על באג"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:63
+#: /home/kickasss/linetdev/linet/include/core.inc.php:57
 msgid "Customers"
 msgstr "לקוחות"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:65
+#: /home/kickasss/linetdev/linet/include/core.inc.php:59
 msgid "Suppliers"
 msgstr "ספקים"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:71
+#: /home/kickasss/linetdev/linet/include/core.inc.php:65
 msgid "Assets"
 msgstr "נכסים"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:72
+#: /home/kickasss/linetdev/linet/include/core.inc.php:66
 msgid "Liabilities"
 msgstr "התחיבויות"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:73
+#: /home/kickasss/linetdev/linet/include/core.inc.php:67
 msgid "Authorities"
 msgstr "רשויות"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:74
+#: /home/kickasss/linetdev/linet/include/core.inc.php:68
 msgid "Banks"
 msgstr "בנקים"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:164
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:270
+#: /home/kickasss/linetdev/linet/include/core.inc.php:158
+#: /home/kickasss/linetdev/linet/include/core.inc.php:264
 msgid "Invoice Receipt"
 msgstr "חשבונית מס קבלה"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:237
+#: /home/kickasss/linetdev/linet/include/core.inc.php:231
 msgid "Manual"
 msgstr "רשום ידני"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:241
+#: /home/kickasss/linetdev/linet/include/core.inc.php:235
 msgid "Supplier invoice"
 msgstr "חשבונית ספק"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:251
+#: /home/kickasss/linetdev/linet/include/core.inc.php:245
 msgid "Storeno"
 msgstr "סטונו"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:257
+#: /home/kickasss/linetdev/linet/include/core.inc.php:251
 msgid "Transaction pattern"
 msgstr "תבנית תנועה"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:259
+#: /home/kickasss/linetdev/linet/include/core.inc.php:253
 msgid "Manual invoice"
 msgstr "חשבונית ידנית"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:261
+#: /home/kickasss/linetdev/linet/include/core.inc.php:255
 msgid "Manual receipt"
 msgstr "קבלה ידנית"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:263
+#: /home/kickasss/linetdev/linet/include/core.inc.php:257
 msgid "Tax prepayment"
 msgstr "מקדמות מס הכנסה"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:265
+#: /home/kickasss/linetdev/linet/include/core.inc.php:259
 msgid "Salary"
 msgstr "משכורת"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:269
+#: /home/kickasss/linetdev/linet/include/core.inc.php:263
 #, fuzzy
 msgid "Return Invoice"
 msgstr "תעודת החזרה"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:271
+#: /home/kickasss/linetdev/linet/include/core.inc.php:265
 #, fuzzy
 msgid "Credit Invoice"
 msgstr "חשבונית זיכוי"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:276
+#: /home/kickasss/linetdev/linet/include/core.inc.php:270
 msgid "No units"
 msgstr "ללא יחידות"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:276
+#: /home/kickasss/linetdev/linet/include/core.inc.php:270
 msgid "work hours"
 msgstr "שעות עבודה"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:276
+#: /home/kickasss/linetdev/linet/include/core.inc.php:270
 msgid "units"
 msgstr "יחידות"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:276
+#: /home/kickasss/linetdev/linet/include/core.inc.php:270
 msgid "liter"
 msgstr "ליטר"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:276
+#: /home/kickasss/linetdev/linet/include/core.inc.php:270
 msgid "gram"
 msgstr "גרם"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:276
+#: /home/kickasss/linetdev/linet/include/core.inc.php:270
 msgid "Kilo gram"
 msgstr "קילוגרם"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:276
+#: /home/kickasss/linetdev/linet/include/core.inc.php:270
 msgid "Meter"
 msgstr "מטר"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:279
+#: /home/kickasss/linetdev/linet/include/core.inc.php:273
 msgid "Cash"
 msgstr "מזומנים"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:281
+#: /home/kickasss/linetdev/linet/include/core.inc.php:275
 msgid "Cheque"
 msgstr "שיק"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:283
+#: /home/kickasss/linetdev/linet/include/core.inc.php:277
 msgid "Credit card"
 msgstr "כרטיס אשראי"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:285
+#: /home/kickasss/linetdev/linet/include/core.inc.php:279
 msgid "Bank transfer"
 msgstr "העברה בנקאית"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:290
+#: /home/kickasss/linetdev/linet/include/core.inc.php:284
 msgid "No credit"
 msgstr "ללא אשראי"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:292
+#: /home/kickasss/linetdev/linet/include/core.inc.php:286
 msgid "Isracard"
 msgstr "ישראכרט"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:294
+#: /home/kickasss/linetdev/linet/include/core.inc.php:288
 msgid "Cal"
 msgstr "כאל"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:296
+#: /home/kickasss/linetdev/linet/include/core.inc.php:290
 msgid "Diners"
 msgstr "דיינרס"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:298
+#: /home/kickasss/linetdev/linet/include/core.inc.php:292
 msgid "American express"
 msgstr "אמריקן אקספרס"
 
-#: /home/kickasss/linetdev/linet/linet/include/core.inc.php:300
+#: /home/kickasss/linetdev/linet/include/core.inc.php:294
 msgid "Leumi card"
 msgstr "לאומי כרד"
 
-#: /home/kickasss/linetdev/linet/linet/include/edit.inc.php:67
+#: /home/kickasss/linetdev/linet/include/edit.inc.php:67
 msgid "Select module"
 msgstr "בחר מודול"
 
-#: /home/kickasss/linetdev/linet/linet/include/edit.inc.php:135
+#: /home/kickasss/linetdev/linet/include/edit.inc.php:135
 msgid "Choose page"
 msgstr "בחר דף"
 
-#: /home/kickasss/linetdev/linet/linet/include/edit.inc.php:241
+#: /home/kickasss/linetdev/linet/include/edit.inc.php:241
 msgid "Identifying name"
 msgstr "שם מזהה"
 
-#: /home/kickasss/linetdev/linet/linet/include/edit.inc.php:258
+#: /home/kickasss/linetdev/linet/include/edit.inc.php:258
 msgid "Title"
 msgstr "כותרת"
 
-#: /home/kickasss/linetdev/linet/linet/include/edit.inc.php:265
+#: /home/kickasss/linetdev/linet/include/edit.inc.php:265
 msgid "Module"
 msgstr "מודול"
 
-#: /home/kickasss/linetdev/linet/linet/include/edit.inc.php:269
+#: /home/kickasss/linetdev/linet/include/edit.inc.php:269
 msgid "Parameters"
 msgstr "פרמטרים"
 
-#: /home/kickasss/linetdev/linet/linet/include/edit.inc.php:282
+#: /home/kickasss/linetdev/linet/include/edit.inc.php:282
 msgid "Keep editing"
 msgstr "השאר בעריכה"
 

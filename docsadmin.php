@@ -433,11 +433,12 @@ if($step == 3) {	/* final step, put data in tables */
 		$vat = (float)$_POST['vat'];
 		$total = (float)$_POST['total'];
 		global $curuser;
+		$uid=$curuser->id;
 		/* Put data into table */
 		$query = "INSERT INTO $docstbl VALUES(NULL, '$prefix', ";
 		$query .= "'$doctype', '$docnum', '$account', '$company', '$address', '$city', '$zip', '$vatnum', ";
 		$query .= "'$refnum', '$issue_date', '$due_date', ";
-		$query .= "'$sub_total', '$novat_total', '$vat', '$total', '$src_tax', '0', '0', '$comments','$curuser->id')";
+		$query .= "'$sub_total', '$novat_total', '$vat', '$total', '$src_tax', '0', '0', '$comments','$uid')";
 		$result = DoQuery($query, "step3");
 		$num = mysql_insert_id();
 		
@@ -597,15 +598,13 @@ if($step == 3) {	/* final step, put data in tables */
 			}
 			//adam: $option = isset($_POST['option']) ? $_POST['option'] : '';
 			//reg recepit detial:
-/*			if($option == 'receipt') {
-				$refnum = $docnum;
-				require('receipt.php'); 
-			} */
+
 		}
 	}
-/*	print "<script type=\"text/javascript>";
-	print "PrintDocument(\"docprint.php?win=1&amp;doctype=$doctype&amp;docnum=$docnum\");\n";
-	print "</script>\n"; */
+
+	$url="?module=showdocs&step=2&doctype=$doctype&docnum=$docnum&prefix=$prefix;";
+	
+	print "<meta http-equiv=\"refresh\" content=\"0;url=$url\"> ";
 } //end step 3
 if($step == 4) {	/* copy document */
 	$doctype = (int)$_GET['doctype'];

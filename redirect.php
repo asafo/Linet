@@ -3,75 +3,87 @@ $module=$_GET['dest'];
 $url='http://www.linet.org.il/index.php/support/';
 
 $bla=array(
-'defs'=>'user-help-navigate/8-configuration-help/18-biz-details-page',//ςψιλϊ τψθι ςρχ
-'acctadmin'=>'user-help-navigate?id=19',//ηωαεπεϊ
-'acctadmin0'=>'user-help-navigate?id=48',
-'acctadmin1'=>'user-help-navigate?id=45',
-'acctadmin2'=>'user-help-navigate?id=44',
-'acctadmin3'=>'user-help-navigate?id=47',
-'acctadmin6'=>'user-help-navigate?id=52',///ψωειεϊ
-'acctadmin5'=>'user-help-navigate?id=53',//δϊηιιαειεϊ
-'acctadmin4'=>'user-help-navigate?id=56',///πλριν
-'acctadmin7'=>'user-help-navigate?id=51',//απχιν
-//'acctadmin9'=>'user-help-navigate?id=57',//ξζεξπιν
-//'acctadmin11'=>'user-help-navigate?id=55',//πιψεϊ ςψκ
-//'acctadmin12'=>'user-help-navigate?id=56',//ψλεω χαες
-'docnums'=>'user-help-navigate?id=23',//δβγψεϊ μξρξλιν ςρχιιν
-'items'=>'user-help-navigate?id=28',//τψθιν
-'curadmin'=>'user-help-navigate?id=29',//ωςψι ξθας
-'opbalance'=>'user-help-navigate?id=30',//ιϊψεϊ τϊιηδ
-'loginedituser'=>'user-help-navigate?id=31',//ςψιλϊ τψθι ξωϊξω
-'loginadduser'=>'user-help-navigate?id=32',//δερσ ξωϊξω
-'contact0'=>'user-help-navigate?id=24',//πιδεμ μχεηεϊ
-'contactedit'=>'user-help-navigate?id=27',//ξςχα
-'docsadmin6'=>'user-help-navigate?id=33',//ξρξλιν: δφΰεϊ ξηιψ
-'docsadmin7'=>'user-help-navigate?id=34',//δζξπϊ ςαεγδ
-'docsadmin1'=>'user-help-navigate?id=35',//ηωαεπιϊ ςρχδ
-'docsadmin3'=>'user-help-navigate?id=36',//ηωαεπιϊ ξρ
-'docsadmin9'=>'user-help-navigate?id=38',//ηωαεπιϊ ξρ χαμδ
-'docsadmin4'=>'user-help-navigate?id=40',//ηωαεπιϊ ζιλει
-'deposit'=>'user-help-navigate?id=41',//δτχγεϊ απχ
-'contact1'=>'user-help-navigate?id=25',//πιδεμ ρτχιν
-'outcome'=>'user-help-navigate?id=43',//ψιωεν δεφΰδ
-'outcomeasset'=>'user-help-navigate?id=46',//ψιωεν πλρ
+'main'=>'user-help-navigate/8-configuration-help/14-linet-entry-page',//ΧΧ΅Χ Χ¨ΧΧ©Χ™
+'defy'=>'user-help-navigate?id=22',//Χ‘Χ—Χ™Χ¨Χª Χ—Χ‘Χ¨Χ”
+'defs'=>'user-help-navigate/8-configuration-help/18-biz-details-page',//ΧΆΧ¨Χ™Χ›Χª Χ¤Χ¨ΧΧ™ ΧΆΧ΅Χ§
+'acctadmin'=>'user-help-navigate?id=19',//Χ—Χ©Χ‘Χ•Χ Χ•Χª
+'acctadmin0'=>'user-help-navigate?id=48',//ΧΧ§Χ•Χ—Χ•Χª
+'acctadmin1'=>'user-help-navigate?id=45',//Χ΅Χ¤Χ§Χ™Χ
+'acctadmin2'=>'user-help-navigate?id=44',//
+'acctadmin3'=>'user-help-navigate?id=47',//
+'acctadmin6'=>'user-help-navigate?id=52',///Χ¨Χ©Χ•Χ™Χ•Χª
+'acctadmin5'=>'user-help-navigate?id=53',//Χ”ΧªΧ—Χ™Χ™Χ‘Χ•Χ™Χ•Χª
+'acctadmin4'=>'user-help-navigate?id=56',///Χ Χ›Χ΅Χ™Χ
+'acctadmin7'=>'user-help-navigate?id=51',//Χ‘Χ Χ§Χ™Χ
+//'acctadmin9'=>'user-help-navigate?id=57',//ΧΧ–Χ•ΧΧ Χ™Χ
+//'acctadmin11'=>'user-help-navigate?id=55',//Χ Χ™Χ¨Χ•Χª ΧΆΧ¨Χ
+//'acctadmin12'=>'user-help-navigate?id=56',//Χ¨Χ›Χ•Χ© Χ§Χ‘Χ•ΧΆ
+'docnums'=>'user-help-navigate?id=23',//Χ”Χ’Χ“Χ¨Χ•Χª ΧΧΧ΅ΧΧ›Χ™Χ ΧΆΧ΅Χ§Χ™Χ™Χ
+'items'=>'user-help-navigate?id=28',//Χ¤Χ¨ΧΧ™Χ
+'curadmin'=>'user-help-navigate?id=29',//Χ©ΧΆΧ¨Χ™ ΧΧΧ‘ΧΆ
+'opbalance'=>'user-help-navigate?id=30',//Χ™ΧªΧ¨Χ•Χª Χ¤ΧªΧ™Χ—Χ”
+'loginedituser'=>'user-help-navigate?id=31',//ΧΆΧ¨Χ™Χ›Χª Χ¤Χ¨ΧΧ™ ΧΧ©ΧªΧΧ©
+'loginadduser'=>'user-help-navigate?id=32',//Χ”Χ•Χ΅Χ£ ΧΧ©ΧªΧΧ©
+'contact0'=>'user-help-navigate?id=24',//Χ Χ™Χ”Χ•Χ ΧΧ§Χ•Χ—Χ•Χª
+//Χ©ΧΧ‘2
+'contactedit'=>'user-help-navigate?id=27',//ΧΧΆΧ§Χ‘
+
+'docsadmin1'=>'user-help-navigate?id=35',//Χ—Χ©Χ‘Χ•Χ Χ™Χª ΧΆΧ΅Χ§Χ”
+'docsadmin2'=>'user-help-navigate?id=85',//Χª. ΧΧ©ΧΧ•Χ—
+'docsadmin3'=>'user-help-navigate?id=36',//Χ—Χ©Χ‘Χ•Χ Χ™Χª ΧΧ΅
+'docsadmin4'=>'user-help-navigate?id=40',//Χ—Χ©Χ‘Χ•Χ Χ™Χª Χ–Χ™Χ›Χ•Χ™
+'docsadmin5'=>'user-help-navigate?id=87',//ΧªΧΆΧ•Χ“Χª Χ”Χ—Χ–Χ¨Χ”
+'docsadmin6'=>'user-help-navigate?id=33',//ΧΧ΅ΧΧ›Χ™Χ: Χ”Χ¦ΧΧ•Χª ΧΧ—Χ™Χ¨
+'docsadmin7'=>'user-help-navigate?id=34',//Χ”Χ–ΧΧ Χª ΧΆΧ‘Χ•Χ“Χ”
+
+'docsadmin9'=>'user-help-navigate?id=38',//Χ—Χ©Χ‘Χ•Χ Χ™Χª ΧΧ΅ Χ§Χ‘ΧΧ”
+'docsadmin10'=>'user-help-navigate?id=86',//Χ”Χ–ΧΧ Χª Χ¨Χ›Χ©
+
+
+'deposit'=>'user-help-navigate?id=41',//Χ”Χ¤Χ§Χ“Χ•Χª Χ‘Χ Χ§
+'contact1'=>'user-help-navigate?id=25',//Χ Χ™Χ”Χ•Χ Χ΅Χ¤Χ§Χ™Χ
+//Χ©ΧΧ‘2
+'outcome'=>'user-help-navigate?id=43',//Χ¨Χ™Χ©Χ•Χ Χ”Χ•Χ¦ΧΧ”
+'outcomeasset'=>'user-help-navigate?id=46',//Χ¨Χ™Χ©Χ•Χ Χ Χ›Χ΅
 'showdocs'=>'user-help-navigate?id=42',
 
 
 
-'payment'=>'user-help-navigate?id=60',//ϊωμεν μρτχ
-'paymentvat'=>'user-help-navigate?id=61',//ξςξ
-'paymentnatins'=>'user-help-navigate?id=62',//αιθεη μΰεξι
-'docsadmin8'=>'user-help-navigate?id=39',//χαμδ
-//γεηεϊ
-'tranrep'=>'user-help-navigate?id=68',//γεη δλπρεϊ δεφΰεϊ
-'owe'=>'user-help-navigate?id=71',//μχεηεϊ
-'profloss'=>'user-help-navigate?id=73',//γεη ψεεη εδτργ
-'mprofloss'=>'user-help-navigate?id=74',//γεη ψεεη εδτργ μτι ηεγω
-'vatrep'=>'user-help-navigate?id=75',//γεη ξς"ξ
+'payment'=>'user-help-navigate?id=60',//ΧªΧ©ΧΧ•Χ ΧΧ΅Χ¤Χ§
+'paymentvat'=>'user-help-navigate?id=61',//ΧΧΆΧ
+'paymentnatins'=>'user-help-navigate?id=62',//Χ‘Χ™ΧΧ•Χ— ΧΧΧ•ΧΧ™
+'docsadmin8'=>'user-help-navigate?id=39',//Χ§Χ‘ΧΧ”
 
-//δϊΰξεϊ
-'bankbook'=>'user-help-navigate?id=59',//χμιθϊ γτι απχ
-'extmatch'=>'user-help-navigate?id=65',//δϊΰξεϊ απχιν
-'dispmatch'=>'user-help-navigate?id=66',//δφβ δϊΰξεϊ
-'intmatch'=>'user-help-navigate?id=67',//δϊΰξεϊ λψθιριν
-
-
-//ιαεΰ ιφεΰ
-'openfrmt'=>'user-help-navigate?id=77',//ιφεΰ χεαυ ΰηιγ
-'pcn874'=>'user-help-navigate?id=80',//γεη PCN874
-'backup'=>'user-help-navigate?id=78',//βιαει μιπθ
-'backuprestore'=>'user-help-navigate?id=79',//ωηζεψ βιαει μιπθ
-'openfrmtimport'=>'user-help-navigate?id=58',//ιαεΰ χεαυ ΰηιγ
-
-//ϊξιλδ
-
-//ϊξιλδ αϊωμεν
-//module=support,paid-support
-//ΰεγεϊ
-//module=about,user-help-navigate?id=50
+//Χ“Χ•Χ—Χ•Χª
+'tranrep'=>'user-help-navigate?id=68',//Χ“Χ•Χ— Χ”Χ›Χ Χ΅Χ•Χª Χ”Χ•Χ¦ΧΧ•Χª
+'owe'=>'user-help-navigate?id=71',//ΧΧ§Χ•Χ—Χ•Χª
+'profloss'=>'user-help-navigate?id=73',//Χ“Χ•Χ— Χ¨Χ•Χ•Χ— Χ•Χ”Χ¤Χ΅Χ“
+'mprofloss'=>'user-help-navigate?id=74',//Χ“Χ•Χ— Χ¨Χ•Χ•Χ— Χ•Χ”Χ¤Χ΅Χ“ ΧΧ¤Χ™ Χ—Χ•Χ“Χ©
+'vatrep'=>'user-help-navigate?id=75',//Χ“Χ•Χ— ΧΧΆ"Χ
+'balance'=>'user-help-navigate?id=76',//ΧΧΧ–Χ
+'taxrep'=>'user-help-navigate?id=72',//ΧΧ•Χ§Χ“ΧΧ•Χª
+'inout'=>'user-help-navigate?id=69',//ΧªΧ§Χ‘ΧΧΧ™Χ ΧªΧ©ΧΧ•ΧΧ™Χ
 
 
 
+//Χ”ΧªΧΧΧ•Χª
+'bankbook'=>'user-help-navigate?id=59',//Χ§ΧΧ™ΧΧª Χ“Χ¤Χ™ Χ‘Χ Χ§
+'extmatch'=>'user-help-navigate?id=65',//Χ”ΧªΧΧΧ•Χª Χ‘Χ Χ§Χ™Χ
+'dispmatch'=>'user-help-navigate?id=66',//Χ”Χ¦Χ’ Χ”ΧªΧΧΧ•Χª
+'intmatch'=>'user-help-navigate?id=67',//Χ”ΧªΧΧΧ•Χª Χ›Χ¨ΧΧ™Χ΅Χ™Χ
+
+
+//Χ™Χ‘Χ•Χ Χ™Χ¦Χ•Χ
+'openfrmt'=>'user-help-navigate?id=77',//Χ™Χ¦Χ•Χ Χ§Χ•Χ‘Χ¥ ΧΧ—Χ™Χ“
+'pcn874'=>'user-help-navigate?id=80',//Χ“Χ•Χ— PCN874
+'backup'=>'user-help-navigate?id=78',//Χ’Χ™Χ‘Χ•Χ™ ΧΧ™Χ Χ
+'backuprestore'=>'user-help-navigate?id=79',//Χ©Χ—Χ–Χ•Χ¨ Χ’Χ™Χ‘Χ•Χ™ ΧΧ™Χ Χ
+'openfrmtimport'=>'user-help-navigate?id=58',//Χ™Χ‘Χ•Χ Χ§Χ•Χ‘Χ¥ ΧΧ—Χ™Χ“
+
+//ΧªΧΧ™Χ›Χ”
+
+'about'=>'user-help-navigate?id=50',//ΧΧ•Χ“Χ•Χª
+'bag'=>'user-help-navigate?id=84',//Χ“Χ•Χ•Χ— ΧΆΧ Χ‘ΧΧ’
 
 
 

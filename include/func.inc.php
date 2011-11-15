@@ -237,7 +237,7 @@ function getHelp(){
 	$step=GetGet('step');
 	$help=$module;
 	if(($help=='acctadmin') ||($help=='contact')) $help.=$type;
-	elseif(($help=='login')||($help=='contact')) $help.=$action;
+	if(($help=='login')||($help=='contact')) $help.=$action;
 	elseif($help=='docsadmin') $help.=$typeo;
 	elseif(($help=='outcome')||($help=='payment')) $help.=$opt;
 	elseif($help=='backup') $help.=$step;
@@ -262,7 +262,7 @@ function RecomendFirefox() {
 	//$l = _("For more information");
 	//$l1 = _("Click here");
 	//$str .= "$l <a href=\"?id=firefox\">$l1</a>\n";
-	$str .= "</td></tr></table>\n</div>";
+	$str .= "$l</td></tr></table>\n</div>";
 	
 	return $str;
 
@@ -294,12 +294,12 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 	if(isset($logo))$logo="<img src=\"$logo\" alt=\"$logo\" />";else $logo='';
 	if(isset($back)){
 		$l=_("Back");
-		$back='<a href="javascript:history.go(-1)">'.$l.'&nbsp;<img src="img/icon_back.png" alt="Icon back" /></a>';
+		$back='<div class="formback"><a href="javascript:history.go(-1)">'.$l.'&nbsp;<img src="img/icon_back.png" alt="Icon back" /></a></div>';
 	}else 	
 		$back='';
 	if (isset($help)){
 		$l=_("Help");
-		$help='<a class="help" target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" /><p>'.$l.'</p></a>';
+		$help='<div class="formhelp"><a class="help" target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" /><p>'.$l.'</p></a></div>';
 	}else{
 		$help='';
 	}
@@ -308,7 +308,7 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 	<table class="form '.$sClass.'" style="width:'.$width.'px;">
 		<tr>
 			<td class="ftr"><img src="img/ftr.png" alt="formright"  /></td>
-			<td class="ftc">'.$logo.'<p>'.$haeder.'</p>'.$back.$help.'</td>
+			<td class="ftc"><div class="formtitle">'.$logo.'<p>'.$haeder.'</p></div>'.$back.$help.'</td>
 			<td class="ftl"><img src="img/ftl.png" alt="formleft" /></td>
 		</tr>
 		<tr>

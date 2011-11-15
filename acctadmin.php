@@ -9,6 +9,7 @@ global $AcctType;
 global $RetModule;
 global $arr6111;
 global $lang, $dir;
+
 //global $help;
 require_once('class/account.php');
 $text='';
@@ -195,12 +196,13 @@ if($action == 'newacct') {
 	$zip = htmlspecialchars($_POST['zip'], ENT_QUOTES);
 	$comments = htmlspecialchars($_POST['comments'], ENT_QUOTES);
 	global $curuser;
+	$uid=$curuser->id;
 	$query = "INSERT INTO $accountstbl (num, prefix, type, id6111, pay_terms, src_tax, src_date, ";
 	$query .= "company, contact, department, vatnum, email, phone, ";
 	$query .= "dir_phone, cellular, fax, web, address, city, zip, comments, owner) \n";
 	$query .= "VALUES ('$max', '$prefix', '$type', '$id6111', '$pay_terms', '$src_tax', '$src_date', '$company', '$contact', '$department', ";
 	$query .= "'$vatnum', '$email', '$phone', ";
-	$query .= "'$dir_phone', '$cellular', '$fax', '$web', '$address', '$city', '$zip', '$comments', '$curuser->id')";
+	$query .= "'$dir_phone', '$cellular', '$fax', '$web', '$address', '$city', '$zip', '$comments', '$uid')";
 //	print "<br>type: $type<br>\n";
 //	print "Query: $query<br>\n";
 	$line = __LINE__;

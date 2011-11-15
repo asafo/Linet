@@ -24,11 +24,13 @@ if($action == 'disconnect') {
 	unset($_COOKIE['name']);
 	unset($_COOKIE['data']);
 	unset($_COOKIE['company']);
+	unset($_SESSION);
 	$action = '';
 }
 else if($action == 'unsel') {
 	setcookie('company', '', -1);
 	unset($_COOKIE['company']);
+	unset($_SESSION['company']);
 	unset($action);
 	unset($_GET['action']);
 	$module = 'main';
@@ -47,13 +49,11 @@ $Sdata = isset($_SESSION['data']) ? $_SESSION['data'] : '';
 
 
 $prefix =  isset($_COOKIE['company']) ? $_COOKIE['company'] :'';
+//$prefix = isset($_SESSION['company']) ? $_SESSION['company'] :'';
 $prefix = isset($_GET['company']) ? $_GET['company'] : $prefix;
 
 $stdheader = '';
 $abspath = GetURI();
-if(!isset($tinymcepath))//adam:?
-	$tinimcepath = $abspath;
-
 
 if(($module == '') && ($action == '')) 
 		$module = 'main';
@@ -64,47 +64,62 @@ mysql_query("SET NAMES 'utf8'");
 mysql_select_db($database) or die("Could not select database: $database");
 $loggedin = 0;
 /*chk if logged in improved */
-if(isset($Uname) && ($Uname != '')) 
-	if((isset($Udata)) && ($Udata!='')){
-		//if session isnt set get from db
-		//adam: current user
-		$name = urldecode($Uname);
-		$curuser=new user;
-		$curuser->name=$name;
-		$curuser->getUser();
-		if($Sdata=='') $Sdata=$curuser->cookie;
-		if($Sname=='') $Sname=$curuser->name;
-		if(($Uname==$Sname) && ($Udata==$Sdata)){
-			$loggedin = 1;
+$curuser=unserialize($_SESSION['user']);
+if(!isset($_SESSION['user'])){
+	if(isset($Uname) && ($Uname != '')) 
+		if((isset($Udata)) && ($Udata!='')){
+			//if session isnt set get from db
+			//adam: current user
+			$name = urldecode($Uname);
 			
-			$_SESSION['name']=$Uname;
-			$_SESSION['data']= $Udata;
-			$cookietime = time() + 60*60*24*30;
-			//chk if user has permisions to company
-			setcookie('company', $prefix, $cookietime);
+			$curuser=new user;
+			$curuser->name=$name;
+			$curuser->getUser();
+			//if($Sdata=='') $Sdata=$curuser->cookie;
+			//if($Sname=='') $Sname=$curuser->name;
+			if(($Uname==$curuser->name) && ($Udata==$curuser->cookie)){
+				$loggedin = 1;
+				$_SESSION['user']=serialize($curuser);
+				$_SESSION['name']=$Uname;
+				$_SESSION['data']= $Udata;
+				$cookietime = time() + 60*60*24*30;
+				//chk if user has permisions to company
+				setcookie('company', $prefix, $cookietime);
+			}
 		}
-	}
+}else{$name=$_SESSION['user']->name;$loggedin=1;}
 
-$curcompany= new company;
-$curcompany->prefix=$prefix;
-if(!$curcompany->getCompany()){
-	setcookie('company', '', -1);
-	unset($_COOKIE['company']);
-	unset($prefix);
+
+$curcompany=unserialize($_SESSION['company']);
+if(!isset($_SESSION['company'])||($prefix!=$curcompany->prefix)){
+	if($prefix!=''){
+		$curcompany= new company;
+		$curcompany->prefix=$prefix;
+		if(!$curcompany->getCompany()){
+			setcookie('company', '', -1);
+			unset($_COOKIE['company']);
+			unset($prefix);
+		}
+		$_SESSION['company']=serialize($curcompany);
+	}
+	
 }
 
+
+
+$prefix=$curcompany->prefix;
+$name=$curuser->name;
 $title = $curcompany->companyname;
 $template = $curcompany->template;
 $logo=$curcompany->logo;
 if($loggedin) {
 	$query = "SELECT * FROM $permissionstbl WHERE name='$name'";
 	$result = DoQuery($query, "index.php");
-	if(mysql_num_rows($result) == 0) {
-		$demouser = 1;
-		$prefix = 'demo';
-		$name = 'demo';
-	}
-	else {
+	//if(mysql_num_rows($result) == 0) {
+	//	$demouser = 1;
+	//	$prefix = 'demo';
+	//	$name = 'demo';
+	//}
 		$line = mysql_fetch_array($result, MYSQL_ASSOC);
 		$c = $line['company'];
 		if($c == '*')
@@ -112,24 +127,22 @@ if($loggedin) {
 		else
 			$prefix = $c;
 	}
-	//print "Name: $name, $superuser<br>\n";
-}
-//print "<br />".$action."<br />";
+
 if ($action=='lister'){
 		include('lister.php');
-		die;//return '';
+		die;
 	}
 
 
 if (isset($_COOKIE['cheaked'])) {$cheaked=true;} else {$cheaked=false;}
 if (isset($_COOKIE['sversion'])) {$sVersion=$_COOKIE['sversion'];} else {$sVersion=getVersion(); }
+setcookie('sversion', $sVersion, time() + 24 * 3600);
 $_SESSION['updatepop']=false;
-//print 'help'.$_COOKIE['cheaked'];
 if (!$cheaked){
-		//$sVersion=getVersion();
 	if($version<$sVersion){
 		$_SESSION['updatepop']=true;
-		setcookie('cheaked', 12, time() + 24 * 3600);//die;
+		
+		setcookie('cheaked', true, time() + 24 * 3600);//die;
 		setcookie('sversion', $sVersion, time() + 24 * 3600);//die;
 	}else{
 		if($sVersion=='-1'){
@@ -140,19 +153,7 @@ if (!$cheaked){
 }
 
 /* Make sure we have a valid company and set $title */
-if(isset($prefix)) {
-	//$query = "SELECT companyname,template,logo FROM $companiestbl WHERE prefix='$prefix'";
-	//$result = DoQuery($query, "main");
-	
-	//if(mysql_num_rows($result)) {
-		//$line = mysql_fetch_array($result, MYSQL_ASSOC);
-		//$title = //$line['companyname'];
-		//$template = $line['template'];
-		//$logo=$line['logo'];
-	//}
-	//else
-		//unset($prefix);
-}
+
 //if($cssfile == '')
 	$cssfile = 'style/linet.css';
 //if($small_logo == '')
@@ -173,10 +174,6 @@ if($template == '') {
 	}
 }
 
-//print 'were here';
-/*
-
-*/
 
 function url_exists($url) {
     $hdrs = @get_headers($url);
@@ -185,7 +182,7 @@ function url_exists($url) {
 } 
 function getVersion(){
 	global $updatesrv;
-	//print $updatesrv.'?GetLateset';
+	print $updatesrv.'?GetLateset';
 	if (url_exists($updatesrv.'?GetLateset')){
 		$fp = fopen($updatesrv.'?GetLateset', 'r');
 		$content = fread($fp, 1024);
@@ -193,13 +190,6 @@ function getVersion(){
 	}else{
 		return -1;
 	}
-   
-   // keep reading until there's nothing left
-   /*while ($line = fread($fp, 1024)) {
-      $content .= $line;
-   }*/
-   
-
 }
 
 function browser_info($agent=null) {
@@ -253,6 +243,7 @@ function TemplateReplace($r) {
 	global $top, $sub;
 	global $name, $prefix, $lang,$logo;
 	global $MainMenu;
+	global $curuser;
 	global $module;
 	global $stdheader, $action;
 	global $logintbl, $permissiontbl;
@@ -261,15 +252,6 @@ function TemplateReplace($r) {
 	global $loggedin, $simulatenolog, $superuser;
 
 	$p = str_replace('~', '', $r[0]);
-	/*if($p == 'header') {
-		//print "$stdheader\n";
-		if($module == 'text') {
-			if(($action != 'edit') && ($action != 'add'))
-				return '';
-			require_once("inittinymce.inc.php");
-		}
-		return $tinymce;
-	}*/
 	if($p =='updatepop'){
 		//global 
 		//$updatepop=true;//rethink
@@ -338,9 +320,9 @@ function TemplateReplace($r) {
 	else if($p == 'osi')
 		return osiDiv();
 	else if($p == 'username') {
-		$name1 = isset($_GET['name']) ? $_GET['name'] : $_COOKIE['name'];
-		$name1 = urldecode($name1);
-		$query = "SELECT fullname FROM $logintbl WHERE name='$name1'";
+		//$name = isset($_GET['name']) ? $_GET['name'] : $_COOKIE['name'];
+		$name = $curuser->name;
+		$query = "SELECT fullname FROM $logintbl WHERE name='$name'";
 		$result = DoQuery($query, __LINE__);
 		$line = mysql_fetch_array($result, MYSQL_NUM);
 		$username = _("Hello").":".stripslashes($line[0]);
@@ -357,25 +339,6 @@ function TemplateReplace($r) {
 		include_once 'include/menu.inc.php';
 		return $str;
 	}
-	/*else if($MainMenu[$p]) {
-		$query = "SELECT subject,module,params FROM $articlestbl WHERE id='$p'";
-		$query .= " AND lang='$lang'";
-		$result = DoQuery($query, __LINE__);
-		$line = mysql_fetch_array($result, MYSQL_ASSOC);
-		if(mysql_num_rows($result)) {
-			$modname = $line['module'];
-			$params = $line['params'];
-			$subject = $line['subject'];
-			if($modname) {
-				$url = "?module=$modname";
-				if($params)
-					$url .= "&amp;$params";
-			}
-			else
-				$url = "?id=$p";
-			return "<a href=\"$url\">$subject</a>\n";
-		}
-	}*/
 	return "";
 }
 

@@ -52,39 +52,34 @@
 			
 		<tr>
 			<td colspan="4">
-				<div align="center"><h1>~doctype~ <span style="font-size:20px;"> מס' ~docnum~ </span>~copy~</h1></div>
+				<div align="center"><h1>~doctype~ <span style="font-size:25px;"> מס' ~docnum~ </span>~copy~</h1></div>
 			</td>
 		</tr>
 	</table>	
-	<table class="doc">
-		<thead>
-			<tr>
-				<th>אמצעי תשלום</th>
-				<th>חברת אשראי</th>
-				<th>אסמכתא</th>
-				<th>בנק</th>
-				<th>סניף</th>
-				<th>מס' חשבון</th>
-				<th>תאריך</th>
-				<th>סכום</th>
-			</tr>
-		</thead>
-		<tfoot>
-		<tr>
-			<td colspan="6" rowspan="2"></td>
-			<td>ניכוי במקור: </td>
-			<td>~docs:src_tax~</td>
-		</tr>
-		<tr>
-			
-			<td><b>סה"כ</b></td>
-			<td>~docs:total~</td>
-		</tr>
-		</tfoot>
-		<tbody>
-			~rcpt~
-		</tbody>
-	</table>
+	<div class="table">
+		<div class="hrow row">
+		  	<div class="rhdata" style="">אמצעי תשלום</div>
+		  	<div class="rhdata" style="">חברת אשראי</div>
+		  	<div class="rhdata" style="">אסמכתא</div>
+		  	<div class="rhdata" style="">בנק</div>
+		  	<div class="rhdata" style="">סניף</div>
+		  	<div class="rhdata" style="">מס' חשבון</div>
+		  	<div class="rhdata" style="">תאריך</div>
+		  	<div class="rhdata" style="">סכום</div>
+		</div>
+		~rcpt~
+		<div class="frow row">
+		  	<div class="rdata clear"></div><div class="rdata clear"></div>	<div class="rdata clear"></div>	<div class="rdata clear"></div>	<div class="rdata clear"></div>	<div class="rdata clear"></div>
+			<div class="rdata clear">ניכוי במקור: </div>
+		  	<div class="rdata">~docs:src_tax~</div>
+		</div>
+		<div class="frow row">
+		  	<div class="rdata clear"></div><div class="rdata clear"></div>	<div class="rdata clear"></div>	<div class="rdata clear"></div>	<div class="rdata clear"></div>	<div class="rdata clear"></div>
+			<div class="rdata clear">סה"כ </div>
+		  	<div class="rdata">~docs:src_tax~</div>
+		</div>
+	</div>
+
 		<br />
 		הערות: ~docs:comments~
 	~footer~

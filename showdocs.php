@@ -6,12 +6,9 @@
  | by Ori Idan August 2009
  | Modifed By adam BH 10/2010
  */
-global $prefix;//, $accountstbl, $supdocstbl, $itemstbl;
-//global $chequestbl;
-global $docstbl;//, $docdetailstbl;
-//global $creditcompanies;
-//global $CompArray;
-//global $CurrArray;
+global $prefix;
+global $docstbl;
+
 global $DocType;
 global $paymentarr;
 global $creditarr;
@@ -61,9 +58,13 @@ function PrintCustomerSelect($def) {
 	}
 	print "</select>\n";
 }*/
+$doctype = $_POST['doctype'];
+$doctypestr = $DocType[$doctype];
+//print "<h2>$doctypestr</h2>\n";
+$haeder=$doctypestr;
 
-if($step > 0) {
-	$doctype = $_POST['doctype'];
+if($step == 1) {
+	
 	if($doctype == 0) {
 		$l = _("Document type must be chosen");
 		$text.= "<h1>$l</h1><br>\n";
@@ -100,9 +101,7 @@ if($step > 0) {
 //		print "Query: $query<br>\n";
 		$result = DoQuery($query, "showdocs.php");
 		//print "<br />\n";
-		$doctypestr = $DocType[$doctype];
-		//print "<h2>$doctypestr</h2>\n";
-		$haeder=$doctypestr;
+		
 		//print "<table width=\"100%\" class=\"tablesorter\" border=\"0\"><tr><td>\n";
 		$text.= "<table class=\"tablesorter\" id=\"accadmintbl\"><thead><tr>\n";
 		$l = _("Doc. type");
@@ -174,7 +173,7 @@ if($step > 0) {
 			$totalsum += $total;
 			$tbody.= "<td>";
 			if($step == 1) {
-				$url = "printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix";
+				$url = "?module=$module&amp;step=2&amp;doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix";
 				$target = "docswin";
 				$l = _("Display");
 			}
@@ -185,11 +184,12 @@ if($step > 0) {
 				$l = _("Copy");
 			}
 			if($target == 'docswin')
-				$tbody.= "<input type=\"button\" onclick=\"window.open('$url', 'docswin')\"";
-			else
+				$tbody.= "<a href=\"$url\">$l</a>";
+			else{
 				$tbody.= "<input type=\"button\" onclick=\"window.location.href='$url'\"";
 			$tbody.= "value=\"$l\">";
-			$tbody.= "</a>&nbsp;&nbsp;";
+			}
+			//$tbody.= "</a>&nbsp;&nbsp;";
 			$url = "?module=emaildoc&amp;account=$account&amp;doctype=$doctype&amp;docnum=$docnum";
 //			print "<input type=\"button\" onclick=\"window.location.href='$url'\"";
 //			print "value=\"׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ§׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ»׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢\">\n";
@@ -253,6 +253,15 @@ if($step == 0) {
 	$text.= "</form>\n";
 	//print "</div>\n";
 	createForm($text,$haeder,'',750,'','img/icon_showdocs.png',1,getHelp());
-	
+}
+$haeder=$doctypestr;
+if($step==2){
+	$l=_("Your browser does not support iframes.");
+	$doctype = isset($_GET['doctype']) ? $_GET['doctype'] : DOC_INVOICE;
+	$docnum = isset($_GET['docnum']) ? $_GET['docnum'] : 0;
+	$url="printdoc.php?doctype=$doctype&docnum=$docnum&prefix=$prefix";
+	$texty="<iframe src=\"$url\" width=\"100%\" height=\"500\"><p>$l</p></iframe> ";
+	//?doctype=3&docnum=980&prefix=0
+	createForm($texty,$haeder,'',750,'','img/icon_showdocs1.png',1,getHelp());
 }
 ?>

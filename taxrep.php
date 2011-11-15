@@ -89,8 +89,8 @@ if($step == 0) {	/* print date select form */
 	//$result = DoQuery($query, "vatrep.php");
 	//$line = mysql_fetch_array($result, MYSQL_ASSOC);
 	$taxrep = $line['taxrep'];
-	global $curcompany;
-	$taxrep = $curcompany->taxrep;
+	
+	$taxrep = $_SESSION['company']->taxrep;
 	if($taxrep == 2) {
 		if($month % 2) {	/* this is odd month number */
 			$beginmonth = $month - 2;

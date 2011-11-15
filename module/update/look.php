@@ -25,8 +25,8 @@ $.post("?", { "step": step, "non": true }, function(data) {
 			<tr>
 				<td class="ftr"><img src="../../img/ftr.png" alt="formright"  /></td>
 				<td class="ftc">
-					
-					<p><?php print _("Linet Update Wizard")?></p>						
+					<div class="formtitle"><p><?php print _("Linet Update Wizard")?></p></div>
+					<div class="formhelp"><a class="help" target="_blank" href="http://www.linet.org.il/index.php/support/user-help-navigate?id=83"><img src="../../img/icon_help.png" alt="Icon help"><p>עזרה</p></a></div>				
 				</td>
 				<td class="ftl"><img src="../../img/ftl.png" alt="formleft" /></td>
 			</tr>

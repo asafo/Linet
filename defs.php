@@ -187,7 +187,7 @@ $line = mysql_fetch_array($result, MYSQL_ASSOC);
 if(!$line) {
 	if(!$superuser) {
 		$l = _("Can not execute this operation without logging in to system");
-		$text.= "<br><br><h1>$l</h1>\n";
+		ErrorReport("$l");
 		return;
 	}
 	$text.= "<form name=\"form1\" action=\"?module=defs&amp;action=defsubmit\" method=\"post\" enctype=\"multipart/form-data\">\n";

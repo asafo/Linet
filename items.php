@@ -92,8 +92,8 @@ function EditItem($num) {
 		$text.= "<form name=\"itm\" action=\"?module=items&amp;action=updateitem&amp;num=$num\" method=\"post\">\n";
 	}
 	else {
-		$l = _("New item");
-		$text.= "<h3>$l</h3>";
+		$haeder = _("New item");
+		//$text.= "<h3>$l</h3>";
 		$text.= "<form name=\"itm\" action=\"?module=items&amp;action=additem\" method=\"post\">\n";
 	}
 	$text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\">\n";
@@ -174,8 +174,9 @@ if($action == 'additem') {
 	$excatnum = GetPost('excatnum');
 	$currency = GetPost('currency');
 	global $curuser;
+	$uid=$curuser->id;
 	$query = "INSERT INTO $itemstbl (prefix, account, name, extcatnum, defprice, currency, owner) ";
-	$query .= "VALUES('$prefix', '$account', '$itemname', '$excatnum', '$defprice', '$currency', '$curuser->id')";
+	$query .= "VALUES('$prefix', '$account', '$itemname', '$excatnum', '$defprice', '$currency', '$uid')";
 	DoQuery($query, "items.php");
 }
 else if($action == 'updateitem') {
@@ -203,8 +204,10 @@ else if($action == 'del') {
 
 // print "<table dir=\"rtl\" border=\"0\"><tr><td>\n";
 $text=EditItem(0);
-if ($smallprint)
+if ($smallprint){
+	$haeder = _("New item");
 	createForm($text,$haeder,"",350,'','img/icon_items.png',1,getHelp());
+}
 if (!$smallprint){
 	$l = _("Existing items");
 	$text.= "<h2>$l</h2>";

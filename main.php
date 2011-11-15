@@ -82,7 +82,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$text.= "<br /><br /><a href=\"?module=defs\">$l</a><br />\n";
 		}
 	
-		createForm($text, $haeder,'',750,'','logo',0,'help');
+		createForm($text, $haeder,'',750,'','logo',0,'?module=redirect&amp;dest=defy');
 		return;
 	}
 }
@@ -223,7 +223,7 @@ $text.= "</tr></table>\n";
 CreateProfitGraph($income, $outcome, $profit);
 //$text.= "<br />\n";
 $text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px;display: inline-block;\" />\n";
-createForm($text,$haeder,"maindiv",460,500,'img/icon_detiales.png',null,'help');
+createForm($text,$haeder,"maindiv",460,500,'img/icon_detiales.png',null,'?module=redirect&amp;dest=main');
 
 $haeder = _("Events according to date");
 

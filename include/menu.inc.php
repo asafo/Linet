@@ -3,7 +3,11 @@
  | menu for Linet
  */
 $help=getHelp();
+//$bidi=$_SESSION['company'];
+//$bidi=$bidi->bidi;
+//print ";$bidi;";
 global $curcompany;
+$bidi=$curcompany->bidi;
 $MainMenu = array(
 	_("Settings") . "|module=main" => array(
 			 _("Bussines details") . '|?module=defs',
@@ -77,45 +81,46 @@ $MainMenu = array(
 	 ' '=>array(),
 	 _("Support") . '|#' => array(
 		 _("Update"). '|module/update/',
-		 _("Support") . '|?module=support',
+		 _("Paid Support") . '|?module=support',
 		 _("About"). '|?module=about',
-		 _("Bag Report"). '|?module=about'
+		 _("Bag Report"). '|?module=bag'
 	 ),
 	//'demo' => _("Demo") . '|module=demoreg',
 	//'main1' => _("Main") . '|id=main',
 	//'mainlogin' => _("Login") . '|action=login'
 );
-if ($curcompany->bidi!=2)
+if ($bidi!=2)
 	unset($MainMenu[_("Reconciliations") . '|#']);
 else
 	unset($MainMenu[' ']);
 $str='<div class="navBar" dir="rtl"><ul id="drop_down_menu" dir="rtl">';
-$firsty=true;
-$numItems = count($MainMenu);
-$i=0;
+//$firsty=true;
+//$numItems = count($MainMenu);
+//$i=0;
 foreach ($MainMenu as $key=>$value){
 	$class='';
 	//start li
 	list($n, $l) = explode('|', $key);
-	if($firsty){
-		$class=" class=\"first\"";
-		$firsty=false;
-	}
+	//if($firsty){
+	//	$class=" class=\"first\"";
+	//	$firsty=false;
+	//}
 	
-	if($i+1==$numItems) $class=" class=\"last\"";
-	$str.="<li$class><span><p>$n</p></span>";
+	//if($i+1==$numItems) $class=" class=\"last\"";
+	$str.="<li><span><p>$n</p></span>";
 	$str.="<ul>";
-	$last=count($value);
-	$i1=0;
+	//$last=count($value);
+	//$i1=0;
 	foreach ($value as $innerkey){
 		list($n, $l) = explode('|', $innerkey);
-		if($i1+1==$last) $classy=" class=\"last\"";else $classy='';
-		$str.="<li$classy><a href=\"$l\">$n</a></li>";
-		$i1++;
+		//if($i1+1==$last) $classy=" class=\"last\"";else $classy='';
+		$str.="<li><a href=\"$l\">$n</a></li>";
+		//$i1++;
 	}
-	//end li
+	//end liddddd
 	$str.="</ul></li>";
-	$i++;
+	//$i++;
 }
-$str.='</ul></div>'
+$str.='</ul></div>';
+unset($MainMenu);
 ?>

@@ -1,25 +1,11 @@
 @CHARSET "windows-1255";
 
 body{
-width:100%;; 
+
 
 }
 table{width:100%}
-table.doc thead tr th{
-padding:10px;
-}
-table.doc tbody tr td{
-border: 1px solid #b1b1b1;
-padding:5px;
-}
-table.doc tfoot tr td{
-border: 1px solid #b1b1b1;
-padding:5px;
-}
-table.doc thead{
-border: 1px solid #b1b1b1;
-background-color:#ececec;
-}
+
 
 table.doc thead tr th:last-child{border-radius:15px 0px 0px 0px;}
 table.doc thead tr th:first-child{border-radius:0px 15px 0px 0px;}
@@ -28,3 +14,35 @@ table {
 	font-family: arial, sans-serif;
 	border-collapse:collapse;
 }
+  
+.table {
+    display: table;
+    width:100%;
+    	font-size: 14px; 
+	font-family: arial, sans-serif;
+    }
+
+  .row {
+    display: table-row;
+    }
+.rhdata{
+	background-color:#ececec;
+   
+    display: table-cell;
+    border: 1px solid #b1b1b1;
+    padding:10px
+	}
+	.row.hrow div:first-child{
+		 border-radius:0px 15px 0px 0px;
+	}
+	.row.hrow div:last-child{
+		 border-radius:15px 0px 0px 0px;
+	}
+  .rdata{
+    display: table-cell;
+    border: 1px solid #b1b1b1;
+    padding:5px;
+    }
+    .row.frow  div.clear{
+     border: 0px solid #b1b1b1;
+    }

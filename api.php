@@ -1,4 +1,4 @@
-<?
+<?php
 /*
  *		api class is written by: Adam bh.
  */
