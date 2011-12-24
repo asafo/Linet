@@ -17,7 +17,7 @@ require_once('class/transaction.php');
 require_once('class/item.php');
 if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 	$haeder="Select files to Import";
-	$text= "<form action=\"?module=$module&amp;step=1\" method=\"post\" enctype=\"multipart/form-data\">\n<br />";
+	$text= "<form action=\"?module=$module&amp;step=1\" method=\"post\" name='main' enctype=\"multipart/form-data\">\n<br />";
 	$text.="load ini file <input type=\"file\" name=\"ini\" /><br />\n";
 	$text.="load bkmvdata <input type=\"file\" name=\"bkmv\" /><br />\n";
 	
@@ -45,7 +45,8 @@ if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 		
 	
 	$l = _("Next");
-	$text.="<input type=\"submit\" value=\"$l\" />";
+	$text.= "<a href='javascript:document.main.submit();' class='btnaction'>$l</a>";
+	//$text.="<input type=\"submit\" value=\"$l\" />";
 		
 	$text.= "</form>\n";
 	
@@ -102,7 +103,7 @@ if ($_REQUEST['step']==1){
 
 				global $prefix;
 				$mainprefix=$prefix;
-				$prefix=sha1($obj['prefix']);
+				$prefix=sha1($obj['prefix'].rand());
 				
 				//if company exists cancel
 				//add permtions on company
@@ -112,6 +113,8 @@ if ($_REQUEST['step']==1){
 				
 				//$comp->getCompany;
 				foreach($obj as $key=>$value){
+					$softvendorregnum=$obj['softvendorregnum'];
+					unset($obj['softvendorregnum']);
 					if ($encoding=="ibm862") 
 						$value = iconv("ISO-8859-8", "UTF-8", hebrev(iconv("UTF-8", "ISO-8859-8", $value)));
 					$comp->$key=$value;
@@ -257,8 +260,14 @@ if ($_REQUEST['step']==1){
 				if ($type=='B110'){//Acc Haeder
 					/* Account Import */
 					$acc=new account;
-					
-					$accTypeIndex[$obj["type"]]=$obj["typedesc"];
+					//($softvendorregnum)
+					print $softvendorregnum;
+					$obj["type"]=$obj["type"]+50;					
+					if(isset($accTypeIndex[$obj["type"]]))
+						$accTypeIndex[$obj["type"]]=$accTypeIndex[$obj["type"]].",".$obj["company"];
+						else {
+							$accTypeIndex[$obj["type"]]=$obj["typedesc"].":".$obj["company"];
+						}
 					unset($obj["typedesc"]);
 					//1405 acc type code
 					//1406 acc type name
@@ -277,6 +286,8 @@ if ($_REQUEST['step']==1){
 					if ((isset($DocOpenType[$obj['doctype']])) && (isset($accIndex[$obj['account']]))){
 						$obj['doctype']=$DocOpenType[$obj['doctype']];
 						$doc=new document($obj['doctype']);
+						$stype=$obj['doctype'];
+						//unset($obj['doctype']);
 						foreach($obj as $key=>$value){
 							$doc->$key=$value;//print "$key <br />";
 						}
@@ -285,18 +296,22 @@ if ($_REQUEST['step']==1){
 						if (isset($doc->rcptdetials)) unset($doc->rcptdetials);
 						if (isset($doc->docdetials)) unset($doc->docdetials);
 						//print_r($doc);
-						$docIndex[$obj["docnum"]]=$doc->newDocument();
+						$docIndex[$stype.$obj["docnum"]]=$doc->newDocument();
 						//get new doc index save old
 						unset($doc);
 					}
 				}
 				if ($type=='D110'){//Doc Detial
-					if (isset($docIndex[$obj["num"]])){			
+					global $DocOpenType;
+					$stype=$DocOpenType[$obj['doctype']];
+					if (isset($docIndex[$stype.$obj["num"]])){			
 						$docdetial=new documentDetail;
+						
+						unset($obj['doctype']);
 						foreach($obj as $key=>$value){
 							$docdetial->$key=$value;//print "$key <br />";
 						}
-						$docdetial->num=$docIndex[$obj["num"]];	
+						$docdetial->num=$docIndex[$stype.$obj["num"]];	
 						$docdetial->newDetial();
 						//search for old doc index
 						//die;
@@ -305,13 +320,16 @@ if ($_REQUEST['step']==1){
 					}
 				}
 				if ($type=='D120') {//Kaballa Detial
-					if (isset($docIndex[$obj["refnum"]])){
+					global $DocOpenType;
+					$stype=$DocOpenType[$obj['doctype']];
+					if (isset($docIndex[$stype.$obj["refnum"]])){
 						$rcptdetial=new receiptDetail();
-	
+						//$stype=$DocOpenType[$obj['doctype']];
+						unset($obj['doctype']);
 						foreach($obj as $key=>$value){
 							$rcptdetial->$key=$value;
 						}
-						$rcptdetial->refnum=$docIndex[$obj["refnum"]];	
+						$rcptdetial->refnum=$docIndex[$stype.$obj["refnum"]];	
 						$rcptdetial->newDetial();
 						//search for old doc index
 						//update to new index
@@ -376,7 +394,7 @@ if ($_REQUEST['step']==1){
 	
 	
 	$haeder="Select Matching Account Types";
-	$text= "<form action=\"?module=$module&prefix=$prefix&step=2\" method=\"post\" enctype=\"multipart/form-data\">\n<br />";
+	$text= "<form action=\"?module=$module&prefix=$prefix&step=2\" method=\"post\" name=\"main\" enctype=\"multipart/form-data\">\n<br />";
 	//$text.="load ini file <input type=\"file\" name=\"ini\" /><br />\n";
 	//$text.="load bkmvdata <input type=\"file\" name=\"bkmv\" /><br />\n";
 	
@@ -385,7 +403,8 @@ if ($_REQUEST['step']==1){
 			//print "Type: ".$type."<br />";
 		}
 	$l = _("Next");
-	$text.="<input type=\"submit\" value=\"$l\" />";
+	$text.= "<a href='javascript:document.main.submit();' class='btnaction'>$l</a>";
+	//$text.="<input type=\"submit\" value=\"$l\" />";
 		
 	$text.= "</form>\n";
 	

@@ -51,24 +51,21 @@ $lasttbl = '';	// last table in query
 $docref = 0;
 $result = 0;
 $line = array();
-if($doctype < DOC_RECEIPT) {
-	if($curcompany->doc_template)
-		$template = $curcompany->doc_template;
-	else
-		$template = "templates/docs.html";
-}
-else if($doctype == DOC_RECEIPT) {
+if($doctype == DOC_RECEIPT) {
 	if($curcompany->receipt_template)
 		$template = $curcompany->receipt_template;
 	else
 		$template = "templates/receipt.html";
-}	
-else if($doctype > DOC_RECEIPT) {
+}else if($doctype == DOC_INVRCPT) {
 	if($curcompany->invoice_receipt_template)
 		$template = $curcompany->invoice_receipt_template;
 	else
 		$template = "templates/invrcp.html";
-}
+}else	if($curcompany->doc_template)
+		$template = $curcompany->doc_template;
+	else
+		$template = "templates/docs.html";
+
 
 function isdate($dt) {
 	list($y, $m, $d) = explode('-', $dt);
@@ -84,7 +81,7 @@ $docy->getDocument();
 
 function SmallReplace($r) {
 	//return 'bla';
-	global $prefix;
+	global $prefix,$serverpath;
 	global $doctype, $docnum,$idnum;
 	global $DocType, $paymenttype,$banksarr, $creditcompanies;
 	global $docy,$compy;
@@ -92,7 +89,8 @@ function SmallReplace($r) {
 	global $ln, $lasttbl, $docref;
 	global $result, $line;
 	global $stdheader;
-	$dt = ($doctype > DOC_RECEIPT) ? DOC_INVOICE : $doctype;
+	//$dt = ($doctype > DOC_RECEIPT) ? DOC_INVOICE : $doctype;
+	$dt=$doctype;
 	$p = str_replace('~', '', $r[0]);
 	if($p == 'head') {
 		return "$stdheader";
@@ -105,7 +103,7 @@ function SmallReplace($r) {
 	else if($p == 'logo') {
 		$logo = $compy->logo;
 		if($logo)
-			return '<img src="img/logo/'.$logo.'">';//adam:'<img src="img/'.$logo.'">';
+			return '<img src="'.$serverpath.'/img/logo/'.$logo.'"  height=\"100\" />';//adam:'<img src="img/'.$logo.'">';
 		else
 			return "";
 	}
@@ -134,7 +132,7 @@ function SmallReplace($r) {
 		return $compy->address.', '.$compy->city." ".$compy->zip;
 	}
 	else if ($p=='phones'){
-		return _('phone').": ".$compy->phone." | "._("fax").": ".$compy->cellular;
+		return _('phone').": ".$compy->phone." <br /> "._("fax").": ".$compy->cellular;
 	}
 	else if($p=='docdet'){
 		$detiales=$docy->docdetials;
@@ -154,8 +152,9 @@ function SmallReplace($r) {
 		$str='';
 		foreach ($rcpt as $detial){
 			$str.='<div class="row">';
-			$str.='<div class="rdata">'.$detial->type.'</div>';
-			$str.='<div class="rdata">'.$detial->creditcompany.'</div>';
+			$type=selectSql(array('id'=>$detial->type), 'paymentType',array('name'));
+			$str.='<div class="rdata">'._($type[0][name]).'</div>';
+			//$str.='<div class="rdata">'.$detial->creditcompany.'</div>';
 			$str.='<div class="rdata">'.$detial->cheque_num.'</div>';
 			$str.='<div class="rdata">'.$detial->bank.'</div>';
 			$str.='<div class="rdata">'.$detial->branch.'</div>';
@@ -199,7 +198,8 @@ $bla="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">
 <head>
 	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
 	
-	<link rel=\"stylesheet\" type=\"text/css\" href=\"$path/style/documenet.css\" />
+	<!--<link rel=\"stylesheet\" type=\"text/css\" href=\"$path/style/documenet.css\" />-->
+	<link rel=\"stylesheet\" type=\"text/css\" href=\"../style/documenet.css\" />
 	<title>bla</title>
 </head>
 <body dir=\"rtl\">".$bla."</body></html>";
@@ -225,13 +225,18 @@ if($print_win==1) {
 	$printed++;
 	$myFile = "$path/tmp/$prefix.html";
 	$fh = fopen($myFile, 'w') or die("can't open file");
-	fwrite($fh, $bla);
+	fwrite($fh, $bla1);
 	fclose($fh);
+	//print_r($_SERVER);
+	$myfile="$serverpath/tmp/$prefix.html";
 	$query = "UPDATE $docstbl SET printed='$printed' ";
-	$query .= "WHERE prefix='$prefix' AND doctype='$dt' AND docnum='$docnum'";
+	$query .= "WHERE prefix='$prefix' AND doctype='$doctype' AND docnum='$docnum'";
+	print $myfile;
 	DoQuery($query, "printdoc.php");
 
-	$a="xvfb-run -a -s \"-screen 0 1024x768x16\" wkhtmltopdf --dpi 96 --page-size A4 $myFile $path/tmp/$prefix.pdf";
+	//$a="xvfb-run -a -s \"-screen 0 1024x768x16\" wkhtmltopdf --dpi 96 --page-size A4 $myFile $path/tmp/$prefix.pdf";
+	$a="xvfb-run -a -s \"-screen 0 1024x768x16\" wkhtmltopdf $myFile $path/tmp/$prefix.pdf";
+	//print $a;
 	shell_exec($a);
 	print "<meta http-equiv=\"refresh\" content=\"0;url=tmp/$prefix.pdf\"> ";
 }else {

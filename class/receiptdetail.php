@@ -1,19 +1,33 @@
 <?php
-class receiptDetail{
+include_once 'class/fields.php';
+class receiptDetail extends fields{
 	//public $arr;
-	private $_table;
-	private $_prefix;
+	//private $_table;
+	//private $_prefix;
 	
 	public function newDetial(){
 		$array=get_object_vars($this);
+		$array['cheque_date']=date("Y-m-d",strtotime($array['cheque_date']));
 		unset($array['_table']);
-		unset($array['_prefix']);
+		unset($array['_prefix']);		
 		$array['prefix']=$this->_prefix;
 			if (isset($array['refnum']))
 					if (inseretSql($array,$this->_table))
 						return true;
 					else
 						return false;
+	}
+	public function transaction($docnum,$account,$issue_date,$transtype,$tnum){		
+		$tnum = Transaction($tnum, $transtype, $account, $docnum, $this->chknum, $issue_date, '', $this->sum);
+		if($this->type == 1)
+			$optacc=CASH;
+		else if($this->type==2)
+			$optacc=CHEQUE;
+		else if ($this->type==3)
+			$optacc=CREDIT;
+		else if ($this->type==4)
+			$optacc=$this->creditcompany;
+		$tnum = Transaction($tnum, $transtype, $optacc, $docnum, $this->chknum, $issue_date, '', $this->sum * -1.0);
 	}
 	public function getDetials(){
 		$cond['prefix']=$this->_prefix;

@@ -6,6 +6,31 @@ sendmail
 xvfb
 wkhtmltopdf
 
+curl,ssl,
+fopen remote  allow
+register globals off
+
+add
+-class/fields.php
+-img/icon_backpup.png
+-img/icon_restore.png
+-credit.php
+-mobile/*
+-img/right_arrow_16x16.png
+-img/btnShow.png
+-img/btnAcc.png
+-js/jquery.mobile.min.js
+-js/jquery.mobile-1.0.css
+
+delete
+-mgraph.php
+-dbchart.php
+-chart_func.php
+-chart.php
+
+
+
+
 version 1.4
 +open format import
 +new recipt module

@@ -87,8 +87,8 @@ function EditItem($num) {
 		$excatnum = $line['excatnum'];
 		$cur_num = $line['currency'];
 		$l = _("Edit item");
-		$text.= "<h3>$l</h3>";
-		$text.= "<table align=\"left\" cellpadding=\"5\"><tr><td>\n";
+		//$text.= "<h3>$l</h3>";
+		$text.= "<table cellpadding=\"5\"><tr><td>\n";
 		$text.= "<form name=\"itm\" action=\"?module=items&amp;action=updateitem&amp;num=$num\" method=\"post\">\n";
 	}
 	else {
@@ -124,6 +124,7 @@ function EditItem($num) {
 	$text.= "</tr><tr>\n";
 	$l = _("Update");
 	$text.= "<td colspan=\"2\" align=\"center\">";
+	global $smallprint;
 	if (!$smallprint){
 		$text.="<a href='javascript:document.itm.submit();' class='btnaction'>$l</a>";
 	}else {
@@ -148,7 +149,7 @@ $l = _("Items for business documents");
 //print "<br /><h2>$l</h2>\n";
 $haeder=$l;
 $action = isset($_GET['action']) ? $_GET['action'] : '';
-$num = isset($_GET['num']) ? $_GET['num'] : 0;
+$num = isset($_GET['num']) ? (int)$_GET['num'] : 0;
 $begindmy = isset($_COOKIE['begin']) ? $_COOKIE['begin'] : date("1-1-Y");
 $enddmy = isset($_COOKIE['end']) ? $_COOKIE['end'] : date("d-m-Y");
 $begindmy = isset($_GET['begin']) ? $_GET['begin'] : $begindmy;
@@ -158,7 +159,7 @@ $enddmy = isset($_GET['end']) ? $_GET['end'] : $enddmy;
 
 if($action == 'edit') {
 	$text=EditItem($num);
-	createForm($text,$haeder,"",350,'','img/icon_items.png',1,getHelp());
+	createForm($text,$haeder,"",400,'','img/icon_items.png',1,getHelp());
 	return;
 }
 if($action == 'additem') {
@@ -198,7 +199,7 @@ else if($action == 'updateitem') {
 	DoQuery($query, "items.php");
 }
 else if($action == 'del') {
-	$query = "DELETE FROM $itemtbl WHERE $num='$num' AND prefix='$prefix'";
+	$query = "DELETE FROM $itemstbl WHERE num='$num' AND prefix='$prefix'";
 	DoQuery($query, "items.php");
 }
 

@@ -1,8 +1,9 @@
 <?php
-class account{
+include_once 'class/fields.php';
+class account extends fields{
 	//public $arr;
-	private $_table;
-	private $_prefix;
+	//private $_table;
+	//private $_prefix;
 	
 	public function getAccount(){
 		$cond['prefix']=$this->_prefix;

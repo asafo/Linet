@@ -210,8 +210,8 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$text.= "<td>$branch</td>\n";
 	$text.= "<td>$cheque_acct</td>\n";
 	$text.= "<td>$cheque_date</td>\n";
-	$text.= "<td>$sum</td>\n";
-	$text.= "<input type=\"hidden\" id=\"sum\" name=\"sum[]\" value=\"$sum\">\n";
+	$text.= "<td>$sum<input type=\"hidden\" id=\"sum\" name=\"sum[]\" value=\"$sum\"></td>\n";
+	//$text.= "\n";
 	$text.= "</tr>\n";
 }
 $text.= "<tr><td colspan=\"7\">&nbsp;</td>\n";		/* spacer */
@@ -225,7 +225,10 @@ $l = _("Deposit");
 $text.= "<tr><td colspan=\"2\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
-createForm($text, $haeder,'',750,'','',1,getHelp());
+if(!$ismobile)
+	createForm($text, $haeder,'',750,'','',1,getHelp());
+else
+	print $text;
 //print "</div>\n";
 
 ?>

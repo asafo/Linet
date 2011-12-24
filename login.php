@@ -8,6 +8,7 @@
  */
 global $logintbl, $permissionstbl;
 global $name;
+require_once 'class/user.php';
 //global $dir;
 $text='';
 if(isset($_POST['name']))
@@ -49,7 +50,7 @@ function AddUser() {
 	//print "<div class=\"form righthalf1\">\n";
 	$haeder = _("Add user");
 	//print "<h3>$l</h3>";
-	$text.= "<form action=\"?module=login&amp;action=doadduser\" method=\"post\">\n";
+	$text.= "<form id=\"edituser\" action=\"?module=login&amp;action=doadduser\" method=\"post\">\n";
 	$text.= "<table dir=\"$dir\" border=\"0\" align=\"center\" class=\"formtbl\" width=\"100%\"><tr>\n";
 	$l = _("Email");
 	$text.= "<td>$l: </td>\n";
@@ -78,7 +79,7 @@ function AddUser() {
 		$text.= "<input type=hidden name=prefix value=\"*\" />\n";
 //	print "</td></tr>\n";
 	$l = _("Create");
-	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td></tr>\n";
+	$text.= "<tr><td colspan=\"2\" align=\"center\"><a href=\"javascript:$('#edituser').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
 //	print "</tr></td></table>\n";
@@ -170,9 +171,12 @@ if($action == 'doadduser') {
 			ErrorReport("$l");
 			exit;
 		}
+		$password=sha1($password);
+		$hash=sha1(rand());
+		
 		$fullname = htmlspecialchars($_POST['fullname'], ENT_QUOTES);
-		$query = "INSERT INTO $logintbl (name, fullname, password) ";
-		$query .= "VALUES ('$name', '$fullname', PASSWORD('$password'))";
+		$query = "INSERT INTO $logintbl (name, fullname, password,hash) ";
+		$query .= "VALUES ('$name', '$fullname', '$password','$hash')";
 //		print "<div dir=ltr>Query: $query<br /></div>\n";
 		$result= DoQuery($query, "login add");
 	
@@ -215,8 +219,10 @@ if($action == 'updateuser') {
 //	$email = $_POST['email'];
 
 	$query = "UPDATE $logintbl SET fullname='$fullname'";
-	if(isset($password))
-		$query .= ", password=PASSWORD('$password')";
+	if(isset($password)){
+		$password=sha1($password);
+		$query .= ", password='$password'";
+	}
 	$query .= " WHERE name='$uname'";
 //	PageHeader();	
 	$result = DoQuery($query, "login update");
@@ -239,8 +245,8 @@ if($action == 'forgot') {
 	}
 	$str = md5($email);
 	$r = rand(0, 26);
-	$pwd = substr($str, $r, 6);
-	$query = "UPDATE $logintbl SET password=PASSWORD('$pwd') WHERE name='$email'";
+	$pwd = sha1(substr($str, $r, 6));
+	$query = "UPDATE $logintbl SET password='$pwd' WHERE name='$email'";
 		echo "<br />".$pwd."; <br />";
 	DoQuery($query, "login.php");
 	$l = _("New password for Linet accounting software");
@@ -267,7 +273,8 @@ if($action == 'login') {
 //	print "<div dir=ltr>\n";
 //	print "Name: $name, password: $password<br />\n";
 //	print "</div>\n";
-	$query = "SELECT name,hash FROM $logintbl WHERE name='$name' AND password=PASSWORD('$password')";
+	/*$password=sha1($password);
+	$query = "SELECT name,hash FROM $logintbl WHERE name='$name' AND password='$password'";
 //	print "Query: $query<br />\n";
 //	print "</div>\n";
 	$f = __FILE__;
@@ -275,7 +282,8 @@ if($action == 'login') {
 	$result = DoQuery($query, "$f $l");
 	$n = mysql_num_rows($result);
 	if($n == 0) {
-		/* Test if this is a registered demo user */
+		// Test if this is a registered demo user 
+		$_SESSION['loggedin']=false;
 		$query = "SELECT name FROM $logintbl WHERE name='$name' AND password='demo'";
 		$result = DoQuery($query, __LINE__);
 		$n = mysql_num_rows($result);
@@ -287,16 +295,16 @@ if($action == 'login') {
 		else
 			$demouser = 1;
 	}
-/*	$line = mysql_fetch_array($result, MYSQL_NUM);
-	if($line[1] != '') {
+	//$line = mysql_fetch_array($result, MYSQL_NUM);
+	//if($line[1] != '') {
 	//	print_r($line);
-		print "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ן¿½׳³ן¿½ ׳³ֲ¡׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ֳ— ׳³ֳ—׳³ג€�׳³ן¿½׳³ג„¢׳³ן¿½ ׳³ג€�׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€�</h1>\n";
-		return;
-	} */
+	//	print "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ן¿½׳³ן¿½ ׳³ֲ¡׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ֳ— ׳³ֳ—׳³ג€�׳³ן¿½׳³ג„¢׳³ן¿½ ׳³ג€�׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€�</h1>\n";
+	//	return;
+	//}
 	
 	$query = "UPDATE $logintbl SET lastlogin=NOW() WHERE name='$name'";
 	$result = DoQuery($query, "dologin");
-	/* now get it back again */
+	//now get it back again 
 	$query = "SELECT lastlogin FROM $logintbl WHERE name='$name'";
 	$result = DoQuery($query, "dologin");
 	$line = mysql_fetch_array($result, MYSQL_NUM);
@@ -316,13 +324,27 @@ if($action == 'login') {
 	$url = "index.php";
 	setcookie('name', $name, $cookietime);
 	setcookie('data', $data, $cookietime);
+	$_SESSION['loggedin']=true;
 	$_SESSION['name']=$name;
 	$_SESSION['data']=$data;
-	$l = _("You have succesfully entered the system");
-	print "<h1  class=\"login\">$l</h1>\n";
-//	print "<script type=\"text/javascript\">location.href='$url'</script>\n";
-	print "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"2; URL=$url\">\n";
-	exit;
+	*/
+	global $curuser;
+	//$curuser->name=$name;
+	//$curuser->getUser();
+	//print_r($_SESSION);
+	
+	//print "<br />$name<br />$password";
+	$a=$curuser->login($name,$password,null,null);
+	//print("<br />this is a: $a<br />");
+	if($a==1){
+		$l = _("You have succesfully entered the system");
+		print "<h1  class=\"login\">$l</h1>\n";
+	//	print "<script type=\"text/javascript\">location.href='$url'</script>\n";
+		$url='index.php';
+		print "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"2; URL=$url\">\n";
+		exit;
+	}else print "error repiar and try agin:$a";
+	
 }
 
 if($action == 'edituser') {
@@ -501,7 +523,7 @@ else {
 	$l = _("Entrance is only for registerd users");
 	$text.= "$l";
 //	print "</h3></div></div>\n";
-	$text.=  "<form class=\"login1\" id=\"login\" action=\"index.php?action=login\" method=\"post\">\n";
+	$text.=  "<form name=\"loginform\" class=\"login1\" id=\"login\" action=\"index.php?action=login\" method=\"post\">\n";
 	$text.=  "<table border=\"0\" cellpadding=\"5px\" width=\"300px\"><tr>\n";
 	$l = _("Email");
 	$text.=  "<td>$l: <br />";
@@ -513,16 +535,29 @@ else {
 	$text.=  "<tr><td>";
 	$text.=  "<input type=\"checkbox\" name=\"rememberme\" />$l\n";
 	$l = _("I forgot my password");
-	$text.='<a href="#" id="btnfrgt">'.$l.'</a></td></tr>';
-	$l = _("Login");
+	$text.='<a href="javascript:showme();">'.$l.'</a></td></tr>';
 	$text.=  "<tr><td colspan=\"2\" align=\"center\">";
-	$text.="<a href=\"javascript:$('#login').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+	$l = _("Login");
+	$text.="<a href=\"javascript:document.loginform.submit();\" rel=\"external\" class=\"btnaction\">$l</a></td></tr>\n";
+	
 	$text.=  "</table>\n";
 	
 	$text.=  "</form>\n";
 	$text.=  "<br />\n";
-
-	
+	$javas=<<<bla
+<script type="text/javascript">
+function showme(){ 
+        $("#forgat").show('slow');
+        $("#login").hide(1000);
+       
+} 
+function hideme(){
+        $("#login").show('slow');
+        $("#forgat").hide(1000);
+    };
+</script>
+bla;
+	$text.=$javas;
 	//$text.="<div>";
 		$text.=  "<form class=\"login1\" id=\"forgat\" action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
 		$text.=  "<table width=\"300px\">\n";
@@ -536,14 +571,17 @@ else {
 	$l = _("Submit");
 	$text.=  "<td align=\"center\"><a href=\"javascript:$('#forgat').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
 	$l = _("Cancel");
-	$text.='<tr><td><a href="#" id="btncancel">'.$l.'</a>';
+	$text.='<tr><td><a href="javascript:hideme();">'.$l.'</a>';
 	
 	$text.=  "</td></tr></table></form>\n";
 	
 	//$text.="</div>";
 	$haeder=_("Login");
-	createForm($text, $haeder, 'login',500,400,'img/icon_login.png',null,getHelp());
-
+	//global $ismobile;
+	if(!$ismobile)
+		createForm($text, $haeder, 'login',500,400,'img/icon_login.png',null,getHelp());
+	else
+		print $text;
 }
 
 ?>

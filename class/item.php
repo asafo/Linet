@@ -1,8 +1,9 @@
 <?php
-class item{
+include_once 'class/fields.php';
+class item extends fields{
+
 	//public $arr;
-	private $_table='';
-	private $_prefix;
+
 	public function newItem(){
 		$array=get_object_vars($this);
 		unset($array['_table']);
@@ -61,6 +62,7 @@ class item{
 		if ($a->getItem())
 			return deleteSql($cond,$this->_table);
 	}
+	
 	public function __construct(){
 		global $itemstbl;
 		global $prefix;

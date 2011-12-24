@@ -108,6 +108,7 @@ foreach ($MainMenu as $key=>$value){
 	
 	//if($i+1==$numItems) $class=" class=\"last\"";
 	$str.="<li><span><p>$n</p></span>";
+	//$str.="<li><span><span>$n</span></span>";
 	$str.="<ul>";
 	//$last=count($value);
 	//$i1=0;

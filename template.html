@@ -1,8 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
+	<meta http-equiv="X-UA-Compatible" content="IE=7" />
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
 	<link rel="stylesheet" type="text/css" href="style/mcalendar.css" />
 	<link rel="stylesheet" href="js/jquery-ui-1.8.13.custom.css" type="text/css" />
 	<link rel="stylesheet" href="js/jquery.tablesorter.min.css" type="text/css" />
@@ -17,7 +19,7 @@
 	
 </head>
 	<body>
-	
+		<a href="?ismobile=1">Mobile</a>
 		<div id="wrapper">
 			<div class="headerA">
 				<div id ="right_hdr">
@@ -61,9 +63,7 @@
 			$('#'+id).datepicker( "option", "dateFormat", "dd-mm-yy" );
 			$('#'+id).val(value);
 			$('#'+id).after('<img src="img/icon_cel.png" width="18" onclick="$(\'#'+id+'\').focus()"/>');
+				
 		}
-
-		
-	
 	</script>
 </html>

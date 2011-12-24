@@ -74,6 +74,7 @@ $text.= "</tr></thead><tbody>\n";
 $t = SUPINV;
 $query = "SELECT * FROM $transactionstbl WHERE prefix='$prefix' ";
 $query .= "AND type='$t' AND sum>'0' ORDER BY num DESC LIMIT 10";
+//print $query;
 $result = DoQuery($query, "lasttran");
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$supacct == 0;
@@ -88,17 +89,20 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$refnum1 = $line['refnum1'];
 	$refnum2 = $line['refnum2'];
 	$acct2 = GetOppositAccount($num, $sum);
-	if(GetAcctType($acct1) == SUPPLIER) {
-		$supacct = $acct1;
-	}
-	if(GetAcctType($acct1) == OUTCOME)
-		$outacct = $acct1;
+	
+	if(GetAcctType($acct1) == SUPPLIER)
+		$supacct = $acct1;		
 	if(GetAcctType($acct2) == SUPPLIER) {
 		$supacct = $acct2;
 		$sum *= -1.0;
 	}
+	
+	if(GetAcctType($acct1) == OUTCOME)
+		$outacct = $acct1;
 	if(GetAcctType($acct2) == OUTCOME)
 		$outacct = $acct2;
+		
+	//print "b:".$outacct.",".$supacct.";<br />";
 	$query = "SELECT sum FROM $transactionstbl WHERE num='$num' AND account='$outacct' AND prefix='$prefix'";
 	$r = DoQuery($query, "lasttran");
 	$l = mysql_fetch_array($r, MYSQL_NUM);

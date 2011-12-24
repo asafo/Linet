@@ -5,7 +5,7 @@
  */
 global $prefix, $accountstbl, $transactionstbl, $tranreptbl;
 global $TranType;
-
+$text='';
 if(!isset($prefix) || ($prefix == '')) {
 	$l = _("This operation can not be executed without choosing a business first");
 	print "<h1>$l</h1>\n";
@@ -86,7 +86,7 @@ if($step == 1) {
 		$query .= "WHERE num='$tnum' AND prefix='$prefix'";
 		DoQuery($query, 'tedit');
 		$l = _("Transaction updated");
-		print "<br><h1>$l</h1>\n";
+		$text.= "<br><h1>$l</h1>\n";
 	}
 	$url = "?module=acctdisp&amp;account=$acct&amp;begin=$begin&amp;end=$end";
 	print "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"1; URL=$url\">\n";
@@ -110,13 +110,12 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	else if(($sum < 0) && ($account > 100))
 		$dacct = $account;
 }
-$text='';
 //print "<br>\n";
 //print "<div class=\"righthalf1\">\n";
 $l = _("Edit transaction");
 $haeder=$l;
 //print "<h3>$l</h3>\n";
-$text.= "<table class=\"formy\" width=\"100%\">\n";
+$text.= "<table width=\"100%\">\n";
 $text.= "<form name=\"tedit\" action=\"?module=tedit&amp;num=$tnum&amp;account=$acct&amp;begin=$begin&amp;end=$end&amp;step=1\" method=\"post\">\n";
 $text.= "<tr>\n";
 $l = _("Transaction number");
@@ -140,26 +139,26 @@ $text.= "<td>$acctname</td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Date");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" class=\"txtDate\" name=\"date\" size=\"7\" value=\"$dtdmy\" />\n";
+$text.= "<td><input type=\"text\" class=\"date\" name=\"date\" size=\"7\" value=\"$dtdmy\" readonly=\"yes\" />\n";
 $text.= "</td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Ref. num");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"refnum1\" value=\"$refnum1\" /></td>\n";
+$text.= "<td><input type=\"text\" name=\"refnum1\" value=\"$refnum1\" readonly=\"yes\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Details");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\" readonly=\"yes\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Storeno transaction");
 $text.= "<td colspan=\"2\"><input type=\"checkbox\" name=\"storeno\">$l</td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Submit");
-$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+$text.= "<td colspan=\"2\" align=\"center\"><a href=\"javascript:document.tedit.submit();\" class=\"btnaction\">$l</a></td>\n";
 $text.= "</tr></table>\n";
 $text.= "</form>\n";
 //$text.= "</div>\n";
-createForm($text, $haeder,'',600,'','logo',1,'help');
+createForm($text, $haeder,'',600,'','',1,getHelp());
 
 
 ?>

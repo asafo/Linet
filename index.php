@@ -1,6 +1,6 @@
 <?PHP
 /*
- | Drorit accounting system version 2.0
+ | Linet accounting system version 2.0
  | Written by Ori Idan
  | Modfied By Adam BH
  */
@@ -14,82 +14,50 @@ if(isset($_GET['begin']) && isset($_GET['end'])) {
 	setcookie('begin', $begindmy, time() + 24 * 3600);
 	setcookie('end', $enddmy, time() + 24 * 3600);
 }
-$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
-$module = isset($_REQUEST['module']) ? $_REQUEST['module'] : '';
 
-if($action == 'disconnect') {
-	setcookie('name', '', -1);
-	setcookie('data', '', -1);
-	setcookie('company', '', -1);
-	unset($_COOKIE['name']);
-	unset($_COOKIE['data']);
-	unset($_COOKIE['company']);
-	unset($_SESSION);
-	$action = '';
-}
-else if($action == 'unsel') {
-	setcookie('company', '', -1);
-	unset($_COOKIE['company']);
-	unset($_SESSION['company']);
-	unset($action);
-	unset($_GET['action']);
-	$module = 'main';
-}
 include('include/i18n.inc.php');
 include('config.inc.php');
 include('include/core.inc.php');
 include('include/version.inc.php');
 include('include/func.inc.php');
-include('class/user.php');
-include('class/company.php');
-$Uname = isset($_COOKIE['name']) ? $_COOKIE['name'] : '';
-$Udata = isset($_COOKIE['data']) ? $_COOKIE['data'] : '';
-$Sname = isset($_SESSION['name']) ? $_SESSION['name'] : '';
-$Sdata = isset($_SESSION['data']) ? $_SESSION['data'] : '';
+require_once('class/user.php');
+require_once('class/company.php');
 
+$loggedin=isset($_SESSION['loggedin']) ? $_SESSION['loggedin'] : false;
 
-$prefix =  isset($_COOKIE['company']) ? $_COOKIE['company'] :'';
-//$prefix = isset($_SESSION['company']) ? $_SESSION['company'] :'';
-$prefix = isset($_GET['company']) ? $_GET['company'] : $prefix;
+//$prefix = isset($_COOKIE['company']) ? $prefix=$_COOKIE['company'] :$prefix='';
+//$prefix = isset($_SESSION['company']) ? $prefix=$_SESSION['company'] :$prefix=$prefix;
+
+//$_SESSION['']=$prefix;
+$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
+$module = isset($_REQUEST['module']) ? $_REQUEST['module'] : '';
 
 $stdheader = '';
 $abspath = GetURI();
 
 if(($module == '') && ($action == '')) 
-		$module = 'main';
+	$module = 'main';
 
 
 $link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
 mysql_query("SET NAMES 'utf8'");
 mysql_select_db($database) or die("Could not select database: $database");
-$loggedin = 0;
-/*chk if logged in improved */
-$curuser=unserialize($_SESSION['user']);
-if(!isset($_SESSION['user'])){
-	if(isset($Uname) && ($Uname != '')) 
-		if((isset($Udata)) && ($Udata!='')){
-			//if session isnt set get from db
-			//adam: current user
-			$name = urldecode($Uname);
-			
-			$curuser=new user;
-			$curuser->name=$name;
-			$curuser->getUser();
-			//if($Sdata=='') $Sdata=$curuser->cookie;
-			//if($Sname=='') $Sname=$curuser->name;
-			if(($Uname==$curuser->name) && ($Udata==$curuser->cookie)){
-				$loggedin = 1;
-				$_SESSION['user']=serialize($curuser);
-				$_SESSION['name']=$Uname;
-				$_SESSION['data']= $Udata;
-				$cookietime = time() + 60*60*24*30;
-				//chk if user has permisions to company
-				setcookie('company', $prefix, $cookietime);
-			}
-		}
-}else{$name=$_SESSION['user']->name;$loggedin=1;}
 
 
+
+$name=isset($_COOKIE['name'])?$name=$_COOKIE['name'] :$name='';
+$data=isset($_COOKIE['data'])?$data=$_COOKIE['data'] :$data='';
+$name=isset($_SESSION['name'])?$name=$_SESSION['name']:$name=$name;
+$data=isset($_SESSION['data'])?$data=$_SESSION['data']:$data=$data;
+
+$curuser=new user();
+//if session data =cookie data
+//print("<br />user: $name <br $curcompany/>data: $data<br />");
+$curuser->name=$name;
+$curuser->data=$data;
+$curuser->login($name,null,$data);
+
+$prefix = isset($_GET['company']) ? $prefix=$_GET['company'] : $prefix=$prefix;
 $curcompany=unserialize($_SESSION['company']);
 if(!isset($_SESSION['company'])||($prefix!=$curcompany->prefix)){
 	if($prefix!=''){
@@ -106,36 +74,60 @@ if(!isset($_SESSION['company'])||($prefix!=$curcompany->prefix)){
 }
 
 
+$name=$curuser->name;
 
 $prefix=$curcompany->prefix;
-$name=$curuser->name;
 $title = $curcompany->companyname;
 $template = $curcompany->template;
 $logo=$curcompany->logo;
 if($loggedin) {
 	$query = "SELECT * FROM $permissionstbl WHERE name='$name'";
 	$result = DoQuery($query, "index.php");
-	//if(mysql_num_rows($result) == 0) {
-	//	$demouser = 1;
-	//	$prefix = 'demo';
-	//	$name = 'demo';
-	//}
 		$line = mysql_fetch_array($result, MYSQL_ASSOC);
 		$c = $line['company'];
 		if($c == '*')
 			$superuser = 1;
-		else
-			$prefix = $c;
+		//else
+			//$prefix = $c;//*/
 	}
 
+if($action == 'disconnect') {
+	$curuser->logout();
+}
+
+else if($action == 'unsel') {
+	setcookie('company', '', -1);
+	unset($_COOKIE['company']);
+	unset($_SESSION['company']);
+	unset($action);
+	unset($_GET['action']);
+	$module = 'main';
+	print "<meta http-equiv=\"refresh\" content=\"0;url=?\" />";
+	exit;
+}
+	
+	
+	
 if ($action=='lister'){
 		include('lister.php');
-		die;
+		exit;
 	}
 
-
-if (isset($_COOKIE['cheaked'])) {$cheaked=true;} else {$cheaked=false;}
-if (isset($_COOKIE['sversion'])) {$sVersion=$_COOKIE['sversion'];} else {$sVersion=getVersion(); }
+if(isset($_GET['ismobile'])){
+	$ismobile=$_GET['ismobile'];
+}else{
+	if(isset($_SESSION['ismobile']))
+		$ismobile=$_SESSION['ismobile'];
+	else
+		$ismobile=isMobile();
+}
+$_SESSION['ismobile']=$ismobile;
+if($ismobile==1){
+	include('mobile/index.php');
+	exit;
+}
+$cheaked=isset($_COOKIE['cheaked'])?$cheaked=true:$cheaked=false;
+$sVersion=isset($_COOKIE['sversion'])?$sVersion=$_COOKIE['sversion']:$sVersion=getVersion(); 
 setcookie('sversion', $sVersion, time() + 24 * 3600);
 $_SESSION['updatepop']=false;
 if (!$cheaked){
@@ -152,12 +144,9 @@ if (!$cheaked){
 	}
 }
 
-/* Make sure we have a valid company and set $title */
 
-//if($cssfile == '')
-	$cssfile = 'style/linet.css';
-//if($small_logo == '')
-	$small_logo = 'img/logo.jpg';
+$cssfile = 'style/linet.css';
+$small_logo = 'img/logo.jpg';
 
 if($template == '') {
 	if($lang == 'he') {
@@ -213,14 +202,22 @@ function browser_info($agent=null) {
   $i = count($matches['browser'])-1;
   return array($matches['browser'][$i] => $matches['version'][$i]);
 }
-
+function isMobile(){
+	$mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+	$mobile_agents = array('iphone','ipad','android');
+	 
+	if (in_array($mobile_ua,$mobile_agents)) {
+	    return 1;
+	}
+ 	return 0;	
+}
 function RunModule() {
 	global $module, $action, $id, $lang;
 	global $logintbl, $permissionstbl;
 	global $name, $prefix;
 	global $loggedin, $superuser;
 	global $ModuleAction;
-	//global $menuprinted;
+	global $menuprinted;
 	//print $module;
 	if(!$loggedin) {
 		include('login.php');
@@ -282,7 +279,7 @@ function TemplateReplace($r) {
 		if($version<$sVersion){
 			$format=_('Working in a ');
 			$link='<a href="module/update">'._('OLD Version').'</a>';
-			print $format.$link;
+			print "<div class=\"warning\">$format $link</div>";
 		}
 	}
 	else if($p == 'text') {
@@ -296,7 +293,7 @@ function TemplateReplace($r) {
 	else if($p == 'logo')
 		return $small_logo;
 	else if($p=='complogo')
-		return '<a href="?module=main"><img src="img/logo/'.$logo.'" alt="Company Logo" height=80/></a>';
+		return '<a href="?module=main"><img src="img/logo/'.$logo.'" alt="Company Logo" height="80" /></a>';
 	else if($p == 'version') {
 		return $Version;
 	}

@@ -1,20 +1,34 @@
 <?PHP
 /*
- | Auxiliary functions for freelance
+ | Auxiliary functions for linet
  */
-function PrintCustomerSelect($defaccount) {	
-	$text="<input type=\"text\"  id=\"acc\" class=\"cat_num\" name=\"account\" onblur=\"SetCustomer()\" />\n";//name=\"cat_num[]\"
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=acc&type='.CUSTOMER.'"&jsoncallback=?\'});});</script>';
+function PrintInput($type='text',$class='',$name='bla',$id='',$value='' ,$size='',$iType='',$onChange=''){
+	if($class=='0')$class='';
+	if($value=='0')$value='';
+	
+	if($id!='') $id="id=\"$id\"";
+	if($class!='') $class="class=\"$class\"";
+	if($value!='') $value="value=\"$value\"";
+	if($size!='') $size="size=\"$size\"";
+	if($onChange!='') $onChange="onChange=\"$onChange\"";
+	if ($iType=="readonly") $temp="readonly";
+	$str="<input type=\"$type\" name=\"$name\" $id $class $value $size $temp />";
+	return $str;
+}
+function PrintCustomerSelect($defaccount='') {	
+	$text="<input type=\"text\"  id=\"acc\" class=\"cat_num\" value=\"$defaccount\" name=\"account\" onblur=\"SetCustomer()\" />\n";//name=\"cat_num[]\"
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.CUSTOMER.'"&jsoncallback=?\'});});</script>';
 	return $text;
 }
-function PrintSupplierSelect($defaccount) {	
-	$text="<input type=\"text\"  id=\"supplier\" class=\"\" name=\"supplier\" onchange=\"ochange()\" />\n";//name=\"cat_num[]\"
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#supplier" ).autocomplete({source: \'index.php?action=lister&data=acc&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
+function PrintSupplierSelect($defaccount='') {	
+	$text="<input type=\"text\"  id=\"supplier\" class=\"\" value=\"$defaccount\" name=\"supplier\" onchange=\"ochange()\" />\n";//name=\"cat_num[]\"
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#supplier" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
 	return $text;
 }
-function PrintSelect($defaccount,$type){
-	$text="<input type=\"text\"  id=\"outcome\" class=\"\" name=\"outcome\" onchange=\"ochange()\" />\n";//name=\"cat_num[]\"
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#outcome" ).autocomplete({source: \'index.php?action=lister&data=acc&type='.$type.'&jsoncallback=?\'});});</script>';
+function PrintSelect($defaccount='',$type){
+	$text="<input type=\"text\"  id=\"outcome$type\" class=\"\" value=\"$defaccount\" name=\"outcome\" onchange=\"ochange()\" />\n";//name=\"cat_num[]\"
+	//$text.='<script type="text/javascript">$(document).ready(function() {$( "#outcome'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#outcome'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.$type.'&jsoncallback=?\'});});</script>';
 	return $text;
 }
 function ErrorReport($str) {
@@ -27,7 +41,7 @@ function ErrorReport($str) {
 function newWindow($text,$href,$width,$height,$title=0,$class=0){
 	if(!$title)$title=_("New");
 	if(!$class)$class='';else $class='class="'.$class.'"';
-	$text= "<a href=\"$href\" $class onClick=\"window.open('$href','$title','width=$width,height=$height,menubar=no,status=no,directories=no,toolbar=no,location=no,resizable=no'); return false;\" target=\"_blank\"\">$text</a>\n";
+	$text= "<a href=\"$href\" $class onClick=\"window.open('$href','$title','width=$width,height=$height,menubar=no,status=no,directories=no,toolbar=no,location=no,resizable=no'); return false;\" target=\"_blank\">$text</a>\n";
 	return $text;
 }
 function printHtml(){
@@ -204,7 +218,18 @@ function Transaction($tnum, $type, $acct, $ref1, $ref2, $date, $details, $sum) {
 	}
 	return $tnum;
 }
+/*used in doc item*/
+function GetAccountFromCatNum($cat_num) {
+	global $itemstbl;
+	global $prefix;
 
+	$query = "SELECT account FROM $itemstbl WHERE num='$cat_num' AND prefix='$prefix'";
+
+	$result = DoQuery($query, "GetAccountFromCatNum");
+	$line = mysql_fetch_array($result, MYSQL_NUM);
+	$acct = $line[0];
+	return $acct;
+}
 function FromHtml($str) {
 	$str = html_entity_decode($str);
 	$str = str_replace('&#039;', '\'', $str);
@@ -295,11 +320,13 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 	if(isset($back)){
 		$l=_("Back");
 		$back='<div class="formback"><a href="javascript:history.go(-1)">'.$l.'&nbsp;<img src="img/icon_back.png" alt="Icon back" /></a></div>';
+		$titlewidth=75;
 	}else 	
 		$back='';
 	if (isset($help)){
 		$l=_("Help");
 		$help='<div class="formhelp"><a class="help" target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" /><p>'.$l.'</p></a></div>';
+		$titlewidth+=75;
 	}else{
 		$help='';
 	}
@@ -308,12 +335,12 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 	<table class="form '.$sClass.'" style="width:'.$width.'px;">
 		<tr>
 			<td class="ftr"><img src="img/ftr.png" alt="formright"  /></td>
-			<td class="ftc"><div class="formtitle">'.$logo.'<p>'.$haeder.'</p></div>'.$back.$help.'</td>
+			<td class="ftc"><div class="formtitle" style="width:'.($width-$titlewidth-28).'px;" >'.$logo.'<p>'.$haeder.'</p></div>'.$back.$help.'</td>
 			<td class="ftl"><img src="img/ftl.png" alt="formleft" /></td>
 		</tr>
 		<tr>
 			<td class="fcr"></td>
-			<td class="fcc" style="width:'.($width-40).'px;height:'.($height-140).'px;">
+			<td class="fcc" style="width:'.($width-28).'px;height:'.($height-140).'px;">
 				'.$text.'
 			</td>
 			<td class="fcl"></td>
@@ -621,7 +648,8 @@ function selectSql($cond,$tablename,$fields=NULL,$date=null,$sort=null){
 	$con='';
 	foreach($cond as $key=>$value){
 		$value="'".sqlText($value)."'";
-		if ($key=='password') $value="PASSWORD(".$value.")";
+		//$key="'".sqlText($key)."'";
+		//if ($key=='password') $value="PASSWORD(".$value.")";
 		$con.="(".$key."=".$value.") AND";
 	}
 	if  (!is_null($date)){
@@ -630,13 +658,14 @@ function selectSql($cond,$tablename,$fields=NULL,$date=null,$sort=null){
 	$con=substr($con,0,-3);
 	if  (!is_null($sort)){
 		//'ORDER BY `prefix` ASC'
-		foreach ($sort as &$value) $value="'".sqlText($value)."'";
+		foreach ($sort as &$value) $value=sqlText($value);
 		$sorts=implode(" ASC,", $sort);
 		$sorts= "ORDER BY ".$sorts.' ASC';
 		$con.=$sorts;
 	}
 	$sql = "SELECT $data FROM $tablename WHERE $con";
 	//print $sql;
+	
 	$result = mysql_query($sql);
 	if(!$result) {
 		echo mysql_error();

@@ -27,7 +27,10 @@ if($action == 'update') {
 	$num4 = (int)$_POST['num4'];
 	$num5 = (int)$_POST['num5'];
 	$num6 = (int)$_POST['num6'];
+	$num7 = (int)$_POST['num7'];
 	$num8 = (int)$_POST['num8'];
+	$num9 = (int)$_POST['num9'];
+	$num10 = (int)$_POST['num10'];
 	$header = htmlspecialchars($_POST['header'], ENT_QUOTES);
 	$footer = htmlspecialchars($_POST['footer'], ENT_QUOTES);
 	$size = (int)$_FILES['logo']['size'];
@@ -56,7 +59,7 @@ if($action == 'update') {
 	}
 
 	$query = "UPDATE $companiestbl SET num1='$num1', num2='$num2', num3='$num3', ";
-	$query .= "num4='$num4', num5='$num5', num6='$num6', num8='$num8', ";
+	$query .= "num4='$num4', num5='$num5', num6='$num6',num7='$num7', num8='$num8',num9='$num9', num10='$num10', ";
 	$query .= "header='$header', footer='$footer' ";
 	if($logo != '')
 		$query .= ", logo='$logo' ";
@@ -80,7 +83,7 @@ if($action == 'logodel') {
 	DoQuery($query, 'docnums');
 }
 
-$query = "SELECT num1,num2,num3,num4,num5,num6,num8,header,footer,logo FROM $companiestbl ";
+$query = "SELECT num1,num2,num3,num4,num5,num6,num7,num8,num9,num10,header,footer,logo FROM $companiestbl ";
 $query .= "WHERE prefix='$prefix'";
 $result = DoQuery($query, "docnums.php");
 $line = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -90,7 +93,10 @@ $num3 = $line['num3'];
 $num4 = $line['num4'];
 $num5 = $line['num5'];
 $num6 = $line['num6'];
+$num7 = $line['num7'];
 $num8 = $line['num8'];
+$num9 = $line['num9'];
+$num10 = $line['num10'];
 $header = $line['header'];
 $footer = $line['footer'];
 $logo = $line['logo'];
@@ -105,7 +111,21 @@ $text.= "<table border=\"0\" cellpadding=\"1px\" class=\"formtbl\" width=\"100%\
 $l = _("Base numbers");
 $text.= "<td colspan=\"4\"><h2>$l</h2></td>\n";
 $text.= "</tr><tr>\n";
-
+global $DocType;
+for($i=2;$i<=10;$i=$i+2){
+	//$i=$i+2;
+	//print "bla";
+	$a=$i-1;
+	$value=$line['num'.$a];
+	$text.= "<td>$DocType[$a]: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"num$a\" value=\"$value\" size=\"4\"></td>\n";
+	
+	$value=$line['num'.$i];
+	$text.= "<td>$DocType[$i]: </td>\n";
+	$text.= "<td><input type=\"text\" name=\"num$i\" value=\"$value\" size=\"4\"></td>\n";
+	$text.= "</tr><tr>\n";
+}
+/*
 $l = _("Proforma");
 $text.= "<td>$l: </td>\n";
 $text.= "<td><input type=\"text\" name=\"num1\" value=\"$num1\" size=\"4\"></td>\n";
@@ -130,7 +150,7 @@ $l = _("Receipt");
 $text.= "<td>$l: </td>\n";
 $text.= "<td><input type=\"text\" name=\"num6\" value=\"$num6\" size=\"4\"></td>\n";
 $text.= "</tr><tr>\n";
-
+*/
 $l = _("Document layout");
 $text.= "<td colspan=\"4\"><h2>$l</h2></td>\n";
 $text.= "</tr><tr>\n";

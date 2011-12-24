@@ -73,5 +73,9 @@ $text.= "<tfoot><tr class=\"sumline\"><td><b>"._("Total")."</b></td><td>$tstr</t
 $text.=$body;
 $text.= "</table>\n";
 //print "</div>\n";
-createForm($text, $haeder,'',750,'','',1,getHelp());
+global $ismobile;
+if($ismobile)
+	print $text;
+else
+	createForm($text, $haeder,'',750,'','',1,getHelp());
 ?>

@@ -12,6 +12,7 @@ class company{
 		if ($list){
 			foreach($list[0] as $key=>$value)
 				$this->{$key}= $value;
+			$this->creditallow=unserialize($this->creditallow);
 			return true;
 		}else{
 			return false;
@@ -19,6 +20,7 @@ class company{
 	}
 	public function newCompany(){
 		$array=get_object_vars($this);
+		$array['creditallow']=unserialize($array['creditallow']);
 		unset($array['_table']);
 		unset($array['_prefix']);
 		$array['prefix']=$this->_prefix;	
@@ -28,6 +30,8 @@ class company{
 			if (isset($array['prefix'])){
 					if (inseretSql($array,$this->_table)){
 						//add new accounts
+						$prefix=$this->_prefix;
+						require_once('acctcreate.inc.php');
 						return true;
 					}else{
 						return false;
@@ -38,6 +42,7 @@ class company{
 	}
 	public function updateCompany(){
 		$array=get_object_vars($this);
+		$array['creditallow']=unserialize($array['creditallow']);
 		unset($array['_table']);
 		unset($array['_prefix']);
 		if (isset($array['prefix'])) {
@@ -72,6 +77,7 @@ class company{
 		//foreach ($values as $value) $this->arr[$value['Field']]='';
 		foreach($values as $value)
 			$this->{$value['Field']}= '';
+		$this->creditallow='';
 		return $this;
 	}
 }

@@ -98,16 +98,7 @@ if($action == 'submit') {
 	mail($to, $subject, $body, $headers);
 	
 	
-	$to      = 'adam2314@gmail.com';
-	$subject = 'the subject';
-	$message = 'hello';
-	$headers = 'From: webmaster@example.com' . "\r\n" .
-	    'Reply-To: webmaster@example.com' . "\r\n" .
-	    'X-Mailer: PHP/' . phpversion();
 	
-	//mail($to, $subject, $message, $headers);
-	
-	//mail('adam2314@gmail.com', 'the subject', 'the message');
 	$thanks = _("Message sent to linet team");
 	$contactform= "<h1>$thanks</h1>\n";
 	$l = _("We will do our best to answer you shortly");
@@ -117,12 +108,12 @@ if($action == 'submit') {
 	//return;
 }
 
-//print "<div class=\"form righthalf1\">\n";
-$haeder = _("Support");
+
+$haeder = _("send a Bug Report");
 //print "<h3>$l</h3>\n";
 //print "$contactform";
 //print "</div>\n";
-createForm($contactform,$haeder,'',600,'',1,getHelp());
+createForm($contactform,$haeder,'',600,'','',1,getHelp());
 //print "<div class=\"lefthalf1\">\n";
 //
 //print 

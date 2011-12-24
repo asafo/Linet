@@ -24,6 +24,7 @@ $bla=array(
 'opbalance'=>'user-help-navigate?id=30',//יתרות פתיחה
 'loginedituser'=>'user-help-navigate?id=31',//עריכת פרטי משתמש
 'loginadduser'=>'user-help-navigate?id=32',//הוסף משתמש
+'acctdisp'=>'user-help-navigate?id=88',//הצגת כרטסת
 'contact0'=>'user-help-navigate?id=24',//ניהול לקוחות
 //שלב2
 'contactedit'=>'user-help-navigate?id=27',//מעקב

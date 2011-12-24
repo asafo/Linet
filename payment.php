@@ -216,7 +216,7 @@ if($step == 1) {
 		$l = _("Check data and press update to register payment");
 		$text.= "<h2>$l</h2>\n";
 	}
-
+$haeder=$l;
 	$url = "?module=payment&amp;step=2";
 	if($opt)
 		$url .= "&amp;opt=$opt";
@@ -266,7 +266,11 @@ if($step == 1) {
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text, $haeder,'',750,'','',1,getHelp());
+	//createForm($text, $haeder,'',750,'','',1,getHelp());
+	if(!$ismobile)
+		createForm($text, $haeder,'',750,'','',1,getHelp());
+	else
+		print $text;
 	return;
 }
 //print "<br />\n";
@@ -343,6 +347,9 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 }
 $text. "</table>\n";
 $text. "</div>";
-createForm($text, $haeder,'',750,'','',1,getHelp());
+if(!$ismobile)
+	createForm($text, $haeder,'',750,'','',1,getHelp());
+else
+	print $text;
 //print "</div>\n";
 ?>

@@ -1,10 +1,11 @@
 <?php
+include_once 'class/fields.php';
 include('class/documentdetail.php');
 include('class/receiptdetail.php');
-class document{
+class document extends fields{
 	//public $arr;
-	private $_table;
-	private $_prefix;
+	//private $_table;
+	//private $_prefix;
 	
 	public function __construct($doctype=0){
 		global $table;
@@ -29,13 +30,21 @@ class document{
 		return $this;
 	}
 	
-	public function newDocument($array){
+	public function newDocument(){
+		$newnum=maxSql(array(1=>1),'num',$this->_table);
+		$newdoc_num=maxSql(array('prefix'=>$this->_prefix,'doctype'=>$this->doctype),'docnum',$this->_table);
+		
+		$this->prefix=$this->_prefix;
+		$this->num=$newnum;
+		$this->docnum=$newdoc_num;
+		if($this->issue_date=='')$this->issue_date=date('d-m-Y');
+		if($this->due_date=='')$this->due_date=date('d-m-Y');
 		$array=get_object_vars($this);
+		$array['issue_date']=date("Y-m-d",strtotime($array['issue_date']));
+		$array['due_date']=date("Y-m-d",strtotime($array['due_date']));
 		unset($array['_table']);
 		unset($array['_prefix']);
-		$array['prefix']=$this->_prefix;
-		$newnum=maxSql(array(1=>1),'num',$this->_table);
-		$newdoc_num=maxSql(array('prefix'=>$this->_prefix,'doctype'=>$array['doctype']),'docnum',$this->_table);
+	
 		if (isset($array['docdetials'])){
 			$docdetiales=$array['docdetials'];
 			unset($array['docdetials']);
@@ -45,8 +54,7 @@ class document{
 			unset($array['rcptdetials']);
 		}
 		if (isset($newnum) && isset($newdoc_num)){
-			$array['num']=$newnum;
-			$array['docnum']=$newdoc_num;// need to chek if invoice insert transrecpts
+			// need to chek if invoice insert transrecpts
 			if (isset($array['company'])){
 				if (isset($docdetiales))
 					foreach ($docdetiales as $value) {
@@ -69,7 +77,55 @@ class document{
 			}
 		}
 		return false;
-	} 
+	}
+	public function transaction(){
+		global $TransType;
+		$transtype=$TransType[$this->doctype];
+		$tnum = 0;
+		if(($this->doctype == DOC_INVOICE) || ($this->doctype == DOC_CREDIT) || ($this->doctype== DOC_PROFORMA) || ($this->doctype== DOC_INVRCPT)) {
+			/* Write transactions */
+			if(($this->doctype == DOC_INVOICE) ||($this->doctype==DOC_PROFORMA)||($this->doctype==DOC_INVRCPT))
+				$t = $this->total * -1.0;
+			else
+				$t = $this->total;
+			$tnum = Transaction($tnum, $transtype, $this->account, $this->docnum, $this->refnum, $this->issue_date, $this->company, $t);
+			if($this->doctype == DOC_CREDIT)
+				$t = $this->vat * -1.0;
+			else
+				$t = $this->vat;
+			$tnum = Transaction($tnum, $transtype, SELLVAT, $this->docnum, $this->refnum, $this->issue_date, $this->company, $t);
+			$i = 0;
+			$sum = 0.0;
+			
+			foreach($this->docdetials as $item){
+				//print_r($item);
+					$item->transaction($tnum,$transtype,$this->docnum,$this->company,$this->issue_date,$this->doctype,$this->refnum);//getfrom catnumber
+						//	transaction($tnum,$transtype,$this->docnum,$this->company,$this->issue_date,$this->doctype,$this->refnum,$account)
+					//	$itemquntfiy
+					$np = $item->price;
+					$sum += $np;
+					$i++;
+			}
+			$r = ($sum + $this->vat) - $this->total;//(no vat)
+			$r *= -1;
+			// print "sum: $sum, vat: $vat, total: $total, r: $r<BR>\n";
+			if($r) {
+				if($this->doctype == DOC_CREDIT)
+					$r *= -1.0;
+				$tnum = Transaction($tnum, $transtype, ROUNDING, $this->docnum, $this->refnum, $this->issue_date, $this->company, $r);
+			}
+			//end reg doc detial:
+		}
+		if(($this->doctype==DOC_RECEIPT) || ($this->doctype==DOC_INVRCPT)){			/* now get cheques data */
+			$cheques_sum = 0.0;
+			$tnum = Transaction($tnum, $transtype, CUSTTAX, $this->docnum, '', $this->issue_date, '', $this->src_tax * -1.0);//reg source tax
+			$tnum = Transaction($tnum, $transtype, $this->account, $this->docnum, '', $this->issue_date, '', $this->src_tax);
+			foreach($this->rcptdetials as $item){
+				$cheques_sum += $item->sum;
+				$item->transaction($this->docnum,$this->account,$this->issue_date,$transtype,$tnum);
+			}
+		} //end recipt data
+	}
 	public function deleteDocument($id){
 		$cond['prefix']=$this->_prefix;
 		$cond['num']=$this->num;

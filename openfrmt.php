@@ -428,7 +428,9 @@ if($step == 0) {	/* First stage, choose dates for report */
 	$text.= "</td>\n";
 	$text.= "</tr><tr><td colspan=\"2\">&nbsp;</td></tr><tr>\n";
 	$l = _("Submit");
-	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+	$text.= "<td colspan=\"2\" align=\"center\">";
+	$text.=  "<a href='javascript:document.dtrange.submit();' class='btnaction'>$l</a>";
+	//<input type=\"submit\" value=\"$l\"></td>\n";
 	$text.= "</tr>\n";
 	$text.= "</table>\n</form>\n";
 	createForm($text,$header,'',750,'','',1,getHelp());
@@ -568,8 +570,8 @@ else if($step == 1) {
 	print "$l<br>\n";
 */
 	$fd = fopen("tmp/$prefix.html", "wt");
-	$l = _("Create open format files");
-	fwrite($fd, "<br><h1>$l</h1>\n");
+	$header = _("Create open format files");
+	//fwrite($fd, "<br><h1>$l</h1>\n");
 	$l = _("Company");
 	fwrite($fd, "$l: $companyname<br>\n");
 	$l = _("Reg. num");
@@ -583,11 +585,11 @@ else if($step == 1) {
 
 	$l = _("Records types details");
 	fwrite($fd, "<h2>$l</h2>\n");
-	fwrite($fd, "<table border=\"1\"><tr class=\"tblhead\">\n");
+	fwrite($fd, "<table class=\"formy\" ><tr>\n");
 	$l1 = _("Total records");
 	$l2 = _("Record description");
 	$l3 = _("Record code");
-	fwrite($fd, "<td>$l3</td><td>$l2</td><td>$l1</td>\n");
+	fwrite($fd, "<th>$l3</th><th>$l2</th><th>$l1</th>\n");
 	$l = _("Opening record");
 	fwrite($fd, "</tr><tr>\n");
 	fwrite($fd, "<td>A100</td><td>$l</td><td>1</td>\n");
@@ -615,9 +617,9 @@ else if($step == 1) {
 	$text.=file_get_contents("tmp/$prefix.html");
 	
 	$text.=  "<br>&nbsp;&nbsp;&nbsp;\n";
-	$l = _("Print");
-	$text.=  "<input type=\"button\" value=\"$l\" ";
-	$text.=  "onclick=\"window.open('openfrmtprnt.php?prefix=$prefix')\">\n";
+	//$l = _("Print");
+	//$text.=  "<a href='javascript:window.open(\"openfrmtprnt.php?prefix=$prefix\");' class='btnaction'>$l</a>";
+	
 	createForm($text,$header,'',750,'','',1,getHelp());
 	//print "</div>\n";
 	

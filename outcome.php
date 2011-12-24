@@ -169,13 +169,14 @@ function PrintOutcomeSelect($def) {
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 if($step > 0) {
 	$supplier = $_POST['supplier'];
-	if($supplier == "__NULL__") {
+	if($supplier == "") {
 		$l = _("No supplier was chosen");
 		ErrorReport("$l");
 		return;
 	}
 	$outcome = $_POST['outcome'];
 	$pvat = $_POST['pvat'];
+	$date=$_POST['date'];
 //	list($outcome, $pvat) = explode('|', $os);
 	$refnum = GetPost('refnum');
 	$details = GetPost('details');
@@ -198,7 +199,7 @@ if($step > 0) {
 		$dt = FormatDate($dtmysql, "mysql", "dmy");
 	}
 	
-	if(($outcome == "__NULL__") && ($total > 0.1)) {
+	if(($outcome == "") && ($total > 0.1)) {
 		$l = _("No outcome account was chosen");
 		ErrorReport("$l");
 		return;
@@ -219,6 +220,7 @@ if($step == 2) {
 	}
 	if(abs($total) > 0.01) {	
 		/* write transactions */
+		//print "why wont you work";
 		// Transaction 1 ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ג€�׳³ֲ¡׳³ג‚×׳³ֲ§ ׳³ג€˜׳³ג€÷׳³ן¿½ ׳³ג€�׳³ֲ¡׳³ג€÷׳³ג€¢׳³ן¿½
 		$tnum = Transaction(0, SUPINV, $supplier, $refnum, '', $dt, $details, $total);
 		// Transaction 2 ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ן¿½׳³ֲ¢"׳³ן¿½ ׳³ֳ—׳³ֲ©׳³ג€¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ן¿½׳³ג‚×׳³ג„¢ ׳³ג€�׳³ן¿½׳³ֲ¢"׳³ן¿½ ׳³ג€�׳³ן¿½׳³ג€¢׳³ג€™׳³ג€�׳³ֲ¨ ׳³ן¿½׳³ֲ¡׳³ֲ¢׳³ג„¢׳³ֲ£ ׳³ג€�׳³ג€�׳³ג€¢׳³ֲ¦׳³ן¿½׳³ג€�
@@ -237,7 +239,7 @@ if($step == 2) {
 			$header = _("Outcome registered");
 			//print "<h1>$l</h1>\n";
 		}
-	}
+	}else{print "help:$total";}
 	$outcome = "__NULL__";
 	$supplier = "__NULL__";
 	$refnum = '';
@@ -275,20 +277,24 @@ if($step == 0) {
 		//print "<h3>$l</h3>\n";
 	}
 	$nextstep = 1;
-	$supplier = "__NULL__";
-	$outcome = "__NULL__";
+	$supplier = "";
+	$outcome = "";
 }
 $text.= "<form name=\"outcome\" id=\"outcome\" action=\"?module=outcome&amp;step=$nextstep$optact\" method=\"post\">\n";
 $text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-$l = _("Supplier");
+//$l = _("Supplier");
+$l = _("Outcome account");
 $text.= "<td>$l: </td>\n";
 $text.= "<td>\n";
-$text.=PrintSupplierSelect($supplier);
+
+$text.=PrintSelect($outcome,OUTCOME);
 if($step == 0) {
-	$t = SUPPLIER;
-	$l = _("new supplier");
-	$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
-	//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
+	$l = _("new outcome");
+	$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
+	//$t = SUPPLIER;
+	//$l = _("new supplier");
+	//$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
+	/////$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
 }
 $text.= "</td></tr>\n";
 $text.= "<tr>\n";
@@ -298,7 +304,7 @@ if($opt == 'asset') {
 	$text.= "<td>$l: </td>\n";
 }
 else {
-	$l = _("Outcome account");
+	$l = _("Supplier");
 	$text.= "<td>$l: </td>\n";
 }
 $text.= "<td>\n";
@@ -316,11 +322,34 @@ if($step == 0) {
 		$text.=newWindow($l,'?action=lister&form=account&type='.ASSETS,480,480,'','btnsmall');
 	}
 	else {
-		$t = OUTCOME;
-		$l = _("new outcome");
+		//$t = OUTCOME;
+		//$l = _("new outcome");
 		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
-		$text.=PrintSelect($outcome,OUTCOME);
-		$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
+		//$text.=PrintSelect($outcome,OUTCOME);
+		$t = SUPPLIER;
+		$l = _("new supplier");
+		$text.=PrintSupplierSelect($supplier);
+		$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
+		//$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
+	}
+}else{
+	if($opt == 'asset') {
+		$t = ASSETS;
+		$l = _("new assets");
+		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
+		$text.=PrintSelect($outcome,ASSETS);
+		//$text.=newWindow($l,'?action=lister&form=account&type='.ASSETS,480,480,'','btnsmall');
+	}
+	else {
+		$t = SUPPLIER;
+		$l = _("new supplier");
+		$text.=PrintSupplierSelect($supplier);
+		//$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
+		//$t = OUTCOME;
+		//$l = _("new outcome");
+		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
+		//$text.=PrintSelect($outcome,OUTCOME);
+		//$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
 	}
 }
 $text.= "</td></tr>\n";
@@ -328,8 +357,8 @@ $text.= "<tr>\n";
 
 $l = _("Date");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input id=\"date\" type=\"text\" name=\"date\" size=\"7\" />\n";
-$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
+$text.= "<td><input class=\"date\" id=\"date\" type=\"text\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
+//$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
 $text.= "</td>\n";
 $text.= "</tr><tr>\n";
 
@@ -367,8 +396,11 @@ $text.= "</form>\n";
 if($step == 0) {
 	require('lasttran.inc.php');
 }
-createForm($text,$header,'',750,'','img/icon_acc.png',1,getHelp());
 
+if(!$ismobile)
+	createForm($text,$header,'',750,'','img/icon_acc.png',1,getHelp());
+else
+	print $text;
 
 //print "<div class=\"innercontent\">\n";
 

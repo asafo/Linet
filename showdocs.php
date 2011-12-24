@@ -58,7 +58,7 @@ function PrintCustomerSelect($def) {
 	}
 	print "</select>\n";
 }*/
-$doctype = $_POST['doctype'];
+$doctype = $_REQUEST['doctype'];
 $doctypestr = $DocType[$doctype];
 //print "<h2>$doctypestr</h2>\n";
 $haeder=$doctypestr;
@@ -104,8 +104,8 @@ if($step == 1) {
 		
 		//print "<table width=\"100%\" class=\"tablesorter\" border=\"0\"><tr><td>\n";
 		$text.= "<table class=\"tablesorter\" id=\"accadmintbl\"><thead><tr>\n";
-		$l = _("Doc. type");
-		$text.= "<th class=\"header\" style=\"width:6em\">$l</th>\n";
+		//$l = _("Doc. type");
+		//$text.= "<th class=\"header\" style=\"width:6em\">$l</th>\n";
 		$l = _("Num");
 		$text.= "<th class=\"header\" style=\"width:3em\">$l</th>\n";
 		$l = _("Date");
@@ -126,23 +126,8 @@ if($step == 1) {
 		$e = 0;
 		$tbody.="<tbody>";
 		while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-//			print "DocType: $doctype<br>\n";
-			//if($doctype != DOC_RECEIPT)
 				$docnum = $line['docnum'];
-			//else
-			//	$docnum = $line['refnum'];
-//			print "DocNum: $docnum<br>\n";
-			/*if(($doctype == DOC_RECEIPT) || ($doctype==DOC_INVRCPT)) {	// invoice and receipt together 
-				//adam: need figure
-				//$q = "SELECT * FROM $receiptstbl WHERE prefix='$prefix' AND refnum='$docnum' AND invoices='$docnum'";
-				$q = "SELECT * FROM $docstbl WHERE prefix='$prefix' AND docnum='$docnum' AND doctype='$doctype'";
-				//print "Query: $q<br />\n";
-				$r = DoQuery($q, "showdocs.php");
-				$n = mysql_num_rows($r);
-				if(!$n)
-					continue;
-			}//*/
-			
+	
 			$issue_date = $line['issue_date'];
 			$accountstr = $line['company'];
 			$account = $line['account'];
@@ -159,7 +144,7 @@ if($step == 1) {
 			$doctypestr = $DocType[$doctype];
 			/*if($doctype == DOC_INVRCPT)
 				$doctypestr = _("Invoice receipt");*/
-			$tbody.= "<tr><td>$doctypestr</td>\n";
+			$tbody.= "<tr>";//<td>$doctypestr</td>\n";
 			$tbody.= "<td>$docnum</td>\n";
 			$issue_date = FormatDate($issue_date, "mysql", "dmy");
 			$tbody.= "<td>$issue_date</td>\n";
@@ -198,7 +183,7 @@ if($step == 1) {
 		$tbody.="</tbody>";
 		$text.= "<tfoot><tr class=\"sumline\">\n";
 		//if($doctype != DOC_RECEIPT)
-			$text.= "<td colspan=\"4\" align=\"left\">\n";
+			$text.= "<td colspan=\"3\" align=\"left\">\n";
 		//else
 		//	print "<td colspan=\"4\" align=\"left\">\n";
 		$l = _("Total");
@@ -209,7 +194,11 @@ if($step == 1) {
 		$text.= "<td>&nbsp;</td>\n";
 		$text.= "</tr></tfoot>\n";
 		$text.= "$tbody</table>\n";
-		createForm($text, $haeder,'',750,'','img/icon_showdocs1.png',1,getHelp());
+		global $ismobile;
+		if($ismobile)
+			print $text;
+		else
+			createForm($text, $haeder,'',750,'','img/icon_showdocs1.png',1,getHelp());
 	/*	print "</td><td width=\"48%\" valign=\"top\">\n"; */
 		//print "</td></tr></table>\n";
 	}
@@ -230,7 +219,7 @@ if($step == 0) {
 	$l = _("Select customer");
 	$text.= "<td>$l: </td>\n";
 	$text.= "<td>\n";
-	$text.=PrintCustomerSelect(0);
+	$text.=PrintCustomerSelect("");
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("From date");
@@ -252,7 +241,11 @@ if($step == 0) {
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
-	createForm($text,$haeder,'',750,'','img/icon_showdocs.png',1,getHelp());
+	global $ismobile;
+	if($ismobile)
+		print $text;
+	else
+		createForm($text,$haeder,'',750,'','img/icon_showdocs.png',1,getHelp());
 }
 $haeder=$doctypestr;
 if($step==2){
@@ -262,6 +255,10 @@ if($step==2){
 	$url="printdoc.php?doctype=$doctype&docnum=$docnum&prefix=$prefix";
 	$texty="<iframe src=\"$url\" width=\"100%\" height=\"500\"><p>$l</p></iframe> ";
 	//?doctype=3&docnum=980&prefix=0
-	createForm($texty,$haeder,'',750,'','img/icon_showdocs1.png',1,getHelp());
+	global $ismobile;
+	if($ismobile)
+		print $texty;
+	else
+		createForm($texty,$haeder,'',750,'','img/icon_showdocs1.png',1,getHelp());
 }
 ?>

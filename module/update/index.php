@@ -55,9 +55,7 @@ if(!empty($name) && ($name != ''))  {
 	$nextStep=0;
 	}
 	
-if (isset($_POST['non'])){
-	
-		
+if (isset($_POST['non'])){	
 	print "<ul>";
 		foreach ($steps as $name){
 			$i++;
@@ -124,7 +122,7 @@ if (($step==2)&&(isset($_POST['non']))){
 }
 /*update*/
 if (($step==3)&&(isset($_POST['non']))){
-	print _("aksing file list for update")."<br />";
+	print _("asking file list for update")."<br />";
 	$nextStep=0;
 	
 	print _("checking permissions").".<br />";
@@ -154,14 +152,15 @@ if (($step==3)&&(isset($_POST['non']))){
 			//log: trying to ge file
 			fwrite($log, "-GetFile:".$value."\n");
 			$file=getFile($value,$sversion);
+			if ($file=='') {print 'error empty file!'; exit;}
 			$value=$path."/".$value;
 			
 			print "+Writing file: $value<br />";
-			fwrite($log, "+Writing file: ".$value."\n");
 			$fh = fopen($value, 'w') or die("can't open file");
-			fwrite($log, "+Wrote file: ".$value."\n");
-
+			fwrite($log, "+Writing file: ".$value."\n");
+			//print "<hr />$file<hr />";
 			fwrite($fh, $file);//^better large files support
+			fwrite($log, "+Wrote file: ".$value."\n");
 			fclose($fh);
 		}
 		//log:end
@@ -231,15 +230,14 @@ global $updatesrv;
 }
 function getFile($fileName, $version){
 	global $updatesrv;
-	//print $updatesrv.'?GetFile='.$fileName.'&Version='.$version;
-	if ($fp = fopen($updatesrv.'?GetFile='.$fileName.'&Version='.$version, 'r')) {
+/*	if ($fp = fopen($updatesrv.'?GetFile='.base64_encode($fileName).'&Version='.$version, 'r')) {
 		$content = fread($fp, 1024);
 		while ($line = fread($fp, 1024)) {
 			$content .= $line;
 		}
-	}
-	//$filelist=explode('<br />',$content);
-	//$a=array_pop($filelist);
+	}*/
+	
+	$content=file_get_contents($updatesrv.'?GetFile='.base64_encode($fileName).'&Version='.$version);
 	return base64_decode($content);
 }
 function getVersion(){

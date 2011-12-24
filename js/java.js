@@ -36,16 +36,6 @@ function AddActionsToTable(  ){
 	} ) ;
 }
 
-
-
-
- 
-function removeElement(divNum) {
-	var d = document.getElementById('docdet');
-	var olddiv = document.getElementById(divNum);
-	d.removeChild(olddiv);
-}
-
 function addDatePicker(name,value){
 		$.datepicker.setDefaults( $.datepicker.regional["he"] );
 		$(name).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});

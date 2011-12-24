@@ -74,7 +74,7 @@ if($step == 'backup') {
 	$l = _("Click here to download backup file");
 	$text.= "<h2><a href=\"download.php?file=$bakname&amp;name=$bakname\" target=\"_blank\">$l</a></h2>\n";
 	//print "</div>\n";
-	createForm($text,$header,'',750,'','',1,getHelp());
+	createForm($text,$header,'',750,'','img/icon_backup.png',1,getHelp());
 }
 
 if($step == 'delbak') {
@@ -134,24 +134,26 @@ if($step == 'dorestore') {
 	$step = 'restore';
 }
 if($step == 'restore') {
-	
 	//print "<div class=\"form righthalf1\">\n";
 	$header = _("Restore data from backup");
 	//print "<h3>$l</h3>\n";
-	$text.= "<form enctype=\"multipart/form-data\" action=\"?module=backup&amp;step=dorestore\" method=\"post\">\n";
+	$text.= "<form enctype=\"multipart/form-data\" name=\"backup\" action=\"?module=backup&amp;step=dorestore\" method=\"post\">\n";
 	$text.= "<table width=\"100%\" class=\"formtbl\"><tr>\n";
 	$l = _("Backup file");
 	$text.= "<td>$l: </td>\n";
 	$text.= "<td><input type=\"file\" name=\"bakname\"></TD>\n";
 	$l = _("Execute");
-	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.= "<tr><td colspan=\"2\" align=\"center\">";
+	
+	$text.=  "<a href='javascript:document.backup.submit();' class='btnaction'>$l</a>";
+	$yext.="</td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	
 	$text.= "<br>\n";
 	$l = _("Choose file from server");
 	$text.= "<h3>$l</h3>\n";
-	
+
 	$text.= "<table  class=\"formy\" width=\"100%\"><tr>\n";
 	$l = _("File");
 	$text.=  "<th style=\"width:10em;text-align:right\" align=\"right\">$l</th>\n";
@@ -170,7 +172,7 @@ if($step == 'restore') {
 	}
 	$text.= "</table>\n";
 	//print "</div>\n";
-	createForm($text,$header,'',750,'','logo',1,getHelp());
+	createForm($text,$header,'',750,'','img/icon_restore.png',1,getHelp());
 }
 
 chdir($cwd);

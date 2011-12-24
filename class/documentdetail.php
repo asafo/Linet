@@ -1,8 +1,9 @@
 <?php
-class documentDetail{
+include_once 'class/fields.php';
+class documentDetail extends fields{
 	//public $arr;
-	private $_table;
-	private $_prefix;
+	//private $_table;
+	//private $_prefix;
 	
 	public function newDetial(){
 		$array=get_object_vars($this);
@@ -14,6 +15,19 @@ class documentDetail{
 						return true;
 					else
 						return false;
+	}
+	public function transaction($tnum,$transtype,$docnum,$company,$issue_date,$doctype,$refnum){
+		//print "we r in";
+		$acct = GetAccountFromCatNum($this->cat_num);
+		if($acct == 0) {
+			$l = _("Income account not defined");
+			ErrorReport("$l");
+			exit;
+		}
+		$np = $this->price;
+		if($doctype == DOC_CREDIT)
+			$np *= -1.0;				
+		$tnum = Transaction($tnum, $transtype, $acct, $docnum, $refnum, $issue_date, $company, $np);
 	}
 	public function getDetials(){
 		$cond['prefix']=$this->_prefix;

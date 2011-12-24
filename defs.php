@@ -6,7 +6,7 @@
  
 global $superuser, $companiestbl, $logintbl;
 global $lang, $dir;
-
+$text='';
 if($action == 'defsubmit') {
 	$email = htmlspecialchars($_POST['email'], ENT_QUOTES);
 	$passwd = $_POST['passwd'];
@@ -70,10 +70,8 @@ if($action == 'defsubmit') {
 			$query = "UPDATE $logintbl SET password=PASSWORD('$passwd'), ";
 			$query .= "lastlogin=NOW() WHERE name='$email'";
 			DoQuery($query, __LINE__);
-			print "<h2>";
 			$l = _("User password updated");
-			print "$l";
-			print "</h2>\n";
+			$text.= "<h2>$l</h2>\n";
 		}
 	}
 
@@ -88,14 +86,19 @@ if($action == 'defsubmit') {
 	$web = htmlspecialchars($_POST['web'], ENT_QUOTES);
 	$vat = htmlspecialchars($_POST['vat'], ENT_QUOTES);
 	$bidi=GetPost('bidi');
+	$credit=GetPost('credit');
+	$credituser=GetPost('credituser');
+	$creditpwd=GetPost('creditpwd');
+	$creditallow=serialize($_POST['creditallow']);
+	//$creditallow=unserialize($line['creditallow']);
 	$vatrep = (int)$_POST['vatrep'];
-	$query = "INSERT INTO $companiestbl (companyname, prefix, manager, regnum, address, city, zip, phone, cellular, web, vat, vatrep, bidi)";
-	$query .= " VALUES('$companyname', '$prefix', '$manager', '$regnum', '$address', '$city', '$zip', '$phone', '$cellular', '$web', '$vat', '$vatrep', '$bidi')";
+	$query = "INSERT INTO $companiestbl (companyname, prefix, manager, regnum, address, city, zip, phone, cellular, web, vat, vatrep, bidi,credit,credituser,creditpwd,creditallow)";
+	$query .= " VALUES('$companyname', '$prefix', '$manager', '$regnum', '$address', '$city', '$zip', '$phone', '$cellular', '$web', '$vat', '$vatrep', '$bidi', '$credit', '$credituser', '$creditpwd','$creditallow')";
 	DoQuery($query, "defs.php");
 	$query = "INSERT INTO $permissionstbl VALUES ('$email', '$prefix', 0)";
 	DoQuery($query, "defs.php");
 	$l = _("Business added succesfully");
-	print "<h2>$l</h2>\n";
+	$text.= "<h2>$l</h2>\n";
 	return;	
 }
 if($action == 'register') {
@@ -104,7 +107,7 @@ if($action == 'register') {
 	$result = DoQuery($query, "defs.php");
 	if(mysql_num_rows($result) == 0) {
 		_("Error registering to system");
-		print "<h1>$l</h1>\n";
+		$text.= "<h1>$l</h1>\n";
 
 		return;
 	}
@@ -113,19 +116,19 @@ if($action == 'register') {
 	$query = "UPDATE $logintbl SET hash='' WHERE hash='$hash'";
 	DoQuery($query, "defs.php");
 	$l = _("Hello");
-	print "<h1>$l $fullname</h1>\n";
+	$text.= "<h1>$l $fullname</h1>\n";
 	$l = _("Your registration to linet is completed");
-	print "<h1>$l</h1>\n";
+	$text.= "<h1>$l</h1>\n";
 	$l1 = _("Click");
 	$l2 = _("here to connect");
-	print "<h2>$l1 <a href=\"?action=login\">$l</a></h2>\n";
-	print "<h2>׳³ן¿½׳³ג€”׳³ֲ¦\\׳³ג„¢ <a href=\"?action=login\">׳³ג€÷׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ג€�׳³ֳ—׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€¢׳³ֳ—</a></h2>\n";
+	$text.= "<h2>$l1 <a href=\"?action=login\">$l</a></h2>\n";
+	$text.= "<h2>׳³ן¿½׳³ג€”׳³ֲ¦\\׳³ג„¢ <a href=\"?action=login\">׳³ג€÷׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ג€�׳³ֳ—׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€¢׳³ֳ—</a></h2>\n";
 	return;
 }
 if($action == 'defupdate') {
 //	print_r($_POST);
 	if($name == 'demo') {
-		print "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ג€�׳³ג€¢׳³ג€™׳³ן¿½׳³ג€� ׳³ן¿½׳³ג„¢׳³ֲ ׳³ג€¢ ׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג„¢ ׳³ן¿½׳³ֲ¢׳³ג€�׳³ג€÷׳³ן¿½ ׳³ֲ ׳³ֳ—׳³ג€¢׳³ֲ ׳³ג„¢׳³ן¿½</h1>\n";
+		$text.= "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ג€�׳³ג€¢׳³ג€™׳³ן¿½׳³ג€� ׳³ן¿½׳³ג„¢׳³ֲ ׳³ג€¢ ׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג„¢ ׳³ן¿½׳³ֲ¢׳³ג€�׳³ג€÷׳³ן¿½ ׳³ֲ ׳³ֳ—׳³ג€¢׳³ֲ ׳³ג„¢׳³ן¿½</h1>\n";
 		return;
 	}
 	$companyname = htmlspecialchars($_POST['companyname'], ENT_QUOTES);
@@ -134,11 +137,8 @@ if($action == 'defupdate') {
 	//$logo = htmlspecialchars($_POST['logo'], ENT_QUOTES);
 	//$regnum = "511923740";//adam ERR chek wtf?!
 	if($regnum != $_POST['regnum']) {
-		print "Not equal <br>\n";
+		$text.= "Not equal <br>\n";
 	}
-
-
-	
 	$address = htmlspecialchars($_POST['address'], ENT_QUOTES);
 	$city = htmlspecialchars($_POST['city'], ENT_QUOTES);
 	$zip = htmlspecialchars($_POST['zip'], ENT_QUOTES);
@@ -149,6 +149,11 @@ if($action == 'defupdate') {
 	$taxrep = (int)$_POST['taxrep'];
 	$vat = (float)$_POST['vat'];
 	$vatrep = (int)$_POST['vatrep'];
+	$bidi = (int)$_POST['bidi'];
+	$credit = (int)$_POST['credit'];
+	$credituser = GetPost('credituser');
+	$creditpwd = GetPost('creditpwd');
+	$creditallow = serialize($_POST['creditallow']);
 	$header = htmlspecialchars($_POST['header'], ENT_QUOTES);
 	$footer = htmlspecialchars($_POST['footer'], ENT_QUOTES);
 
@@ -164,8 +169,12 @@ if($action == 'defupdate') {
 	$query .= "tax='$tax', \n";
 	$query .= "taxrep='$taxrep', \n";
 	$query .= "vat='$vat', \n";
-	$query .= "vatrep='$vatrep' \n";
-	//$query .= "logo='{$data}' \n";
+	$query .= "vatrep='$vatrep', \n";
+	$query .= "bidi='$bidi', \n";
+	$query .= "credit='$credit', \n";
+	$query .= "credituser='$credituser', \n";
+	$query .= "creditpwd='$creditpwd', \n";
+	$query .= "creditallow='$creditallow' \n";
 	$query .= "WHERE prefix='$prefix'";
 /*	print "<div dir=\"ltr\">\n";
 	$qstr = nl2br($query);
@@ -173,12 +182,12 @@ if($action == 'defupdate') {
 	print "</div>\n"; */
 	//print $query;
 	$result = DoQuery($query, "defs.php");
+	//after update need to reload company to session with all users
 	$l = _("Details succesfully updated");
-	print "<h1>$l</h1>\n";
+	$text.= "<h1>$l</h1>\n";
 }
 
-$text='';
-//print "<div class=\"form righthalf1\">\n";
+
 /* Get data from table */
 $query = "SELECT * FROM $companiestbl WHERE prefix='$prefix'";
 // print "Query: $query<br>\n";
@@ -209,15 +218,12 @@ else {
 	$taxrep = $line['taxrep'];
 	$vat = $line['vat'];
 	$vatrep = $line['vatrep'];
-/*	$logo = $line['logo'];
-	$header = $line['header'];
-	$footer = $line['footer']; */
-/*	$num1 = $line['num1'];
-	$num2 = $line['num2'];
-	$num3 = $line['num3'];
-	$num4 = $line['num4'];
-	$num5 = $line['num5'];
-	$num6 = $line['num6']; */
+	$bidi=$line['bidi'];
+	$credit=$line['credit'];
+	$credituser=$line['credituser'];
+	$creditpwd=$line['creditpwd'];
+	$creditallow=unserialize($line['creditallow']);
+
 	$editdata = 1;
 }
 
@@ -229,28 +235,21 @@ if(!$editdata) {
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr><td>\n";
 	$l = _("Email");
 	$text.= "$l: </td>";
-//	print "׳³ג€�׳³ג€¢׳³ן¿½׳³ֲ¨ ׳³ן¿½׳³ן¿½׳³ֲ§׳³ֻ�׳³ֲ¨׳³ג€¢׳³ֲ ׳³ג„¢: </td>";
-	$text.= "<td><input type=\"text\" name=\"email\" value=\"\" dir=\"ltr\"></td>\n";
+	$text.= "<td><input type=\"text\" name=\"email\" value=\"\" dir=\"ltr\" /></td>\n";
 	$l = _("Password");
 	$text.= "</tr><tr><td>$l: </td>\n";
-//	print "</tr><tr><td>׳³ֲ¡׳³ג„¢׳³ֲ¡׳³ן¿½׳³ג€�: </td>\n";
-	$text.= "<td><input type=\"password\" name=\"passwd\" value=\"\"></td>\n";
+	$text.= "<td><input type=\"password\" name=\"passwd\" value=\"\" /></td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Password verify");
 	$text.= "<td>$l: </td>\n";
-//	print "<td>׳³ן¿½׳³ג„¢׳³ן¿½׳³ג€¢׳³ֳ— ׳³ֲ¡׳³ג„¢׳³ֲ¡׳³ן¿½׳³ג€�: </td>\n";
-	$text.= "<td><input type=\"password\" name=\"verpasswd\" value=\"\"></td></tr>\n";
+	$text.= "<td><input type=\"password\" name=\"verpasswd\" value=\"\" /></td></tr>\n";
 	$text.= "<tr>\n";
 	$l = _("Full name");
 	$text.= "<td>$l: </td>\n";
 //	print "<td>׳³ֲ©׳³ן¿½ ׳³ן¿½׳³ן¿½׳³ן¿½: </td>\n";
 	
 	$text.= "<td><input type=\"text\" name=\"fullname\" value=\"\"></td></tr>\n";
-	//$text.= "<tr>\n";
-	//$l = _("Prefix: ");
-	//$text.= "<td>$l: </td>\n";
-//	print "<td>׳³ֲ§׳³ג„¢׳³ג€�׳³ג€¢׳³ן¿½׳³ֳ— ׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€�: </td>\n";
-	//$text.= "<td><input type=\"text\" name=\"prefix\" value=\"\" dir=\"ltr\"></td></tr>\n";
+
 	$text.= "</table>\n";
 	$text.= "<br />\n";
 }
@@ -288,21 +287,10 @@ $text.= "<td>$l: </td>\n";
 // print "<td>׳³ֻ�׳³ן¿½׳³ג‚×׳³ג€¢׳³ן¿½: </td>\n";
 $text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\"></td>\n";
 $text.= "</tr><tr>\n";
-$l = _("Cellular");
+$l = _("Fax");
 $text.= "<td>$l: </td>\n";
 $text.= "<td><input type=\"text\" name=\"cellular\" value=\"$cellular\"></td>\n";
-//adam:logo
-//$text.= "</tr><tr>\n";
-//$l = _("Logo");
-//$text.= "<td>$l: </td>\n";
-//$text.= "<td>";
-//if (isnull($logo)) {
-//$text.= "<input name=\"logofile\" type=\"file\" /><br />"."</td>\n";
-//}else{
-//$text.='<img src="index.php?action=lister&data=logo" alt="logo" /><a href="">׳³ֲ©׳³ֲ ׳³ג€� ׳³ן¿½׳³ג€¢׳³ג€™׳³ג€¢</a>';	
-	
-//}
-//adam:logo
+
 $text.= "</tr>\n";
 $text.= "</table>\n";
 // print "<br>\n";
@@ -323,7 +311,10 @@ $text.= "<td><select name=\"bidi\">\n";
 $l = _("One Sided");
 $text.= "<option value=\"1\">$l</option>\n";
 $l = _("Double Sided");
-$text.= "<option value=\"2\" selected>$l</option>\n";
+if($bidi == 2)
+	$text.= "<option value=\"2\" selected>$l</option>\n";
+else
+	$text.= "<option value=\"2\">$l</option>\n";
 $text.= "</select></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Tax rep. period");
@@ -364,14 +355,43 @@ $text.= "<td>$l: </td>\n";
 // print "<td>׳³ן¿½׳³ג€”׳³ג€¢׳³ג€“ ׳³ן¿½׳³ֲ¢\"׳³ן¿½: ";
 $text.= "<td><input type=\"text\" name=\"vat\" value=\"$vat\" size=\"5\"></td>\n";
 $text.= "</tr>\n";
-/*
-if(!$editdata) {
-	print "<tr><td colspan=\"4\">\n";
-	print "<input type=\"checkbox\" name=\"read\">׳³ֲ§׳³ֲ¨׳³ן¿½׳³ֳ—׳³ג„¢ ׳³ג€¢׳³ן¿½׳³ֲ ׳³ג„¢ ׳³ן¿½׳³ֲ¡׳³ג€÷׳³ג„¢׳³ן¿½\\׳³ג€� ׳³ן¿½";
-	print "<a href=\"?id=conditions\">׳³ֳ—׳³ֲ ׳³ן¿½׳³ג„¢ ׳³ג€�׳³ֲ©׳³ג„¢׳³ן¿½׳³ג€¢׳³ֲ©</a><br>\n";
-	print "</td></tr>\n";
+$l = _("Credit card clearing");
+$text.= "<tr><td colspan=\"4\"><b>$l</b></td></tr>";
+$text.= "<tr><td>";
+$l = _("Clearing House");
+$text.="$l:</td><td>";
+$creditclearing=array(
+0=>'None',
+1=>'EasyCard',
+2=>'Tranzila'
+);
+$text.="<select name=\"credit\">";
+foreach($creditclearing as $key=>$value)
+	if($credit==$key)
+		$text.="<option value=\"$key\" selected>$value</option>";
+	else
+		$text.="<option value=\"$key\">$value</option>";
+$text.="</select>";
+$text.="</td><td></td><td></td></tr>";
 
-} */
+$text.= "<tr class=\"trcredit\"><td>";
+$l = _("User");
+$text.="$l:</td><td><input type=\"text\" id=\"\" name=\"credituser\" value=\"$credituser\"/></td>";
+$l = _("Password");
+$text.="<td>$l:</td><td><input type=\"text\" name=\"creditpwd\" value=\"$creditpwd\" /></td></tr>";
+global $credittype;
+$l = _("Possible payment types");
+$text.= "<tr class=\"trcredit\"><td colspan=\"4\"><b>$l</b></td></tr>";
+foreach($credittype as $key=>$value){
+	$i++;
+	$checked='';
+	$text.= "<tr class=\"trcredit\"><td>";
+	if($creditallow[$i]=='on') $checked='checked';
+	
+	$text.="<input type=\"checkbox\" name=\"creditallow[$i]\" $checked /></td><td>$value</td>";
+	$text.="<td colspan=\"2\"></td></tr>";
+}
+
 $text.= "<tr><td colspan=\"4\" align=\"center\">\n";
 $l = _("Update");
 $text.= "<br><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>&nbsp;&nbsp;";
@@ -381,26 +401,5 @@ $text.= "</table>\n";
 $text.= "</form>\n";
 createForm($text,$haeder,"",750,'','img/icon_defs.png',1,getHelp());
 //print "</div>\n";
-
-//print "<div class=\"lefthalf1\">\n";
-/*if(!$editdata) {
-	print "<br><br><table border=\"0\" dir=\"$dir\"><tr><td>\n";
-	// firefox affiliate code 
-	print "<a href='http://www.mozilla.com/en-US/?from=sfx&amp;uid=96935&amp;t=438'><img src='http://sfx-images.mozilla.org/affiliates/Buttons/Firefox3.5/96x31_blue.png' alt='Spread Firefox Affiliate Button' border='0' /></a>\n";
-	print "</td><td valign=\"top\">\n";
-	$l = _("We advise to use this software with Firefox browser");
-	print "$l<br>\n";
-	$l = _("To install press the logo on the left");
-	print "$l<br>\n";
-	$l = _("For more information");
-	$l1 = _("Click here");
-	print "$l <a href=\"id=firefox\">$l1</a>\n";
-//	print "׳³ן¿½׳³ג€¢׳³ן¿½׳³ן¿½׳³ֲ¥ ׳³ן¿½׳³ג€�׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ג€˜׳³ֳ—׳³ג€¢׳³ג€÷׳³ֲ ׳³ג€� ׳³ֲ¢׳³ן¿½ ׳³ג€�׳³ג‚×׳³ג€�׳³ג‚×׳³ן¿½ ׳³ג‚×׳³ג„¢׳³ג„¢׳³ֲ¨׳³ג‚×׳³ג€¢׳³ֲ§׳³ֲ¡<br>\n";
-//	print "׳³ן¿½׳³ג€�׳³ֳ—׳³ֲ§׳³ֲ ׳³ג€� ׳³ן¿½׳³ג€”׳³ֲ¥ ׳³ֲ¢׳³ן¿½ ׳³ג€�׳³ן¿½׳³ג€¢׳³ג€™׳³ג€¢, ׳³ן¿½׳³ג‚×׳³ֲ¨׳³ֻ�׳³ג„¢׳³ן¿½ ׳³ֲ ׳³ג€¢׳³ֲ¡׳³ג‚×׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ג€”׳³ֲ¥ ";
-//	print "<a href=\"?id=firefox\">׳³ג€÷׳³ן¿½׳³ן¿½</a>\n";
-	print "</td></tr></table>\n";
-}//*/
-//print "</div>\n";	/* close left half */
-//print "<br>\n";
 
 ?>

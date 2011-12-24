@@ -5,7 +5,6 @@
  | Modifed By Adam Ben Hour 10/2011
  | This program is a free software licensed under the GPL 
  */
-
 global $transactionstbl, $accountstbl;
 global $TranType;
 
@@ -110,9 +109,9 @@ function GetAccountType($account) {
 $acct = $_GET['account'];
 $accttype = GetAccountType($acct);
 $company = GetAccountName($acct);
-$begin = isset($_GET['begin']) ? $_GET['begin'] : '';
-$end = isset($_GET['end']) ? $_GET['end'] : '';
-$filerep = isset($_GET['file']) ? $_GET['file'] : 0;
+$begin = isset($_REQUEST['begin']) ? $_REQUEST['begin'] : '';
+$end = isset($_REQUEST['end']) ? $_REQUEST['end'] : date('d-m-Y');
+$filerep = isset($_REQUEST['file']) ? $_REQUEST['file'] : 0;
 
 if($end != '') {
 	if($begin == 'start') {
@@ -304,8 +303,8 @@ if($end != '') {
 			$flip=array_flip($TransType);
 			if (isset($flip[$type])){
 					$dt = $flip[$type];
-					$url = "printdoc.php?doctype=$dt&amp;docnum=$refnum1&amp;prefix=$prefix";
-					$curtablebody.= "<td><a href=\"$url\" target=\"docswin\">$type_str</a></td>\n";
+					$url = "?module=showdocs&amp;step=2&amp;doctype=$dt&amp;docnum=$refnum1&amp;prefix=$prefix";
+					$curtablebody.= "<td><a href=\"$url\">$type_str</a></td>\n";
 			}else{
 				$curtablebody.= "<td>$type_str</td>\n";
 			}
@@ -342,14 +341,14 @@ if($end != '') {
 	if($filerep) {
 		fclose($fd);
 		$l = _("Click here to download report");
-		print "<h2>$l: ";
+		$text.= "<h2>$l: ";
 		$url = "/download.php?file=$filename&amp;name=acct$acct.csv";
-		print "<a href=\"$filename\">acct$acct.csv</a></h2>\n";
+		$text.= "<a href=\"$filename\">acct$acct.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
-		print "<h2>$l</h2>\n";
-		print "<script type=\"text/javascript\">\n";
-		print "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		print "</script>\n";
+		$text.= "<h2>$l</h2>\n";
+		$text.= "<script type=\"text/javascript\">\n";
+		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		$text.= "</script>\n";
 	}
 	else {
 		if(!isset($module))
@@ -366,12 +365,12 @@ if($end != '') {
 		$curtablefoot.= "<td dir=\"ltr\" align=\"right\">$tstr</td>";
 		$curtablefoot.= "<td></td></tr></tfoot>\n";
 		$curtablebody.="</tbody>";
-		$text.= "<table class=\"tablesorter\" id=\"acctbl\">$curtablehd $curtablefoot $curtablebody</table>\n
-<script type=\"text/javascript\">\$(\"#acctbl\").tablesorter(); </script>";
+		$text.= "<table class=\"tablesorter\" id=\"acctbl\">$curtablehd $curtablefoot $curtablebody</table>\n";
+//<script type=\"text/javascript\">\$(\"#acctbl\").tablesorter(); </script>";
  		//printform
- 		
+		
 //	print "</div>\n";
-		if(isset($module)) {
+	 /*	if(isset($module)) {
 			$url = "acctdisp.php?account=$acct&begin=$begin&end=$end&prefix=$prefix";
 			//$url .= "";
 			$text.= "<div class=\"repbottom\">\n";
@@ -382,7 +381,7 @@ if($end != '') {
 			//print "<input type=\"button\" value=\"׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¦׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ§׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¥\" onclick=\"window.location.href='?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1'\">\n";
 			$text.= "<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btnsmall'>$l</a>";
 			$text.= "</div>\n";
-		}
+		}*/
 	}
 	//return;
 }
@@ -393,24 +392,30 @@ $d = date("m-Y");
 list($m, $y) = explode('-', $d);
 $begindate = "1-1-$y";
 $enddate = date("d-m-Y");
-$text.= "<form method=\"get\">\n";
+$text.= "<form method=\"post\" name=\"accdisplay\">\n";
 $text.= "	<input type=\"hidden\" name=\"module\" value=\"acctdisp\" />\n";
 $text.= "	<input type=\"hidden\" name=\"account\" value=\"$acct\" />\n";
 $text.= "	<table dir=\"rtl\"><tr>\n";
 $l = _("From date: ");
 $text.= "		<td>$l: </td>\n";
-$text.= "		<td><input class=\"date\" type=\"text\" name=\"begin\" value=\"$begindate\" /></td>\n";
+$text.= "		<td><input class=\"date\" type=\"text\" id=\"begin\" name=\"begin\" value=\"$begindate\" /></td>\n";
 $l = _("To date");
 $text.= "		<td>$l: </td>\n";
-$text.= "		<td><input class=\"date\" type=\"text\" name=\"end\" value=\"$enddate\" /></td>\n";
+$text.= "		<td><input class=\"date\" type=\"text\" id=\"end\" name=\"end\" value=\"$enddate\" /></td>\n";
 $text.= "	</tr><tr>\n";
 $l = _("Display");
-$text.= "		<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\" />
-<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btnsmall'>$l</a>
+$l1=_("Export");
+$text.= "		<td colspan=\"4\" align=\"center\">
+<a href=\"javascript:document.accdisplay.submit();\" class='btnsmall'>$l</a>
+<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btnsmall'>$l1</a>
 
 </td></tr>\n";
 $text.= "	</table>\n</form>\n";
-createForm($text, $haeder,'',750,'','img/icon_acctdisp.png',1,getHelp());
+global $ismobile;
+if($ismobile)
+	print $text;
+else
+	createForm($text, $haeder,'',750,'','img/icon_acctdisp.png',1,getHelp());
 
 ?>
 

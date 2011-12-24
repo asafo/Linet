@@ -11,7 +11,9 @@ global $accountstbl;
 global $stattbl, $modnames;
 global $itemstbl;
 global $superuser;
+global $curuser;
 
+$name=$curuser->name;
 if($lang == 'he')
 	$align = 'right';
 else
@@ -28,16 +30,19 @@ if($action == 'delcomp') {
 }
 $text='';
 if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
+	
 	$query = "SELECT company FROM $permissionstbl WHERE name='$name'";
-//	print "Query: $query<br>\n";
+	//print "Query: $query<br>\n";
 	$result = DoQuery($query, "main.php");
 	$n = mysql_num_rows($result);
-/*	if($n == 1) {
+	if($n == 1) {
 		$line = mysql_fetch_array($result, MYSQL_NUM);
-		$prefix = $line[0];
-		$company = $line[0];
-		print "prefix: $prefix<br>\n";
-	} */
+		//$prefix = $line[0];
+		//$company = $line[0];
+		print "<meta http-equiv=\"refresh\" content=\"0;url=?company=$line[0]\" /> ";
+		exit;
+		//print "prefix: $prefix<br>\n";
+	} 
 	if($n == 0) {
 		//print "<br />\n";
 		$l = _("No companies for this user");
@@ -67,7 +72,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$cookietime = time() + 60*60*24*30;
 			$url = "index.php?company=$s";
 			//setcookie('company', $s, $cookietime);
-			$text.= "<td><a href=\"$url\">$n</a></td><td>&nbsp;\n";
+			$text.= "<tr><td><a href=\"$url\">$n</a></td><td>&nbsp;\n";
 			if($superuser) {
 				//$l = _("Delete");
 				$text.= "<a class=\"btnremove\" href=\"?module=main&amp;action=delcomp&amp;company=$s\"></a>";
@@ -82,7 +87,7 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$text.= "<br /><br /><a href=\"?module=defs\">$l</a><br />\n";
 		}
 	
-		createForm($text, $haeder,'',750,'','logo',0,'?module=redirect&amp;dest=defy');
+		createForm($text, $haeder,'',750,'','img/icon_defs1.png',0,'?module=redirect&amp;dest=defy');
 		return;
 	}
 }
@@ -94,7 +99,7 @@ function GetAcctTotal($acct, $begin, $end) {
 		$query = "SELECT sum FROM $transactionstbl WHERE account='$acct' AND date>='$begin' AND date<='$end' AND prefix='$prefix'";
 	else 
 		$query = "SELECT sum FROM $transactionstbl WHERE account='$acct' AND date<='$end' AND prefix='$prefix'";
-//	print "query: $query<br>\n";
+	//print "query: $query<br>\n";
 	$result = DoQuery($query, "compass.php");
 	$total = 0.0;
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
@@ -112,7 +117,9 @@ function GetGroupTotal($grp, $begin, $end) {
 	list($y, $m, $d) = explode('-', $begin);
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$num = $line[0];
+		//print ";$num;";
 		$sub_total = GetAcctTotal($num, $begin, $end);
+		//print ";$sub_total;";
 		$total += $sub_total;
 	}
 	return $total;
@@ -128,18 +135,9 @@ function GetAccountName($val) {
 	return $line[0];
 }
 
-function CreateProfitGraph($income, $outcome, $profit) {
-	$data1 = array($income);
-	if($outcome < 0)
-		$outcome *= -1.0;
-	$data2 = array($outcome);
-	$label = array("");
-	$bar_width = 30;
-	$fname = "profit.png";
-	require('dbarchart.php');
-}
-
-
+/****************** dates form ***************************/
+$begindmy = isset($_GET['begin']) ? $_GET['begin'] : date("1-1-Y");
+$enddmy = isset($_GET['end']) ? $_GET['end'] : date("d-m-Y");
 
 
 $haeder = _("Business details (NIS)");
@@ -151,9 +149,10 @@ $outcome = GetGroupTotal(OUTCOME, $begin, $end);
 $text='';
 
 
-/****************** dates form ***************************/
-$begindmy = isset($_GET['begin']) ? $_GET['begin'] : date("1-1-Y");
-$enddmy = isset($_GET['end']) ? $_GET['end'] : date("d-m-Y");
+
+
+
+
 $style="style=\"background-color: #f2f2f2;padding: 10px;text-align:center; border: 1px solid #dedede;margin-top: 1px;\"";
 $text.= "<form  $style action=\"\" name=\"main\" method=\"get\">\n";
 $text.= "<input type=\"hidden\" name=\"module\" value=\"main\" />\n";
@@ -220,9 +219,41 @@ $l = _("Total suppliers");
 $text.= "<td><a href=\"?module=acctadmin&amp;type=1&amp;option=rep\">$l</a></td><td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td>\n";
 $text.= "</tr></table>\n";
 
-CreateProfitGraph($income, $outcome, $profit);
+//finaly some action
+ $text.=' <script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+ <script type="text/javascript" src="js/jqplot.barRenderer.min.js"></script>
+ <script type="text/javascript" src="js/jqplot.categoryAxisRenderer.min.js"></script>
+ <script type="text/javascript" src="js/jqplot.pointLabels.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.min.css" />
+ 
+ <div id="chartdiv" style="height:180px;width:200px; display: inline-block;"></div> 
+';
+$text.='<script language="javascript" type="text/javascript">
+  var s1 = ['.$income.','.-1*$outcome.'];
+     var ticks = [\''._("Income").'\',\''._("Outcome").'\'];
+     
+    var plot1 = $.jqplot(\'chartdiv\', [s1], {
+         seriesDefaults:{
+            renderer:$.jqplot.BarRenderer,
+            rendererOptions:{ varyBarColor : true },
+        },
+        axes: {
+            xaxis: {
+                renderer: $.jqplot.CategoryAxisRenderer,
+                ticks: ticks
+            },
+            yaxis:{
+              tickOptions:{ formatString:\'%d ₪\'},
+              autoscale:true,
+            }
+        },
+        seriesColors: [ "#eee", "#ccc"],
+        highlighter: { show: false }
+    });
+</script>';
+//adam:CreateProfitGraph($income, $outcome, $profit);
 //$text.= "<br />\n";
-$text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px;display: inline-block;\" />\n";
+//$text.= "<img src=\"tmp/profit.png\" alt=\"graph\" style=\"margin-right:10px;display: inline-block;\" />\n";
 createForm($text,$haeder,"maindiv",460,500,'img/icon_detiales.png',null,'?module=redirect&amp;dest=main');
 
 $haeder = _("Events according to date");

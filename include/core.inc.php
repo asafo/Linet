@@ -23,7 +23,21 @@ $table["stat"] = "items";
 $table["articles"] = "stat";
 $table["openformat"] ="openformat";
 $table["openformattype"]="openformattype";
+$table["creditErrorCode"]="creditErrorCode";
 
+$withoutprefix=array(
+'articles',
+'creditErrorCode',
+'currency',
+'fields',
+'login',
+'openformat', 
+'openformattype',
+'paymentType',
+'pics',
+'rates',
+'units'
+);
 $articlestbl = "articles";
 $companiestbl = "companies";
 $histtbl = "contacthist";
@@ -165,10 +179,10 @@ define("DOC_CREDIT", 4);//330
 define("DOC_RETURN", 5);//210
 define("DOC_QUOTE", 6);//adam:
 define("DOC_SALES", 7);//none 
-
 define("DOC_RECEIPT", 8);//400
 define("DOC_INVRCPT", 9);//320
 define('DOC_PARCHACEORDER',10);//500
+//define('DOC_*',11);//810
 // Document status definitions
 define("OPEN", 0);
 define("CLOSED", 1);
@@ -229,37 +243,21 @@ $TransType=array(
 );
 //trnsactions type in the book
 $TranType[0] = _("Manual");
-// $TranType[0] = '׳³ֲ³ײ²ֲ¨׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢';
 $TranType[1] = _("Invoice");
-// $TranType[1] = '׳³ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€”';
 $TranType[2] = _("Supplier invoice");
-// $TranType[2] = '׳³ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ²ֲ§';
 $TranType[3] = _("Receipt");
-// $TranType[3] = '׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ן¿½';
 $TranType[4] = _("Cheque deposit");
-// $TranType[4] = '׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ³ג€” ׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ²ֲ§';
 $TranType[5] = _("Supplier payment");
-// $TranType[5] = '׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ©׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ²ֲ§';
 $TranType[6] = _("VAT");
-// $TranType[6] = '׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¢\"׳³ֲ³׳�ֲ¿ֲ½';
 $TranType[7] = _("Storeno");
-// $TranType[7] = '׳³ֲ³ײ²ֲ¡׳³ֲ³ײ»ן¿½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¨׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג‚¬ֲ¢';
 $TranType[8] = _("Bank reconciliation");
-// $TranType[8] = '׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ³ג€”׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ²ֲ ׳³ֲ³ײ²ֲ§';
 $TranType[9] = _("Source tax");
-// $TranType[9] = '׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג€�ֲ¢ ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¨';
 $TranType[10] = _("Transaction pattern");
-// $TranType[10] = '׳³ֲ³ײ³ג€”׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³ײ³ג€”׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¢׳³ֲ³׳’ג‚¬ן¿½';
 $TranType[11] = _("Manual invoice");
-// $TranType[11] = '׳³ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€”';
 $TranType[13] = _("Manual receipt");
-// $TranType[13] = '׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ן¿½ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ³ג€”';
 $TranType[14] = _("Tax prepayment");
-// $TranType[14] = '׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¡ ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³ײ²ֲ ׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג‚¬ן¿½ ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€”';
 $TranType[15] = _("Salary");
-// $TranType[15] = '׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ¨׳³ֲ³ײ³ג€”';
 $TranType[16] = _("Openning balance");
-
 $TranType[17] = _("Return Invoice");
 $TranType[18] = _("Invoice Receipt");
 $TranType[19] = _("Credit Invoice");
@@ -267,7 +265,7 @@ $TranType[20] = _("Proforma");
 
 
 // $UnitArr = array('׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€”', '׳³ֲ³ײ²ֲ©׳³ֲ³ײ²ֲ¢׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³ײ²ֲ¢׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ן¿½', '׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€”', '׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג€�ֲ¢׳³ֲ³ײ»ן¿½׳³ֲ³ײ²ֲ¨', '׳³ֲ³׳’ג‚¬ג„¢׳³ֲ³ײ²ֲ¨׳³ֲ³׳�ֲ¿ֲ½', '׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ג„¢׳³ֲ³ײ²ֲ¨׳³ֲ³׳�ֲ¿ֲ½', '׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ»ן¿½׳³ֲ³ײ²ֲ¨');
-$UnitArr = array(_("No units"), _("work hours"), _("units"), _("liter"), _("gram"), _("Kilo gram"), _("Meter"));
+//$UnitArr = array(_("No units"), _("work hours"), _("units"), _("liter"), _("gram"), _("Kilo gram"), _("Meter"));
 
 $paymenttype = array(
 		1 => _("Cash"), 
@@ -279,7 +277,17 @@ $paymenttype = array(
 		4 => _("Bank transfer")
 		//4 => _("העברה בנקאית")
 	);
-
+$credittype=array(
+	1=>'אשראי רגיל',
+2=>'+30',
+3=>'חיוב מיידי',
+4=>'קרדיט מועדון',
+5=>'סופר קרדיט',
+6=>'קרדיט',
+8=>'תשלומים',
+9=>'תשלומים מועדון',
+	);
+	/*
 $creditcompanies = array(
 		0 => _("No credit"),
 		//0 => _("אין אשראי"),
@@ -293,7 +301,7 @@ $creditcompanies = array(
 		//4 => _("אמריקן אקספרס"),
 		6 => _("Leumi card")
 		//6 => _("לאומי קארד")
-		);
+		);*/
 /*
 $banksarr = array(
 	
