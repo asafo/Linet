@@ -286,7 +286,7 @@ if($step == 1) {
 	$text.=  "</table>\n";
 	$text.=  "</td></tr>\n";
 	$l = _("Reconciliate");
-	$text.=  "<tr><td colspan=\"3\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+	$text.=  "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
 	$text.=  "</table>\n";
 	$text.=  "</form>\n";
 	$text.=  "<br><br>\n";
@@ -303,7 +303,7 @@ $text.= '<td>';
 $text.=  PrintAccountSelect(); 
 $text.= '</td></tr><tr><td>&nbsp;</td></tr>';
 $l = _("Select");
-$text.=  "<tr><td colspan=\"2\" align=\"center\"><a href=\"javascript:document.form2.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+$text.=  "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
 
 $text.= '</table></form>';
 createForm($text,$haeder,'',750,'','',1,getHelp());

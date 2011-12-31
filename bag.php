@@ -29,22 +29,23 @@ $l = _("Hello");
 $contactform = <<<EOF
 <h2>$l: $fullname</h2><br />\n
 <form action="?module=bag&action=submit" method="post">
-<table class="formtbl" dir="$dir" width="100%">
-<tr>
-<td>$subject1: </td>
-<td><input type="text" name="subject" size=\"30\" value="$subject" /></td>
-</tr><tr>
-<td><input type="checkbox" name="sendreport" value="true" /></td>
-<td>$sendrep</td>
-</tr><tr>
-<td valign="top">$message1: </td>
-<td>
-<textarea rows="10" style="width:90%" name="message">$message</textarea>
-</td>
-</tr><tr>
-<td colspan="2" align="center"><input type="submit" value="$submit" /></td>
-</tr>
-</table>
+	<table class="formtbl" dir="$dir" width="100%">
+		<tr>
+			<td>$subject1: </td>
+			<td><input type="text" name="subject" size=\"30\" value="$subject" /></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" name="sendreport" value="true" /></td>
+			<td>$sendrep</td>
+		</tr>
+		<tr>
+			<td valign="top">$message1: </td>
+			<td><textarea rows="10" style="width:90%" name="message">$message</textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit" value="$submit" class='btnaction' /></td>
+		</tr>
+	</table>
 </form>
 EOF;
 //phpinfo () ;
@@ -82,8 +83,9 @@ if($action == 'submit') {
 	}
 	$s = GetPost('subject');
 	$message = GetPost('message');
-	$email="bla@linet.org.il";
-	$to = "adam2314@gmail.com";
+	global $sendMailAddress;
+	$email=$sendMailAddress;
+	$to = "adam@speedcomp.co.il";
 	//$from = "From: $email";
 	$subject = "=?utf-8?B?" . base64_encode("[Linet] $s") . "?=";
 	

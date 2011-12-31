@@ -24,7 +24,16 @@ function TypeSelChange() {
 		document.getElementById('crd').style.display = 'none';
 	}
 }
-
+function ochange(id) {
+	
+	if(id=="acc"){
+		$.post("index.php",  {"action": "lister" ,"selector" : 1, "data": "Account", "num": $("#acc").val()},
+				function(data) {
+					$("#suppliername").html(data.company);
+				}, "json")
+				.error(function() { });
+		}
+}
 </script>
 <?PHP
 //print "here";
@@ -53,7 +62,7 @@ function PrintPaymentSelect($def) {
 	global $accountstbl;
 	global $prefix;
 
-	$str= "<select name=\"payment\">\n";
+	$str= "<select class=\"requierd\" name=\"payment\">\n";
 	$l = _("Payment type");
 	$str.= "<option value=\"0\">-- $l --</option>\n";
 	
@@ -139,8 +148,8 @@ if($step == 2) {
 	else if($opt == 'natins')
 		$account = NATINSPAY;
 	else {
-		$supplier = $_POST['supplier'];
-		list($account, $t) = explode(':', $supplier);
+		$account = $_POST['account'];
+		//list($account, $t) = explode(':', $supplier);
 	}
 	if($account == 0) {
 		$l = _("No supplier was chosen");
@@ -172,7 +181,10 @@ if($step == 2) {
 	$step = 0;
 	if($opt) {
 		$l = _("Payment executed successfully");
-		ErrorReport($l);
+		print "<div style=\"display: inline-block;\"><H2>$l</H2>\n";
+		$l=_("Back");
+		print "<form><input type=\"button\" value=\"$l\" onclick=\"history.back()\"></form></div>\n";
+		//ErrorReport($l);
 		return;
 	}
 }
@@ -190,7 +202,8 @@ if($step == 1) {
 			$supplier = NATINSPAY;
 			break;
 		default:
-			list($supplier, $total) = explode(':', $_POST['supplier']);
+			$supplier=$_POST['account'];
+			//list($supplier, $total) = explode(':', $_POST['supplier']);
 			break;
 	}
 //	print "Supplier: $supplier<br>\n";
@@ -240,7 +253,7 @@ $haeder=$l;
 	$text.= "</tr><tr>\n";
 	$l = _("Payment type");
 	$text.= "<td valign=\"top\">$l: </td><td>";
-	PrintPaymentSelect($payment);
+	$text.= PrintPaymentSelect($payment);
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Ref. num");
@@ -262,7 +275,7 @@ $haeder=$l;
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Update");
-	$text.= "<td colspan=\"2\" align=\"center\"><a href=\"javascript:document.payment.submit();\" class=\"btnaction\">$l</a></td>\n";
+	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td>\n";
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -278,17 +291,17 @@ $haeder=$l;
 //print "<div class=\"form righthalf1\">\n";
 $haeder = _("Supplier payment");
 //$text.= "<h3>$l</h3>\n";
-$text.= "<form name=\"payment\" action=\"?module=payment&amp;step=1\" method=\"post\">\n";
+$text.= "<form name=\"payment\" action=\"?module=payment&amp;step=1\" method=\"post\" class=\"valform\" >\n";
 $text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
 $l = _("Choose supplier");
-$text.= "<td>$l: </td>\n";
+$text.= "<td>$l:  <span style=\"display: inline-block;width: 150px;\" id=\"suppliername\"></td>\n";
 $text.= "<td>\n";
-$text.= PrintSupplierSelect(0);
+$text.= PrintSupplierSelect("");
 $text.= "</td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Total payment");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"total\" size=\"7\" /></td>\n";
+$text.= "<td><input class=\"number requierd\" type=\"text\" name=\"total\" size=\"7\" /></td>\n";
 $text.= "</tr>\n";
 $l = _("Payment type");
 $text.= "<tr><td valign=\"top\">$l: </td>";
@@ -297,7 +310,7 @@ $text.=PrintPaymentSelect(0);
 $text.= "</td></tr><tr><td>";
 $l = _("Ref. num");
 $text.= "$l: </td>";
-$text.= "<td><input type=\"text\" name=\"refnum\" /></td>\n";
+$text.= "<td><input class=\"number\" type=\"text\" name=\"refnum\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Details");
 $text.= "<td>$l: </td>\n";
@@ -306,12 +319,12 @@ $text.= "</tr><tr><td>";
 $l = _("Date");
 $text.= "$l: </td>";
 $dt = date("d-m-Y");
-$text.= "<td><input class=\"date\" type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
+$text.= "<td><input class=\"requierd date\" type=\"text\" id=\"date\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
 //$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
 
 $text.= "</td></tr>\n";
 $l = _("Update");
-$text.= "<tr><td align=\"center\" colspan=\"2\"><a href=\"javascript:document.payment.submit();\" class=\"btnaction\">$l</a></td>\n";
+$text.= "<tr><td align=\"center\" colspan=\"2\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td>\n";
 $text.= "</tr></table>\n";
 $text.= "</form>\n";
 //print "</div>\n";

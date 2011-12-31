@@ -208,7 +208,7 @@ $date1:
 <br />
 <textarea name="details" cols="40" rows="4"></textarea>
 <br />
-<a href="javascript:document.addhist.submit();" class="btnaction">$submit</a>
+<input type="submit" value="$submit" class='btnaction' />
 </form>
 EHF;
 	$text.= "$addhistfrm\n</div>";
@@ -235,18 +235,21 @@ EHF;
 			$sum = (double)$line['sub_total'] + (double)$line['novat_total'];
 			$sum = number_format($sum);
 			$total = number_format($line['total']);
-			$url = "printdoc.php?win=1&doctype=$doctype&docnum=$docnum&prefix=$prefix";
+			$url = "?module=showdocs&doctype=$doctype&docnum=$docnum&step=2";
 			$text.="<tr>";
 			$text.= "<td>\n";
 			$text.= "<a href=\"$url\">$doctypestr $docnum</a>\n";
 			$l = _("Sum");
 			$text.= "$l: $sum ";
 			$l = _("Including VAT");
+			//print "we got in";
 			$text.= "$l: $total</td>\n";
 			$text.= "</tr>\n";
+			
 		}
 	}
 	//adam: no need
+	/*
 	$query = "SELECT * FROM $docstbl WHERE account='$num' AND prefix='$prefix' ";
 	$query .= "ORDER BY issue_date DESC";
 	$result = DoQuery($query, __LINE__);
@@ -331,7 +334,8 @@ $srchform = <<<EOF1
 	</tr>
 	<tr>
 	
-		<td colspan="2" align="center"><a href="javascript:document.searchfrm.submit();" class="btnaction">$search</a></td>
+		<td colspan="2" align="center"><input type="submit" value="$search
+		" class='btnaction' /></td>
 	</tr>
 </table>
 </form>
@@ -348,10 +352,10 @@ $accbalance1 = _("Acc. balance");
 
 if($type=='0'){
 	$l=_("Add customer");
-	$text=newWindow($l,'?action=lister&form=account&type='.CUSTOMER,480,480);
+	$text=newWindow($l,'?action=lister&form=account&type='.CUSTOMER,480,480,'','btnsmall');
 }else{
 	$l=_("Add supplier");
-	$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480);
+	$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
 }
 $tblheader = <<<EOT
 $text

@@ -332,7 +332,7 @@ if($end != '') {
 			$tstr = number_format($sub_total);
 			$curtablebody.= "<td dir=\"ltr\" align=\"right\">$tstr</td>\n";
 			if(isset($module)) {
-				$l = _("Edit/Storeno");
+				$l = _("Storeno");
 				$curtablebody.= "<td><a href=\"?module=tedit&amp;num=$num&amp;account=$acct&amp;begin=$begin&amp;end=$end\">$l</a></td>\n";
 			}//else$curtablebody.= "<td></td>";
 			$curtablebody.= "</tr>\n";
@@ -342,13 +342,13 @@ if($end != '') {
 		fclose($fd);
 		$l = _("Click here to download report");
 		$text.= "<h2>$l: ";
-		$url = "/download.php?file=$filename&amp;name=acct$acct.csv";
+		$url = "download.php?file=$filename&amp;name=acct$acct.csv";
 		$text.= "<a href=\"$filename\">acct$acct.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
-		$text.= "<h2>$l</h2>\n";
-		$text.= "<script type=\"text/javascript\">\n";
-		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		$text.= "</script>\n";
+		//$text.= "<h2>$l</h2>\n";
+		//$text.= "<script type=\"text/javascript\">\n";
+		//$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		//$text.= "</script>\n";
 	}
 	else {
 		if(!isset($module))

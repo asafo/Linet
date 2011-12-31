@@ -13,7 +13,7 @@ if(!isset($prefix) || ($prefix == '')) {
 }
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
-
+$text= '';
 if($action == 'update') {
 	if($name == 'demo') {
 		$l = _("Demo user is not allowed to update data");
@@ -66,7 +66,7 @@ if($action == 'update') {
 	$query .= "WHERE prefix='$prefix'";
 	//print $query;
 	DoQuery($query, "docnums.php");
-	
+	$text.=_('The new configuration for business documents were succesfully saved');
 }
 if($action == 'logodel') {
 	if($name == 'demo') {
@@ -105,8 +105,8 @@ $logo = $line['logo'];
 //print "<div class=\"form righthalf1\">\n";
 $haeder = _("Business documents definitions");
 //print "<h3>$l</h3>\n";
-$text= '';
-$text.= "<form name=\"form1\" enctype=\"multipart/form-data\" action=\"?module=docnums&amp;action=update\" method=\"post\">\n";
+
+$text.= "<form id=\"docnum\" name=\"docnum\" enctype=\"multipart/form-data\" action=\"?module=docnums&amp;action=update\" method=\"post\" class=\"valform\">\n";
 $text.= "<table border=\"0\" cellpadding=\"1px\" class=\"formtbl\" width=\"100%\"><tr>\n";
 $l = _("Base numbers");
 $text.= "<td colspan=\"4\"><h2>$l</h2></td>\n";
@@ -118,59 +118,35 @@ for($i=2;$i<=10;$i=$i+2){
 	$a=$i-1;
 	$value=$line['num'.$a];
 	$text.= "<td>$DocType[$a]: </td>\n";
-	$text.= "<td><input type=\"text\" name=\"num$a\" value=\"$value\" size=\"4\"></td>\n";
+	$text.= "<td><input type=\"text\" name=\"num$a\" value=\"$value\" size=\"4\" class=\"number\" /></td>\n";
 	
 	$value=$line['num'.$i];
 	$text.= "<td>$DocType[$i]: </td>\n";
-	$text.= "<td><input type=\"text\" name=\"num$i\" value=\"$value\" size=\"4\"></td>\n";
+	$text.= "<td><input type=\"text\" name=\"num$i\" value=\"$value\" size=\"4\" class=\"number\" /></td>\n";
 	$text.= "</tr><tr>\n";
 }
-/*
-$l = _("Proforma");
-$text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"num1\" value=\"$num1\" size=\"4\"></td>\n";
-$l = _("Delivery doc.");
-$text.= "<td>&nbsp;&nbsp;$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"num2\" value=\"$num2\" size=\"4\"></td>\n";
-$text.= "</tr><tr>\n";
-$l = _("Invoice");
-$text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"num3\" value=\"$num3\" size=\"4\"></td>\n";
-$l = _("Credit invoice");
-$text.= "<td>&nbsp;&nbsp;$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"num4\" value=\"$num4\" size=\"4\"></td>\n";
-$text.= "</tr><tr>\n";
-
-$l = _("Return document");
-$text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"num5\" value=\"$num5\" size=\"4\"></td>\n";
-$text.= "</tr><tr>\n";
-
-$l = _("Receipt");
-$text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"num6\" value=\"$num6\" size=\"4\"></td>\n";
-$text.= "</tr><tr>\n";
-*/
 $l = _("Document layout");
 $text.= "<td colspan=\"4\"><h2>$l</h2></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Header");
-$text.= "<td colspan=\"2\">$l: </td>\n";
-$text.= "<td colspan=\"2\"><input type=\"text\" name=\"header\" value=\"$header\"></td>\n";
+$text.= "<td colspan=\"1\">$l: </td>\n";
+$text.= "<td colspan=\"3\"><textarea cols=\"30\" rows=\"3\" name=\"header\">$header</textarea></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Footer");
-$text.= "<td colspan=\"2\">$l: </td>\n";
-$text.= "<td colspan=\"2\"><input type=\"text\" name=\"footer\" value=\"$footer\"></td>\n";
+$text.= "<td colspan=\"1\">$l: </td>\n";
+$text.= "<td colspan=\"3\"><textarea cols=\"30\" rows=\"3\" name=\"footer\">$footer</textarea></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Logo");
-$text.= "<td colspan=\"2\" valign=\"top\">$l: </td>\n";
-$text.= "<td colspan=\"2\" valign=\"top\"><input type=\"file\" name=\"logo\" value=\"\"></td>\n";
+$text.= "<td colspan=\"1\" valign=\"top\">$l: </td>\n";
+//בחר קובץ תמונה בפורמט jpeg, בגודל של עד 200X300 פיקסלים ובנפח של עד 15kB
+$l1=_("Choose a Jpg/Png format picture at dimensions of 200X300 pixels and size of 15KB max");
+$text.= "<td colspan=\"3\" valign=\"top\"><input type=\"file\" name=\"logo\" value=\"\" /><br />$l1</td>\n";
 if($logo) {
 	$text.= "</tr><tr>\n";
-	$text.= "<td colspan=\"3\" align=\"center\"><img src=\"img/logo/$logo\" alt=\"$l\" width=\"100px\"></td>\n";
+	$text.= "<td colspan=\"3\" align=\"center\"><img src=\"img/logo/$logo\" alt=\"$l\" width=\"100px\" /></td>\n";
 	$l1 = _("Delete");
 	$text.= "<td><a class=\"btnsmall\" href=\"?module=docnums&amp;action=logodel\">$l1 $l</a></td>";
 	//$text.= "onClick=\"window.location.href=''\"></td>\n";
@@ -178,7 +154,8 @@ if($logo) {
 $text.= "</tr>\n";
 $text.= "<tr><td colspan=\"4\" align=\"center\">\n";
 $l = _("Update");
-$text.= "<a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>&nbsp;&nbsp;\n";
+$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";	
+//$text.= "<a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>&nbsp;&nbsp;\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";

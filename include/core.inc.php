@@ -63,8 +63,8 @@ $softwarename = "Linet";		 /* up to 20 characters */
 $softwarenameheb = _("Linet - Free accounting software based on Drorit");
 $softwaremaker = "Speedcomp"; /* up to 20 characters */
 $softwaremakerregnum = "069924504";
-$softregnum = "00179401";	/* Software registration number in tax authorities */
-
+$softregnum = "00179402";	/* Software registration number in tax authorities */
+//include "include/version.inc.php";
 $title = $softwarenameheb;
 
 // Account types 
@@ -140,7 +140,7 @@ define("NATINS", 15);	// ׳³ֲ³׳’ג‚¬ֻ�׳³ֲ³׳’ג€�ֲ¢׳³�
 define("IRS", 16);	// ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¡ ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³ײ²ֲ ׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג‚¬ן¿½
 define("EQOUTCOME", 17);	// ׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³׳’ג€�ֲ¢ ׳³ֲ³ײ²ֲ©׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ²ֲ©
 define("SALARY", 18);
-//30-99 is taken check out accounts.txt
+//30-104 is taken check out accounts.txt
 define("PRETAX", 105); // ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ§׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€” ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ¡ ׳³ֲ³׳’ג‚¬ן¿½׳³ֲ³׳’ג‚¬ֳ·׳³ֲ³ײ²ֲ ׳³ֲ³ײ²ֲ¡׳³ֲ³׳’ג‚¬ן¿½
 define("OPEN_STOCK", 106);	// ׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳�ֲ¿ֲ½׳³ֲ³׳’ג€�ֲ¢ ׳³ֲ³׳’ג€�ֳ—׳³ֲ³ײ³ג€”׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג€�׳³ֲ³׳’ג‚¬ן¿½
 define("BUY_STOCK", 107);	// ׳³ֲ³ײ²ֲ§׳³ֲ³ײ²ֲ ׳³ֲ³׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ֲ¢׳³ֲ³ײ³ג€”
@@ -219,7 +219,7 @@ $DocOpenType=array(200=>DOC_DELIVERY,
 					210=>DOC_RETURN,
 					500=>DOC_PARCHACEORDER,
 					400=>DOC_RECEIPT,
-					320=>DOC_INVRCPT
+					320=>DOC_INVRCPT,
 					);
 $openTransType=array(200=>DELIVERY,
 					300=>DOCPROFORMA,

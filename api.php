@@ -70,7 +70,7 @@ function Login($username,$appKey,$company=0){
 				 $_SESSION['logedin']=sha1(mt_rand().$usr->password);
 				 $_SESSION['username']=$username;
 				 //$_SESSION['prefix']=$usr->permissions[$company]['prefix'];//need to be
-				 $_SESSION['prefix']='testme';
+				 //$_SESSION['prefix']='testme';
 				 return array('sid'=>$_SESSION['logedin']);
 			}
 	}
@@ -108,11 +108,26 @@ function GetData($data,$id){
 			$acc->getAccount();
 			return $acc;
 			break;
-		case 'Document';
+		case 'Document':
 			$doc=new document;
 			$doc->num =$id;
 			$doc->getDocument();
 			return $doc;
+			break;
+		case "Company":
+			global $permissionstbl,$companiestbl;
+			$permtionlist=selectSql(array('name'=>$_SESSION['username']), $permissionstbl);
+			$list1=array();
+			foreach($permtionlist as $rec){
+				if($rec['company']=='*'){
+					$companylist=selectSql(array(1=>1),$companiestbl,array('companyname','prefix'));
+					return $companylist;
+				}else{
+					$companylist=selectSql(array('prefix'=>$rec['company']),$companiestbl,array('companyname','prefix'));
+					$list1=array_merge($list1,$companylist);
+				}
+			}
+			return $list1;
 			break;
 		default:
 			return array('data'=>'-2');
@@ -154,6 +169,26 @@ function SetData($data){
 			}
 			return  array("data"=>$doc->newDocument());
 			break;
+		case "Company":
+			$newprefix=$arr['company'];
+			global $permissionstbl,$companiestbl;
+			$permtionlist=selectSql(array('name'=>$_SESSION['username']), $permissionstbl);
+			$list1=array();
+			foreach($permtionlist as $rec){
+				if($rec['company']=='*'){
+					$list1=selectSql(array(1=>1),$companiestbl,array('companyname','prefix'));
+					
+					//return $companylist;
+				}else{
+					$companylist=selectSql(array('prefix'=>$rec['company']),$companiestbl,array('companyname','prefix'));
+					$list1=array_merge($list1,$companylist);
+				}
+			}
+			foreach($list1 as $rec){
+				if($rec['company']==$newprefix)
+					$_SESSION['prefix']=$newprefix;
+			}
+			return array("data"=>1);
 		default:
 			return array('data'=>'-2');
 	}

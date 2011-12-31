@@ -18,6 +18,21 @@ require_once('class/item.php');
 if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 	$haeder="Select files to Import";
 	$text= "<form action=\"?module=$module&amp;step=1\" method=\"post\" name='main' enctype=\"multipart/form-data\">\n<br />";
+	$text.="<div style=\"border: 2px solid red; margin-right: 50px; color: red;   padding: 10px; text-align: justify;  width: 600px;\" class=\"worning\">";
+	$text.="
+	תהליך הייבוא של חומרים ללינט מתוך תוכנות הנה\"ח אחרות באמצעות ייבוא קובץ אחיד הוא תהליך מורכב הדורש זהירות ותשומת לב רבים.
+אנא קרא בעיון את הוראות מדריך הייבוא <a href=\"http://www.linet.org.il/index.php/support/user-help-navigate?id=58\">כאן</a><br /> לפני ביצוע הייבוא.
+לאחר ביצוע הייבוא ולפני שאת/ה מזין נתונים חדשים בתוכנה או מפיק/ה מסמכים בדוק/י בתשומת לב רבה שהחשבונות והמסמכים שייבאת נמצאים במקומם הנכון. למשל: בדוק/י שחשבונות לקוחות נמצאים בסוג חשבונות \"לקוחות\", ספקים בסוג \"ספקים\" וכן הלאה.<br />
+כמו כן, אם בחרת לייבא גם מסמכים ותנועות, עיין/י בכרטסות החשבון במדגם מייצג של לפחות שלשה סוגי חשבונות והשווה/י לתנועות ולמסמכים המופיעים בכרטסת החשבון בתוכנה ממנה ייצאת את הנתונים.<br />
+במידה וכל ההשוואות עולות יפה ויש התאמה, ברוך הבא ללינט, התחל/י לעבוד עם התוכנה. במידה ולא, מחק/י את החברה שהייבוא יצר (קישור \"החלף חברה\" למעלה משמאל->לחיצה על כפתור X בשורה של החברה אותה ייבאת תמחק אותה) ונסה/י לייבא את החומר מחדש.<br />
+בהצלחה!
+	
+	";
+	$text.="</div>";
+	
+	// http://www.linet.org.il/index.php/support/user-help-navigate?id=58
+	$text.="<div style=\"margin-top: 10px; margin-right: 50px;  width: 600px;\" class=\"worning\">";
+	
 	$text.="load ini file <input type=\"file\" name=\"ini\" /><br />\n";
 	$text.="load bkmvdata <input type=\"file\" name=\"bkmv\" /><br />\n";
 	
@@ -45,9 +60,9 @@ if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 		
 	
 	$l = _("Next");
-	$text.= "<a href='javascript:document.main.submit();' class='btnaction'>$l</a>";
+	$text.= "<input type=\"submit\" value=\"$l\" class='btnaction' />";
 	//$text.="<input type=\"submit\" value=\"$l\" />";
-		
+	$text.="</div>";
 	$text.= "</form>\n";
 	
 	createForm($text,$haeder,'',750,'','',1,getHelp());
@@ -57,6 +72,12 @@ if ($_REQUEST['step']==1){
 	$bkmv = "tmp/bkmv$prefix.txt";
 	$ini = "tmp/ini$prefix.txt";
 	$inisize = (int)$_FILES['ini']['size'];
+	$begindmy=strtotime($_REQUEST['begin']);
+	$enddmy=strtotime($_REQUEST['end']);
+	if($begindmy<$enddmy)
+		$check=true;
+	else 
+		$check=false;
 	if($inisize > 0) {	/* we have a file */
 		$tmpname = $_FILES['ini']['tmp_name'];
 		if (file_exists($tmpname)){   
@@ -146,7 +167,6 @@ if ($_REQUEST['step']==1){
 	foreach ($filtera['bkmvfile'] as &$type){
 		$filter['bkmvfile'][$type['str']]=selectSql(array('record'=>$type['id']),$table["openformat"],null,null,array('id'));
 	}
-	//print "i know its only";
 	//sort file
 	if ($fp = fopen($bkmv, 'r')) {
 		//$newfile='';
@@ -261,19 +281,19 @@ if ($_REQUEST['step']==1){
 					/* Account Import */
 					$acc=new account;
 					//($softvendorregnum)
-					print $softvendorregnum;
-					$obj["type"]=$obj["type"]+50;					
+					//print $softvendorregnum;
+					$obj["type"]=(int)$obj["type"]+50;					
 					if(isset($accTypeIndex[$obj["type"]]))
-						$accTypeIndex[$obj["type"]]=$accTypeIndex[$obj["type"]].",".$obj["company"];
-						else {
+							$accTypeIndex[$obj["type"]]=$accTypeIndex[$obj["type"]].",".$obj["company"];
+						else 
 							$accTypeIndex[$obj["type"]]=$obj["typedesc"].":".$obj["company"];
-						}
 					unset($obj["typedesc"]);
 					//1405 acc type code
 					//1406 acc type name
 					foreach($obj as $key=>$value){
 						$acc->$key=$value;
 					}
+					//print_r($acc);
 					$accIndex[$obj["num"]]=$acc->newAccount();
 					//get new acc index save old
 					unset($acc);
@@ -282,7 +302,8 @@ if ($_REQUEST['step']==1){
 				if ($type=='C100'){//Doc Haeder
 					//find type
 					global $DocOpenType;
-					//print_r($DocOpenType);
+					//print_r($accIndex);
+					//print($obj['doctype'].";".$obj['account'].";<br />");
 					if ((isset($DocOpenType[$obj['doctype']])) && (isset($accIndex[$obj['account']]))){
 						$obj['doctype']=$DocOpenType[$obj['doctype']];
 						$doc=new document($obj['doctype']);
@@ -296,7 +317,14 @@ if ($_REQUEST['step']==1){
 						if (isset($doc->rcptdetials)) unset($doc->rcptdetials);
 						if (isset($doc->docdetials)) unset($doc->docdetials);
 						//print_r($doc);
-						$docIndex[$stype.$obj["docnum"]]=$doc->newDocument();
+						
+						if($check){
+							if((strtotime($doc->issue_date)>$begindmy)&&(strtotime($doc->issue_date)<$enddmy))
+								$docIndex[$stype.$obj["docnum"]]=$doc->newDocument();
+							//print "we are chking!";
+						}else{
+							$docIndex[$stype.$obj["docnum"]]=$doc->newDocument();
+						}
 						//get new doc index save old
 						unset($doc);
 					}
@@ -304,15 +332,22 @@ if ($_REQUEST['step']==1){
 				if ($type=='D110'){//Doc Detial
 					global $DocOpenType;
 					$stype=$DocOpenType[$obj['doctype']];
-					if (isset($docIndex[$stype.$obj["num"]])){			
+					//print_r($obj);
+					if (isset($docIndex[$stype.$obj["num"]])){		
 						$docdetial=new documentDetail;
-						
+						$docdetial->price=$obj['price'];
 						unset($obj['doctype']);
+						unset($obj['price']);
+						
 						foreach($obj as $key=>$value){
-							$docdetial->$key=$value;//print "$key <br />";
+							$docdetial->{$key}=$value;//print "$key <br />";
+							
 						}
+						
+						//print_r($docdetial);
 						$docdetial->num=$docIndex[$stype.$obj["num"]];	
 						$docdetial->newDetial();
+						
 						//search for old doc index
 						//die;
 						//update to new index
@@ -322,13 +357,17 @@ if ($_REQUEST['step']==1){
 				if ($type=='D120') {//Kaballa Detial
 					global $DocOpenType;
 					$stype=$DocOpenType[$obj['doctype']];
+					//print_r($obj);
 					if (isset($docIndex[$stype.$obj["refnum"]])){
 						$rcptdetial=new receiptDetail();
 						//$stype=$DocOpenType[$obj['doctype']];
+						$rcptdetial->sum=(float)$obj['sum'];
+						unset($obj['sum']);
 						unset($obj['doctype']);
 						foreach($obj as $key=>$value){
 							$rcptdetial->$key=$value;
 						}
+						//print_r($rcptdetial);
 						$rcptdetial->refnum=$docIndex[$stype.$obj["refnum"]];	
 						$rcptdetial->newDetial();
 						//search for old doc index
@@ -338,14 +377,20 @@ if ($_REQUEST['step']==1){
 				}
 				//print "?";
 				if ($type=='B100'){//Move Recored
-					//print "but i like it";
+					//print $obj['value'].":".$obj['type'];
 					global $openTransType;
 					//print_r($openTransType);
+					//print_r($accIndex);
+					/*
 					if ((isset($accIndex[$obj['account']])) && (isset($accIndex[$obj['account1']]))){
+						$bsum= $obj['sum'];
+						if($obj['value']==1)
+							$bsum= -1 * $obj['sum'];
+						//print $bsum."<br />\n";
+						$usum=$bsum*-1;
 						
-						$obj['sum']= $obj['value']."1" * $obj['sum'];
-						$usum=$obj['sum']*-1;
 						$uaccount=$obj['account1'];
+						$stype=$openTransType[$obj['type']];
 						unset($obj['value']);
 						unset($obj['account1']);
 						//adam:! need to reset type of action!
@@ -353,10 +398,11 @@ if ($_REQUEST['step']==1){
 						foreach($obj as $key=>$value){
 							$transaction->$key=$value;//print "$key <br />";
 						}
-						$transaction->type=$openTransType[$obj['type']]-$obj['type'];
+						$transaction->type=$stype;
+						$transaction->sum=$bsum;
 						$transaction->account=$accIndex[$obj['account']];
-						$transaction->newTransactions();
-						unset($transaction);
+						
+						
 						//only if bi side
 						$transactiona=new transaction;
 						foreach($obj as $key=>$value){
@@ -365,8 +411,49 @@ if ($_REQUEST['step']==1){
 						$transactiona->type=$openTransType[$obj['type']];
 						$transactiona->account=$accIndex[$uaccount];
 						$transactiona->sum=$usum;
-						$transactiona->newTransactions();
-						unset($transactiona);//*/
+						if($check){
+								if((strtotime($transaction->date)>$begindmy)&&(strtotime($transaction->date)<$enddmy)){
+									$transaction->newTransactions();
+									$transactiona->newTransactions();
+								}
+									
+							}else{
+								$transaction->newTransactions();
+								$transactiona->newTransactions();
+							}
+						unset($transaction);
+						unset($transactiona);
+					}else//*/
+				if (isset($accIndex[$obj['account']])){
+						$bsum= $obj['sum'];
+						if($obj['value']==1)
+							$bsum= -1 * $obj['sum'];
+						//print $bsum."<br />\n";
+						$usum=$bsum*-1;
+						
+						$uaccount=$obj['account1'];
+						$stype=$openTransType[$obj['type']];
+						unset($obj['sum']);
+						unset($obj['value']);
+						unset($obj['account1']);
+						//adam:! need to reset type of action!
+						$transaction=new transaction;
+						foreach($obj as $key=>$value){
+							$transaction->$key=$value;//print "$key <br />";
+						}
+						$transaction->type=$stype;
+						$transaction->sum=$bsum;
+						$transaction->account=$accIndex[$obj['account']];
+						
+						if($check){
+								if((strtotime($transaction->date)>$begindmy)&&(strtotime($transaction->date)<$enddmy)){
+									$transaction->newTransactions();
+								}
+									
+							}else{
+								$transaction->newTransactions();
+							}
+						unset($transaction);
 					}
 				}
 				if ($type=='M100'){//Item In Stock
@@ -383,7 +470,6 @@ if ($_REQUEST['step']==1){
 			$analze[$type]++;
 			//if ($analze[$type]>100)	break;
 		}
-		//print("<br /><br /><br /><br />done:<br /><br />");
 		
 		//print_r($docIndex);
 		//end loop
@@ -397,13 +483,14 @@ if ($_REQUEST['step']==1){
 	$text= "<form action=\"?module=$module&prefix=$prefix&step=2\" method=\"post\" name=\"main\" enctype=\"multipart/form-data\">\n<br />";
 	//$text.="load ini file <input type=\"file\" name=\"ini\" /><br />\n";
 	//$text.="load bkmvdata <input type=\"file\" name=\"bkmv\" /><br />\n";
-	
+	$text.="<table>";
 	foreach ($accTypeIndex as $key=>$type){
-			$text.="Type: $type".PrintAccountType($key)."<br />";
+			$text.="<tr><td>$type</td><td>".PrintAccountType($key)."</td></tr>";
 			//print "Type: ".$type."<br />";
 		}
+	$text.="</table>";
 	$l = _("Next");
-	$text.= "<a href='javascript:document.main.submit();' class='btnaction'>$l</a>";
+	$text.= "<input type=\"submit\" value=\"$l\" class='btnaction' />";
 	//$text.="<input type=\"submit\" value=\"$l\" />";
 		
 	$text.= "</form>\n";
@@ -485,12 +572,12 @@ function fieldvalue($str,$type,$action){
 			break;
 		case "v99":
 			$a=substr($str,0,1);
-			$str=substr($str,1)/1000;
+			$str=substr($str,1)/100;
 			return number_format($str, 2, '.', '');;
 			break;
 		case "v9999":
 			$a=substr($str,0,1);
-			$str=substr($str,1)/10000;
+			$str=substr($str,1)/1000;
 			return number_format($str, 4, '.', '');
 			break;
 		case "s":

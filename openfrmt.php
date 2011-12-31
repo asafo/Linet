@@ -33,29 +33,33 @@ function utf8_to_windows1255($utf8) {
 }//*///adam:
 
 function TranslateDocumentType($doctype) {
-	$DocTypeArr = array(DOC_PROFORMA => 300, DOC_ORDER => 100, DOC_DELIVERY => 200, DOC_INVOICE => 305, 
-			DOC_CREDIT => 330, DOC_RETURN => 610, DOC_RECEIPT => 400, DOC_QUOTATION => 0);
-	
-	return $DocTypeArr[$doctype];
+	//$DocTypeArr = array(DOC_PROFORMA => 300, DOC_ORDER => 100, DOC_DELIVERY => 200, DOC_INVOICE => 305, 
+	//		DOC_CREDIT => 330, DOC_RETURN => 610, DOC_RECEIPT => 400, DOC_QUOTATION => 0);
+	global $DocOpenType;
+	$DocTypeArr=array_flip($DocOpenType);
+	if(isset($DocTypeArr[$doctype]))
+		return $DocTypeArr[$doctype];
+	else
+		return false;
 }
 
-function ReceiptsDetails($bkmvdata, $bkrecnum, $regnum, $docnum) {
+function ReceiptsDetails($bkmvdata, $bkrecnum, $regnum, $doctype,$docnum) {
 	global $prefix;
-	global $chequestbl;
+	global $chequestbl,$docstbl;
 	global $creditcompanies;
 	global $num_D120;
 	//adam: need to cover DOC_INVRCPT
-	$query = "SELECT issue_date FROM $docstbl WHERE prefix='$prefix' AND docnum='$docnum' AND doctype='".DOC_RECEIPT."'";
+	$query = "SELECT num,issue_date FROM $docstbl WHERE prefix='$prefix' AND docnum='$docnum' AND doctype='$doctype'";
 	$result = DoQuery($query, "ReceiptsDetails");
 	$line = mysql_fetch_array($result, MYSQL_ASSOC);
 	$issue_date = $line['issue_date'];
 	list($y, $m, $d) = explode('-', $issue_date);
 	$issue_date = sprintf("%04d%02d%02d", $y, $m, $d);	
-
-	$query = "SELECT * FROM $chequestbl WHERE prefix='$prefix' AND refnum='$docnum'";
+	$num=$line['num'];
+	$query = "SELECT * FROM $chequestbl WHERE prefix='$prefix' AND refnum='$num'";
 	$result = DoQuery($query, "ReceiptsDetails");
 	$n = 1;
-	$doctype = TranslateDocumentType(DOC_RECEIPT);
+	$doctype = TranslateDocumentType($doctype);
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$str = sprintf("D120%09d%09d%03d%20s%04d",
 			$bkrecnum, $regnum, $doctype, $docnum, $n);
@@ -161,48 +165,55 @@ function ExportDocuments($bkmvdata, $bkrecnum, $mainid, $regnum, $begindate, $en
 		$n++;
 		$num = $line['num'];
 		$doctype = $line['doctype'];
-		$doctype = TranslateDocumentType($doctype);
+		
 		$docnum = $line['docnum'];
 		$issue_date = $line['issue_date'];
-		list($y, $m, $d) = explode('-', $issue_date);
-		$issue_date = sprintf("%04d%02d%02d", $y, $m, $d);
-		$company = utf8_to_windows1255($line['company']);
-		$company = substr($company, 0, 50);
-		$addr = utf8_to_windows1255($line['address']);
-		$addr = substr($addr, 0, 50);
-		$city = utf8_to_windows1255($line['city']);
-		$city = substr($city, 0, 30);
-		$zip = $line['zip'];
-		$zip = substr($zip, 0, 8);
-		$due_date = $line['due_date'];
-		list($y, $m, $d) = explode('-', $due_date);
-		$due_date = sprintf("%04d%02d%02d", $y, $m, $d);
-		$account = $line['account'];
-		$query = "SELECT * FROM $accountstbl WHERE num='$account' AND prefix='$prefix'";
-		$r = DoQuery($query, "ExportDocuments");
-		$l = mysql_fetch_array($r, MYSQL_ASSOC);
-		$phone = $l['phone'];
-//		$phone = ' ';
-//		$vatnum = $l['vatnum'];
-//		$vatnum = substr($vatnum, 0, 8);
-		$idnum = $l['idnum'];
-		$str = sprintf("C100%09d%09d%03d%20s%08d0000%50s%50s%10s%30s%8s%30s!!%15s%09d%08d%15s!!!", 
-			$bkrecnum, $regnum, $doctype, $docnum, $issue_date, $company, $addr, ' ', 
-			$city, $zip, ' ', $phone, $vatnum, $due_date, ' ');
-//		print "$str<br>\n";
-		fwrite($bkmvdata, $str);
-		$bkrecnum++;
-		/* now print sums (starting at field 1219 in tax authority document) */
-		$novat_total = sprintf("%+015.0f", $line['novat_total'] * 100);
-		$sub_total1 = $line[sub_total] + $line[novat_total];
-		$sub_total1 = sprintf("%+015.0f", $sub_total1 * 100);
-		$vat = sprintf("%+015.0f", $line['vat'] * 100);
-		$total = sprintf("%+015.0f", $line['total'] * 100);
-		$str = sprintf("%s+%014d%s%s%s+%011d%15s%10s0%08d%7s%9s%07d%13s\r\n",
-			$sub_total1, 0, $sub_total1, $vat, $total, 0, $account, ' ', $issue_date, ' ', ' ', $num, ' ');
-		fwrite($bkmvdata, $str);
-		$num_C100++;
-		$bkrecnum = DocDetails($bkmvdata, $bkrecnum, $regnum, $doctype, $docnum, $num);
+		if(TranslateDocumentType($doctype)!=false){
+			$dostype = TranslateDocumentType($doctype);
+			list($y, $m, $d) = explode('-', $issue_date);
+			$issue_date = sprintf("%04d%02d%02d", $y, $m, $d);
+			$company = utf8_to_windows1255($line['company']);
+			$company = substr($company, 0, 50);
+			$addr = utf8_to_windows1255($line['address']);
+			$addr = substr($addr, 0, 50);
+			$city = utf8_to_windows1255($line['city']);
+			$city = substr($city, 0, 30);
+			$zip = $line['zip'];
+			$zip = substr($zip, 0, 8);
+			$due_date = $line['due_date'];
+			list($y, $m, $d) = explode('-', $due_date);
+			$due_date = sprintf("%04d%02d%02d", $y, $m, $d);
+			$account = $line['account'];
+			$query = "SELECT * FROM $accountstbl WHERE num='$account' AND prefix='$prefix'";
+			$r = DoQuery($query, "ExportDocuments");
+			$l = mysql_fetch_array($r, MYSQL_ASSOC);
+			$phone = $l['phone'];
+	//		$phone = ' ';
+	//		$vatnum = $l['vatnum'];
+	//		$vatnum = substr($vatnum, 0, 8);
+			$idnum = $l['idnum'];
+			$str = sprintf("C100%09d%09d%03d%20s%08d0000%50s%50s%10s%30s%8s%30s!!%15s%09d%08d%15s!!!", 
+				$bkrecnum, $regnum, $dostype, $docnum, $issue_date, $company, $addr, ' ', 
+				$city, $zip, ' ', $phone, $vatnum, $due_date, ' ');
+	//		print "$str<br>\n";
+			fwrite($bkmvdata, $str);
+			$bkrecnum++;
+			/* now print sums (starting at field 1219 in tax authority document) */
+			$novat_total = sprintf("%+015.0f", $line['novat_total'] * 100);
+			$sub_total1 = $line[sub_total] + $line[novat_total];
+			$sub_total1 = sprintf("%+015.0f", $sub_total1 * 100);
+			$vat = sprintf("%+015.0f", $line['vat'] * 100);
+			$total = sprintf("%+015.0f", $line['total'] * 100);
+			$src_tax = sprintf("%+015.0f", $line['src_tax'] * 100);
+			$str = sprintf("%s+%014d%s%s%s+%011d%15s%10s0%08d%7s%9s%07d%13s\r\n",
+				$sub_total1, 0, $sub_total1, $vat, $total, $src_tax, $account, ' ', $issue_date, ' ', ' ', $num, ' ');
+			fwrite($bkmvdata, $str);
+			$num_C100++;
+			if($doctype!=DOC_RECEIPT)
+				$bkrecnum = DocDetails($bkmvdata, $bkrecnum, $regnum, $dostype, $docnum, $num);
+			if(($doctype==DOC_INVRCPT)||($doctype==DOC_RECEIPT))
+				$bkrecnum = ReceiptsDetails($bkmvdata, $bkrecnum, $regnum, $doctype, $docnum);
+		}
 	}
 	return $bkrecnum;
 }
@@ -332,23 +343,23 @@ function ExportAcct($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate) {
 }
 
 function GetRefType($type) {
-	switch($type) {
-		case MANUAL:
-			return 0;
-		case MAN_INVOICE:
-		case INVOICE:
-			return TranslateDocumentType(DOC_INVOICE);
-		case SUPINV:
-			return 700;	
-		case RECEIPT:
+	//switch($type) {
+		//case MANUAL:
+		//	return 0;
+		//case MAN_INVOICE:
+		//case INVOICE:
+		//	return TranslateDocumentType(DOC_INVOICE);
+		//case SUPINV:
+		//	return 700;	
+		//case RECEIPT:
 			return TranslateDocumentType(DOC_RECEIPT);
-		case CHEQUEDEPOSIT:
-			return 0;
-		case SUPPLIERPAYMENT:
-			return 0;
-		default:
-			return 0;
-	}
+		//case CHEQUEDEPOSIT:
+		//	return 0;
+		//case SUPPLIERPAYMENT:
+		//	return 0;
+		//default:
+		//	return 0;
+	//}
 }
 
 function ExportTransactions($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate) {
@@ -390,9 +401,10 @@ function ExportTransactions($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate)
 		}
 		else
 			$sign = 2;
-		$cor_num = $line['cor_num'];
+		$cor_num = (int)$line['cor_num'];
 		$sumstr = sprintf("+%015.2f", $sum);
 		$sumstr = str_replace('.', '', $sumstr);
+		//$str = sprintf("%50s%08d%08d%15s%15s%01d%3s%15s+%014d+%011d%10s%10s%07s%08d%34s\r\n",
 		$str = sprintf("%50s%08d%08d%15s%15s%01d%3s%15s+%014d+%011d%10s%10s%07s%08d%34s\r\n",
 			$t, $date, $date, $account, ' ', $sign, ' ', $sumstr, 0, 0, $cor_num, ' ', ' ', $date, ' ');
 		fwrite($bkmvdata, $str);
@@ -417,19 +429,17 @@ if($step == 0) {	/* First stage, choose dates for report */
 	$l = _("From date");
 	$text.= "<td>$l: </td>\n";
 	$text.= "<td><input class=\"date\" type=\"text\" id=\"begindate\" name=\"begindate\" value=\"$begindate\" size=\"7\">\n";
-//$text.='<script type="text/javascript">addDatePicker("#begindate","'.$begindate.'");</script>';
 	$text.= "</td>\n";
 	$text.= "</tr><tr><td colspan=\"2\">&nbsp;</td></tr><tr>\n";
 	$l = _("To date");
 	$text.= "<td>$l: </td>\n";
 	$text.= "<td><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$enddate\" size=\"7\">\n";
-//$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
 
 	$text.= "</td>\n";
 	$text.= "</tr><tr><td colspan=\"2\">&nbsp;</td></tr><tr>\n";
 	$l = _("Submit");
 	$text.= "<td colspan=\"2\" align=\"center\">";
-	$text.=  "<a href='javascript:document.dtrange.submit();' class='btnaction'>$l</a>";
+	$text.=  "<input type=\"submit\" value=\"$l\" class='btnaction' />";
 	//<input type=\"submit\" value=\"$l\"></td>\n";
 	$text.= "</tr>\n";
 	$text.= "</table>\n</form>\n";
@@ -518,14 +528,14 @@ else if($step == 1) {
 	$bkrecnum = ExportTransactions($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate);
 //	print "Transactions: $bkrecnum<br>\n";
 	
-	$str = sprintf("Z900%09d%09d%015u&OF1.31&%015d%50s\r\n", 
+	$str = sprintf("Z900%09d%09d%015u&OF1.31&%015d%50s", 
 			$bkrecnum, $regnum, $mainid, $bkrecnum, ' ');
 	fwrite($bkmvdata, $str);
 	fclose($bkmvdata);
-	
+	global $softregnum,$softwarename,$version;
 	$inifd = fopen("ini.txt", "w");
 	$str = sprintf("A000%5s%015d%09d%015u&OF1.31&%8s%20s%20s%09d%20s2",
-			' ', $bkrecnum, $regnum, $mainid, $softregnum, $softwarename, $Version,
+			' ', $bkrecnum, $regnum, $mainid, $softregnum, $softwarename, $version,
 			$softwaremakerregnum, $softwaremaker);
 	fwrite($inifd, $str);
 	/* Starting at field 1012 */
@@ -553,7 +563,7 @@ else if($step == 1) {
 	fwrite($inifd, $str);
 	$str = sprintf("D110%015d\r\n", $num_D110);
 	fwrite($inifd, $str);
-	$str = sprintf("D120%015d\r\n", $num_D120);
+	$str = sprintf("D120%015d", $num_D120);
 	fwrite($inifd, $str);
 	fclose($inifd);
 	chdir($cwd);

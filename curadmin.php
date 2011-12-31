@@ -117,9 +117,7 @@ if($action == 'rate') {
 	$text.= "<table border=\"0\" dir=\"rtl\" width=\"100%\" class=\"formtbl\"><tr>\n";
 	$l = _("Date");
 	$text.= "<td>$l: </td>\n";
-	$text.= "<td><input type=\"text\" id=\"date\" name=\"date\" size=\"7\" value=\"$day-$month-$year\">";
-
-	$text.= '<script type="text/javascript">addDatePicker("#date","'.$day.'-'.$month.'-'.$year.'");</script>';
+	$text.= "<td><input type=\"text\" id=\"date\"  class='date' name=\"date\" size=\"7\" value=\"$day-$month-$year\">";
 
 	$text.= "</td></tr><tr>\n";
 
@@ -163,7 +161,7 @@ if($action == 'rate') {
 	$text.= "</tbody></table>\n";
 	$text.= "</td></tr>\n";
 	$l = _("Update");
-	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\"  class='btnaction' /></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	
@@ -185,7 +183,7 @@ if($action == 'rate') {
 	$text.= "</tr><tr>\n";
 	$text.= "<td colspan=\"2\" align=\"center\">\n";
 	$l = _("Update");
-	$text.= "<input type=\"submit\" value=\"$l\"></td>\n";
+	$text.= "<input type=\"submit\" value=\"$l\"  class='btnaction' /></td>\n";
 	$text.= "</tr>\n</table>\n";
 	$text.= "</form>\n";
 	createForm($text,$header,'',750,'','img/icon_curadmin.png',1,getHelp());

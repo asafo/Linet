@@ -10,7 +10,7 @@ header("Content-Description: File Transfer");
 header("Content-Type: application/force-download");
 header("Content-Disposition: attachment; filename=\"$asfname\"");
 header("Content-Transfer-Encoding: binary");
-header("Content-Length: " . $fsize);
+//header("Content-Length: " . $fsize);
 
 // download
 // @readfile($file_path);

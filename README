@@ -19,8 +19,16 @@ add
 -img/right_arrow_16x16.png
 -img/btnShow.png
 -img/btnAcc.png
+-img/btnprint.png
+-img/docgo.png
+-img/logo.ico
 -js/jquery.mobile.min.js
 -js/jquery.mobile-1.0.css
+-js/jquery.validate.js
+-js/jquery.validationEngine-he.js
+-style/devill.css
+
+
 
 delete
 -mgraph.php

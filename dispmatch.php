@@ -58,7 +58,7 @@ if(!$bankacc) {
 //$text.='<script type="text/javascript">addDatePicker("#enddate","'.$enddate.'");</script>';
 	$text.= "<br>\n";
 	$l = _("Display");
-	$text.= "<div style=\"text-align:center\"><br><a href=\"javascript:document.choosebank.submit();\" class=\"btnaction\">$l</a></div>\n";
+	$text.= "<div style=\"text-align:center\"><br /><input type=\"submit\" value=\"$l\" class='btnaction' /></div>\n";
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -197,7 +197,7 @@ while($match = mysql_fetch_array($bankbook, MYSQL_NUM)) {
 	$text.= "</tr>\n";
 }
 $l = _("Open reconciliations");
-$text.= "<tr><td colspan=\"10\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+$text.= "<tr><td colspan=\"10\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
 $text.='</table></div></form></div>';
 createForm($text,$haeder,'',750,'','',1,getHelp());
 

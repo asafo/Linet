@@ -31,12 +31,19 @@ class document extends fields{
 	}
 	
 	public function newDocument(){
+		global $companiestbl;
 		$newnum=maxSql(array(1=>1),'num',$this->_table);
 		$newdoc_num=maxSql(array('prefix'=>$this->_prefix,'doctype'=>$this->doctype),'docnum',$this->_table);
-		
+		$minDocnum=selectSql(array('prefix'=>$this->_prefix), $companiestbl,array('num'.$this->doctype));
+		$minDocnum=$minDocnum[0]['num'.$this->doctype];
+		//print(";$minDocnum;");
+		///print_r($minDocnum);
+		if($newdoc_num<$minDocnum)
+			$newdoc_num=$minDocnum+1;
 		$this->prefix=$this->_prefix;
 		$this->num=$newnum;
-		$this->docnum=$newdoc_num;
+		//if($this->docnum=='')
+			$this->docnum=$newdoc_num;
 		if($this->issue_date=='')$this->issue_date=date('d-m-Y');
 		if($this->due_date=='')$this->due_date=date('d-m-Y');
 		$array=get_object_vars($this);

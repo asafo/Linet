@@ -97,7 +97,7 @@ if($step == 0) {	/* Get date range */
 //$text.='<script type="text/javascript">addDatePicker("#enddate","'.$edate.'");</script>';
 	$text.= "</td>\n";
 	$l = _("Execute");
-	$text.= "<td><a href='javascript:document.dtrange.submit();' class='btnaction'>$l</a></td>\n";
+	$text.= "<td><input type=\"submit\" value=\"$l\" class='btnaction' /></td>\n";
 	//$text.= "<td><input type=\"submit\" value=\"$l\" /></td>\n";
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
@@ -402,13 +402,13 @@ if($step >= 1) {
 		Conv1255($filename);
 		$l = _("Click here to download report");
 		$text.= "<h2>$l: ";
-		$url = "/download.php?file=$filename&amp;name=tranrep.csv";
-		$text.= "<a href=\"$filename\">tranrep.csv</a></h2>\n";
-		$l = _("Right click and choose 'save as...'");
-		$text.= "<h2>$l</h2>\n";
-		$text.= "<script type=\"text/javascript\">\n";
-		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		$text.= "</script>\n";
+		$url = "download.php?file=$filename&amp;name=tranrep.csv";
+		$text.= "<a href=\"$url\">tranrep.csv</a></h2>\n";
+		//$l = _("Right click and choose 'save as...'");
+		//$text.= "<h2>$l</h2>\n";
+		//$text.= "<script type=\"text/javascript\">\n";
+		//$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		//$text.= "</script>\n";
 	}
 
 	if(isset($module) && ($step == 1)) {
@@ -418,10 +418,10 @@ if($step >= 1) {
 			$url .= "&amp;order=$order";
 		//print "<div class=\"repbottom\">\n";
 		$l = _("Print");
-		$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
+		//$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
 		$text.= "&nbsp;&nbsp;";
 		$l = _("File export");
-		$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='?module=tranrep&amp;step=2&amp;begindate=$begindate&amp;enddate=$enddate'\">\n";
+		$text.= "<a class=\"btnsmall\" href='?module=tranrep&amp;step=2&amp;begindate=$begindate&amp;enddate=$enddate'\">$l</a>\n";
 		//print "</div>\n";
 	}
 createForm($text,$reptitle,'',750,'','',1,getHelp());

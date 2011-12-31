@@ -154,7 +154,7 @@ if(!$bankacc) {
 	}
 	$text.= "<br>\n";
 	$l = _("Execute");
-	$text.= "<div style=\"text-align:center\"><a href=\"javascript:document.choosebank.submit();\" class=\"btnaction\">$l</a></div>\n";
+	$text.= "<div style=\"text-align:center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></div>\n";
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -362,7 +362,7 @@ if($action == 'extmatch') {
 		$text.= "</table>\n";
 		$text.= "</td></tr>\n";
 		$l = _("Submit");
-		$text.= "<tr><td align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+		$text.= "<tr><td align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
 		$text.= "</table>\n";
 		$text.= "</form>\n";
 		//$text.= "</div>\n";
@@ -444,6 +444,8 @@ global $TranType;
 $query = "SELECT * FROM $transactionstbl WHERE account='$bankacc' AND cor_num='0' AND prefix='$prefix'";	/* only unmatched transactions */
 $result = DoQuery($query, __LINE__);
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	if ($type==OPBALANCE)
+		continue;
 	$num = $line['num'];
 	$date = FormatDate($line['date'], "mysql", "dmy");
 	$refnum = $line['refnum1'];
@@ -451,6 +453,8 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$details = $line['details'];
 	$sum = $line['sum'];
 	$sum *= -1;
+	if ($type==OPBALANCE)
+		continue;
 	$text.=  "<tr>\n";
 	$text.=  "<td><input type=\"checkbox\" class=\"int\" name=\"int[]\" value=\"$num:$sum\" onchange=\"CalcIntSum()\"></td>\n";
 	$text.=  "<td>$TranType[$type]</td>\n";
@@ -459,13 +463,14 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	$text.=  "<td>$details</td>\n";
 	$text.=  "<td dir=\"ltr\">$sum<input type=\"hidden\" class=\"int_sum\" name=\"int_sum[]\" value=\"$sum\"></td>\n";
 	$text.=  "</tr>\n";
+	
 }
 $text.=  "<tr><td colspan=\"5\">&nbsp;</td>\n";
 $text.=  "<td><input type=\"text\" name=\"int_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
 $text.= '</table></td>';
 
 $l = _("Reconciliate");
-$text.=  "</tr><tr><td colspan=\"3\" align=\"center\"><br><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+$text.=  "</tr><tr><td colspan=\"3\" align=\"center\"><br><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
 $text.=  "</table>\n</form>\n</div>";
 createForm($text,$haeder,'',750,'','',1,getHelp());
 ?>

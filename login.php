@@ -1,9 +1,8 @@
 <?PHP
-// header('Content-type: text/html;charset=UTF-8');
 /*
  | login handling script for Drorit free accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2004
- |
+ | Modfied By Adam BH
  | This program is a free software licensed under the GPL 
  */
 global $logintbl, $permissionstbl;
@@ -45,7 +44,7 @@ function AddUser() {
 	//global $levelsarr;
 	global $prefix;
 	//global $dir;
-	
+	global $text;
 	//print "<br />\n";
 	//print "<div class=\"form righthalf1\">\n";
 	$haeder = _("Add user");
@@ -79,7 +78,8 @@ function AddUser() {
 		$text.= "<input type=hidden name=prefix value=\"*\" />\n";
 //	print "</td></tr>\n";
 	$l = _("Create");
-	$text.= "<tr><td colspan=\"2\" align=\"center\"><a href=\"javascript:$('#edituser').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+	//$text.="";
+	$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
 //	print "</tr></td></table>\n";
@@ -156,14 +156,16 @@ if($action == 'doadduser') {
 			$l = __LINE__;
 			$result = DoQuery($query, "$f $l");
 			$l = _("User added to business");
-			print "<h1  class=\"login\">$l</H1>\n";
+			$text.= "<h1  class=\"login\">$l</H1>\n";
 			$l = _("Click here to continue");
-			print "<h2  class=\"login\"><a href=index.php>$l</A></H2>\n";
-			return;
+			$text.= "<h2  class=\"login\"><a href=index.php>$l</A></H2>\n";
+			$action='adduser';
+			//return;
 		}
 	}
 	else {
 		/* this is a new user... */
+		//$first=$_POST["prefix"];
 		$password = $_POST['password'];
 		$verpassword = $_POST['verpassword'];
 		if($password != $verpassword) {
@@ -189,10 +191,11 @@ if($action == 'doadduser') {
 		$result = DoQuery($query, "login add");
 
 		$l = _("User successfully added");
-		print "<h1  class=\"login\">$l</H1>\n";
+		$text.= "<h1  class=\"login\">$l</H1>\n";
 		$l = _("Click here to continue");
-		print "<h2  class=\"login\"><a href=index.php>$l</a></h2>\n";
-		return;
+		$text.= "<h2  class=\"login\"><a href=index.php>$l</a></h2>\n";
+		$action='adduser';
+		//return;
 	}
 }
 if($action == 'updateuser') {
@@ -230,7 +233,8 @@ if($action == 'updateuser') {
 	UpdateLevel($uname, $level);
 
 	$l = _("User successfully updated");
-	print "<h1>$l</h1>\n";
+	$text.= "<h1>$l</h1>\n";
+	$action='edituser';
 }
 
 if($action == 'forgot') {
@@ -263,83 +267,17 @@ if($action == 'forgot') {
 	
 	$l = _("Password sent to email");
 	print "<br /><h1>$l</h1>\n";
-	$action = '';
 }
 if($action == 'login') {
-	//$bla=Get
-	$password = GetPost('password');//[];
-	$name = GetPost('name');//['name'];
+	$password = GetPost('password');
+	$name = GetPost('name');
 	$rememberme=GetPost('rememberme');
-//	print "<div dir=ltr>\n";
-//	print "Name: $name, password: $password<br />\n";
-//	print "</div>\n";
-	/*$password=sha1($password);
-	$query = "SELECT name,hash FROM $logintbl WHERE name='$name' AND password='$password'";
-//	print "Query: $query<br />\n";
-//	print "</div>\n";
-	$f = __FILE__;
-	$l = __LINE__;
-	$result = DoQuery($query, "$f $l");
-	$n = mysql_num_rows($result);
-	if($n == 0) {
-		// Test if this is a registered demo user 
-		$_SESSION['loggedin']=false;
-		$query = "SELECT name FROM $logintbl WHERE name='$name' AND password='demo'";
-		$result = DoQuery($query, __LINE__);
-		$n = mysql_num_rows($result);
-		if($n == 0) {
-			$l = _("Incorrect email or password");
-			ErrorReport("$l");
-			exit;
-		}
-		else
-			$demouser = 1;
-	}
-	//$line = mysql_fetch_array($result, MYSQL_NUM);
-	//if($line[1] != '') {
-	//	print_r($line);
-	//	print "<h1>׳³ן¿½׳³ֲ©׳³ֳ—׳³ן¿½׳³ֲ© ׳³ן¿½׳³ן¿½ ׳³ֲ¡׳³ג„¢׳³ג„¢׳³ן¿½ ׳³ן¿½׳³ֳ— ׳³ֳ—׳³ג€�׳³ן¿½׳³ג„¢׳³ן¿½ ׳³ג€�׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€�</h1>\n";
-	//	return;
-	//}
-	
-	$query = "UPDATE $logintbl SET lastlogin=NOW() WHERE name='$name'";
-	$result = DoQuery($query, "dologin");
-	//now get it back again 
-	$query = "SELECT lastlogin FROM $logintbl WHERE name='$name'";
-	$result = DoQuery($query, "dologin");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	$data = md5($line[0]);
-	//print $rememberme;
-	if($rememberme='on')
-		$query = "UPDATE $logintbl SET cookie='$data' WHERE name='$name'";
-	else 
-		$query = "UPDATE $logintbl SET cookie='' WHERE name='$name'";
-	$result = DoQuery($query, __FILE__.": ".__LINE__);
-	//if(!$result) {
-	//	echo mysql_error();
-	//}
-	//	exit;
-	$cookietime = time() + 60*60*24*30;
-	//$cookiestr = "name,$name,$cookietime:data,$data,$cookietime";
-	$url = "index.php";
-	setcookie('name', $name, $cookietime);
-	setcookie('data', $data, $cookietime);
-	$_SESSION['loggedin']=true;
-	$_SESSION['name']=$name;
-	$_SESSION['data']=$data;
-	*/
 	global $curuser;
-	//$curuser->name=$name;
-	//$curuser->getUser();
-	//print_r($_SESSION);
-	
-	//print "<br />$name<br />$password";
+
 	$a=$curuser->login($name,$password,null,null);
-	//print("<br />this is a: $a<br />");
 	if($a==1){
 		$l = _("You have succesfully entered the system");
 		print "<h1  class=\"login\">$l</h1>\n";
-	//	print "<script type=\"text/javascript\">location.href='$url'</script>\n";
 		$url='index.php';
 		print "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"2; URL=$url\">\n";
 		exit;
@@ -350,98 +288,6 @@ if($action == 'login') {
 if($action == 'edituser') {
 	global $levelsarr, $name;
 	global $logintbl;
-	//adam test area
-	/*user test*/
-	
-	//require('class/user.php');
-	//$usr=new user;
-	//$usr->name='adam23146@gmail.com';
-    //$usr->fullname='Adam bh';
-	//$usr->password='qwe123';
-	//print(';'.$usr->newUser().';');
-	//$usr->fullname='Adambba bh';
-	//print(';'.$usr->updateUser().';;');
-	//$usr->getUser();
-	//print_r($usr);
-	//print(';;'.$usr->deleteUser().';');
-	
-	
-	/* item test */
-	/*
-	require('class/item.php');
-	$item=new item;
-
-	
-	$item->account ='220'; 
-	$item->name ='new item';
-	$item->unit ='Meters';
-	$item->extcatnum ='';
-	$item->manufacturer ='20111';
-	$item->defprice ='40';
-	$item->currency =0;
-	$item->ammount=14;
-	print(';'.$item->newItem($newitem).';');
-	$item->num ='2';
-	$item->name ='updatedbla';
-	$item->defprice ='450';
-	//$item->getItem();
-	//print_r($item);
-	print(';'.$item->updateItem().';');
-	$item->num ='11';
-	print(';'.$item->deleteItem().';');
-	*/
-	
-	/* Account test */
-	/*require('class/account.php');
-	$acc=new account;
-	$acc->num ='1';
-	$acc->getAccount();
-	print_r($acc);
-	
-    $acc->pay_terms ='60';
-    $acc->company ='׳³ן¿½׳³ֲ§׳³ג€¢׳³ג€” ׳³ג€”׳³ג€�׳³ג„¢׳³ֲ©';
-	print(';'.$acc->newAccount().';');
-	$acc->num ='210';
-	$acc->vatnum ='300777778';
-	$acc->zip ='90210';
-	print(';'.$acc->updateAccount().';');
-	print(';'.$acc->deleteAccount().';');*/
-	
-	/* Document test */
-	/*require('class/document.php');
-	$doc=new document(DOC_RECEIPT);
-	print(":".DOC_INVOICE.":");
-	//$newdoc=$doc->arr;
-	//print_r($newdoc);
-	//print_r($doc);
-	//$doc->num=15;
-	//$doc->getDocument();
-	//print_r($doc);
-	$doc->company='zuzu lifa';
-	//$doc->doctype ='3';
-	//$doc->account ='201';
-	$doc->issue_date ='2011-05-23'; 
-	$doc->due_date ='2011-05-23';
-	$doc->sub_total ='0.00';
-	$doc->novat_total ='20000.00';
-	//$doc->total ='20000.00';
-	//$doc->printed ='0';
-	//$doc->comments ='';
-	//$doc->vtiger ='0';
-	//$doc->docdetials[0]->description='description';
-	//$doc->docdetials[0]->cat_num=5;
-	print(';'.$doc->newDocument().';');
-	
-	//print(';'.$doc->newDocument($newdoc).';');
-	//$doc->num=10;
-	//$doc->getDocument();
-	//$doc->company='just zuzu without the lifa';
-	//$doc->docdetials[0]->description='descr12iption';
-	//print(';'.$doc->updateDocument().';');
-	//$doc->num=11;
-	//print(';'.$doc->deleteDocument().';');*/
-	//print_r($doc);
-	//end adam
 	
 	$query = "SELECT * FROM $logintbl WHERE name='$name'";
 //	print "Query: $query<br>\n";
@@ -458,6 +304,23 @@ if($action == 'edituser') {
 	//print "<div class=\"form righthalf1\">\n";
 	$l = _("Edit user details");
 	$haeder=$l;
+	//adam usr list:
+	$text.= "<table class=\"tablesorter\">\n";
+	$text.= "\t<thaed><tr><th class=\"header\">"._("name")."</th><th class=\"header\">"._("Full Name")."</th><th class=\"header\">"._("Actions")."</th><tr></thaed>\n";
+	$text.= "\t<tfoot></tfoot>\n";
+	$text.= "\t<tbody>\n";
+	global $permissionstbl;
+	global $logintbl;
+	$ulist=selectSql(array("company"=>$prefix), $permissionstbl);
+	foreach($ulist as $usr){
+		$aname=$usr['name'];
+		$blist=selectSql(array("name"=>$aname), $logintbl);
+		$bname=$blist[0]['fullname'];
+		$text.= "\t\t<tr><td>$aname</td><td>$bname</td><td>$actions</td></tr>\n";
+	}
+	$text.= "\t</tbody>\n";
+	$text.= "</table>\n";
+	
 	//print "<h3>$l</h3>";
 	$text.= "<form id=\"edituser\" action=\"?module=login&amp;action=updateuser\" method=\"post\">\n";
 	$text.= "<table border=\"0\" dir=\"$dir\" align=\"center\" class=\"formtbl\" width=\"100%\"><tr>\n";
@@ -492,7 +355,8 @@ if($action == 'edituser') {
 	print "</td></tr>\n" */
 	$l = _("Update");
 	$text.= "<tr><td colspan=\"2\" align=\"center\">";
-	$text.="<a href=\"javascript:$('#edituser').submit();\" class=\"btnaction\">$l</a></td></tr>\n";
+	$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";	
+	$text.="</td></tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
 	createForm($text, $haeder, '',750,'','img/icon_edituser.png',1,getHelp());
@@ -516,7 +380,7 @@ if($n == 0) {	/* Special case, no users in system */
 }
 else {
 	
-	$text="";
+	
 //	print "<div class=\"caption_out\"><div class=\"caption\">\n<h3>";
 	$l = _("Dear Custmer,");
 	$text.= "<h3>$l</h3>";
@@ -538,7 +402,8 @@ else {
 	$text.='<a href="javascript:showme();">'.$l.'</a></td></tr>';
 	$text.=  "<tr><td colspan=\"2\" align=\"center\">";
 	$l = _("Login");
-	$text.="<a href=\"javascript:document.loginform.submit();\" rel=\"external\" class=\"btnaction\">$l</a></td></tr>\n";
+	$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";	
+	$text.="</td></tr>\n";
 	
 	$text.=  "</table>\n";
 	
@@ -585,4 +450,3 @@ bla;
 }
 
 ?>
-

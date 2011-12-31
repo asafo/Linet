@@ -31,9 +31,9 @@ function PrintIncomeSelect($def) {
 	$t = INCOME;
 	$query = "SELECT num,company,src_tax FROM $accountstbl WHERE prefix='$prefix' AND type='$t'  ORDER BY company ASC";
 	$result = DoQuery($query, "income.php");
-	$text.= "<select name=\"income\">\n";
+	$text.= "<select name=\"income\" class=\"required\">\n";
 	$l = _("Choose income account");
-	$text.= "<option value=\"__NULL__\" >-- $l --</option>\n";
+	$text.= "<option value=\"\" >-- $l --</option>\n";
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 		$n = $line[0];
 		$company = $line[1];
@@ -59,7 +59,7 @@ function PrintCurrencySelect($defnum) {
 	
 	$query = "SELECT * FROM $currencytbl";
 	$result = DoQuery($query, __LINE__);
-	$text.= "<select id=\"currency\" name=\"currency\">\n";
+	$text.= "<select id=\"currency\" class=\"required\" name=\"currency\">\n";
 	$l = _("NIS");
 	$text.= "<option value=\"0\">$l</option>\n";
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -89,12 +89,14 @@ function EditItem($num) {
 		$l = _("Edit item");
 		//$text.= "<h3>$l</h3>";
 		$text.= "<table cellpadding=\"5\"><tr><td>\n";
-		$text.= "<form name=\"itm\" action=\"?module=items&amp;action=updateitem&amp;num=$num\" method=\"post\">\n";
+		$url="?module=items&action=updateitem&num=$num";
+		$text.= "<form id=\"itm\" name=\"itm\" action=\"$url\" method=\"post\" class=\"valform\" >\n";
 	}
 	else {
 		$haeder = _("New item");
 		//$text.= "<h3>$l</h3>";
-		$text.= "<form name=\"itm\" action=\"?module=items&amp;action=additem\" method=\"post\">\n";
+		$url="?module=items&action=additem";
+		$text.= "<form id=\"itm\" name=\"itm\" action=\"$url\" method=\"post\" class=\"valform\" >\n";
 	}
 	$text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\">\n";
 	$text.= "<tr>\n";
@@ -106,7 +108,7 @@ function EditItem($num) {
 	$text.= "<tr>\n";
 	$l = _("Item name");
 	$text.= "<td>$l: </td>\n";
-	$text.= "<td><input type=\"text\" name=\"itemname\" value=\"".htmlspecialchars($itemname)."\" /></td>\n";
+	$text.= "<td><input type=\"text\" name=\"itemname\" value=\"".htmlspecialchars($itemname)."\" class=\"required\" minlength=\"2\" /></td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Supplier cat. num.");
 	$text.= "<td>$l:</td>\n";
@@ -114,7 +116,7 @@ function EditItem($num) {
 	$text.= "</tr><tr>\n";
 	$l = _("Unit price");
 	$text.= "<td>$l: </td>\n";
-	$text.= "<td><input type=\"text\" name=\"defprice\" value=\"".htmlspecialchars($defprice)."\" /></td>\n";
+	$text.= "<td><input type=\"text\" name=\"defprice\" value=\"".htmlspecialchars($defprice)."\" class=\"required number\" /></td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Currency");
 	$text.= "<td>$l: </td>\n";
@@ -125,10 +127,9 @@ function EditItem($num) {
 	$l = _("Update");
 	$text.= "<td colspan=\"2\" align=\"center\">";
 	global $smallprint;
-	if (!$smallprint){
-		$text.="<a href='javascript:document.itm.submit();' class='btnaction'>$l</a>";
-	}else {
-		$text.="<a href='javascript:document.itm.submit(); window.close();' class='btnaction'>$l</a>";		
+	$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";	
+	if ($smallprint){
+		$text.="<script type=\"text/javascript\">submitFormy('itm','$url');</script>";
 	}
 	
 	//<input type=\"submit\" value=\"$l\" />";

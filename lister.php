@@ -12,10 +12,10 @@ else
 if ($letters=='*') $letters='';
 
 if (isset($_REQUEST['selector'])){
-	if (isset($_REQUEST['data'])){
+	if (isset($_POST['data'])){
 		//print 'sos: '.$_REQUEST['data'];
 		//$data =  new $_REQUEST['data'];
-		$className = $_REQUEST['data'];
+		$className = $_POST['data'];
 		require 'class/item.php';
 		require 'class/account.php';
 		//print $className;
@@ -23,7 +23,7 @@ if (isset($_REQUEST['selector'])){
 		//$data= new item;
 		//print_r($data);
 		$data->num=$_REQUEST['num'];
-		$get='get'.$_REQUEST['data'];
+		$get='get'.$_POST['data'];
 		//print $get;
 		$data->$get();
 		//$data->getAccount();
@@ -32,8 +32,8 @@ if (isset($_REQUEST['selector'])){
 		exit;
 	}	
 }
-if (isset($_REQUEST['data'])){
-	$data=$_REQUEST['data'];
+if ((isset($_GET['data'])||isset($_POST['data']))){
+	$data=GetPoster('data');
 	//print $data;
 	if ($data=='Item'){
 		$res = mysql_query("SELECT * FROM $itemstbl WHERE name like '%".$letters."%' AND prefix='$prefix'") or die(mysql_error());
@@ -45,8 +45,14 @@ if (isset($_REQUEST['data'])){
 	if ($data=='Account'){
 		$res = mysql_query("SELECT * FROM $accountstbl WHERE company like '%".$letters."%' AND prefix='$prefix' AND type='$type'") or die(mysql_error());
 		$data=array();
-		while($inf = mysql_fetch_array($res)){
-			$data[]=array("label"=>$inf["company"],"value"=>$inf["num"]);
+		if($type==OUTCOME){
+			while($inf = mysql_fetch_array($res)){
+				$data[]=array("label"=>$inf["company"]." (%".$inf["src_tax"].")","value"=>$inf["num"]);
+			}
+		}else{
+			while($inf = mysql_fetch_array($res)){
+				$data[]=array("label"=>$inf["company"],"value"=>$inf["num"]);
+			}
 		}
 	}	
 	//print json_encode($data);
@@ -60,10 +66,12 @@ if (isset($_REQUEST['form'])){
 	if ($form=='items'){
 		printHtml();
 		include('items.php');
+		print "	</body>	<script type=\"text/javascript\">$(document).ready(function(){\$(\".valform\").validate();});</script></html>";
 	}
 	if ($form=='account'){
 		printHtml();
 		include('acctadmin.php');
+		print "	</body>	<script type=\"text/javascript\">$(document).ready(function(){\$(\".valform\").validate();});</script></html>";
 	}
 	if($form=='credit'){
 		//printHtml();

@@ -148,7 +148,7 @@ if($step == 0) {	/* print date select form */
 	$text.=PrintMonthSelect($endmonth, 'endmonth');
 	$text.= "</td>\n";
 	$text.= "<td>\n";
-	$text.= "&nbsp;&nbsp;<input type=\"submit\" value=\"בצע\"></td></tr>\n";
+	$text.= "&nbsp;&nbsp;<input class=\"btnaction\" type=\"submit\" value=\"בצע\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	$text.= "<br>\n";
@@ -216,7 +216,7 @@ if($step == 1) {
 	$taxtopay = $tax - $custtax;
 	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"taxtopay\" value=\"$taxtopay\">\n";
 	$text.= "</tr><tr><td colspan=\"3\" align=\"center\">\n";
-	$text.= "<input type=\"submit\" value=\""."רשום"."\"></td></tr>\n";
+	$text.= "<input class=\"btnaction\" type=\"submit\" value=\""."רשום"."\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 }

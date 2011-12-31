@@ -236,7 +236,7 @@ if($step == 0) {
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Search");
-	$text.= "<td colspan=\"2\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>\n";
+	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' />\n";
 	$text.= "</td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";

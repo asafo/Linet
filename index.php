@@ -29,8 +29,9 @@ $loggedin=isset($_SESSION['loggedin']) ? $_SESSION['loggedin'] : false;
 //$prefix = isset($_SESSION['company']) ? $prefix=$_SESSION['company'] :$prefix=$prefix;
 
 //$_SESSION['']=$prefix;
-$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
-$module = isset($_REQUEST['module']) ? $_REQUEST['module'] : '';
+//					 action
+$action = GetPoster('action');
+$module = GetPoster('module');
 
 $stdheader = '';
 $abspath = GetURI();
@@ -41,7 +42,7 @@ if(($module == '') && ($action == ''))
 
 $link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
 mysql_query("SET NAMES 'utf8'");
-mysql_select_db($database) or die("Could not select database: $database");
+mysql_select_db($database) or include 'setup.php';//die("Could not select database: $database");
 
 
 
@@ -122,6 +123,7 @@ if(isset($_GET['ismobile'])){
 		$ismobile=isMobile();
 }
 $_SESSION['ismobile']=$ismobile;
+//print $ismobile;
 if($ismobile==1){
 	include('mobile/index.php');
 	exit;
@@ -171,7 +173,7 @@ function url_exists($url) {
 } 
 function getVersion(){
 	global $updatesrv;
-	print $updatesrv.'?GetLateset';
+	//print $updatesrv.'?GetLateset';
 	if (url_exists($updatesrv.'?GetLateset')){
 		$fp = fopen($updatesrv.'?GetLateset', 'r');
 		$content = fread($fp, 1024);
@@ -203,12 +205,13 @@ function browser_info($agent=null) {
   return array($matches['browser'][$i] => $matches['version'][$i]);
 }
 function isMobile(){
-	$mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
+	$mobile_ua = strtolower($_SERVER['HTTP_USER_AGENT']);
 	$mobile_agents = array('iphone','ipad','android');
-	 
-	if (in_array($mobile_ua,$mobile_agents)) {
-	    return 1;
-	}
+	//print "got it:$mobile_ua";
+	foreach($mobile_agents as $agent)
+		if (strstr($mobile_ua,$agent)) {
+		    return 1;
+		}
  	return 0;	
 }
 function RunModule() {
@@ -223,9 +226,11 @@ function RunModule() {
 		include('login.php');
 		return '';
 	}
+	//print_r($_POST);print_r($_GET);
 	$btype = browser_info(NULL);
 		if(file_exists("$module.php")) {
 			require('shurtcut.php');
+			//print("were r we? $module");
 			require("$module.php");					
 			return "";
 		}
@@ -286,15 +291,18 @@ function TemplateReplace($r) {
 		return RunModule();
 	}
 	else if($p == 'title') {
-		return $title;
+		return '';//$title;
 	}
 	else if($p == 'css')
 		return $cssfile;
 	else if($p == 'logo')
 		return $small_logo;
-	else if($p=='complogo')
-		return '<a href="?module=main"><img src="img/logo/'.$logo.'" alt="Company Logo" height="80" /></a>';
-	else if($p == 'version') {
+	else if($p=='complogo'){
+		if(file_exists("img/logo/$logo"))
+			return '<a href="?module=main"><img src="img/logo/'.$logo.'" alt="'.$title.'" height="80" /></a>';
+		else
+			return "<a href=\"?module=main\"><img src=\"img/logo/$logo\" alt=\"\" height=\"60\" /></a><h1>$title</h1>";
+	}else if($p == 'version') {
 		return $Version;
 	}
 	else if($p == 'softwarenameheb') {
@@ -307,7 +315,7 @@ function TemplateReplace($r) {
 		}
 		else {
 			$l = _("Logout");
-			return "<a href=\"index.php?action=disconnect\"><img src=\"img/icon_logout.png\" alt=\"icon logout\" />$l</a>\n";
+			return "<a href=\"?ismobile=1\">"._("Mobile")."</a>&nbsp;|&nbsp;<a href=\"index.php?action=disconnect\"><img src=\"img/icon_logout.png\" alt=\"icon logout\" />$l</a>\n";
 		}
 	}
 	else if($p == 'recomendfirefox')

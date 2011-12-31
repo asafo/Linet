@@ -1,5 +1,4 @@
 <?PHP
-//M:׳³ֲ¨׳³ן¿½׳³ֲ©׳³ג„¢
 /*
  | Linet accounting system main page
  */
@@ -35,14 +34,14 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 	//print "Query: $query<br>\n";
 	$result = DoQuery($query, "main.php");
 	$n = mysql_num_rows($result);
-	if($n == 1) {
-		$line = mysql_fetch_array($result, MYSQL_NUM);
+	//if($n == 1) {
+	//	$line = mysql_fetch_array($result, MYSQL_NUM);
 		//$prefix = $line[0];
 		//$company = $line[0];
-		print "<meta http-equiv=\"refresh\" content=\"0;url=?company=$line[0]\" /> ";
-		exit;
+		//print "<meta http-equiv=\"refresh\" content=\"0;url=?company=$line[0]\" /> ";
+		//exit;
 		//print "prefix: $prefix<br>\n";
-	} 
+	//} 
 	if($n == 0) {
 		//print "<br />\n";
 		$l = _("No companies for this user");
@@ -50,19 +49,21 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 		return;
 	}
 	if($n >= 1) {
-		$line = mysql_fetch_array($result, MYSQL_NUM);
-		if($line[0] == '*') {
-			$query = "SELECT prefix FROM $companiestbl";
-			$result = DoQuery($query, "main.php");
-			$n = mysql_num_rows($result);
-			// print "n: $n<br>\n";
-		}
+		//$line = mysql_fetch_array($result, MYSQL_NUM);
+		
 
 		$haeder = _("Choose business to work on");
 		$compname=_("Company Name");
 		$actions=_("Actions");
 		$text.= "<table class=\"formy\"><tr><th>$compname</th><th>$actions</th></tr>\n";
 		while($line = mysql_fetch_array($result, MYSQL_NUM)) {
+			if($line[0] == '*') {
+				$query = "SELECT prefix FROM $companiestbl";
+				$result = DoQuery($query, "main.php");
+				$n = mysql_num_rows($result);
+				continue;
+				// print "n: $n<br>\n";
+			}
 			$s = $line[0];
 			// print "prefix: $s<br>\n";
 			$query = "SELECT companyname FROM $companiestbl WHERE prefix='$s'";
@@ -75,7 +76,8 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 			$text.= "<tr><td><a href=\"$url\">$n</a></td><td>&nbsp;\n";
 			if($superuser) {
 				//$l = _("Delete");
-				$text.= "<a class=\"btnremove\" href=\"?module=main&amp;action=delcomp&amp;company=$s\"></a>";
+				//$text.= "<a class=\"btnremove\" href=\"?module=main&amp;action=delcomp&amp;company=$s\"></a>";
+				$text.= "<a class=\"btnremove\" href=\"javascript:delComp('$s');\"></a>";
 				$text.= "<a class=\"btnedit\" href=\"?module=defs&amp;company=$s\"></a>";
 			}
 			$text.= "</td></tr>\n";
@@ -86,7 +88,14 @@ if(!isset($prefix) || ($prefix == '')) {	/* Display list of companies */
 //			print "<br><br><a href=\"?module=defs\">׳³ג€�׳³ג€™׳³ג€�׳³ֲ¨׳³ֳ— ׳³ג€”׳³ג€˜׳³ֲ¨׳³ג€� ׳³ג€”׳³ג€�׳³ֲ©׳³ג€�</a><br>\n";
 			$text.= "<br /><br /><a href=\"?module=defs\">$l</a><br />\n";
 		}
-	
+		$text.="<script type=\"text/javascript\">
+        function delComp(company){
+ 			var bla= window.confirm(this.title || '"._("Are you sure you want to delete this company?")."');
+       		if(bla==true){
+       			window.location ='?module=main&action=delcomp&company='+company;
+       		}
+       	}
+    </script>";
 		createForm($text, $haeder,'',750,'','img/icon_defs1.png',0,'?module=redirect&amp;dest=defy');
 		return;
 	}

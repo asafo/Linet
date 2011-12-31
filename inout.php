@@ -77,7 +77,7 @@ if($step == 0) {	/* Get date range */
 	$text.= "<td><input class=\"date\" type=\"text\" id=\"enddate\" name=\"enddate\" value=\"$edate\" size=\"7\">\n";
 
 	$text.= "</td>\n";
-	$text.= "<td><input type=\"submit\" value=\"הפק\"></td>\n";
+	$text.= "<td><input class=\"btnaction\" type=\"submit\" value=\"הפק\"></td>\n";
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -296,12 +296,12 @@ if($step >= 1) {
 		fclose($fd);
 		Conv1255($filename);
 		$text.= "<h2>להורדת הדוח לחץ כאן: ";
-		$url = "/download.php?file=$filename&name=tranrep.csv";
-		$text.= "<a href=\"$filename\">tranrep.csv</a></h2>\n";
-		$text.= "<h2>לחץ על שם הקובץ עם כפתור ימני ובחר \"שמור בשם\"</h2>\n";
-		$text.= "<script type=\"text/javascript\">\n";
-		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		$text.= "</script>\n";
+		$url = "download.php?file=$filename&name=inout.csv";
+		$text.= "<a href=\"$url\">inout.csv</a></h2>\n";
+		//$//text.= "<h2>לחץ על שם הקובץ עם כפתור ימני ובחר \"שמור בשם\"</h2>\n";
+		//$text.= "<script type=\"text/javascript\">\n";
+		//$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		//$text.= "</script>\n";
 	}
 
 	if(isset($module) && ($step == 1)) {
@@ -310,9 +310,9 @@ if($step >= 1) {
 		if($order)
 			$url .= "&order=$order";
 		$text.= "<div class=\"repbottom\">\n";
-		$text.= "<input type=\"button\" value=\"הדפס\" onclick=\"PrintWin('$url')\">\n";
-		$text.= "&nbsp;&nbsp;";
-		$text.= "<input type=\"button\" value=\"יצוא לקובץ\" onclick=\"window.location.href='?module=tranrep&step=2&begindate=$begindate&enddate=$enddate'\">\n";
+		//$text.= "<input type=\"button\" value=\"הדפס\" onclick=\"PrintWin('$url')\">\n";
+		//$text.= "&nbsp;&nbsp;";
+		$text.= "<a class=\"btnsmall\" href='?module=inout&step=2&begindate=$begindate&enddate=$enddate'\">יצוא לקובץ</a>\n";
 		$text.= "</div>\n";
 	}
 

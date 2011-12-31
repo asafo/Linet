@@ -15,20 +15,21 @@ function PrintInput($type='text',$class='',$name='bla',$id='',$value='' ,$size='
 	$str="<input type=\"$type\" name=\"$name\" $id $class $value $size $temp />";
 	return $str;
 }
-function PrintCustomerSelect($defaccount='') {	
-	$text="<input type=\"text\"  id=\"acc\" class=\"cat_num\" value=\"$defaccount\" name=\"account\" onblur=\"SetCustomer()\" />\n";//name=\"cat_num[]\"
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.CUSTOMER.'"&jsoncallback=?\'});});</script>';
+function PrintCustomerSelect($defaccount='') {
+	
+	$text="<input type=\"text\" placeholder=\""._("Fill me …")."\" id=\"acc\" class=\"number required cat_num\" value=\"$defaccount\" name=\"account\" onblur=\"ochange()\" />\n";//name=\"cat_num[]\"
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.CUSTOMER.'&jsoncallback=?\'});});</script>';
 	return $text;
 }
 function PrintSupplierSelect($defaccount='') {	
-	$text="<input type=\"text\"  id=\"supplier\" class=\"\" value=\"$defaccount\" name=\"supplier\" onchange=\"ochange()\" />\n";//name=\"cat_num[]\"
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#supplier" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
+	$text="<input type=\"text\" placeholder=\""._("Fill me …")."\" id=\"acc\" class=\"number required\" value=\"$defaccount\" name=\"account\" onblur=\"ochange('acc')\" />\n";//name=\"cat_num[]\"
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
 	return $text;
 }
 function PrintSelect($defaccount='',$type){
-	$text="<input type=\"text\"  id=\"outcome$type\" class=\"\" value=\"$defaccount\" name=\"outcome\" onchange=\"ochange()\" />\n";//name=\"cat_num[]\"
+	$text="<input type=\"text\" placeholder=\""._("Fill me …")."\" id=\"sel$type\" class=\"\" value=\"$defaccount\" name=\"outcome\" onblur=\"ochange('sel$type')\" />\n";//name=\"cat_num[]\"
 	//$text.='<script type="text/javascript">$(document).ready(function() {$( "#outcome'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#outcome'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.$type.'&jsoncallback=?\'});});</script>';
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#sel'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.$type.'&jsoncallback=?\'});});</script>';
 	return $text;
 }
 function ErrorReport($str) {
@@ -56,6 +57,8 @@ function printHtml(){
 	<link rel="stylesheet" href="js/jquery.tablesorter.min.css" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="style/linet.css" />
 	<script type="text/javascript" src=\'js/jquery.min.js\'></script>
+	<script type="text/javascript" src="js/jquery.validate.js"></script> 
+	<script type="text/javascript" src="js/jquery.validationEngine-he.js"></script> 
 	<script type="text/javascript" src=\'js/jquery.ui.custom.min.js\'></script>
 
 	<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script> 
@@ -73,6 +76,20 @@ function printHtml(){
 	
 	';
 	
+}
+/*
+ | GetPoster
+ | Get a value from $_POST array escaping special HTML characters to prevent XSS
+ */
+function GetPoster($n){
+	$str="";
+	if(isset($_POST[$n]))
+		$str = $_POST[$n];
+	
+	if(isset($_GET[$n]))
+		$str=$_GET[$n];
+	//print "$n: get($_GET[$n]),post($_POST[$n])<br />\n";
+	return  $str;
 }
 /*
  | GetPost
@@ -136,7 +153,10 @@ function FormatDate($str, $intype, $outtype) {
 	else if($outtype == 'dmy') {
 		return "$day-$month-$year";
 	}
-	else if($outtype == 'mdy') {
+	else if($outtype == 'dmyy') {
+		$year=substr ( $year , 2);
+		return "$day-$month-$year";
+	}else if($outtype == 'mdy') {
 		return "$month-$day-$year";
 	}
 }
@@ -325,7 +345,7 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 		$back='';
 	if (isset($help)){
 		$l=_("Help");
-		$help='<div class="formhelp"><a class="help" target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" /><p>'.$l.'</p></a></div>';
+		$help='<div class="formhelp"><a class="help" target="_blank" href="'.$help.'"><img src="img/icon_help.png" alt="Icon help" /><span>'.$l.'</span></a></div>';
 		$titlewidth+=75;
 	}else{
 		$help='';
@@ -335,7 +355,7 @@ function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,
 	<table class="form '.$sClass.'" style="width:'.$width.'px;">
 		<tr>
 			<td class="ftr"><img src="img/ftr.png" alt="formright"  /></td>
-			<td class="ftc"><div class="formtitle" style="width:'.($width-$titlewidth-28).'px;" >'.$logo.'<p>'.$haeder.'</p></div>'.$back.$help.'</td>
+			<td class="ftc"><div class="formtitle" style="width:'.($width-$titlewidth-28).'px;" >'.$logo.'<span>'.$haeder.'</span></div>'.$back.$help.'</td>
 			<td class="ftl"><img src="img/ftl.png" alt="formleft" /></td>
 		</tr>
 		<tr>
@@ -364,7 +384,7 @@ function EditAcct($num, $type,$smallprint=false) {
 	global $AcctType;	/* defined in config.inc.php */
 	global $accountstbl;
 	global $prefix;
-	global $RetModule;
+	//global $RetModule;
 	global $arr6111;
 	global $dir;
 
@@ -402,7 +422,8 @@ function EditAcct($num, $type,$smallprint=false) {
 		$haeder = _("Edit account details");
 		//print "<h3>$l</h3>\n";
 //		print "<h3>׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ³ײ²ֲ·׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ»׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ³ײ²ֲ·׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¨׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ»׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¡</h3>";
-		$text.= "<form name=\"acct\" action=\"?module=acctadmin&amp;action=updateacct&amp;num=$num\" method=\"post\">\n";
+		$url="?module=acctadmin&action=updateacct&num=$numaction=updateacct&amp;num=$num";
+		$text.= "<form id=\"acct\" name=\"acct\" action=\"$url\" method=\"post\" class=\"valform\">\n";
 	}
 	else {
 		$l = _("New account");
@@ -412,13 +433,16 @@ function EditAcct($num, $type,$smallprint=false) {
 		}else{
 			$text.= "<div id=\"editformdiv\">\n";
 		}
-		if($RetModule) {
+		/*if($RetModule) {
 			if($RetModule == 'docsadmin')
 				$targetdoc = $_GET['targetdoc'];
-			$text.= "<form name=\"acct\" action=\"?module=acctadmin&amp;action=newacct&amp;ret=$RetModule&targetdoc=$targetdoc\" method=\"post\">\n";
-		}
-		else
-			$text.= "<form name=\"acct\" action=\"?module=acctadmin&amp;action=newacct\" method=\"post\">\n";
+			$url="?module=acctadmin&amp;action=newacct&amp;ret=$RetModule&targetdoc=$targetdoc";
+			$text.= "<form id=\"acct\" name=\"acct\" action=\"$url\" method=\"post\" class=\"valform\">\n";
+		}*/
+		//else{
+			$url="?module=acctadmin&action=newacct";
+			$text.= "<form id=\"acct\" name=\"acct\" action=\"$url\" method=\"post\" class=\"valform\">\n";
+		//}
 	}
 	$text.= "<table dir=\"$dir\" border=\"0\" class=\"formtbl\" width=\"100%\">\n";
 	$text.= "<tr>\n";
@@ -431,7 +455,7 @@ function EditAcct($num, $type,$smallprint=false) {
 	$text.= "<tr>\n";
 	$l = _("Account name");
 	$text.= "<td>$l: </td>\n";
-	$text.= "<td><input type=\"text\" name=\"company\" value=\"$company\" size=\"15\" /></td>\n";
+	$text.= "<td><input type=\"text\" name=\"company\" id=\"company\" value=\"$company\" size=\"15\" class=\"required\" minlength=\"2\" /></td>\n";
 	//$text.= "</tr><tr>\n";
 	if($type < 2) {
 		
@@ -471,7 +495,7 @@ function EditAcct($num, $type,$smallprint=false) {
 		
 		$l = _("Phone");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\" size=\"15\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\" class=\"number\" size=\"15\" /></td>\n";
 		$text.= "</tr><tr>\n";
 	
 		if($type == BANKS) {
@@ -482,13 +506,13 @@ function EditAcct($num, $type,$smallprint=false) {
 			$l = _("Registration number");
 			$text.= "<td>$l: </td>\n";
 		}
-		$text.= "<td><input type=\"text\" name=\"vatnum\" value=\"$vatnum\" size=\"15\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"vatnum\" value=\"$vatnum\" class=\"number\" maxlength=\"9\" size=\"15\" /></td>\n";
 		
 		$l = _("Fax");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"fax\" value=\"$fax\" size=\"15\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"fax\" value=\"$fax\" class=\"number\" size=\"15\" /></td>\n";
 		$text.= "</tr><tr>\n";
-		
+	
 		if($type == SUPPLIER) {
 			$l = _("Source clearing");
 			$text.= "<td>$l: </td>\n";
@@ -506,7 +530,7 @@ function EditAcct($num, $type,$smallprint=false) {
 		
 		$l = _("Direct phone");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"dir_phone\" value=\"$dir_phone\" size=\"15\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"dir_phone\" value=\"$dir_phone\" class=\"number\" size=\"15\" /></td>\n";
 //		print "</TR><TR>\n";
 		
 		$text.= "</tr><tr>\n";
@@ -514,7 +538,7 @@ function EditAcct($num, $type,$smallprint=false) {
 //		print "</TR><TR>\n";
 		$l = _("Email");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"email\" value=\"$email\" size=\"15\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"email\" value=\"$email\" class=\"email\" size=\"15\" /></td>\n";
 		$text.= "</tr><tr>\n";
 
 //		print "</TR><TR>\n";
@@ -543,10 +567,10 @@ function EditAcct($num, $type,$smallprint=false) {
 		
 		$l = _("Web site");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"web\" value=\"$web\" size=\"15\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"web\" value=\"$web\" class=\"url\" size=\"15\" /></td>\n";
 		$l = _("Zip");
 		$text.= "<td>$l: </td>\n";
-		$text.= "<td><input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\" /></td>\n";
+		$text.= "<td><input type=\"text\" name=\"zip\" value=\"$zip\" class=\"number\" size=\"5\" /></td>\n";
 		$text.= "</tr><tr>\n";
 	}
 	$l = _("Comments");
@@ -554,10 +578,13 @@ function EditAcct($num, $type,$smallprint=false) {
 	$text.= "<td colspan=\"3\"><textarea name=\"comments\" rows=\"3\" cols=\"40\">$comments</textarea></td>\n";
 	$text.= "</tr><tr><td colspan=\"5\" align=\"center\">";
 	$l = _("Submit");
+	//$text.= "<input class=\"submit\" type=\"submit\" value=\"Submit\"/>";
+	$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";	
 	if (!$smallprint){
-		$text.="<a href='javascript:document.acct.submit();' class='btnaction'>$l</a>";
+		//$text.="<a id=\"submit\" href='javascript:submitForm(\"submit\",\"acct\",0);' class='btnaction'>$l</a>";
 	}else {
-		$text.="<a href='javascript:document.acct.submit(); window.close();' class='btn'>$l</a>";		
+		$text.="<script type=\"text/javascript\">submitFormy('acct','$url');</script>";
+		//$text.="<a href='javascript:$.post(\"$url\", $(\"#acct\").serialize()); window.close();' class='btn'>$l</a>";
 	}
 	$text.= "</table>\n";
 	$text.= "</form>\n";

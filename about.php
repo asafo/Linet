@@ -1,8 +1,9 @@
 <?php 
 $haeder=_("About");
 global $version,$softregnum;
-$text="<h1>"._("Linet")."</h1><br />\n";
-$text.="<h3>"._("Accounting software")."</h3><br />\n";
+//$text="<h1>"._("Linet")."</h1><br />\n";
+//$text.="<h3>"._("Accounting software")."</h3><br />\n";
+$text="<img src='img/logo.png' alt='logo' />";
 $text.="<h3>"._("Version").": ".$version."</h3><br />\n";
 $url='http://www.opensource.org/licenses/gpl-3.0.html';
 $text.=_("Software license").": "._("General-Public-License")." "."<a href='$url' target='_blank'>GPLv3</a><br />";

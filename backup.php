@@ -11,6 +11,7 @@
 		$prefix =  $_COOKIE['company'];
 		
 }*/
+global $path;
 if ($prefix==''){
 	ErrorReport( "cannot backup without setting company");
 	return ;
@@ -72,7 +73,7 @@ if($step == 'backup') {
 	$l = _("Backup done");
 	$text.= "<h2>$l</h2>\n";
 	$l = _("Click here to download backup file");
-	$text.= "<h2><a href=\"download.php?file=$bakname&amp;name=$bakname\" target=\"_blank\">$l</a></h2>\n";
+	$text.= "<h2><a href=\"download.php?file=backup/$prefix/$bakname&amp;name=$bakname\" target=\"_blank\">$l</a></h2>\n";
 	//print "</div>\n";
 	createForm($text,$header,'',750,'','img/icon_backup.png',1,getHelp());
 }
@@ -145,7 +146,7 @@ if($step == 'restore') {
 	$l = _("Execute");
 	$text.= "<tr><td colspan=\"2\" align=\"center\">";
 	
-	$text.=  "<a href='javascript:document.backup.submit();' class='btnaction'>$l</a>";
+	$text.=  "<input type=\"submit\" value=\"$l\" class='btnaction' />";
 	$yext.="</td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";

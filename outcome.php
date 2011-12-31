@@ -23,12 +23,6 @@ $vat = $line[0];
 ?>
 <script type="text/javascript">
 
-
-$(document).ready(function() 
-	    { 
-	        $("#outcome").tablesorter(); 
-	    } 
-	); 
 function Fix2(v) {
 	v = parseFloat(v) * 100.0;
 	v = Math.round(v);
@@ -68,32 +62,31 @@ function CalcVAT() {
 	document.outcome.vat.value = Fix2(novattotal * parseFloat(vat) / 100.0);
 }
 
-function ochange() {
-	var o = document.outcome.outcome.value;
+function ochange(id) {
 	
-//	alert(o);
-	switch(o) {
-<?PHP
-	global $opt;
-
-	if($opt == 'asset')
-		$t = ASSETS;
-	else
-		$t = OUTCOME;
-	$t2 = OBLIGATIONS;
-	$query = "SELECT num,src_tax FROM $accountstbl WHERE prefix='$prefix' AND (type='$t' OR type='$t2')  ORDER BY company ASC";
-	$result = DoQuery($query, "income.php");
-	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
-		$t = $line[1];
-		if($t == '')
-			$t = 100;
-		$n = $line[0];
-		print "\t\tcase '$n':\n";
-		print "\t\t\tdocument.outcome.pvat.value = $t;\n";
-	//	print "alert(document.outcome.pvat.value);\n";
-		print "\t\t\tbreak;\n";
+	if(id=="acc"){
+		$.post("index.php",  {"action": "lister" ,"selector" : 1, "data": "Account", "num": $("#acc").val()},
+				function(data) {
+					$("#suppliername").html(data.company);
+				}, "json")
+				.error(function() { });
+		}
+	if(id=="sel2"){
+		$.post("index.php",  {"action": "lister" ,"selector" : 1, "data": "Account", "num": $("#sel2").val()},
+				function(data) {
+					$("#optname").html(data.company);
+					$("#pvat").val(data.src_tax);
+				}, "json")
+				.error(function() { });
 	}
-?>
+	if(id=="sel4"){
+		$.post("index.php",  {"action": "lister" ,"selector" : 1, "data": "Account", "num": $("#sel4").val()},
+				function(data) {
+			//alert(data.company);
+					$("#optname").html(data.company);
+					$("#pvat").val(data.src_tax);
+				}, "json")
+				.error(function() { });
 	}
 }
 </script>
@@ -165,10 +158,17 @@ function PrintOutcomeSelect($def) {
 	$text.= "</select>\n";
 	return $text;
 }*/
-
+if(isset($_POST['date'])) {
+		$dtmysql = FormatDate($_POST['date'], "dmy", "mysql");
+		$dt = FormatDate($dtmysql, "mysql", "dmy");
+	}
+	else {
+		$dtmysel = date("d-m-Y");
+		$dt = $dtmysel;//FormatDate($dtmysql, "mysql", "dmy");
+	}
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 if($step > 0) {
-	$supplier = $_POST['supplier'];
+	$supplier = $_POST['account'];
 	if($supplier == "") {
 		$l = _("No supplier was chosen");
 		ErrorReport("$l");
@@ -190,14 +190,7 @@ if($step > 0) {
 		$tvat = $novattotal * $vat / 100.0;
 	$tvat = round($tvat, 2);
 	$total = round($novattotal + $tvat, 2);
-	if(isset($_POST['date'])) {
-		$dtmysql = FormatDate($_POST['date'], "dmy", "mysql");
-		$dt = FormatDate($dtmysql, "mysql", "dmy");
-	}
-	else {
-		$dtmysel = date("Y-m-d");
-		$dt = FormatDate($dtmysql, "mysql", "dmy");
-	}
+	
 	
 	if(($outcome == "") && ($total > 0.1)) {
 		$l = _("No outcome account was chosen");
@@ -280,76 +273,59 @@ if($step == 0) {
 	$supplier = "";
 	$outcome = "";
 }
-$text.= "<form name=\"outcome\" id=\"outcome\" action=\"?module=outcome&amp;step=$nextstep$optact\" method=\"post\">\n";
+$text.= "<form name=\"outcome\" id=\"outcome\" action=\"?module=outcome&amp;step=$nextstep$optact\" method=\"post\" class=\"valform\" >\n";
 $text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-//$l = _("Supplier");
-$l = _("Outcome account");
-$text.= "<td>$l: </td>\n";
+$l = _("Supplier");
+//$l = _("Outcome account");
+$text.= "<td>$l: <span style=\"display: inline-block;width: 150px;\" id=\"suppliername\"><span></td>\n";
 $text.= "<td>\n";
+		//$t = SUPPLIER;
+		//$l = _("new supplier");
+$text.=PrintSupplierSelect($supplier);
 
-$text.=PrintSelect($outcome,OUTCOME);
+//$text.=PrintSelect($outcome,OUTCOME);
 if($step == 0) {
-	$l = _("new outcome");
-	$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
-	//$t = SUPPLIER;
-	//$l = _("new supplier");
-	//$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
-	/////$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
+	$l = _("new supplier");
+	$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
 }
 $text.= "</td></tr>\n";
 $text.= "<tr>\n";
 
 if($opt == 'asset') {
 	$l = _("Asset outcome account");
-	$text.= "<td>$l: </td>\n";
-}
-else {
-	$l = _("Supplier");
-	$text.= "<td>$l: </td>\n";
+	$text.= "<td>$l: <span id=\"optname\"></span></td>\n";
+}else {
+	$l = _("Outcome");
+	$text.= "<td>$l: <span id=\"optname\"></span></td>\n";
 }
 $text.= "<td>\n";
 
 /* print "(׳³ן¿½׳³ֲ¢\"׳³ן¿½ ׳³ן¿½׳³ג€¢׳³ג€÷׳³ֲ¨: "; */
 if(!isset($pvat))
 	$pvat = 100;
-$text.= "<input type=\"hidden\" name=\"pvat\" value=\"$pvat\" size=\"3\" />\n";
+$text.= "<input type=\"hidden\" id=\"pvat\" name=\"pvat\" value=\"$pvat\" size=\"3\" />\n";
 if($step == 0) {
 	if($opt == 'asset') {
 		$t = ASSETS;
 		$l = _("new assets");
-		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
 		$text.=PrintSelect($outcome,ASSETS);
 		$text.=newWindow($l,'?action=lister&form=account&type='.ASSETS,480,480,'','btnsmall');
-	}
-	else {
-		//$t = OUTCOME;
-		//$l = _("new outcome");
-		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
-		//$text.=PrintSelect($outcome,OUTCOME);
-		$t = SUPPLIER;
-		$l = _("new supplier");
-		$text.=PrintSupplierSelect($supplier);
-		$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
-		//$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
+	}	else {
+		$t = OUTCOME;
+		$l = _("new outcome");
+		$text.=PrintSelect($outcome,OUTCOME);
+		$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
 	}
 }else{
 	if($opt == 'asset') {
 		$t = ASSETS;
 		$l = _("new assets");
-		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
 		$text.=PrintSelect($outcome,ASSETS);
-		//$text.=newWindow($l,'?action=lister&form=account&type='.ASSETS,480,480,'','btnsmall');
 	}
 	else {
-		$t = SUPPLIER;
-		$l = _("new supplier");
-		$text.=PrintSupplierSelect($supplier);
-		//$text.=newWindow($l,'?action=lister&form=account&type='.SUPPLIER,480,480,'','btnsmall');
-		//$t = OUTCOME;
-		//$l = _("new outcome");
-		//$text.= "&nbsp;&nbsp;<a href=\"index.php?module=acctadmin&amp;type=$t&amp;ret=outcome\">$l</a>\n";
-		//$text.=PrintSelect($outcome,OUTCOME);
-		//$text.=newWindow($l,'?action=lister&form=account&type='.OUTCOME,480,480,'','btnsmall');
+		$t = OUTCOME;
+		$l = _("new outcome");
+		$text.=PrintSelect($outcome,OUTCOME);
 	}
 }
 $text.= "</td></tr>\n";
@@ -357,24 +333,24 @@ $text.= "<tr>\n";
 
 $l = _("Date");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input class=\"date\" id=\"date\" type=\"text\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
+$text.= "<td><input class=\"required date\" id=\"date\" type=\"text\" name=\"date\" value=\"$dt\" size=\"7\" />\n";
 //$text.='<script type="text/javascript">addDatePicker("#date","'.$dt.'");</script>';
 $text.= "</td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Reference");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"15\" /></td>\n";
+$text.= "<td><input type=\"text\" name=\"refnum\" value=\"$refnum\" size=\"15\" class=\"number required\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Details");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\" /></td>\n";
+$text.= "<td><input type=\"text\" name=\"details\" value=\"$details\" size=\"25\" class=\"required\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("Sum before VAT");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"novattotal\" value=\"$novattotal\" dir=\"ltr\" size=\"10\" onblur=\"CalcTotal()\" /></td>\n";
+$text.= "<td><input type=\"text\" name=\"novattotal\" value=\"$novattotal\" dir=\"ltr\" size=\"10\" onblur=\"CalcTotal()\" class=\"number required\" /></td>\n";
 $text.= "</tr><tr>\n";
 
 $l = _("VAT");
@@ -388,11 +364,12 @@ $text.= "<td><input type=\"text\" name=\"total\" size=\"10\" dir=\"ltr\" value=\
 $text.= "</tr><tr>\n";
 
 $l = _("Update");
-$text.= "<td colspan=\"2\" align=\"center\"><a href=\"javascript:$('#outcome').submit();\" class=\"btnaction\">$l</a>\n";
+$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' class=\"number required\" />\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
 //print "</div>\n";
+if ($opt != 'asset')
 if($step == 0) {
 	require('lasttran.inc.php');
 }

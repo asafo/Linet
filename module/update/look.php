@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=9" />
@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="../../style/linet.css" type="text/css" />
 <script type="text/javascript" src='../../js/jquery.min.js'></script>
+
 
 <script type="text/javascript">
 function loadDoc(step){
@@ -26,7 +27,7 @@ $.post("?", { "step": step, "non": true }, function(data) {
 				<td class="ftr"><img src="../../img/ftr.png" alt="formright"  /></td>
 				<td class="ftc">
 					<div class="formtitle"><p><?php print _("Linet Update Wizard")?></p></div>
-					<div class="formhelp"><a class="help" target="_blank" href="http://www.linet.org.il/index.php/support/user-help-navigate?id=83"><img src="../../img/icon_help.png" alt="Icon help"><p>עזרה</p></a></div>				
+					<div class="formhelp"><a class="help" target="_blank" href="http://www.linet.org.il/index.php/support/user-help-navigate?id=83"><img src="../../img/icon_help.png" alt="Icon help" /><span>עזרה</span></a></div>				
 				</td>
 				<td class="ftl"><img src="../../img/ftl.png" alt="formleft" /></td>
 			</tr>

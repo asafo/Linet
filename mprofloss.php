@@ -538,10 +538,10 @@ if(isset($module) && (!$filerep)) {
 	$url .= "?prefix=$prefix";
 	$text.= "<div class=\"repbottom\">\n";
 	$l = _("Print");
-	$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
+	//$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
 	$text.= "&nbsp;&nbsp;";
 	$l = _("File export");
-	$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='?module=mprofloss&amp;file=1'\">\n";
+	$text.= "<a class=\"btnsmall\" href='?module=mprofloss&amp;file=1'\">$l</a>\n";
 	$text.= "</div>\n";
 }
 if($filerep) {
@@ -551,11 +551,11 @@ if($filerep) {
 	$text.= "<h2>$l: ";
 	$url = "/download.php?file=$filename&amp;name=profloss.csv";
 	$text.= "<a href=\"$filename\">mprofloss.csv</a></h2>\n";
-	$l = _("Right click and choose 'save as...'");
-	$text.= "<h2>$l</h2>\n";
-	$text.= "<script type=\"text/javascript\">\n";
-	$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-	$text.= "</script>\n";
+	//$l = _("Right click and choose 'save as...'");
+	//$text.= "<h2>$l</h2>\n";
+	//$text.= "<script type=\"text/javascript\">\n";
+	//$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+	//$text.= "</script>\n";
 }
 createForm($text, $reptitle,'',750,'','',1,getHelp());
 //print "</div>";//adam: form div

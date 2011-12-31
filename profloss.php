@@ -135,7 +135,7 @@ if($step == 0) {	/* Get date range */
 	$text.= "&nbsp;<input type=\"checkbox\" name=\"d6111\" checked>$l\n";
 	$text.= "</td><tr>\n";
 	$l = _("Execute");
-	$text.= "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+	$text.= "<td colspan=\"4\" align=\"center\"><input class=\"btnaction\" type=\"submit\" value=\"$l\"></td>\n";
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -459,13 +459,13 @@ if($step >= 1) {
 		$url .= "&amp;prefix=$prefix";
 		//print "<div class=\"repbottom\">\n";
 		$l = _("Print");
-		$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
+		//$text.= "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
 		$text.= "&nbsp;&nbsp;";
 		$url = "?module=profloss&amp;step=2&amp;begindate=$begindate&amp;enddate=$enddate";
 		if($percent)
 			$url .= "&amp;percent=on";
 		$l = _("File export");
-		$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\">\n";
+		$text.= "<a class=\"btnsmall\" href=\"$url\">$l</a>\n";
 		//print "</div>\n";
 	}
 	else if($step == 2) {
@@ -474,12 +474,12 @@ if($step >= 1) {
 		$haeder = _("File export");
 		//print "<h2>$l: ";
 		$url = "download.php?file=$filename&amp;name=profloss.csv";
-		$text.= "<a href=\"$filename\">profloss.csv</a></h2>\n";
-		$l = _("Right click and choose 'save as...'");
-		$text.= "<h2>$l</h2>\n";
-		$text.= "<script type=\"text/javascript\">\n";
-		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		$text.= "</script>\n";
+		$text.= "<a href=\"$filename\"><h2>profloss.csv</h2></a>\n";
+		//$l = _("Right click and choose 'save as...'");
+		//$text.= "<h2>$l</h2>\n";
+		//$text.= "<script type=\"text/javascript\">\n";
+		//$text.= "setTimeout(\"window.open('$url', 'Download')\", 5000);\n";
+		//$text.= "</script>\n";
 
 	}
 

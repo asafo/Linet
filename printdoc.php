@@ -103,7 +103,7 @@ function SmallReplace($r) {
 	else if($p == 'logo') {
 		$logo = $compy->logo;
 		if($logo)
-			return '<img src="'.$serverpath.'/img/logo/'.$logo.'"  height=\"100\" />';//adam:'<img src="img/'.$logo.'">';
+			return '<img src="'.$serverpath.'/img/logo/'.$logo.'"  height="100" />';//adam:'<img src="img/'.$logo.'">';
 		else
 			return "";
 	}
@@ -122,10 +122,14 @@ function SmallReplace($r) {
 	else if($p == 'doctype') {
 		$l = $DocType[$dt];
 		return $l;
-	}
-	else if($p == 'docnum')
+	}else if($p == 'docnum')
 		return $docnum;
-	else if(($p == 'header')||($p == 'footer')||($p == 'companyname')||($p == 'web')||($p == 'regnum')) {
+	else if($p == 'footer')
+		if(($doctype==DOC_INVOICE) ||($doctype==DOC_PROFORMA)||($doctype==DOC_DELIVERY)||($doctype==DOC_PARCHACEORDER))
+				return $compy->{$p}."<br /><br />חתימת הלקוח:__________________";
+			else
+				return $compy->{$p};
+	else if(($p == 'header')||($p == 'companyname')||($p == 'web')||($p == 'regnum')) {
 		return $compy->{$p};
 	}
 	else if ($p == 'address'){
@@ -170,6 +174,15 @@ function SmallReplace($r) {
 	if(!$frm)
 		return '';
 	if($frm=='docs'){
+		if($fld=='issue_date'){
+			return FormatDate($docy->issue_date,'mysql','dmyy');
+		}else if($fld=='due_date'){
+			//~docs:due_date~
+			if(($doctype==DOC_INVOICE)||($doctype==DOC_PROFORMA)||($doctype==DOC_SALES)||($doctype==DOC_PARCHACEORDER))
+				return "<td>מועד פרעון:</td><td>".FormatDate($docy->due_date,'mysql','dmyy')."</td>";
+			else
+				return "";
+		}
 		return $docy->{$fld};
 	}
 	return "$s";
@@ -201,7 +214,29 @@ $bla="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">
 	<!--<link rel=\"stylesheet\" type=\"text/css\" href=\"$path/style/documenet.css\" />-->
 	<link rel=\"stylesheet\" type=\"text/css\" href=\"../style/documenet.css\" />
 	<title>bla</title>
+	<script type=\"text/javascript\" src='js/jquery.min.js'></script>
 </head>
+
+	<script type=\"text/javascript\">
+	function printDoc(doctype,docnum,prefix){
+			$('body').append('<div style=\"position: fixed;top: 14%;left: 40%;\"><img src=\"img/docgo.gif\" /><br />loadind please wait...</div>');
+			   $.ajax({
+				   type: \"GET\",
+				   url: \"printdoc.php\",
+				   data: {\"print_win\":1,\"prefix\":prefix,\"doctype\":doctype,\"docnum\":docnum}
+				  // dataType:'html'
+				 }).done(function( msg ) {
+					 var url='tmp/'+prefix+'.pdf';
+					 window.open(url);
+				
+					location.reload(true);
+					 
+				   //alert( \"Data Saved:\" + msg );
+				  // window.close();
+				 });
+	}
+	
+	</script>
 <body dir=\"rtl\">".$bla."</body></html>";
 
 //echo $bla1;
@@ -223,35 +258,55 @@ if($print_win==1) {
 	$line = mysql_fetch_array($result, MYSQL_NUM);
 	$printed = $line[0];
 	$printed++;
-	$myFile = "$path/tmp/$prefix.html";
-	$fh = fopen($myFile, 'w') or die("can't open file");
-	fwrite($fh, $bla1);
-	fclose($fh);
-	//print_r($_SERVER);
-	$myfile="$serverpath/tmp/$prefix.html";
+	
 	$query = "UPDATE $docstbl SET printed='$printed' ";
 	$query .= "WHERE prefix='$prefix' AND doctype='$doctype' AND docnum='$docnum'";
-	print $myfile;
+	//print $myfile;
 	DoQuery($query, "printdoc.php");
+	$dom=false;
+	if($dom){
+		require_once("module/domPdf/dompdf_config.inc.php");
+		$dompdf = new DOMPDF();
+		$dompdf->load_html($bla1);
+		$dompdf->render();
+		$pdfoutput = $dompdf->output(); 
+		$filename = "$path/tmp/$prefix.pdf"; 
+		$fp = fopen($filename, "a"); 
+		fwrite($fp, $pdfoutput); 
+		fclose($fp); 
+	}else{
+		$myFile = "$path/tmp/$prefix.html";
+		$fh = fopen($myFile, 'w') or die("can't open file");
+		fwrite($fh, $bla1);
+		fclose($fh);
+		$myfile="$serverpath/tmp/$prefix.html";
+		
+		global $wkhtmltopdfstr;
+		$os_string = php_uname('s');
+		
+		if (strstr(strtoupper($os_string), 'WIN')){
+			$a="\"\"$wkhtmltopdfstr\" \"$myFile\" \"$path/tmp/$prefix.pdf\"\"";
+		}else{
+			$a="$wkhtmltopdfstr \"$myFile\" \"$path/tmp/$prefix.pdf\"";
+		}
+		shell_exec($a);
+		//print "<meta http-equiv=\"refresh\" content=\"0;url=tmp/$prefix.pdf\"> ";
+	}
 
-	//$a="xvfb-run -a -s \"-screen 0 1024x768x16\" wkhtmltopdf --dpi 96 --page-size A4 $myFile $path/tmp/$prefix.pdf";
-	$a="xvfb-run -a -s \"-screen 0 1024x768x16\" wkhtmltopdf $myFile $path/tmp/$prefix.pdf";
-	//print $a;
-	shell_exec($a);
-	print "<meta http-equiv=\"refresh\" content=\"0;url=tmp/$prefix.pdf\"> ";
 }else {
 	print $bla1;
 	//createForm($bla,'','',780,'','',1,getHelp());
-	print "<div style=\"width:100%;text-align:center\">\n";
+	print "<div class=\"printme\" style=\"text-align:center;\">\n";
 	$l = _("Print");
 	//print "<form><input type=\"button\" value=\"$l\" ";
 	//print "onclick=\"PrintWin()\">\n";
-	print "</form>\n";
+	//print "</form>\n";
 	//$doctype = isset($_GET['doctype']) ? $_GET['doctype'] : DOC_INVOICE;
 //$docnum = isset($_GET['docnum']) ? $_GET['docnum'] : 0;
-	
-	$href="printdoc.php?docnum=$docnum&amp;doctype=$doctype&amp;prefix=$prefix&amp;print_win=1";
-	print newWindow(_("print"), $href,20,20);
+	$l="<img src='img/btnprint.png' alt='' />";
+	//$href="printdoc.php?docnum=$docnum&amp;doctype=$doctype&amp;prefix=$prefix&amp;print_win=1";
+	//print newWindow($l, $href,20,20);
+	print "<a href='javascript:printDoc(\"$doctype\",\"$docnum\",\"$prefix\");'>$l</a>";
 	print "</div>\n";	
 }
 ?>

@@ -1,5 +1,5 @@
-#accounts for Drorit
-#Accounts use constants defined in drorit.inc.php
+#accounts for Linet
+#Accounts use constants defined in base.inc.php
 AUTHORITIES,BUYVAT,מע"מ תשומות,
 AUTHORITIES,ASSETVAT,מע"מ תשומות ציוד ונכסים,
 AUTHORITIES,SELLVAT,מע"מ עסקאות,
@@ -91,8 +91,14 @@ OUTCOME,96,שכר טרחה רואה חשבון,3540,100.00,
 OUTCOME,97,שליחויות,3690,100.00,
 OUTCOME,98,שמירה,3595,100.00,
 OUTCOME,99,תיקונים,3550,100.00,
+INCOME,100,מכירת מוצרים בארץ,1010,100.00,
+INCOME,101,מכירת שרותים בארץ,1020,100.00,
+INCOME,102,מכירת מוצרים בחו"ל,1030,0.00,
+INCOME,103,מכירת שרותים בחו"ל,1040,0.00,
 BANKS,150,בנק,,
 OUTCOME,151,עמלות בנקים,0,0
 CUSTOMER,GENCUSTOMER,לקוחות שונים,,
 SUPPLIER,GENSUPPLIER,ספקים שונים,,
 SUPPLIER,EMPLOYEESALARY,עובדים חו"ז,,
+
+

@@ -96,13 +96,13 @@ for($i = 0; $i < 10; $i++) {
 	$text.= "<td>\n";
 	$text.=PrintAccountSelect();
 	$text.= "</td><td>\n";
-	$text.= "<input type=\"text\" class=\"bal\" name=\"bal[]\" dir=\"ltr\" >\n";
+	$text.= "<input type=\"text\" class=\"bal\" name=\"bal[]\" dir=\"ltr\" />\n";
 	$text.= "</td>\n";
 	$text.= "</tr>\n";
 }
 $l = _("Update");
 $text.= "<tr><td colspan=\"2\" align=\"center\">\n";
-$text.= "<input type=\"submit\" value=\"$l\"></td></tr>\n";
+$text.= "<input type=\"submit\" value=\"$l\"  class='btnaction' /></td></tr>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
 createForm($text,$header,'',750,'','img/icon_opbalance.png',1,getHelp());

@@ -56,16 +56,20 @@ if(!empty($name) && ($name != ''))  {
 	}
 	
 if (isset($_POST['non'])){	
-	print "<ul>";
+	//print "<ul>";
+	print "<span class='ul'>";
 		foreach ($steps as $name){
 			$i++;
 			if ($name==$steps[$step]){
-					print '<il class="active"><img src="../../img/btnUpdateActive.png" alt="step" /><p class="num">'.$i.'</p><p>'.$name.'</p></il>';
+					//print "<il class='active'><img src='../../img/btnUpdateActive.png' alt='step' /><span class='num'>$i</span><span>$name</span></il>";
+					print "<span class='active'><img src='../../img/btnUpdateActive.png' alt='step' /><span class='num'>$i</span><span>$name</span></span>";
 				}else{
-					print '<il><img src="../../img/btnUpdate.png" alt="step" /><p class="num">'.$i.'</p><p>'.$name.'</p></il>';
+					//print "<il><img src='../../img/btnUpdate.png' alt='step' /><span class='num'>$i</span><span>$name</span></il>";
+					print "<span><img src='../../img/btnUpdate.png' alt='step' /><span class='num'>$i</span><span>$name</span></span>";
 				}
 		}
-	print "</ul>";						
+	//print "</ul>";	
+	print "</span>";						
 	
 	
 }
@@ -81,8 +85,8 @@ if (($step==1)&&(isset($_POST['non']))){
 	print "</div>";
 	//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
 	
-	print '<div class="control"><a class="btnaction" href="../../">'._("Cancel").'</a>';
-	print '<a class="btnaction" href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a></div>';
+	print '<div class="control"><input type="button" class="btnaction" onclick="document.location.href=\'../../\'" value="'._("Cancel").'" />';
+	print '<input type="button" class="btnaction" onclick="loadDoc('.$nextStep.')" value="'._("Next").'" /></div>';
 	}else{
 		$content=_("Please Wait");//error
 }
@@ -115,9 +119,9 @@ if (($step==2)&&(isset($_POST['non']))){
 			$nextStep=0;
 		}
 	print "</div>";	
-				print '<div class="control"><a class="btnaction" href="../../">'._("Cancel").'</a>';
-	//if ($nextStep)
-	 print '<a class="btnaction" href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a></div>';
+
+	 print '<div class="control"><input type="button" class="btnaction" onclick="document.location.href=\'../../\'" value="'._("Cancel").'" />';
+	print '<input type="button" class="btnaction" onclick="loadDoc('.$nextStep.')" value="'._("Next").'" /></div>';
 		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
 }
 /*update*/
@@ -197,14 +201,19 @@ if (($step==3)&&(isset($_POST['non']))){
 	fwrite($log, "End Loging: ".date('d/m/y H:m')."\n");
 	fclose($log);
 	$nextStep=4;
-	if ($nextStep) print '<a class="btnaction" href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
-	//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
+	if ($nextStep) 
+		//print '<a class="btnaction" href="javascript:loadDoc('.$nextStep.')">'._("Next").'</a>';
+		//print '<div class="control"><input type="button" class="btnaction" onclick="document.location.href=\'../../\'" value="'._("Cancel").'" />';
+		print '<input type="button" class="btnaction" onclick="loadDoc('.$nextStep.')" value="'._("Next").'" />';
+		//print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
 }
 /*end*/
 if (($step==4)&&(isset($_POST['non']))){
 print _("Linet has been successfully updated")."<br />";
 print '<a href="../../tmp/updatelog'.date('dmY').'.txt">'._("log file").'</a><br />';
-print '<a class="btnaction" href="../../">'._("Finished").'</a>';
+//print '<a class="btnaction" href="../../">'._("Finished").'</a>';
+print '<input type="button" class="btnaction" onclick="document.location.href=\'../../\'" value="'._("Finished").'" />';
+//print '<input type="button" class="btnaction" onclick="loadDoc('.$nextStep.')" value="'._("Next").'" /></div>';
 }
 }
 

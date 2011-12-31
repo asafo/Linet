@@ -287,8 +287,10 @@ function FindEvents($d, $m, $y) {
 		$DocTypeStr = $DocType[$type];
 		//NewRow();
 		$text.="<tr>";
-		$text.= "<td>$DocTypeStr <a href=\"printdoc.php?win=1&amp;doctype=$type&amp;docnum=$docnum&amp;prefix=$prefix\">$docnum</a> ";
-		$l = _("To customer");
+		$url="";
+		$url = "?module=showdocs&doctype=$type&docnum=$docnum&step=2";
+		$text.= "<td>$DocTypeStr <a href=\"$url\">$docnum</a> ";
+		$l = _("To account");
 		$text.= "$l <a href=\"?module=acctdisp&amp;account=$account&amp;begin=$begindate&amp;end=$enddate\">$company</a> ";
 		$l = _("Sum");
 		$text.= "$l: $sum ";

@@ -315,7 +315,7 @@ if(!$account) {
 	}
 	$text.= "<br />\n";
 	$l = _("Display");
-	$text.= "<div style=\"text-align:center\"><br><a href=\"javascript:document.choosebank.submit();\" class=\"btnaction\">$l</a></div>\n";
+	$text.= "<div style=\"text-align:center\"><br><input type=\"submit\" value=\"$l\" class='btnaction' /></div>\n";
 	$text.= "</div>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -329,7 +329,8 @@ if(!$account) {
 $text.= "<form name=\"import\" action=\"?module=bankbook&amp;account=$account&amp;start=1&step=1\" method=\"post\"  enctype=\"multipart/form-data\">\n";
 $text.=_("Import bank book from Hashvsvet file(tnout.dat):");
 $text.="<input type=\"file\" name=\"tnout\" />\n";
-$text.="<a class=\"btnaction\" href=\"javascript:document.import.submit();\">"._("submit")."</a>";
+$l=_("submit");
+$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";
 $text.="</form>";
 
 
@@ -424,7 +425,7 @@ if($start > 1) {
 	$text.=  "<input type=\"button\" value=\"$l\" onclick=\"document.location='index.php?module=bankbook&amp;start=$prev&amp;account=$account'\" />&nbsp;\n";
 }
 $l = _("Update");
-$text.=  "&nbsp;<a class=\"btnaction\" href=\"javascript:document.form1.submit();\">$l</a>&nbsp;&nbsp;\n";
+$text.=  "<input type=\"submit\" value=\"$l\" class='btnaction' />\n";
 if($LastLine >= ($start + ($linesperpage-1))) {
 	$next = $start + ($linesperpage-1);
 	$l = _("Next page");

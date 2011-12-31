@@ -184,7 +184,7 @@ if($step == 0) {	/* print date select form */
 	$text.= "</td>\n";
 	$text.= "<td>\n";
 	$l = _("Execute");
-	$text.= "&nbsp;&nbsp;<input type=\"submit\" value=\"$l\"></td></tr>\n";
+	$text.= "&nbsp;&nbsp;<input  class=\"btnaction\" type=\"submit\" value=\"$l\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
 	//print "<br>\n";
@@ -256,7 +256,7 @@ if($step == 1) {
 	$payvat = $sellvat - $assetvat - $buyvat;
 	$text.= "<input dir=\"ltr\" type=\"text\" readonly name=\"payvat\" value=\"$payvat\">\n";
 	$text.= "</td></tr>\n";
-	$text.= "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\""._("register")."\"></td></tr>\n"; 
+	$text.= "<tr><td colspan=\"3\" align=\"center\"><input  class=\"btnaction\" type=\"submit\" value=\""._("register")."\"></td></tr>\n"; 
 	$text.= "</table>\n"; 
 	$text.= "</form>\n";
 }
@@ -336,7 +336,7 @@ if($step == 2) {
 	$text.= "<input type=\"hidden\" name=\"account\" value=\"$vatacc\">\n";
 	$text.= "<input type=\"hidden\" name=\"refnum\" value=\"$ref1-$ref2\">\n";
 	$text.= "<input type=\"hidden\" name=\"total\" value=\"$payvat\">\n";
-	$text.= "<input type=\"submit\" value=\""._("pay")."\">\n";
+	$text.= "<input  class=\"btnaction\" type=\"submit\" value=\""._("pay")."\">\n";
 	$text.= "</form>\n";
 	$text.= "</td></tr></table>\n";
 	$text.= "</tr>\n";
@@ -366,7 +366,7 @@ if($step == 3) {
 	$text.= _("end").": ";
 	$text.= "<input class=\"date\" type=\"text\" name=\"end\" id=\"end\" size=\"7\" value=\"$edate\" />\n";
 
-	$text.= "<input type=\"submit\" value=\"submit\">\n";
+	$text.= "<input  class=\"btnaction\" type=\"submit\" value=\"submit\">\n";
 	$text.= "</form>\n";
 	$text.= "<br><br>\n";
 	//$text.= "<h2>";

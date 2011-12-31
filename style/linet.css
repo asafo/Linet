@@ -19,6 +19,7 @@ img{
 	border:none;
 	}
 div { z-index:10; }
+textarea{resize: none}
 .title {
 	background:#E5EDF5;
 /*	color:#0C86C9; */
@@ -158,6 +159,15 @@ a.btnedit{
 	background-image: url(../img/btnEdit.png);
 	display:inline-block;
 	}
+input.btnsmall{
+	height:24px;
+	background-image: url(../img/btnSmall.png);
+	display:inline-block;
+	/*padding-right: 5px;*/
+	text-align:center;
+    padding-top: 7px;
+    width: 80px;
+}
 a.btnsmall{
 	height:24px;
 	background-image: url(../img/btnSmall.png);
@@ -167,17 +177,22 @@ a.btnsmall{
     padding-top: 7px;
     width: 80px;
 }
+input.btnaction,
 a.btnaction{
+	border-style: hidden;
+	background-color: white;
 	background-image: url(../img/btnAction.png);
-	   color: white;
+	color: white;
     display: inline-block;
-    height: 30px;
+    height: 37px;
     padding-left: 20px;
-    padding-top: 8px;
+    padding-top: 0px;
     text-align: center;
-    width: 70px;
+    width: 92px;
+  
 	
 	}
+input.btnaction:over,
 a.btnaction:over{color:orange}
 #wrapper {
 	position: relative;
@@ -189,7 +204,7 @@ a.btnaction:over{color:orange}
 }
 
 /*-------------------------------------HEADER--------------------------------*/
-.headerA {height:105px;}
+.headerA {height:85px;}
 .headerB{height:130px;}
 .headerC {
 	top:80px; 	
@@ -208,7 +223,7 @@ a.btnaction:over{color:orange}
 	float: right;
     position: absolute;
     right: 400px;
-    top: 50px;
+    top: 30px;
 }
 /*
 #support {
@@ -229,7 +244,7 @@ a.btnaction:over{color:orange}
 	float: left;
     font-size: 14px;
     position: relative;
-    top: 70px;
+    top: 48px;
     color: #006599;
     font-weight: bold;	
 	}
@@ -237,7 +252,7 @@ a.btnaction:over{color:orange}
 	position: absolute;
     right: 0;
     text-align: right;
-    top: 75px;
+    top: 60px;
     width: 600px;
 
 }
@@ -307,6 +322,7 @@ div.warning{
 	width:1em;
 	text-align:center;
 }
+label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
 /*------------------------------A-------------------------------------------------*/
 a {
 	text-decoration: none;
@@ -524,7 +540,7 @@ color: #186ABF;
     height: 38px;
     padding-top: 5px;
 }
-td.ftc p{display: inline;
+td.ftc span{display: inline;
 position: relative;
     right: 5px;
     top: -5px;
@@ -594,9 +610,9 @@ a.help p{
 	
 .form{
 	text-align:right;
-	 display: inline;
+	 display: inline-block;
 	vertical-align: top;
-	float: right;
+	/*float: right;*/
 	}	
 	
 #forgat{
@@ -921,7 +937,7 @@ font-size:14px;
 .control{
 	text-align:center;
 	}
-#main.fcc ul{
+#main.fcc span.ul{
 	position: relative;
     right: 105px;
     top: -15px;
@@ -930,7 +946,8 @@ font-size:14px;
 	 display: inline-block;
     width: 150px;
 	}
-#main.fcc ul il p{
+#main.fcc ul il span,
+#main.fcc span span span{
     color: #C7C5C5;
     display: inline;
     font-size: 16px;
@@ -939,9 +956,10 @@ font-size:14px;
     right: -12px;
     top: -20px;
     }
-#main.fcc ul il p.num{
+#main.fcc ul il span.num,
+#main.fcc span span span.num{
 	color: #FFFFFF;
-    display: inline;
+    display: inline-block;
     font-size: 24px;
     font-weight: bold;
     position: relative;

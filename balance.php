@@ -106,7 +106,7 @@ if($step == 0) {	/* Get date range */
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Execute");
-	$text.= "<td colspan=\"4\" align=\"center\"><input type=\"submit\" value=\"$l\"></td>\n";
+	$text.= "<td colspan=\"4\" align=\"center\"><input class=\"btnaction\" type=\"submit\" value=\"$l\"></td>\n";
 	$text.= "</tr></table>\n";
 	$text.= "</form>\n";
 	//print "</div>\n";
@@ -258,21 +258,21 @@ if($step >= 1) {
 		if($percent)
 			$url .= "&amp;percent=on";
 		$l = _("File export");
-		$text.= "<input type=\"button\" value=\"$l\" onclick=\"window.location.href='$url'\" />\n";
+		$text.= "<a class='btnsmall' href='$url'\" >$l</a>\n";
 		$text.= "</div>\n";
 	}
 	else if($step == 2) {
 		fclose($fd);
 		Conv1255($filename);
 		$l = _("Click here to download");
-		$text.= "<h2>$l: ";
+		$text= "<h2>$l: ";
 		$url = "download.php?file=$filename&amp;name=profloss.csv";
 		$text.= "<a href=\"$filename\">balance.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
 		$text.= "<h2>$l</h2>\n";
-		$text.= "<script type=\"text/javascript\">\n";
-		$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
-		$text.= "</script>\n";
+		//$text.= "<script type=\"text/javascript\">\n";
+		//$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
+		//$text.= "</script>\n";
 	}
 }
 createForm($text, $header,'',750,'','',1,getHelp());

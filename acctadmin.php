@@ -142,11 +142,13 @@ function GetAcctTotal($account, $begin, $end) {
 	return $total;
 }
 
+
+global $action;
 /* Check if all predefined accounts exist and create them if not */
 require('acctcreate.inc.php');	
 
-
 if($action == 'newacct') {
+	
 	if($name == 'demo') {
 		$l = _("Demo user is not allowed to update data");
 		print "<h1>$l</h1>\n";
@@ -208,7 +210,7 @@ if($action == 'newacct') {
 	$line = __LINE__;
 	$file = __FILE__;
 	$result = DoQuery($query, "$file: $line");
-	
+	/*
 	if(isset($_GET['ret'])) {
 		$RetModule = $_GET['ret'];
 		if(isset($_GET['targetdoc'])) {
@@ -218,7 +220,7 @@ if($action == 'newacct') {
 		$url = "index.php?module=$RetModule";
 		print "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"2; URL=$url\">\n";
 		return;
-	}
+	}*/
 }
 if($action == 'updateacct') {
 	if($name == 'demo') {

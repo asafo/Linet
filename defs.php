@@ -8,10 +8,10 @@ global $superuser, $companiestbl, $logintbl;
 global $lang, $dir;
 $text='';
 if($action == 'defsubmit') {
-	$email = htmlspecialchars($_POST['email'], ENT_QUOTES);
-	$passwd = $_POST['passwd'];
-	$verpasswd = $_POST['verpasswd'];
-	$fullname = $_POST['fullname'];
+	//$email = htmlspecialchars($_POST['email'], ENT_QUOTES);
+	//$passwd = $_POST['passwd'];
+	//$verpasswd = $_POST['verpasswd'];
+	//$fullname = $_POST['fullname'];
 	$prefix = $_POST['prefix'];
 	$manager = htmlspecialchars($_POST['manager'], ENT_QUOTES);
 	$companyname = htmlspecialchars($_POST['companyname'], ENT_QUOTES);
@@ -27,6 +27,7 @@ if($action == 'defsubmit') {
 
 		return;
 	}
+	/*
 	if($fullname == '') {
 		ErrorReport(_("Full name not specified"));
 		return;
@@ -43,9 +44,10 @@ if($action == 'defsubmit') {
 		ErrorReport(_("Passwords are not equal"));
 		return;
 	}
-
-	$query = "SELECT name,password FROM $logintbl WHERE name='$email'";
-
+	*/
+	//print "were out of the dead zone<br />";
+	//$query = "SELECT name,password FROM $logintbl WHERE name='$email'";
+	/*
 	$result = DoQuery($query, "defs.php");
 	if(mysql_num_rows($result) == 0) {
 		$query = "INSERT INTO $logintbl ";
@@ -66,14 +68,14 @@ if($action == 'defsubmit') {
 	else {
 		$line = mysql_fetch_array($result, MYSQL_ASSOC);
 		$password = $line['password'];
-		if($password == 'demo') {	/* this is a demo user, update it */
+		if($password == 'demo') {	 this is a demo user, update it 
 			$query = "UPDATE $logintbl SET password=PASSWORD('$passwd'), ";
 			$query .= "lastlogin=NOW() WHERE name='$email'";
 			DoQuery($query, __LINE__);
 			$l = _("User password updated");
 			$text.= "<h2>$l</h2>\n";
 		}
-	}
+	}*/
 
 	/* Create new company */
 	$companyname = htmlspecialchars($_POST['companyname'], ENT_QUOTES);
@@ -94,11 +96,15 @@ if($action == 'defsubmit') {
 	$vatrep = (int)$_POST['vatrep'];
 	$query = "INSERT INTO $companiestbl (companyname, prefix, manager, regnum, address, city, zip, phone, cellular, web, vat, vatrep, bidi,credit,credituser,creditpwd,creditallow)";
 	$query .= " VALUES('$companyname', '$prefix', '$manager', '$regnum', '$address', '$city', '$zip', '$phone', '$cellular', '$web', '$vat', '$vatrep', '$bidi', '$credit', '$credituser', '$creditpwd','$creditallow')";
+	//print $query;
 	DoQuery($query, "defs.php");
+	global $curuser;
+	$email=$curuser->name;
 	$query = "INSERT INTO $permissionstbl VALUES ('$email', '$prefix', 0)";
 	DoQuery($query, "defs.php");
 	$l = _("Business added succesfully");
 	$text.= "<h2>$l</h2>\n";
+	print "<meta http-equiv=\"refresh\" content=\"0;url=?action=unsel\" /> ";
 	return;	
 }
 if($action == 'register') {
@@ -199,13 +205,14 @@ if(!$line) {
 		ErrorReport("$l");
 		return;
 	}
-	$text.= "<form name=\"form1\" action=\"?module=defs&amp;action=defsubmit\" method=\"post\" enctype=\"multipart/form-data\">\n";
-//	print "<div class=\"caption_out\"><div class=\"caption\">";
+	//$text.= "<form name=\"form1\" action=\"\" method=\"post\" enctype=\"multipart/form-data\" class=\"valform\">\n";
+	$url="?module=defs&amp;action=defsubmit";
+	//	print "<div class=\"caption_out\"><div class=\"caption\">";
 	$haeder = _("Entering new business");
 	//print "<h3>$l</h3>\n<br>\n";
 }
 else {
-	$text.= "<form name=\"form1\" action=\"?module=defs&amp;action=defupdate\" method=\"post\" enctype=\"multipart/form-data\">\n";
+	$url="?module=defs&amp;action=defupdate";
 	$companyname = $line['companyname'];
 	$manager = $line['manager'];
 	$regnum = $line['regnum'];
@@ -226,11 +233,11 @@ else {
 
 	$editdata = 1;
 }
-
+$text.= "<form id=\"defs\" name=\"defs\" action=\"$url\" method=\"post\" enctype=\"multipart/form-data\" class=\"valform\">\n";
 if($taxrep == 0)
 	$taxrep = 2;
 // print "<table border=\"0\" width=\"100%\"><tr><td align=\"center\">\n";
-
+/*
 if(!$editdata) {
 	$text.= "<table dir=\"rtl\" border=\"0\" class=\"formtbl\" width=\"100%\"><tr><td>\n";
 	$l = _("Email");
@@ -252,7 +259,7 @@ if(!$editdata) {
 
 	$text.= "</table>\n";
 	$text.= "<br />\n";
-}
+}*/
 if($editdata) {
 	$haeder = _("Edit business details");
 	//print "<h3>$l</h3>\n\n";
@@ -264,32 +271,32 @@ $text.= "<td colspan=\"2\"><b>$l: </b></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Business name");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"companyname\" value=\"$companyname\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"companyname\" value=\"$companyname\" class=\"required\" minlength=\"2\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Manager name");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"manager\" value=\"$manager\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"manager\" value=\"$manager\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Address");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"address\" value=\"$address\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"address\" value=\"$address\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("City");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"city\" value=\"$city\" size=\"10\">&nbsp;&nbsp;\n";
+$text.= "<td><input type=\"text\" name=\"city\" value=\"$city\" size=\"10\" />&nbsp;&nbsp;\n";
 $l = _("Zip");
 $text.= "$l: \n";
 // print "׳³ן¿½׳³ג„¢׳³ֲ§׳³ג€¢׳³ג€�: \n";
-$text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\"></td>\n";
+$text.= "<input type=\"text\" name=\"zip\" value=\"$zip\" size=\"5\" class=\"number\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Phone");
 $text.= "<td>$l: </td>\n";
 // print "<td>׳³ֻ�׳³ן¿½׳³ג‚×׳³ג€¢׳³ן¿½: </td>\n";
-$text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"phone\" value=\"$phone\" class=\"number\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Fax");
 $text.= "<td>$l: </td>\n";
-$text.= "<td><input type=\"text\" name=\"cellular\" value=\"$cellular\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"cellular\" value=\"$cellular\" class=\"number\" /></td>\n";
 
 $text.= "</tr>\n";
 $text.= "</table>\n";
@@ -302,7 +309,7 @@ $text.= "<td>\n";
 $l = _("Registration number");
 $text.= "$l: \n";
 // print "׳³ן¿½׳³ֲ¡׳³ג‚×׳³ֲ¨ ׳³ֲ¢׳³ג€¢׳³ֲ¡׳³ֲ§: \n";
-$text.= "<td><input type=\"text\" name=\"regnum\" value=\"$regnum\" size=\"8\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"regnum\" value=\"$regnum\" size=\"8\" class=\"number\" maxlength=\"9\" /></td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Accounting Type");
 $text.= "<td>$l: </td>\n";
@@ -332,7 +339,7 @@ $text.= "</select></td>\n";
 $l = _("Tax percent");
 $text.= "<td>$l: </td>\n";
 // print "<td>׳³ן¿½׳³ֲ§׳³ג€�׳³ן¿½׳³ג€¢׳³ֳ— ׳³ן¿½׳³ֲ¡ ׳³ג€�׳³ג€÷׳³ֲ ׳³ֲ¡׳³ג€�: </td>\n";
-$text.= "<td><input type=\"text\" name=\"tax\" value=\"$tax\" size=\"5\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"tax\" value=\"$tax\" size=\"5\" class=\"number\" maxlength=\"8\" /></td>\n";
 $text.= "</tr><tr>\n";
 $text.= "<td>\n";
 $l = _("VAT report");
@@ -353,7 +360,7 @@ $text.= "</select></td>\n";
 $l = _("VAT percent");
 $text.= "<td>$l: </td>\n";
 // print "<td>׳³ן¿½׳³ג€”׳³ג€¢׳³ג€“ ׳³ן¿½׳³ֲ¢\"׳³ן¿½: ";
-$text.= "<td><input type=\"text\" name=\"vat\" value=\"$vat\" size=\"5\"></td>\n";
+$text.= "<td><input type=\"text\" name=\"vat\" value=\"$vat\" size=\"5\" class=\"number\" maxlength=\"8\" /></td>\n";
 $text.= "</tr>\n";
 $l = _("Credit card clearing");
 $text.= "<tr><td colspan=\"4\"><b>$l</b></td></tr>";
@@ -361,9 +368,9 @@ $text.= "<tr><td>";
 $l = _("Clearing House");
 $text.="$l:</td><td>";
 $creditclearing=array(
-0=>'None',
-1=>'EasyCard',
-2=>'Tranzila'
+	0=>'None',
+	1=>'EasyCard',
+	2=>'Tranzila'
 );
 $text.="<select name=\"credit\">";
 foreach($creditclearing as $key=>$value)
@@ -394,7 +401,8 @@ foreach($credittype as $key=>$value){
 
 $text.= "<tr><td colspan=\"4\" align=\"center\">\n";
 $l = _("Update");
-$text.= "<br><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>&nbsp;&nbsp;";
+//$text.= "<br><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a>&nbsp;&nbsp;";
+$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";	
 // print "<input type=\"button\" onclick=\"parent.location='index.php?module=defs'\" value=\"׳³ג€˜׳³ֻ�׳³ן¿½ ׳³ֲ©׳³ג„¢׳³ֲ ׳³ג€¢׳³ג„¢׳³ג„¢׳³ן¿½\">\n";
 $text.= "</td></tr>\n";
 $text.= "</table>\n";

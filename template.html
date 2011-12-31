@@ -3,13 +3,18 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
-	<meta http-equiv="X-UA-Compatible" content="IE=7" />
-	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7" />
+	<link rel="shortcut icon" href="img/logo.ico" type="image/x-icon" >
 	<link rel="stylesheet" type="text/css" href="style/mcalendar.css" />
 	<link rel="stylesheet" href="js/jquery-ui-1.8.13.custom.css" type="text/css" />
 	<link rel="stylesheet" href="js/jquery.tablesorter.min.css" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="style/linet.css" />
+	<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="style/devill.css" />
+<![endif]-->
 	<script type="text/javascript" src='js/jquery.min.js'></script>
+	<script type="text/javascript" src="js/jquery.validate.js"></script> 
+	<script type="text/javascript" src="js/jquery.validationEngine-he.js"></script> 
 	<script type="text/javascript" src='js/jquery.ui.custom.min.js'></script>
 	<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script> 
 	<script type="text/javascript" src="js/java.js"></script>
@@ -19,12 +24,10 @@
 	
 </head>
 	<body>
-		<a href="?ismobile=1">Mobile</a>
 		<div id="wrapper">
 			<div class="headerA">
 				<div id ="right_hdr">
 					~complogo~
-					<h1>~title~</h1>
 				</div>
 				<div id ="logo">
 						<img src="img/logo.png" alt="linet logo" />
@@ -51,6 +54,7 @@
 	</div><!--div wrapper  end-->
 	</body>
 	<script type="text/javascript">
+	$(document).ready(function(){
 		$(".tablesorter").tablesorter();
 		
 		var elements = $('.date');
@@ -63,7 +67,12 @@
 			$('#'+id).datepicker( "option", "dateFormat", "dd-mm-yy" );
 			$('#'+id).val(value);
 			$('#'+id).after('<img src="img/icon_cel.png" width="18" onclick="$(\'#'+id+'\').focus()"/>');
+			
+			
+			 
 				
 		}
+		$(".valform").validate();
+	});
 	</script>
 </html>

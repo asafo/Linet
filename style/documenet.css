@@ -46,3 +46,15 @@ table {
     .row.frow  div.clear{
      border: 0px solid #b1b1b1;
     }
+    
+ .printme{
+ /*background-color:#6077DB;
+  border-radius: 0 0 15px 15px;
+   
+    padding: 4px 10px 10px;*/
+     left: 50%;
+    position: fixed;
+    text-align: center;
+    top: 0;
+ }   
+ 

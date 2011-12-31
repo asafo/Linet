@@ -64,3 +64,43 @@ function qtySub(name,num,amnt){
 	d.value=(d.value)-amnt;
 	CalcPrice(num);
 }
+
+function submitFormy(formy,url1){
+	 $("#"+formy).validate({
+		   submitHandler: function(form) {
+			  // var dataType ='html';
+			 //  $.post(url,$("#"+formy).serialize(),function(){window.close();},dataType); 
+			 //$.post(url [, data] [, success(data, textStatus, jqXHR)] [, dataType] )
+			  
+			   $.ajax({
+				   type: "POST",
+				   url: url1,
+				   data: $("#"+formy).serialize(),
+				   dataType:'html'
+				 }).done(function( msg ) {
+				   //alert( "Data Saved: " + msg );
+				   window.close();
+				 });
+					 
+				//*/
+			   
+				 
+		   }
+		});
+	}
+
+//form saver data loader
+function setCookie( name, value, expires, path, domain, secure ) {
+	var today = new Date();
+	today.setTime( today.getTime() );
+	if ( expires ) {
+		expires = expires * 1000 * 60 * 60 * 24;
+	}
+	var expires_date = new Date( today.getTime() + (expires) );
+	document.cookie = name+"="+escape( value ) +
+	( ( expires ) ? ";expires="+expires_date.toGMTString() : "" ) +
+	( ( path ) ? ";path=" + path : "" ) +
+	( ( domain ) ? ";domain=" + domain : "" ) +
+	( ( secure ) ? ";secure" : "" );
+}
+

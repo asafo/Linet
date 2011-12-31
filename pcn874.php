@@ -41,7 +41,7 @@ $text.="<script type=\"text/javascript\">$(function() {
 	$text.= "</td>\n";
 	$text.= "</tr><tr><td colspan=\"2\">&nbsp;</td></tr><tr>\n";
 	$l = _("Submit");
-	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" /></td>\n";
+	$text.= "<td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td>\n";
 	$text.= "</tr>\n";
 	$text.= "</table>\n</form>\n";
 	//print "</div>\n";
@@ -147,9 +147,11 @@ else if($step == 1) {
 	}
 	
 	/*end for*/
-	
+	$fSumVat=$fSumVat*-1;
 	$fAll=$fSumVat+$fSumVatA-$fExpSumOthers-$fExpSumGears;
-	//print summary
+	//$fAll=$fAll*-1;
+	$fDate=substr($fDate, 2,4).substr($fDate,0,2);
+	//print summaryfD
 	//first line
 	$fHp=strrip($fHp,9);//9
 	$fDate=strrip($fDate,6);//6
@@ -158,7 +160,7 @@ else if($step == 1) {
 	
 	
 	$fSum=strrip($fSum,11,'+');//11
-	$fSumVat=strrip($fSumVat,11,'+');//9+
+	$fSumVat=strrip($fSumVat,9,'+');//9+
 	$fSumA=strrip($fSumA,11,'+');//11+
 	$fSumVatA=strrip($fSumVatA,9,'+');//9+
 	$fInvNum=strrip($fInvNum,9);//9

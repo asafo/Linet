@@ -2,7 +2,7 @@
 /*
  | Incoming cheques handling script for Drorit Free accounting software
  | Written by Ori Idan Helicon technologies Ltd. 2004
- |
+ | Modfied by Adam BH
  | This program is a free software licensed under the GPL 
  */
 
@@ -76,7 +76,6 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 //print "<div class=\"form righthalf1\">\n";
 $haeder = _("Cheque, credit and cash deposit");
 $text= '';//"<h3>$l</h3>\n";
-// print "<h3>׳³ג€�׳³ג‚×׳³ֲ§׳³ג€�׳³ֳ— ׳³ֲ©׳³ֲ§׳³ג„¢׳³ן¿½, ׳³ן¿½׳³ג€“׳³ג€¢׳³ן¿½׳³ֲ ׳³ג„¢׳³ן¿½ ׳³ג€¢׳³ֲ¨׳³ג„¢׳³ֲ©׳³ג€¢׳³ן¿½ ׳³ֲ¡׳³ן¿½׳³ג„¢׳³ֲ§׳³ג€�</h3>\n";
 
 if($action == 'submit') {
 	$account = $_POST['account'];
@@ -113,7 +112,7 @@ if($action == 'submit') {
 		list($val, $sum) = split(":", $ch);
 	//	print "val: $val, sum: $sum<br>\n";
 		/* first check if this cheque already deposited */
-		$query = "SELECT dep_date,type FROM $chequestbl WHERE cheque_num='$val' AND prefix='$prefix'";
+		$query = "SELECT dep_date,type,creditcompany FROM $chequestbl WHERE cheid='$val' AND prefix='$prefix'";
 		$result = DoQuery($query, "Check cheque");
 		if(!$result)
 			break;
@@ -126,9 +125,13 @@ if($action == 'submit') {
 			// First part ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ֲ§׳³ג€¢׳³ג‚×׳³ֳ— ׳³ֲ©׳³ג„¢׳³ֲ§׳³ג„¢׳³ן¿½ 
 			$total = (float)$sum;
 			if($t == 1)
-				$cheque_acct = CASH;
-			else
-				$cheque_acct = CHEQUE;
+				$cheque_acct=CASH;
+			else if($t==2)
+				$cheque_acct=CHEQUE;
+			else if ($t==3)
+				$cheque_acct=CREDIT;
+			else if ($t==4)
+				$cheque_acct=$line['creditcompany'];
 			$tnum = Transaction($tnum, CHEQUEDEPOSIT, $cheque_acct, $bank_refnum, $val, $dep_date, '', $total);
 
 			// Second part ׳³ג€”׳³ג€¢׳³ג€˜׳³ֳ— ׳³ג€�׳³ג€˜׳³ֲ ׳³ֲ§
@@ -138,7 +141,7 @@ if($action == 'submit') {
 			$query = "UPDATE $chequestbl SET ";
 			$query .= "bank_refnum='$bank_refnum', \n";
 			$query .= "dep_date='$dep_date1' \n";
-			$query .= "WHERE cheque_num='$val' AND dep_date='0000-00-00' AND prefix='$prefix'";
+			$query .= "WHERE cheid='$val' AND prefix='$prefix'";
 			//	print "Query: $query<br>\n";
 			$result = DoQuery($query, __LINE__);
 		}
@@ -186,33 +189,39 @@ $text.= "<th class=\"header\">$l</td>\n";
 $l = _("Sum");
 $text.= "<th class=\"header\">$l</th>\n";
 $text.= "</tr>\n";
-
+global $docstbl,$prefix;
 $query = "SELECT * FROM $chequestbl WHERE bank_refnum='' AND prefix='$prefix'";	/* all cheques with no bank refnum */
 $result = DoQuery($query, __LINE__);
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	$type = $line['type'];
-	$refnum = $line['refnum'];
-	$cheque_num = $line['cheque_num'];
-	$bank = $line['bank'];
-	$branch = $line['branch'];
-	$cheque_acct = $line['cheque_acct'];
-	$cheque_date = FormatDate($line['cheque_date'], "mysql", "dmy");
-	$sum = $line['sum'];
-	$text.= "<tr>\n";
-	$text.= "<td><input type=\"checkbox\" id=\"cheque\" name=\"cheque[]\" value=\"$cheque_num:$sum\" onchange=\"CalcSum()\"></td>\n";
-	$doctype = DOC_RECEIPT;
-	$url = "printdoc.php?doctype=$doctype&amp;docnum=$refnum&amp;prefix=$prefix";
-	$typestr = $paymenttype[$type];
-	$text.= "<td>$typestr</td>\n";
-	$text.= "<td><a href=\"javascript:void()\" onclick=PrintDocument(\"$url\")>$refnum</A></TD>\n";
-	$text.= "<td>$cheque_num</td>\n";
-	$text.= "<td>$bank</td>\n";
-	$text.= "<td>$branch</td>\n";
-	$text.= "<td>$cheque_acct</td>\n";
-	$text.= "<td>$cheque_date</td>\n";
-	$text.= "<td>$sum<input type=\"hidden\" id=\"sum\" name=\"sum[]\" value=\"$sum\"></td>\n";
-	//$text.= "\n";
-	$text.= "</tr>\n";
+	if($line['type']!=4){//if not bank transfer display
+		$cheid=$line['cheid'];
+		$type = $line['type'];
+		$refnum = $line['refnum'];
+		$doc=selectSql(array('num'=>$refnum,'prefix'=>$prefix), $docstbl);
+		$refnum=$doc[0]['docnum'];
+		$doctype=$doc[0]['doctype'];
+		$cheque_num = $line['cheque_num'];
+		$bank = $line['bank'];
+		$branch = $line['branch'];
+		$cheque_acct = $line['cheque_acct'];
+		$cheque_date = FormatDate($line['cheque_date'], "mysql", "dmy");
+		$sum = $line['sum'];
+		$text.= "<tr>\n";
+		$text.= "<td><input type=\"checkbox\" id=\"cheque\" name=\"cheque[]\" value=\"$cheid:$sum\" onchange=\"CalcSum()\"></td>\n";
+		//$doctype = DOC_RECEIPT;
+		$url = "printdoc.php?doctype=$doctype&amp;docnum=$refnum&amp;prefix=$prefix";
+		$typestr = $paymenttype[$type];
+		$text.= "<td>$typestr</td>\n";
+		$text.= "<td><a href=\"javascript:void()\" onclick=PrintDocument(\"$url\")>$refnum</A></TD>\n";
+		$text.= "<td>$cheque_num</td>\n";
+		$text.= "<td>$bank</td>\n";
+		$text.= "<td>$branch</td>\n";
+		$text.= "<td>$cheque_acct</td>\n";
+		$text.= "<td>$cheque_date</td>\n";
+		$text.= "<td>$sum<input type=\"hidden\" id=\"sum\" name=\"sum[]\" value=\"$sum\"></td>\n";
+		//$text.= "\n";
+		$text.= "</tr>\n";
+	}
 }
 $text.= "<tr><td colspan=\"7\">&nbsp;</td>\n";		/* spacer */
 $l = _("Total");
@@ -222,7 +231,7 @@ $text.= "</tr>\n";
 $text.= "</table>\n";
 $text.= "</td></tr>\n";
 $l = _("Deposit");
-$text.= "<tr><td colspan=\"2\" align=\"center\"><a href=\"javascript:document.form1.submit();\" class=\"btnaction\">$l</a></td>\n";
+$text.= "<tr><td colspan=\"2\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td>\n";
 $text.= "</table>\n";
 $text.= "</form>\n";
 if(!$ismobile)
