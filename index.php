@@ -142,10 +142,10 @@ if($ismobile==1){
 $cheaked=isset($_COOKIE['cheaked'])?$cheaked=true:$cheaked=false;
 $sVersion=isset($_COOKIE['sversion'])?$sVersion=$_COOKIE['sversion']:$sVersion=getVersion(); 
 setcookie('sversion', $sVersion, time() + 24 * 3600);
-$_SESSION['updatepop']=false;
+//$_SESSION['updatepop']=false;
 if (!$cheaked){
 	if($version<$sVersion){
-		$_SESSION['updatepop']=true;
+		//$_SESSION['updatepop']=true;
 		
 		setcookie('cheaked', true, time() + 24 * 3600);//die;
 		setcookie('sversion', $sVersion, time() + 24 * 3600);//die;
@@ -314,35 +314,36 @@ function TemplateReplace($r) {
 		print $servernotice;
 		//global 
 		//$updatepop=true;//rethink
-		if ($_SESSION['updatepop']) {
-			$title=_("Your Linet accounting version is obsolete");
-			$msg=_("Working with un updated version undermines the status of Linet 2.0 instance of yours as a legal and approved system for computerized book keeping system in Israel.
-Kindly execute Linet update wizard here in order to resolve this issue ");
-			$msg1="<a href=\"module/update\">"._("Here")."</a>";
-			print '
-			<div id="dialog-confirm" title="'._("Update Notice").'">
-				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span>'.$title.'</span><br />'.$msg."&nbsp;".$msg1.'</p>
-			</div>
-			<script>
-				$(function() {
-					$( "#dialog:ui-dialog" ).dialog( "destroy" );
-					$( "#dialog-confirm" ).dialog({
-						resizable: false,height:200,width:300,modal: true,
-						buttons: {
-							"'._("Update Now").'": function() {
-								$( this ).dialog( "close" );
-								window.location.replace("module/update/");
-							},
-							"'._("no thanks").'": function() {
-								$( this ).dialog( "close" );
-							}
-						}
-					});
-				});
-			</script>';
-		}
+		
 		global $version,$sVersion;
 		if($version<$sVersion){
+			if (!isset($_SESSION['updatepop'])) {
+				$_SESSION['updatepop']=true;
+				$title=_("Your Linet accounting version is obsolete");
+				$msg=_("Working with un updated version undermines the status of Linet 2.0 instance of yours as a legal and approved system for computerized book keeping system in Israel.	Kindly execute Linet update wizard here in order to resolve this issue ");
+				$msg1="<a href=\"module/update\">"._("Here")."</a>";
+				print '
+				<div id="dialog-confirm" title="'._("Update Notice").'">
+					<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span>'.$title.'</span><br />'.$msg."&nbsp;".$msg1.'</p>
+				</div>
+				<script>
+					$(function() {
+						$( "#dialog:ui-dialog" ).dialog( "destroy" );
+						$( "#dialog-confirm" ).dialog({
+							resizable: false,height:200,width:300,modal: true,
+							buttons: {
+								"'._("Update Now").'": function() {
+									$( this ).dialog( "close" );
+									window.location.replace("module/update/");
+								},
+								"'._("no thanks").'": function() {
+									$( this ).dialog( "close" );
+								}
+							}
+						});
+					});
+				</script>';
+			}
 			$format=_('Working in a ');
 			$link='<a href="module/update">'._('OLD Version').'</a>';
 			print "<div class=\"warning\">$format $link</div>";

@@ -27,6 +27,7 @@ global $num_D110;
 global $num_C100;
 global $num_B110;
 global $num_B100;
+global $num_M100;
 
 function utf8_to_windows1255($utf8) {
 	return iconv("utf-8", "windows-1255", $utf8);
@@ -412,6 +413,41 @@ function ExportTransactions($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate)
 	}
 	return $bkrecnum;
 }
+function ExportItem($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate) {
+	global $prefix;
+	global $itemstbl;
+	global $num_M100;
+	
+	$query = "SELECT * FROM $itemstbl WHERE prefix='$prefix'";
+	$result = DoQuery($query, "ExportAcct");
+	$n = 0;
+	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$n++;
+		$itemnum = $line['num'];
+		$acct = $line['account'];
+		$name=$line['name'];
+		$extcatnum=$line['extcatnum'];
+		$price=$line['defprice'];
+		$price = str_replace('.', '', $price);
+		$unit=$line['unit'];
+		$ammount=$line['ammount'];
+		$acct = utf8_to_windows1255(GetAccountName($acct));
+		$name = utf8_to_windows1255($name);
+
+		$str = sprintf("M100%09d%09d%20s%20s%20s%50s",
+			$bkrecnum, $regnum, $itemnum, $extcatnum, $itemnum, $name);
+		fwrite($bkmvdata, $str);
+		$bkrecnum++;
+
+		$str = sprintf("%10s%30s%20s+%011s+%011s+%011s%010s%010s%50s\r\n",
+			'','',$unit,$ammount,0,0,$price,$price,''); 
+		fwrite($bkmvdata, $str);
+	
+		$num_M100++;
+
+	}
+	return $bkrecnum;
+}
 $text='';
 if($step == 0) {	/* First stage, choose dates for report */
 	/* Get begin and end dates */
@@ -528,6 +564,7 @@ else if($step == 1) {
 	$bkrecnum = ExportAcct($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate);
 //	print "Accounts: $bkrecnum<br>\n";
 	$bkrecnum = ExportTransactions($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate);
+	$bkrecnum = ExportItem($bkmvdata, $bkrecnum, $regnum, $begindate, $enddate);
 //	print "Transactions: $bkrecnum<br>\n";
 	
 	$str = sprintf("Z900%09d%09d%015u&OF1.31&%015d%50s", 
@@ -565,7 +602,9 @@ else if($step == 1) {
 	fwrite($inifd, $str);
 	$str = sprintf("D110%015d\r\n", $num_D110);
 	fwrite($inifd, $str);
-	$str = sprintf("D120%015d", $num_D120);
+	$str = sprintf("D120%015d\r\n", $num_D120);
+	fwrite($inifd, $str);
+	$str = sprintf("M100%015d", $num_M100);
 	fwrite($inifd, $str);
 	fclose($inifd);
 	chdir($cwd);

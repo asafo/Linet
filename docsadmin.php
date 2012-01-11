@@ -328,7 +328,7 @@ function billMe1(){
 function invrcptMe(url){
 	 $("#documenet").validate({
 		   submitHandler: function(form) {
-				if($('#rcptsum').val()==$('#sum').val()){
+				if($('#rcptsum').val()==$('#total').val()){
 					billMe1();
 				}else{
 					alert('<?php print _("Invoice sum is not equil to recipt sum");?>');
