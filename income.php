@@ -109,36 +109,7 @@ function inchange() {
 </script>
 
 <?PHP
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
 
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-/*
-function PrintCustomerSelect($def) {
-	global $accountstbl;
-	global $prefix;
-	
-	$t = CUSTOMER;
-	$query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' AND type='$t'  ORDER BY company ASC";
-	$result = DoQuery($query, "income.php");
-	print "<select name=\"customer\" style=\"z-index:0\">\n";
-	print "<option value=\"__NULL__\">-- בחר לקוח --</option>\n";
-	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
-		$n = $line[0];
-		$company = $line[1];
-		if($n == $def)
-			print "<option value=\"$n\" selected>$company</option>\n";
-		else
-			print "<option value=\"$n\">$company</option>\n";
-	}
-	print "</select>\n";
-}
-*/
 function PrintIncomeSelect($def) {
 	global $accountstbl;
 	global $prefix;

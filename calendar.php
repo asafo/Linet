@@ -26,17 +26,6 @@ if(!function_exists('GetAcctType')) {
 	}
 }
 
-if(!function_exists('GetAccountName')) {
-	function GetAccountName($val) {
-		global $accountstbl;
-		global $prefix;
-
-		$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-		$result = DoQuery($query, "GetAccountName");
-		$line = mysql_fetch_array($result, MYSQL_NUM);
-		return $line[0];
-	}
-}
 
 function NumEvents($d, $m, $y) {
 	global $transactionstbl, $docstbl, $chequestbl, $histtbl, $prefix;
@@ -324,16 +313,17 @@ function FindEvents($d, $m, $y) {
 		$cheque_num = $line['cheque_num'];
 		$sum = $line['sum'];
 		$refnum = $line['refnum'];
-		$q = "SELECT company FROM $docstbl WHERE num='$refnum'";
+		$q = "SELECT company,account FROM $docstbl WHERE num='$refnum'";
 		$r = DoQuery($q, "FindEvents");
 		$l = mysql_fetch_array($r, MYSQL_NUM);
 		$company = $l[0];
+		$num=$l[1];
 		//NewRow();
 		$text.="<tr>";
 		$l = _("Cheque deposit");
 		$text.= "<td>$l $cheque_num ";
 //		$text.= "<td>׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¬׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ²ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ²׳²ֲ²ײ²ֲ²׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ§׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¬׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ²׳²ֲ²ײ²ֲ²׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ²׳²ֲ²ײ²ֲ²׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ§ $cheque_num ";
-		$text.= _("From: ") . "$company ";
+		$text.= _("From: ") . "<a href=\"?module=acctdisp&amp;account=$num&amp;begin=$begindate&amp;end=$enddate\">$company</a> ";
 //		$text.= "׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¿׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ½$company ";
 		$text.= _("Total of") . ": $sum" . _("NIS");
 //		$text.= "׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ²׳²ֲ²ײ²ֲ²׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¿׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ²׳²ֲ²ײ²ֲ²׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¡׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¿׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ½: $sum ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ²׳²ֲ²ײ²ֲ²׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ©\"׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ³׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג€�ֲ¢׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¬׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳³ן¿½ײ²ֲ¿ײ²ֲ½";
@@ -349,7 +339,7 @@ function FindEvents($d, $m, $y) {
 		$l = _("Contact with");
 		//NewRow();
 		$text.="<tr>";
-		$text.= "<td>$l $acctname<br>";
+		$text.= "<td>$l <a href=\"?module=acctdisp&amp;account=$num&amp;begin=$begindate&amp;end=$enddate\">$acctname</a><br>";
 		$text.= "$details";
 		$text.= "</td></tr>\n";
 	}

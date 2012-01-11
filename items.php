@@ -14,16 +14,6 @@ if(!isset($prefix) || ($prefix == '')) {
 	return;
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-
 function PrintIncomeSelect($def) {
 	global $accountstbl;
 	global $prefix;

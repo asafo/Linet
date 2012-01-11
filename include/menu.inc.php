@@ -12,6 +12,7 @@ $MainMenu = array(
 	_("Settings") . "|module=main" => array(
 			 _("Bussines details") . '|?module=defs',
 			 _("Accounts") . '|?module=acctadmin',
+			 _("Manual Journal Voucher") . '|?module=voucher',
 			 _("Business docs") . '|?module=docnums',
 		
 			 _("Items") . '|?module=items',
@@ -56,11 +57,13 @@ $MainMenu = array(
 	  _("Reconciliations") . '|#'=>array(
 		 _("Bank docs entry") . '|?module=bankbook',
 		 _("Bank recon.") . '|?module=extmatch',
+		 _("Show bank recon.") . '|?module=edispmatch',		 
+		 _("Accts. recon.") . '|?module=intmatch',
 		 _("Show recon.") . '|?module=dispmatch',
-		 _("Accts. recon.") . '|?module=intmatch'
 	 ),
 	 _("Reports") . '|#'=> array(
-			 _("Incomes outcomes") . '|?module=tranrep',
+			// _("Incomes outcomes") . '|?module=tranrep',
+			 _("Display transactions").'|?module=journal',
 			 _("Customers owes") . '|?module=owe',
 			 _("Profit & loss") . '|?module=profloss',
 			 _("Monthly Prof. & loss") . '|?module=mprofloss',
@@ -68,7 +71,7 @@ $MainMenu = array(
 			 _("Balance") . '|?module=balance',
 			 _("Income tax advances").'|?module=taxrep',
 			// _("Nikoi mass Bamkor").'|?module=srctax',
-			 _("Receipts and payments").'|?module=inout'
+			// _("Receipts and payments").'|?module=inout'
 	 ),
 	 _("Import Export") . '|#' => array(
 			 _("Open docs") . '|?module=openfrmt',

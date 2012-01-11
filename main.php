@@ -134,16 +134,6 @@ function GetGroupTotal($grp, $begin, $end) {
 	return $total;
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-
 /****************** dates form ***************************/
 $begindmy = isset($_GET['begin']) ? $_GET['begin'] : date("1-1-Y");
 $enddmy = isset($_GET['end']) ? $_GET['end'] : date("d-m-Y");
@@ -184,7 +174,7 @@ $text.= "</form>\n<br /><br /><br /><br /><br />";
 
 
 // style=\"font-weight:normal;font-size:14px;\"
-$text.= "<table class=\"sums\" style=\"width:200px;display:inline-block;\">\n";
+$text.= "<div style=\"width:200px;display:inline-block;\"><table class=\"sums\">\n";
 //NewRow();
 $n = number_format($income);
 $l = _("Total income");
@@ -226,17 +216,17 @@ if($t < 0.0)
 $n = number_format($t);
 $l = _("Total suppliers");
 $text.= "<td><a href=\"?module=acctadmin&amp;type=1&amp;option=rep\">$l</a></td><td style=\"color:black;font-weight:normal;font-size:14px;\">$n</td>\n";
-$text.= "</tr></table>\n";
+$text.= "</tr></table>\n</div>";
 
 //finaly some action
- $text.=' <script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
+ $text.='<!--[if IE]><script language="javascript" type="text/javascript" src="js/excanvas.js"></script><![endif]-->
+ <script language="javascript" type="text/javascript" src="js/jquery.jqplot.min.js"></script>
  <script type="text/javascript" src="js/jqplot.barRenderer.min.js"></script>
  <script type="text/javascript" src="js/jqplot.categoryAxisRenderer.min.js"></script>
  <script type="text/javascript" src="js/jqplot.pointLabels.min.js"></script>
  <link rel="stylesheet" type="text/css" href="js/jquery.jqplot.min.css" />
  
- <div id="chartdiv" style="height:180px;width:200px; display: inline-block;"></div> 
-';
+ <div id="chartdiv" style="height:180px;width:200px; display: inline-block;"></div> ';
 $text.='<script language="javascript" type="text/javascript">
   var s1 = ['.$income.','.-1*$outcome.'];
      var ticks = [\''._("Income").'\',\''._("Outcome").'\'];

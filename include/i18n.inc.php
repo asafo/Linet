@@ -40,7 +40,7 @@ $txt_domain = 'messages';
 setlocale(LC_ALL, $iface_lang);
 
 
-//@putenv('LANG='.$iface_lang);
+@putenv('LANG='.$iface_lang);
 //@putenv('LANGUAGE='.$iface_lang);
 
 textdomain($txt_domain);

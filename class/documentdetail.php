@@ -10,11 +10,15 @@ class documentDetail extends fields{
 		unset($array['_table']);
 		unset($array['_prefix']);
 		$array['prefix']=$this->_prefix;
-			if (isset($array['num']))
-					if (inseretSql($array,$this->_table))
-						return true;
-					else
-						return false;
+		
+		if (isset($array['num'])){
+			$array['id']=maxSql(array("prefix"=>$this->_prefix,"num"=>$array['num']),"id", $this->_table);
+			$this->id=$array['id'];
+				if (inseretSql($array,$this->_table))
+					return true;
+				else
+					return false;
+		}
 	}
 	public function transaction($tnum,$transtype,$docnum,$company,$issue_date,$doctype,$refnum){
 		//print "we r in";

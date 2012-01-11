@@ -31,7 +31,11 @@ function BackupTable($fd, $tbl) {
 	$query = "SELECT * FROM $tbl WHERE prefix='$prefix';";
 	$result = DoQuery($query, "BackupTable");
 	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
-		fwrite($fd, "INSERT INTO $tbl VALUES (");
+		if($tbl=='login')
+			$query="INSERT IGNORE INTO";//
+		else
+			$query="INSERT INTO";
+		fwrite($fd, "$query $tbl VALUES (");
 		foreach($line as $key => $val) {
 			if($key > 0)
 				fwrite($fd, ", ");
@@ -131,7 +135,7 @@ if($step == 'dorestore') {
 		}
 	}
 	$l = _("Data restored successfully");
-	print "<br><h1>$l</h1>\n";
+	$text.= "<br><h1>$l</h1>\n";
 	$step = 'restore';
 }
 if($step == 'restore') {

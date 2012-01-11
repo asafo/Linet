@@ -6,7 +6,8 @@ sendmail
 xvfb
 wkhtmltopdf
 
-curl,ssl,
+apache: curl,ssl,
+php: php_mbstring,php_gettext,php_mysql,php_curl,php_zip
 fopen remote  allow
 register globals off
 
@@ -14,7 +15,10 @@ add
 -class/fields.php
 -img/icon_backpup.png
 -img/icon_restore.png
+-journal.php
 -credit.php
+-voucher.php
+-edispmatch.php
 -mobile/*
 -img/right_arrow_16x16.png
 -img/btnShow.png
@@ -22,8 +26,10 @@ add
 -img/btnprint.png
 -img/docgo.png
 -img/logo.ico
+-img/icon.png
 -js/jquery.mobile.min.js
 -js/jquery.mobile-1.0.css
+-js/excanvas.js
 -js/jquery.validate.js
 -js/jquery.validationEngine-he.js
 -style/devill.css

@@ -76,20 +76,6 @@ function GetOppositAccount($num, $sum) {
 	return $retacct;
 }
 
-function GetAccountName($account) {
-	global $accountstbl, $prefix;
-	
-	$query = "SELECT company FROM $accountstbl WHERE num='$account' AND prefix='$prefix'";
-	$result = mysql_query($query);
-	if(!$result) {
-		print "Query: $query<br />\n";
-		echo mysql_error();
-		exit;
-	}
-	$line = mysql_fetch_array($result, MYSQL_ASSOC);
-	$name = $line['company'];
-	return $name;
-}
 
 function GetAccountType($account) {
 	global $accountstbl, $prefix;
@@ -109,8 +95,11 @@ function GetAccountType($account) {
 $acct = $_GET['account'];
 $accttype = GetAccountType($acct);
 $company = GetAccountName($acct);
-$begin = isset($_REQUEST['begin']) ? $_REQUEST['begin'] : '';
-$end = isset($_REQUEST['end']) ? $_REQUEST['end'] : date('d-m-Y');
+global $begin,$end;
+//$begin =GetPoster('begin');//isset($_REQUEST['begin']) ? $_REQUEST['begin'] : '';
+//$end = GetPoster('end');//isset($_REQUEST['end']) ? $_REQUEST['end'] : date('d-m-Y');
+//if($end=='') $end=date('d-m-Y');// 
+//if($begin=='')$begin=1;
 $filerep = isset($_REQUEST['file']) ? $_REQUEST['file'] : 0;
 
 if($end != '') {
@@ -270,7 +259,7 @@ if($end != '') {
 		$date = FormatDate($line['date'], "mysql", "dmy");
 		$type = $line['type'];
 		$type_str = stripslashes($TranType[$type]);
-		$refnum1 = substr($line['refnum1'], -6);
+		$refnum1 = $line['refnum1'];
 		$details = $line['details'];
 		$sum = $line['sum'];
 		$opp_account = GetOppositAccount($num, $sum);
@@ -280,7 +269,7 @@ if($end != '') {
 			fwrite($fd, iconv("UTF-8", "windows-1255", "$num,$type_str,$date,$refnum1,$details,$acc_name,"));
 			if($sum < 0) {
 				$sum = $sum * -1.0;
-				fwrite($fd, iconv("UTF-8", "windows-1255", "$sum, "));
+				fwrite($fd, iconv("UTF-8", "windows-1255", "$sum,, "));
 				$debit_total += $sum;
 			}
 			else {
@@ -290,14 +279,7 @@ if($end != '') {
 			fwrite($fd, iconv("UTF-8", "windows-1255", "$sub_total\n"));
 		}
 		else {
-			//if($e) {
-			//	$curtablebody.= "<tr class=\"otherline\">\n";
-			//	$e = 0;
-			//}
-			//else {
-				$curtablebody.= "<tr>\n";
-			//	$e = 1;
-			//}
+			$curtablebody.= "<tr>\n";
 			$curtablebody.= "<td>$num</td>\n";
 			global $TransType;
 			$flip=array_flip($TransType);
@@ -334,7 +316,7 @@ if($end != '') {
 			if(isset($module)) {
 				$l = _("Storeno");
 				$curtablebody.= "<td><a href=\"?module=tedit&amp;num=$num&amp;account=$acct&amp;begin=$begin&amp;end=$end\">$l</a></td>\n";
-			}//else$curtablebody.= "<td></td>";
+			}
 			$curtablebody.= "</tr>\n";
 		}	
 	}
@@ -343,7 +325,7 @@ if($end != '') {
 		$l = _("Click here to download report");
 		$text.= "<h2>$l: ";
 		$url = "download.php?file=$filename&amp;name=acct$acct.csv";
-		$text.= "<a href=\"$filename\">acct$acct.csv</a></h2>\n";
+		$text.= "<a href=\"$url\">acct$acct.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
 		//$text.= "<h2>$l</h2>\n";
 		//$text.= "<script type=\"text/javascript\">\n";
@@ -366,24 +348,9 @@ if($end != '') {
 		$curtablefoot.= "<td></td></tr></tfoot>\n";
 		$curtablebody.="</tbody>";
 		$text.= "<table class=\"tablesorter\" id=\"acctbl\">$curtablehd $curtablefoot $curtablebody</table>\n";
-//<script type=\"text/javascript\">\$(\"#acctbl\").tablesorter(); </script>";
- 		//printform
-		
-//	print "</div>\n";
-	 /*	if(isset($module)) {
-			$url = "acctdisp.php?account=$acct&begin=$begin&end=$end&prefix=$prefix";
-			//$url .= "";
-			$text.= "<div class=\"repbottom\">\n";
-			$l = _("Export");
-			//print "<a href=\"javascript:PrintWin('$url');\" class='btn'>$l</a>";
-			//print "<input type=\"button\" value=\"$l\" onclick=\"PrintWin('$url')\">\n";
-			$text.= "&nbsp;&nbsp;";
-			//print "<input type=\"button\" value=\"׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¦׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½ ׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳�ֲ¿ֲ½׳²ֲ²ײ²ֲ¿׳²ֲ²ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ§׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ²ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ³׳’ג‚¬ג„¢׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¬׳²ֲ»׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ³׳³ֲ²ײ²ֲ²׳²ֲ²ײ²ֲ¥\" onclick=\"window.location.href='?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1'\">\n";
-			$text.= "<a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btnsmall'>$l</a>";
-			$text.= "</div>\n";
-		}*/
+
 	}
-	//return;
+	
 }
 
 $l = _("Display transactions for account");
@@ -405,14 +372,15 @@ $text.= "		<td><input class=\"date\" type=\"text\" id=\"end\" name=\"end\" value
 $text.= "	</tr><tr>\n";
 $l = _("Display");
 $l1=_("Export");
+$l2=newWindow(_("Print"),"?action=lister&form=acctdisp&account=$acct&begin=$begin&end=$end",'','',_("Print Window"),"btnsmall");
 $text.= "		<td colspan=\"4\" align=\"center\">
 <a href=\"javascript:document.accdisplay.submit();\" class='btnsmall'>$l</a>
 <a href=\"?module=acctdisp&account=$acct&begin=$begin&end=$end&file=1\" class='btnsmall'>$l1</a>
-
+$l2
 </td></tr>\n";
 $text.= "	</table>\n</form>\n";
-global $ismobile;
-if($ismobile)
+global $ismobile,$smallprint;
+if(($ismobile)||($smallprint))
 	print $text;
 else
 	createForm($text, $haeder,'',750,'','img/icon_acctdisp.png',1,getHelp());

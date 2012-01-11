@@ -161,17 +161,6 @@ function GetGroupTotal($grp, $begin, $end) {
 	return $total;
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-
-
 function CreateProfitGraph($income, $outcome, $profit) {
 	$data1 = array($income);
 	if($outcome < 0)

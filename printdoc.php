@@ -125,10 +125,21 @@ function SmallReplace($r) {
 	}else if($p == 'docnum')
 		return $docnum;
 	else if($p == 'footer')
-		if(($doctype==DOC_INVOICE) ||($doctype==DOC_PROFORMA)||($doctype==DOC_DELIVERY)||($doctype==DOC_PARCHACEORDER))
-				return $compy->{$p}."<br /><br />חתימת הלקוח:__________________";
-			else
-				return $compy->{$p};
+		if(($doctype==DOC_INVOICE) ||($doctype==DOC_PROFORMA)||($doctype==DOC_DELIVERY))
+			return $compy->{$p}."<br /><br /><strong>
+			אישור קבלת סחורה
+			</strong><br /><br />"."שם:_______________"."חתימת הלקוח:__________________";
+		else if($doctype==DOC_PARCHACEORDER)
+			return $compy->{$p}."<br /><br /><strong>
+			אישור הזמנת סחורה
+			</strong><br /><br />"."שם:_______________"."חתימת המזמין:__________________";
+		
+		else if($doctype==DOC_SALES)
+			return $compy->{$p}."<br /><br /><strong>
+			אישור הזמנת סחורה
+			</strong><br /><br />"."שם:_______________"."חתימת המזמין:__________________";
+		else
+			return $compy->{$p};
 	else if(($p == 'header')||($p == 'companyname')||($p == 'web')||($p == 'regnum')) {
 		return $compy->{$p};
 	}
@@ -206,13 +217,13 @@ while(!feof($file)) {
 }
 fclose($file);
 
-$bla="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">
+$bla2="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">
 <html>
 <head>
 	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
 	
 	<!--<link rel=\"stylesheet\" type=\"text/css\" href=\"$path/style/documenet.css\" />-->
-	<link rel=\"stylesheet\" type=\"text/css\" href=\"../style/documenet.css\" />
+	<link rel=\"stylesheet\" type=\"text/css\" href=\"style/documenet.css\" />
 	<title>bla</title>
 	<script type=\"text/javascript\" src='js/jquery.min.js'></script>
 </head>
@@ -244,11 +255,23 @@ $bla1="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">
 <html>
 <head>
 	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
-	
-	<link rel=\"stylesheet\" type=\"text/css\" href=\"style/documenet.css\" />
+	<link rel=\"stylesheet\" type=\"text/css\" href=\"$path/style/documenet.css\" />
+	<link rel=\"stylesheet\" type=\"text/css\" href=\"../style/documenet.css\" />
 	<title>bla</title>
 </head>
-<body dir=\"rtl\">".$bla."</body></html>";
+<body dir=\"rtl\">".$bla."
+
+
+
+<!--
+<div style=\"display: block;position: fixed; text-align:center; top: 510px; left: 0; width: 100%; height: 2em;\">
+מסמך זה הופק באמצעות
+לינט
+תוכנת הנהלת חשבונות חינם וחופשית
+</div>-->
+
+
+</body></html>";
 
 
 
@@ -294,9 +317,9 @@ if($print_win==1) {
 	}
 
 }else {
-	print $bla1;
+	print $bla2;
 	//createForm($bla,'','',780,'','',1,getHelp());
-	print "<div class=\"printme\" style=\"text-align:center;\">\n";
+	$printdiv= "<div class=\"printme\" style=\"text-align:center;\">\n";
 	$l = _("Print");
 	//print "<form><input type=\"button\" value=\"$l\" ";
 	//print "onclick=\"PrintWin()\">\n";
@@ -306,7 +329,8 @@ if($print_win==1) {
 	$l="<img src='img/btnprint.png' alt='' />";
 	//$href="printdoc.php?docnum=$docnum&amp;doctype=$doctype&amp;prefix=$prefix&amp;print_win=1";
 	//print newWindow($l, $href,20,20);
-	print "<a href='javascript:printDoc(\"$doctype\",\"$docnum\",\"$prefix\");'>$l</a>";
-	print "</div>\n";	
+	$printdiv.= "<a href='javascript:printDoc(\"$doctype\",\"$docnum\",\"$prefix\");'>$l</a>";
+	$printdiv.= "</div>\n";	
+	print $printdiv;
 }
 ?>

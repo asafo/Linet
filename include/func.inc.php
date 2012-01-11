@@ -18,18 +18,25 @@ function PrintInput($type='text',$class='',$name='bla',$id='',$value='' ,$size='
 function PrintCustomerSelect($defaccount='') {
 	
 	$text="<input type=\"text\" placeholder=\""._("Fill me …")."\" id=\"acc\" class=\"number required cat_num\" value=\"$defaccount\" name=\"account\" onblur=\"ochange()\" />\n";//name=\"cat_num[]\"
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.CUSTOMER.'&jsoncallback=?\'});});</script>';
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.CUSTOMER.'&jsoncallback=?\'});;$("#acc").val("'.$defaccount.'");});</script>';
 	return $text;
 }
 function PrintSupplierSelect($defaccount='') {	
 	$text="<input type=\"text\" placeholder=\""._("Fill me …")."\" id=\"acc\" class=\"number required\" value=\"$defaccount\" name=\"account\" onblur=\"ochange('acc')\" />\n";//name=\"cat_num[]\"
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#acc" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});;$("#acc").val("'.$defaccount.'");});</script>';
 	return $text;
 }
 function PrintSelect($defaccount='',$type){
 	$text="<input type=\"text\" placeholder=\""._("Fill me …")."\" id=\"sel$type\" class=\"\" value=\"$defaccount\" name=\"outcome\" onblur=\"ochange('sel$type')\" />\n";//name=\"cat_num[]\"
 	//$text.='<script type="text/javascript">$(document).ready(function() {$( "#outcome'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
-	$text.='<script type="text/javascript">$(document).ready(function() {$( "#sel'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.$type.'&jsoncallback=?\'});});</script>';
+	$text.='<script type="text/javascript">$(document).ready(function() {$( "#sel'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.$type.'&jsoncallback=?\'});;$("#sel'.$type.'").val("'.$defaccount.'");});</script>';
+	return $text;
+}
+function PrintAccSelect($defaccount='',$name='acc',$type,$style=''){
+	if($style!='')$style="style=\"$style\"";
+	$text="<input $style type=\"text\" placeholder=\""._("Fill me …")."\" id=\"$name\" class=\"\" value=\"$defaccount\" name=\"$name\" onblur=\"onChange('$name')\" />\n";//name=\"cat_num[]\"
+	//$text.='<script type="text/javascript">$(document).ready(function() {$( "#outcome'.$type.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.SUPPLIER.'&jsoncallback=?\'});});</script>';
+	$text.='<script type="text/javascript">	$(document).ready(function() {$( "#'.$name.'" ).autocomplete({source: \'index.php?action=lister&data=Account&type='.$type.'&jsoncallback=?\'});$("#'.$name.'").val("'.$defaccount.'");});</script>';
 	return $text;
 }
 function ErrorReport($str) {
@@ -160,7 +167,23 @@ function FormatDate($str, $intype, $outtype) {
 		return "$month-$day-$year";
 	}
 }
-
+function GetAccountName($account) {
+	global $namecache;	/* name cache for account names we already found */
+	global $prefix, $accountstbl;
+	
+	if($namecache) {
+		if(isset($namecache[$account]))
+			return $namecache[$account];
+	}
+	
+	$query = "SELECT company FROM $accountstbl WHERE num='$account' AND prefix='$prefix'";
+	$result = DoQuery($query,__FILE__.": ".__LINE__);
+	
+	$line = mysql_fetch_array($result, MYSQL_NUM);
+	$name = $line[0];
+	$namecache[$account] = $name;
+	return $name;
+}
 function DoQuery($query, $debugstr) {
 	global $sql_link;
 
@@ -183,6 +206,13 @@ function delCompany($prefix){
 	DoQuery("DELETE FROM transactions WHERE prefix = '$prefix'", $debugstr);
 	DoQuery("DELETE FROM bankbook WHERE prefix = '$prefix'", $debugstr);
 	DoQuery("DELETE FROM items WHERE prefix = '$prefix'", $debugstr);
+	DoQuery("DELETE FROM cheques WHERE prefix = '$prefix'", $debugstr);
+	DoQuery("DELETE FROM tranrep WHERE prefix = '$prefix'", $debugstr);
+	
+	DoQuery("DELETE FROM contacthist WHERE prefix = '$prefix'", $debugstr);
+	DoQuery("DELETE FROM contacts WHERE prefix = '$prefix'", $debugstr);
+	DoQuery("DELETE FROM correlation WHERE prefix = '$prefix'", $debugstr);
+	DoQuery("DELETE FROM premissions WHERE company = '$prefix'", $debugstr);
 }
 function GetURI() {
 	$server = $_SERVER['SERVER_NAME'];
@@ -216,19 +246,41 @@ function GetNextTransaction() {
 		$n = 1;
 	return $n;
 }
+function sendMail($from, $to,$subject,$body){
+	 require_once "Mail.php";
+ 		$host = "ssl://smtp.gmail.com";
+        $port = "465";
+        $username = "lntccntng@gmail.com";
+        $password = "FGHJu8y7t6r5";
 
+        $headers = array ('From' => $username,     'To' => $to,      'Subject' => $subject);
+        $smtp = Mail::factory('smtp',array ('host' => $host,'port' => $port,'auth' => true,'username' => $username, 'password' => $password));
+
+        $mail = $smtp->send($to, $headers, $body);
+
+        if (PEAR::isError($mail)) 
+          return  $mail->getMessage() ;
+        else 
+          return _("We will do our best to answer you shortly");
+         
+	
+}
 function Transaction($tnum, $type, $acct, $ref1, $ref2, $date, $details, $sum) {
 	global $transactionstbl;
 	global $prefix;
-		
+	global $curuser;
+	
+	$uid=$curuser->id;
 	if($tnum == 0) {	/* new transaction, get number */
 		$tnum = GetNextTransaction();
 	}
+	//print "one";
+	$linenum=maxSql(array("prefix"=>$prefix,"num"=>$tnum),"id", $transactionstbl);
 	if($sum == 0)
 		return $tnum;		/* special case */
-
+//print "one";
 	$date = FormatDate($date, "dmy", "mysql");
-	$query = "INSERT INTO $transactionstbl VALUES ('$prefix', '$tnum', '$type', '$acct', '$ref1', '$ref2', '$date', '$details', '$sum', '0')";
+	$query = "INSERT INTO $transactionstbl VALUES ('$prefix', '$tnum', '$type', '$acct', '$ref1', '$ref2', '$date', '$details', '$sum', '0', '$linenum','$uid')";
 	//print $query;
 	$result = mysql_query($query);
 	if(!$result) {
@@ -336,7 +388,7 @@ function osiDiv(){
 	return $text;
 }
 function createForm($text,$haeder,$sClass='',$width=200,$height=null,$logo=null,$back=null,$help=null){
-	if(isset($logo))$logo="<img src=\"$logo\" alt=\"$logo\" />";else $logo='';
+	if((isset($logo))&&(file_exists($logo)))$logo="<img src=\"$logo\" alt=\"$logo\" />";else $logo="<img src=\"img/icon.png\" alt=\"img/icon.png\" />";
 	if(isset($back)){
 		$l=_("Back");
 		$back='<div class="formback"><a href="javascript:history.go(-1)">'.$l.'&nbsp;<img src="img/icon_back.png" alt="Icon back" /></a></div>';

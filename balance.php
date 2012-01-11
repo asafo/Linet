@@ -22,16 +22,6 @@ if(!isset($prefix) || ($prefix == '')) {
 }
 
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-
 /*
  | GetTotals:
  | Return associative array of 'credit', 'debit' and 'sum'
@@ -259,6 +249,7 @@ if($step >= 1) {
 			$url .= "&amp;percent=on";
 		$l = _("File export");
 		$text.= "<a class='btnsmall' href='$url'\" >$l</a>\n";
+		$text.=newWindow(_("Print"),"?action=lister&form=balance&step=1&begindate=$begindate&enddate=$enddate",'','',_("Print Window"),"btnsmall");
 		$text.= "</div>\n";
 	}
 	else if($step == 2) {
@@ -267,9 +258,9 @@ if($step >= 1) {
 		$l = _("Click here to download");
 		$text= "<h2>$l: ";
 		$url = "download.php?file=$filename&amp;name=profloss.csv";
-		$text.= "<a href=\"$filename\">balance.csv</a></h2>\n";
-		$l = _("Right click and choose 'save as...'");
-		$text.= "<h2>$l</h2>\n";
+		$text.= "<a href=\"$url\">balance.csv</a></h2>\n";
+		//$l = _("Right click and choose 'save as...'");
+		//$text.= "<h2>$l</h2>\n";
 		//$text.= "<script type=\"text/javascript\">\n";
 		//$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
 		//$text.= "</script>\n";

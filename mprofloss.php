@@ -54,16 +54,6 @@ function GetAcctType($acct) {
 	return $line[0];
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-
 function GetAcctTotal($acct, $begin, $end) {
 	global $transactionstbl, $prefix;
 	
@@ -542,6 +532,7 @@ if(isset($module) && (!$filerep)) {
 	$text.= "&nbsp;&nbsp;";
 	$l = _("File export");
 	$text.= "<a class=\"btnsmall\" href='?module=mprofloss&amp;file=1'\">$l</a>\n";
+	$text.=newWindow(_("Print"),"?action=lister&form=mprofloss",'','',_("Print Window"),"btnsmall");
 	$text.= "</div>\n";
 }
 if($filerep) {
@@ -549,14 +540,19 @@ if($filerep) {
 	Conv1255($filename);
 	$l = _("File export");
 	$text.= "<h2>$l: ";
-	$url = "/download.php?file=$filename&amp;name=profloss.csv";
-	$text.= "<a href=\"$filename\">mprofloss.csv</a></h2>\n";
+	$url = "download.php?file=$filename&amp;name=profloss.csv";
+	$text.= "<a href=\"$url\">mprofloss.csv</a></h2>\n";
 	//$l = _("Right click and choose 'save as...'");
 	//$text.= "<h2>$l</h2>\n";
 	//$text.= "<script type=\"text/javascript\">\n";
 	//$text.= "setTimeout(\"window.open('$url', 'Download')\", 1000);\n";
 	//$text.= "</script>\n";
 }
-createForm($text, $reptitle,'',750,'','',1,getHelp());
+global $smallprint;
+if(!$smallprint){
+	createForm($text, $reptitle,'',750,'','',1,getHelp());
+}else{
+	print $text;
+}
 //print "</div>";//adam: form div
 ?>

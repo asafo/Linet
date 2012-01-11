@@ -11,16 +11,19 @@ class receiptDetail extends fields{
 		unset($array['_table']);
 		unset($array['_prefix']);		
 		$array['prefix']=$this->_prefix;
-			if (isset($array['refnum']))
-					if (inseretSql($array,$this->_table))
-						return true;
-					else
-						return false;
+		if (isset($array['refnum'])){
+			$array['id']=maxSql(array("prefix"=>$this->_prefix,"refnum"=>$array['refnum']),"id", $this->_table);
+			$this->id=$array['id'];
+			if (inseretSql($array,$this->_table))
+				return true;
+			else
+				return false;
+		}
 	}
 	public function transaction($docnum,$account,$issue_date,$transtype,$tnum){		
 		$tnum = Transaction($tnum, $transtype, $account, $docnum, $this->chknum, $issue_date, '', $this->sum);
 		if($this->type == 1)
-			$optacc=CASH;
+			$optacc=ACCTCASH;
 		else if($this->type==2)
 			$optacc=CHEQUE;
 		else if ($this->type==3)

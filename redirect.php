@@ -5,6 +5,7 @@ $url='http://www.linet.org.il/index.php/support/';
 $bla=array(
 'main'=>'user-help-navigate/8-configuration-help/14-linet-entry-page',//מסך ראשי
 'defy'=>'user-help-navigate?id=22',//בחירת חברה
+'voucher'=>'user-help-navigate?id=98',//תנועות ידניות
 'defs'=>'user-help-navigate/8-configuration-help/18-biz-details-page',//עריכת פרטי עסק
 'acctadmin'=>'user-help-navigate?id=19',//חשבונות
 'acctadmin0'=>'user-help-navigate?id=48',//לקוחות
@@ -64,7 +65,7 @@ $bla=array(
 'balance'=>'user-help-navigate?id=76',//מאזן
 'taxrep'=>'user-help-navigate?id=72',//מוקדמות
 'inout'=>'user-help-navigate?id=69',//תקבןלים תשלומים
-
+'journal'=>'user-help-navigate?id=98',//פקודות יומן
 
 
 //התאמות

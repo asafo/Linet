@@ -92,72 +92,6 @@ function ochange(id) {
 </script>
 <?PHP
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-/*
-function PrintSupplierSelect($def) {
-	global $accountstbl;
-	global $prefix;
-	
-	$t = SUPPLIER;
-	$t1 = AUTHORITIES;
-	$query = "SELECT num,company FROM $accountstbl WHERE prefix='$prefix' AND (type='$t' OR type='$t1')  ORDER BY company ASC";
-	$result = DoQuery($query, "outcome.php");
-	$text.= "<select name=\"supplier\">\n";
-	$l = _("Choose supplier");
-	$text.= "<option value=\"__NULL__\">-- $l --</option>\n";
-	while($line = mysql_fetch_array($result, MYSQL_NUM)) {
-		$n = $line[0];
-		$company = $line[1];
-		if($n == $def)
-			$text.= "<option value=\"$n\" selected>$company</option>\n";
-		else
-			$text.= "<option value=\"$n\">$company</option>\n";
-	}
-	$text.= "</select>\n";
-	return $text;
-}*/
-/*
-function PrintOutcomeSelect($def) {
-	global $accountstbl;
-	global $prefix;
-	global $opt;
-
-	if($opt == 'asset')
-		$t = ASSETS;
-	else
-		$t = OUTCOME;
-	$t2 = OBLIGATIONS;
-	$query = "SELECT num,company,src_tax FROM $accountstbl WHERE prefix='$prefix' AND (type='$t' OR type='$t2')  ORDER BY company ASC";
-	$result = DoQuery($query, "outcome.php");
-	$text.= "<select name=\"outcome\" onchange=\"ochange()\">\n";
-	$l = _("Choose outcome");
-	$text.= "<option value=\"__NULL__\">-- $l --</option>\n";
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$n = $line['num'];
-		$o = $line['company'];
-		$v = $line['src_tax'];
-		if($v == '')
-			$v = 100;
-		$l = _("Credited VAT");
-		$val = "$o ($l: $v%)";
-//		$val = "$o (׳³ן¿½׳³ֲ¢\"׳³ן¿½ ׳³ן¿½׳³ג€¢׳³ג€÷׳³ֲ¨: $v%)";
-//		$val .= " $v";
-		if($n == $def)
-			$text.= "<option value=\"$n\" selected>$val</option>\n";
-		else
-			$text.= "<option value=\"$n\">$val</option>\n";
-	}
-	$text.= "</select>\n";
-	return $text;
-}*/
 if(isset($_POST['date'])) {
 		$dtmysql = FormatDate($_POST['date'], "dmy", "mysql");
 		$dt = FormatDate($dtmysql, "mysql", "dmy");
@@ -168,13 +102,22 @@ if(isset($_POST['date'])) {
 	}
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 if($step > 0) {
-	$supplier = $_POST['account'];
-	if($supplier == "") {
+	$supplier = (int)GetPoster('account');
+	$suppliername=GetAccountName($supplier);
+	//print ";$suppliername;";
+	if(($supplier == 0)||($suppliername=='')) {
 		$l = _("No supplier was chosen");
 		ErrorReport("$l");
 		return;
 	}
-	$outcome = $_POST['outcome'];
+	$outcome = (int)GetPoster('outcome');
+	$outcomename=GetAccountName($outcome);
+	//print ";$outcomename;";
+	if(($outcome == 0)||($outcomename=='')) {
+		$l = _("No outcome was chosen");
+		ErrorReport("$l");
+		return;
+	}
 	$pvat = $_POST['pvat'];
 	$date=$_POST['date'];
 //	list($outcome, $pvat) = explode('|', $os);
@@ -233,15 +176,15 @@ if($step == 2) {
 			//print "<h1>$l</h1>\n";
 		}
 	}else{print "help:$total";}
-	$outcome = "__NULL__";
-	$supplier = "__NULL__";
-	$refnum = '';
-	$dt = '';
-	$total = 0.0;
-	$details = '';
-	$novattotal = 0;
-	$tvat = 0;
-	$step = 0;
+		$outcome = "__NULL__";
+		$supplier = "__NULL__";
+		$refnum = '';
+		$dt = '';
+		$total = 0.0;
+		$details = '';
+		$novattotal = 0;
+		$tvat = 0;
+		$step = 0;
 }
 if($opt == 'asset')
 	$optact = "&amp;opt=asset";

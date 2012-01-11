@@ -9,8 +9,9 @@ $url='http://www.opensource.org/licenses/gpl-3.0.html';
 $text.=_("Software license").": "._("General-Public-License")." "."<a href='$url' target='_blank'>GPLv3</a><br />";
 //אישור רישום מרשות המיסים:
 //מס XXXXX
-$text.=_("Registration certificate from the Tax Israeli Authority").": "._("No.")." ".$softregnum;
-
+$href="<a target='_blank' href='http://www.linet.org.il/images/accounting_stuff/linet2reg.pdf'>$softregnum</a>";
+$text.=_("Registration certificate from the Tax Israeli Authority").": "._("No.")." ".$href;
+//
 
 $text.="<br /><br />";
 $text.="<div style=\"border: 2px solid red; margin-right: 50px; color: red;   padding: 10px; text-align: justify;  width: 440px;\" class=\"worning\">";

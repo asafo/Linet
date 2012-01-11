@@ -31,15 +31,6 @@ function GetAcctType($acct) {
 	return $line[0];
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
 $haeder='ספר תקבולים תשלומים';
 if(!isset($module)) {
 	$query = "SELECT companyname FROM $companiestbl WHERE prefix='$prefix'";
@@ -91,7 +82,7 @@ if($step == 2) {
 	$fd = fopen($filename, 'w');
 }
 if($step >= 1) {
-	$RelevantTypes = array(RECEIPT, MANRECEIPT, SUPPLIERPAYMENT);
+	$RelevantTypes = array(RECEIPT, MANRECEIPT, SUPPLIERPAYMENT,VAT);
 	$order = isset($_GET['order']) ? $_GET['order'] : '';
 	$begindate = $_GET['begindate'];
 	$enddate = $_GET['enddate'];
@@ -135,7 +126,7 @@ if($step >= 1) {
 
 		fwrite($fd, "\"פירוט\",");
 		fwrite($fd, "\"תקבול\",");
-		fwrite($fd, "\"תשלום\",");
+		fwrite($fd, "\"תשלום\",\n");
 
 
 	}
@@ -180,22 +171,28 @@ if($step >= 1) {
 			$acctname = GetAccountName($account);
 			$acctnum = $account;
 			$details = $line['details'];
-			$refnum = substr($line['refnum1'], -6);
+			$refnum = $line['refnum1'];
 			$sum = $line['sum'];
 		}
-		else if(GetAcctType($account) == CASH) {
+		/*else if(GetAcctType($account) == CASH) {
 			$novattotal = $line['sum'];
 			$opaccount = $account;
 			$opacctname = GetAccountName($account);
-		}
-		else if(GetAcctType($account) == SUPPLIER) {
+		}*/
+		else if(($account == PAYVAT)||($account == NATINSPAY)){
+			$acctname = GetAccountName($account);
+			$acctnum = $account;
+			$sum =$line['sum'];
+			$refnum = $line['refnum1';
+			$details = $line['details'];
+		}else if(GetAcctType($account) == SUPPLIER) {
 			$acctname = GetAccountName($account);
 			$acctnum = $account;
 			$sum = $line['sum'];
-			$refnum = substr($line['refnum1'], -6);
+			$refnum = $line['refnum1';
 			$details = $line['details'];
 		}
-		else if(($account == CASH) || (GetAcctType($account) == BANKS)) {
+		else if(($account == CASH) || (GetAcctType($account) == BANKS)) {//cash is out
 			$sum = $line['sum'];
 			$opaccount = $account;
 //			print "Outcome: $oppaccount<br>\n";
@@ -242,7 +239,7 @@ if($step >= 1) {
 		if($step == 2) {
 			fwrite($fd, "$num,$dtmy,\"$opacctname\",\"$refnum\",\"$acctname\",\"$details\",");
 			if($accttype == SUPPLIER) {
-				fwrite($fd, "\" \"");
+				fwrite($fd, "\"\",");
 				fwrite($fd, "$sum\n");
 			}
 			else {

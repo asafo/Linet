@@ -93,15 +93,6 @@ function PrintCreditSelect($def, $payment) {
 	return $str;
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
 			
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 if($step > 0) {
@@ -152,7 +143,7 @@ if($step == 2) {
 				$tnum = Transaction($tnum, MANRECEIPT, CHEQUE, $ref2, '', $dt, $details, $t3);
 				break;
 			case 2:
-				$tnum = Transaction($tnum, MANRECEIPT, CASH, $refnum, '', $dt, $details, $t3);
+				$tnum = Transaction($tnum, MANRECEIPT, ACCTCASH, $refnum, '', $dt, $details, $t3);
 				break;
 			case 3:
 				$tnum = Transaction($tnum, MANRECEIPT, CREDIT, $ref2, $creditcomp, $dt, $details, $t3);

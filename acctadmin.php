@@ -25,6 +25,8 @@ $begindmy = isset($_COOKIE['begin']) ? $_COOKIE['begin'] : date("1-1-Y");
 $enddmy = isset($_COOKIE['end']) ? $_COOKIE['end'] : date("d-m-Y");
 $begindmy = isset($_GET['begin']) ? $_GET['begin'] : $begindmy;
 $enddmy = isset($_GET['end']) ? $_GET['end'] : $enddmy;
+//if($begindmy=='')$begindmy=date("1-1-Y");
+//print $begindmy.";".$enddmy;
 $beginmysql = FormatDate($begindmy, "dmy", "mysql");
 $endmysql = FormatDate($enddmy, "dmy", "mysql");
 
@@ -145,7 +147,7 @@ function GetAcctTotal($account, $begin, $end) {
 
 global $action;
 /* Check if all predefined accounts exist and create them if not */
-require('acctcreate.inc.php');	
+
 
 if($action == 'newacct') {
 	

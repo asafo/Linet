@@ -16,12 +16,12 @@ require_once('class/receiptdetail.php');
 require_once('class/transaction.php');
 require_once('class/item.php');
 if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
-	$haeder="Select files to Import";
+	$haeder=_("Select files to Import");
 	$text= "<form action=\"?module=$module&amp;step=1\" method=\"post\" name='main' enctype=\"multipart/form-data\">\n<br />";
 	$text.="<div style=\"border: 2px solid red; margin-right: 50px; color: red;   padding: 10px; text-align: justify;  width: 600px;\" class=\"worning\">";
 	$text.="
 	תהליך הייבוא של חומרים ללינט מתוך תוכנות הנה\"ח אחרות באמצעות ייבוא קובץ אחיד הוא תהליך מורכב הדורש זהירות ותשומת לב רבים.
-אנא קרא בעיון את הוראות מדריך הייבוא <a href=\"http://www.linet.org.il/index.php/support/user-help-navigate?id=58\">כאן</a><br /> לפני ביצוע הייבוא.
+אנא קרא בעיון את הוראות מדריך הייבוא <a href=\"http://www.linet.org.il/index.php/support/user-help-navigate?id=58\">כאן</a> לפני ביצוע הייבוא.
 לאחר ביצוע הייבוא ולפני שאת/ה מזין נתונים חדשים בתוכנה או מפיק/ה מסמכים בדוק/י בתשומת לב רבה שהחשבונות והמסמכים שייבאת נמצאים במקומם הנכון. למשל: בדוק/י שחשבונות לקוחות נמצאים בסוג חשבונות \"לקוחות\", ספקים בסוג \"ספקים\" וכן הלאה.<br />
 כמו כן, אם בחרת לייבא גם מסמכים ותנועות, עיין/י בכרטסות החשבון במדגם מייצג של לפחות שלשה סוגי חשבונות והשווה/י לתנועות ולמסמכים המופיעים בכרטסת החשבון בתוכנה ממנה ייצאת את הנתונים.<br />
 במידה וכל ההשוואות עולות יפה ויש התאמה, ברוך הבא ללינט, התחל/י לעבוד עם התוכנה. במידה ולא, מחק/י את החברה שהייבוא יצר (קישור \"החלף חברה\" למעלה משמאל->לחיצה על כפתור X בשורה של החברה אותה ייבאת תמחק אותה) ונסה/י לייבא את החומר מחדש.<br />
@@ -33,8 +33,8 @@ if ((!isset($_REQUEST['step'])) || ($_REQUEST['step']<0)) {
 	// http://www.linet.org.il/index.php/support/user-help-navigate?id=58
 	$text.="<div style=\"margin-top: 10px; margin-right: 50px;  width: 600px;\" class=\"worning\">";
 	
-	$text.="load ini file <input type=\"file\" name=\"ini\" /><br />\n";
-	$text.="load bkmvdata <input type=\"file\" name=\"bkmv\" /><br />\n";
+	$text.=_("load ini file")." <input type=\"file\" name=\"ini\" /><br />\n";
+	$text.=_("load bkmvdata")."<input type=\"file\" name=\"bkmv\" /><br />\n";
 	
 	$text.=	_("Data to Import:");
 	$text.= "<select id=\"data\" name=\"data\">\n";
@@ -72,19 +72,21 @@ if ($_REQUEST['step']==1){
 	$bkmv = "tmp/bkmv$prefix.txt";
 	$ini = "tmp/ini$prefix.txt";
 	$inisize = (int)$_FILES['ini']['size'];
-	$begindmy=strtotime($_REQUEST['begin']);
-	$enddmy=strtotime($_REQUEST['end']);
-	if($begindmy<$enddmy)
-		$check=true;
-	else 
-		$check=false;
+	$begindmy=strtotime(GetPoster('begin'));
+	$enddmy=strtotime(GetPoster('end'));
+	if((GetPoster('begin')!='')&&(GetPoster('end')!='')){
+		if($begindmy<$enddmy)
+			$check=true;
+		else 
+			$check=false;
+	}
 	if($inisize > 0) {	/* we have a file */
 		$tmpname = $_FILES['ini']['tmp_name'];
 		if (file_exists($tmpname)){   
 			$orgname = $_FILES['ini']['name'];
 			move_uploaded_file($tmpname, $ini);
 	   }else{ 
-	   		print 'error: unable to save ini';
+	   		print _('error: unable to save ini');
 	   }
 	}
 	$bkmvsize = (int)$_FILES['bkmv']['size'];
@@ -94,7 +96,7 @@ if ($_REQUEST['step']==1){
 			$orgname = $_FILES['bkmv']['name'];
 			move_uploaded_file($tmpname, $bkmv);
 	   }else{ 
-	   		print 'error: unable to save data file';
+	   		print _('error: unable to save data file');
 	   }
 	}
 	
@@ -148,17 +150,17 @@ if ($_REQUEST['step']==1){
 					
 				//$comp->companyname=hebrev($comp->companyname);
 				if (!$comp->newCompany()){
-					print 'error must stop cannot create company';
+					print _('error must stop cannot create company');
 					return;
 				}
 			}
 		}
 		//}
 	}else{
-		die("unable to read ini");
+		die(_("unable to read ini"));
 	}
 	//remove ini
-
+	fclose($fp);
 	unlink($ini);
 	/*data start */
 	//get keys
@@ -220,7 +222,7 @@ if ($_REQUEST['step']==1){
 		fclose($fhd120);
 		fclose($fhm100);
 		
-		$fh = fopen($bkmv, 'w') or die("can't open file");
+		$fh = fopen($bkmv, 'w') or die(_("can't open file"));
 
 		fwrite($fh, $newline);
 		
@@ -259,7 +261,7 @@ if ($_REQUEST['step']==1){
 		fclose($fh);
 		
 	}else{
-		print "must die unable to sort data";
+		print _("must die unable to sort data");
 		die;
 	}
 	//print "rock n roll";
@@ -375,10 +377,11 @@ if ($_REQUEST['step']==1){
 						unset($rcptdetial);
 					}
 				}
-				//print "?";
+				//print "$type?";
 				if ($type=='B100'){//Move Recored
 					//print $obj['value'].":".$obj['type'];
 					global $openTransType;
+					//print "gone3";	
 					//print_r($openTransType);
 					//print_r($accIndex);
 					/*
@@ -437,7 +440,9 @@ if ($_REQUEST['step']==1){
 						unset($obj['value']);
 						unset($obj['account1']);
 						//adam:! need to reset type of action!
+						
 						$transaction=new transaction;
+						
 						foreach($obj as $key=>$value){
 							$transaction->$key=$value;//print "$key <br />";
 						}
@@ -447,10 +452,12 @@ if ($_REQUEST['step']==1){
 						
 						if($check){
 								if((strtotime($transaction->date)>$begindmy)&&(strtotime($transaction->date)<$enddmy)){
+									// "gone";
 									$transaction->newTransactions();
 								}
-									
+								//print "gone2";	
 							}else{
+								//print "gone1";
 								$transaction->newTransactions();
 							}
 						unset($transaction);
@@ -475,11 +482,11 @@ if ($_REQUEST['step']==1){
 		//end loop
 		//print_r($accIndex);
 	}else{
-		print "error cant open file!";
+		print _("error cant open file!");
 	}
 	
 	
-	$haeder="Select Matching Account Types";
+	$haeder=_("Select Matching Account Types");
 	$text= "<form action=\"?module=$module&prefix=$prefix&step=2\" method=\"post\" name=\"main\" enctype=\"multipart/form-data\">\n<br />";
 	//$text.="load ini file <input type=\"file\" name=\"ini\" /><br />\n";
 	//$text.="load bkmvdata <input type=\"file\" name=\"bkmv\" /><br />\n";
@@ -496,8 +503,8 @@ if ($_REQUEST['step']==1){
 	$text.= "</form>\n";
 	
 	createForm($text,$haeder,'',750,'','',1,getHelp());
-	
-	//unlink($bkmv);
+	fclose($fp);
+	unlink($bkmv);
 	//print_r($analze);
 	//print_r($suc);
 }

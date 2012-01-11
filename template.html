@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
-	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<link rel="shortcut icon" href="img/logo.ico" type="image/x-icon" >
 	<link rel="stylesheet" type="text/css" href="style/mcalendar.css" />
 	<link rel="stylesheet" href="js/jquery-ui-1.8.13.custom.css" type="text/css" />
@@ -54,25 +54,6 @@
 	</div><!--div wrapper  end-->
 	</body>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		$(".tablesorter").tablesorter();
-		
-		var elements = $('.date');
-		for (var i=0; i<elements.length; i++) {
-			//alert(elements[i].name);
-		    var id=elements[i].id;
-		    var value=$('#'+id).val();
-			$.datepicker.setDefaults( $.datepicker.regional["he"] );
-			$('#'+id).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});
-			$('#'+id).datepicker( "option", "dateFormat", "dd-mm-yy" );
-			$('#'+id).val(value);
-			$('#'+id).after('<img src="img/icon_cel.png" width="18" onclick="$(\'#'+id+'\').focus()"/>');
-			
-			
-			 
-				
-		}
-		$(".valform").validate();
-	});
+
 	</script>
 </html>

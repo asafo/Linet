@@ -97,14 +97,14 @@ if($action == 'submit') {
 	$body .= "</div>\n";
 	$headers = "Content-type: text/html; charset=UTF-8\r\n";
 	$headers .= "From: $email\r\n";
-	mail($to, $subject, $body, $headers);
 	
-	
-	
-	$thanks = _("Message sent to linet team");
+
+    
+	$thanks =sendMail($email, $to, $subject, $body);
+       
 	$contactform= "<h1>$thanks</h1>\n";
-	$l = _("We will do our best to answer you shortly");
-	$contactform.= "<h1>$l</h1>\n";
+//	$l = _("We will do our best to answer you shortly");
+	//$contactform.= "<h1>$l</h1>\n";
 	$l = _("Click here to continue");
 	$contactform.= "<br><h2><a href=\"index.php\">$l</a></h2>\n";
 	//return;

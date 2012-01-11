@@ -188,7 +188,7 @@ else if($step == 1) {
 		//print "<div class=\"form righthalf1\">\n";
 		$l = _("Link to file");
 		$text.= "<br />$l: ";
-		$text.= "<a href=\"$dir/pcn874.txt\">pcn874.txt</a><br />\n";
+		$text.= "<a href=\"download.php?file=$dir/pcn874.txt&name=pcn874.txt\">pcn874.txt</a><br />\n";
 		}else{
 		$text.= 'Error: while creating file.';
 	}

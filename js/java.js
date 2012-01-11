@@ -65,26 +65,29 @@ function qtySub(name,num,amnt){
 	CalcPrice(num);
 }
 
+
+function sendForm(formid,url1,papa){
+	   $.ajax({
+		   type: "POST",
+		   url: url1,
+		   data: $("#"+formid).serialize(),
+		   dataType:'html'
+		 }).done(function( msg ) {
+			 $('#'+papa).html(msg);
+		 });
+}
+
 function submitFormy(formy,url1){
 	 $("#"+formy).validate({
 		   submitHandler: function(form) {
-			  // var dataType ='html';
-			 //  $.post(url,$("#"+formy).serialize(),function(){window.close();},dataType); 
-			 //$.post(url [, data] [, success(data, textStatus, jqXHR)] [, dataType] )
-			  
 			   $.ajax({
 				   type: "POST",
 				   url: url1,
 				   data: $("#"+formy).serialize(),
 				   dataType:'html'
 				 }).done(function( msg ) {
-				   //alert( "Data Saved: " + msg );
 				   window.close();
 				 });
-					 
-				//*/
-			   
-				 
 		   }
 		});
 	}
@@ -104,3 +107,23 @@ function setCookie( name, value, expires, path, domain, secure ) {
 	( ( secure ) ? ";secure" : "" );
 }
 
+$(document).ready(function(){
+	$(".tablesorter").tablesorter();
+	
+	var elements = $('.date');
+	for (var i=0; i<elements.length; i++) {
+		//alert(elements[i].name);
+	    var id=elements[i].id;
+	    var value=$('#'+id).val();
+		$.datepicker.setDefaults( $.datepicker.regional["he"] );
+		$('#'+id).datepicker({showButtonPanel: true,showOtherMonths: true,selectOtherMonths: true,changeMonth: true,changeYear: true});
+		$('#'+id).datepicker( "option", "dateFormat", "dd-mm-yy" );
+		$('#'+id).val(value);
+		$('#'+id).after('<img src="img/icon_cel.png" width="18" onclick="$(\'#'+id+'\').focus()"/>');
+		
+		
+		 
+			
+	}
+	$(".valform").validate();
+});

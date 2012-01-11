@@ -18,6 +18,7 @@ mysql_select_db($database) or die("Could not select database: $database");
 $output=array("sid"=>"-1");
 session_start();
 $prefix=$_SESSION['prefix'];
+//print(":$prefix:");
 if (isset($_SESSION["logedin"])){
 	if (isset($_REQUEST["action"])){
 		switch($_REQUEST["action"]){
@@ -177,19 +178,18 @@ function SetData($data){
 			foreach($permtionlist as $rec){
 				if($rec['company']=='*'){
 					$list1=selectSql(array(1=>1),$companiestbl,array('companyname','prefix'));
-					
-					//return $companylist;
 				}else{
 					$companylist=selectSql(array('prefix'=>$rec['company']),$companiestbl,array('companyname','prefix'));
 					$list1=array_merge($list1,$companylist);
 				}
 			}
 			foreach($list1 as $rec){
-				if($rec['company']==$newprefix)
+				if($rec['prefix']==$newprefix)
 					$_SESSION['prefix']=$newprefix;
 			}
 			return array("data"=>1);
 		default:
+			
 			return array('data'=>'-2');
 	}
 }

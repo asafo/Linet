@@ -81,12 +81,16 @@ if ($loggedin){
 if (($step==1)&&(isset($_POST['non']))){
 	$nextStep=2;
 	print "<div class=\"updatetext\">";
-	print _("Welcome To Linet update wizard your system version is: ").$version."<br />"._("The current version is: ").$sversion."<br />"._("You need to update your system.");
+	print _("Welcome To Linet update wizard your system version is: ").$version."<br />"._("The current version is: ").$sversion."<br />";
+	if($version!=$sversion)
+		print _("You need to update your system.");
 	print "</div>";
 	//if ($nextStep) print "<a href=javascript:postwith('index.php',{step:'".$nextStep."'})>׳³ג€�׳³ג€˜׳³ן¿½</a>";//bla
 	
 	print '<div class="control"><input type="button" class="btnaction" onclick="document.location.href=\'../../\'" value="'._("Cancel").'" />';
-	print '<input type="button" class="btnaction" onclick="loadDoc('.$nextStep.')" value="'._("Next").'" /></div>';
+	if($version!=$sversion)
+		print '<input type="button" class="btnaction" onclick="loadDoc('.$nextStep.')" value="'._("Next").'" />';
+	print '</div>';
 	}else{
 		$content=_("Please Wait");//error
 }

@@ -248,41 +248,42 @@ if($step==1) {
 	   		print 'error';
 	   }
 	}
-	
-	if ($fp = fopen($tnout, 'r')) {
-		require_once 'class/bankbook.php';
-		$first=true;
-		while ($line = fgets($fp)){
-			if($first){
-				if((strlen($line)==83)&&(substr($line,0,1)=='#')) $type='HashDos';
-				else if(strlen($line)==2) $type='HashWin';
-				else if((strlen($line)==81)&&(substr($line,7,1)==',')) $type='leumi';
-				$first=false;
-				//return;
-			}
-			if(isset($type))
-				switch ($type){
-					case 'HashDos':
-						readlineHashDos($line,$account);
-						break;
-					case 'HashWin':
-						readlineHashWin($line,$account);
-						break;
-					case 'leumi':
-						readlineLeumi($line,$account);
-						break;
+	if(file_exists($tnout)){
+		if ($fp = fopen($tnout, 'r')) {
+			require_once 'class/bankbook.php';
+			$first=true;
+			while ($line = fgets($fp)){
+				if($first){
+					if((strlen($line)==83)&&(substr($line,0,1)=='#')) $type='HashDos';
+					else if(strlen($line)==2) $type='HashWin';
+					else if((strlen($line)==81)&&(substr($line,7,1)==',')) $type='leumi';
+					$first=false;
+					//return;
 				}
-			else {
-				print _("Unkown file format");
-				return;
-			}
-			
-		}//while end
-		print _("Import Complted!");
-		print "<meta http-equiv=\"refresh\" content=\"3;url=?module=bankbook&account=$account\" />  ";
-		return;
+				if(isset($type))
+					switch ($type){
+						case 'HashDos':
+							readlineHashDos($line,$account);
+							break;
+						case 'HashWin':
+							readlineHashWin($line,$account);
+							break;
+						case 'leumi':
+							readlineLeumi($line,$account);
+							break;
+					}
+				else {
+					print _("Unkown file format");
+					return;
+				}
+				
+			}//while end
+			print _("Import Complted!");
+			print "<meta http-equiv=\"refresh\" content=\"3;url=?module=bankbook&account=$account\" />  ";
+			return;
+		}
+		unset($tnout);
 	}
-	unset($tnout);
 } //end step
 $haeder = _("Bank papers input");
 if(!$account) {
@@ -298,7 +299,7 @@ if(!$account) {
 	$query = "SELECT num,company FROM $accountstbl WHERE type='$t' AND prefix='$prefix'";
 	$result = DoQuery($query, "Select account");
 	$l = _("Choose bank account");
-	$text.= "<h2>$l</h2><br>\n";
+	$text.= "<h2>$l</h2><br />\n";
 	$i = 0;
 	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$num = $line['num'];

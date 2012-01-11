@@ -14,7 +14,7 @@ if(!isset($prefix) || ($prefix == '')) {
 global $namecache;
 global $accountstbl, $bankbooktbl, $transactionstbl;
 global $dir;
-
+global $correlationtbl,$curuser;
 function PrintAccountSelect() {
 	global $prefix, $accountstbl;
 
@@ -33,25 +33,7 @@ function PrintAccountSelect() {
 	return $str;
 }
 
-function GetAccountName($account) {
-	global $namecache;	/* name cache for account names we already found */
-	global $prefix, $accountstbl;
-	
-	if($namecache) {
-		$name = $namecache[$account];
-		if($name) 	/* we have a cache hit */
-			return $name;
-	}
-	
-	$query = "SELECT company FROM $accountstbl WHERE num='$account' AND prefix='$prefix'";
-//	print "Query: $query<BR>\n";
-	$result = DoQuery($query,__FILE__.": ".__LINE__);
-	
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	$name = $line[0];
-	$namecache[$account] = $name;
-	return $name;
-}
+
 
 ?>
 <script type="text/javascript">
@@ -120,6 +102,37 @@ function CalcIntSum() {
 	total = Math.round(total * 100)/100;
 	t.value = total;
 }	
+
+
+function go(){
+	var bil=true;//CalcSum();
+	if(parseFloat($('#ext_total').val())!=parseFloat($('#int_total').val())){
+		var sum=(-1)*(parseFloat($('#ext_total').val())-parseFloat($('#int_total').val()));
+		var account =parseFloat($('#account').val());
+		//alert('we r not balanced!');
+		var dialog = $('<div dir="rtl" id="dialogdiv"></div>').appendTo('body');
+		dialog.load("?action=lister&form=voucher&sum="+sum+"&acc="+account, {}, 
+		        function (responseText, textStatus, XMLHttpRequest) {
+		        	var agreed = false; 
+		            dialog.dialog({resizable: false,height:500,width:780,hide: 'clip',title: ''});
+		            dialog.bind('dialogclose', function(event) {
+			            var acc=$('#account').val();
+		            	window.location.href='?module=extmatch&bankacc='+acc;
+		            });
+		        }
+		    );
+		bil=false;
+	}
+	if(bil)
+		document.form1.submit();
+}
+$(document).ready(function(){
+	$("#form").validate({
+		   submitHandler: function(form) {
+			   go();
+		   }
+	   });
+});
 </script>
 
 
@@ -149,10 +162,10 @@ if(!$bankacc) {
 			if($i == 0)
 				$text.= "checked";
 			$i++;
-			$text.= ">&nbsp;$acctname\n";
+			$text.= " />&nbsp;$acctname\n";
 		}
 	}
-	$text.= "<br>\n";
+	$text.= "<br />\n";
 	$l = _("Execute");
 	$text.= "<div style=\"text-align:center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></div>\n";
 	$text.= "</div>\n";
@@ -230,9 +243,9 @@ if($action == 'extbalance') {
 }
 if($action == 'extmatch') {
 	if(empty($int))
-		$int = $_POST['int'];
+		$int = $_POST['int'];//zchot
 	if(empty($ext))
-		$ext = $_POST['ext'];
+		$ext = $_POST['ext'];//hova
 	/* Claculate sum of transaction and create a string with all numbers */
 	$int_str = '';
 	$total = 0.0;
@@ -245,8 +258,8 @@ if($action == 'extmatch') {
 			$total += $sum;
 		}
 	}
-//	print "Transactions: $int_str<BR>\n";
-//	print "Internal transactions sum: $total<BR><BR>\n";
+//	print "Transactions: $int_str<br />\n";
+//	print "Internal transactions sum: $total<br /><br />\n";
 
 	/* Claculate sum of external transaction and create a string with all numbers */
 	$ext_str = '';
@@ -275,12 +288,16 @@ if($action == 'extmatch') {
 //	print "r: $r<br>\n";
 	if(($r <= 0.01) && ($r >= 0)) {	/* balanced match */
 		/* go over all internal transactions and update cor_num */
+		//$query = "INSERT INTO $correlationtbl VALUES ('$prefix', '$cor_num', 'hova', 'zchot', '".OPEN."', '$uid;');";
+		$cor_num=maxSql(array('prefix'=>$prefix), "num", $correlationtbl);
+		$uid=$curuser->id;
+		$query = "INSERT INTO $correlationtbl VALUES ('$prefix', '$cor_num', 'E$ext_str', '$int_str', '".OPEN."', '$uid');";
+		DoQuery($query, __FILE__.":".__LINE__);
 		if(is_array($int)) {
 			foreach($int as $val) {
 				list($num, $sum) = explode(':', $val);
 				$sum = $sum * -1.0;
-				$query = "UPDATE $transactionstbl SET cor_num='$ext_str' WHERE num='$num' AND sum='$sum' ";
-				$query .= "AND account='$bankacc' AND prefix='$prefix'";
+				$query = "UPDATE $transactionstbl SET cor_num='$cor_num' WHERE num='$num' AND sum='$sum' AND account='$bankacc' AND prefix='$prefix'";
 				$result = mysql_query($query);
 				if(!$result) {
 					echo mysql_error();
@@ -291,7 +308,7 @@ if($action == 'extmatch') {
 		/* now do the same thing for external transactions */
 		if(is_array($ext)) {
 			foreach($ext as $val) {
-				$query = "UPDATE $bankbooktbl SET cor_num='$int_str' WHERE num='$val' AND account='$bankacc' AND prefix='$prefix'";
+				$query = "UPDATE $bankbooktbl SET cor_num='$cor_num' WHERE num='$val' AND account='$bankacc' AND prefix='$prefix'";
 				$result = mysql_query($query);
 				if(!$result) {
 					echo mysql_error();
@@ -300,75 +317,10 @@ if($action == 'extmatch') {
 			}
 		}
 	}
-	else {
+	else {//shuld point out
 		$l = _("Unbalanced reconciliation, please create balancing transaction");
-		$text.= "<h2>$l</h2>\n";
-//		print "<h2>׳³ג€�׳³ֳ—׳³ן¿½׳³ן¿½׳³ג€� ׳³ן¿½׳³ן¿½ ׳³ן¿½׳³ן¿½׳³ג€¢׳³ג€“׳³ֲ ׳³ֳ—, ׳³ג„¢׳³ֲ© ׳³ן¿½׳³ג„¢׳³ֲ¦׳³ג€¢׳³ֲ¨ ׳³ֳ—׳³ֲ ׳³ג€¢׳³ֲ¢׳³ג€� ׳³ן¿½׳³ן¿½׳³ג€“׳³ֲ ׳³ֳ—</h2>\n";
-		$text.=  "<div class=\"formtbl\">\n";
-		$text.=  "<form name=\"form1\" action=\"?module=extmatch&amp;action=extbalance&amp;bankacc=$bankacc\" method=\"post\">\n";
-		$text.=  "<input type=\"hidden\" name=\"int_str\" value=\"$int_str\">\n";
-		$text.=  "<input type=\"hidden\" name=\"int_total\" value=\"$total\">\n";
-		$text.=  "<input type=\"hidden\" name=\"ext_str\" value=\"$ext_str\">\n";
-		$text.=  "<input type=\"hidden\" name=ext_total\" value=\"$ext_total\">\n";
-		$text.=  "<table dir=\"$dir\"><tr><td>\n";
-		$l = _("Date");
-		$text.=  "$l: \n";
-		$today = date('d-m-Y');
-		$text.=  "<input calss=\"date\" type=\"text\" name=\"date\" value=\"$today\" size=\"7\">\n";
-
-		$text.= "<br><br>\n";
-		$l = _("Ref. num. 1");
-		$text.= "$l: \n";
-		$text.= "<input size=\"7\" type=\"text\" name=\"refnum1\" >\n";
-		$l = _("Ref. num. 2");
-		$text.= "$l: \n";
-		$text.= "<input size=\"7\" type=\"text\" name=\"refnum2\" >\n";
-		$text.= "<br><br>\n";
-		$l = _("Details");
-		$text.= "$l: \n";
-		$text.= "<input type=\"text\" name=\"details\"><br><br>\n";
-		$text.= "</td></tr>\n";
-		$text.= "<tr><td><table dir=\"$dir\">\n";
-		$text.= "<tr class=\"tblhead\">\n";
-		$l = _("Account");
-		$text.= "<td>$l</td>\n";
-		$l = _("Debit");
-		$text.= "<td>$l</td>\n";
-		$l = _("Credit");
-		$text.= "<td>$l</td>\n";
-		if($r > 0) {
-			$negsum = 0.0;
-			$possum = $r;
-		}
-		else {
-			$negsum = $r * -1.0;
-			$possum = 0.0;
-		}
-		$text.= "</tr>\n";
-		$text.= "<tr><td>\n";
-		$acc = GetAccountName($bankacc);
-		$text.= "<input type=\"hidden\" name=\"account[]\" value=\"$bankacc\">\n";
-		$text.= "$acc\n";
-		$text.= "</td>\n";
-		$text.= "<td><input dir=\"ltr\" size=\"5\" type=\"text\" class=\"negsum\" name=\"negsum[]\" onchange=\"CheckNeg(0)\" value=\"$negsum\" readonly></td>\n";
-		$text.= "<td><input dir=\"ltr\" size=\"5\" type=\"text\" class=\"possum\" name=\"possum[]\" onchange=\"CheckPos(0)\" value=\"$possum\" readonly></td>\n";
-		$text.= "<tr>\n";
-		$text.= "<td>\n";
-		$text.= PrintAccountSelect();
-		$text.= "</td>\n";
-		$text.= "<td><input dir=\"ltr\" size=\"5\" type=\"text\" class=\"negsum\" name=\"negsum[]\" onchange=\"CheckNeg(1)\"></td>\n";
-		$text.= "<td><input dir=\"ltr\" size=\"5\" type=\"text\" class=\"possum\" name=\"possum[]\" onchange=\"CheckPos(1)\"></td>\n";
-		$text.= "</tr>\n";
-		$text.= "</table>\n";
-		$text.= "</td></tr>\n";
-		$l = _("Submit");
-		$text.= "<tr><td align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
-		$text.= "</table>\n";
-		$text.= "</form>\n";
-		//$text.= "</div>\n";
-		//print "</div>\n";	/* end righthalf */
-		createForm($text,$haeder,'',750,'','',1,getHelp());
-		
+		//$text.= $l;
+		ErrorReport($l);
 		return;
 	}
 }
@@ -376,8 +328,8 @@ if($action == 'extmatch') {
 //print "</div>\n";	/* end of righthalf used for caption */
 //print "<br><br><br>\n";
 //print "<div class=\"innercontent\">\n";
-$text.=   "<form name=\"form1\" action=\"?module=extmatch&amp;action=extmatch&amp;bankacc=$bankacc\" method=\"post\">\n";
-
+$text.=   "<form id=\"form\" name=\"form1\" action=\"?module=extmatch&amp;action=extmatch&amp;bankacc=$bankacc\" method=\"post\">\n";
+$text.=   "<input type=\"hidden\" id=\"account\" name=\"account\" value=\"$bankacc\" />";
 $text.=  "<table><tr>\n";
 $l = _("External page transactions");
 $text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
@@ -412,15 +364,15 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 //	$details = htmlspecialchars($details);
 	$sum = $line['sum'];
 	$text.=  "<tr>\n";
-	$text.=  "<td><input type=\"checkbox\" class=\"ext\" name=\"ext[]\" value=\"$num\" onchange=\"CalcExtSum()\"></td>\n";
+	$text.=  "<td><input type=\"checkbox\" class=\"ext\" name=\"ext[]\" value=\"$num\" onchange=\"CalcExtSum()\" /></td>\n";
 	$text.=  "<td>$date</td>\n";
 	$text.=  "<td>$refnum</td>\n";
 	$text.=  "<td>$details</td>\n";
-	$text.=  "<td dir=\"ltr\">$sum<input type=\"hidden\" class=\"ext_sum\" name=\"ext_sum[]\" value=\"$sum\"></td>\n";
+	$text.=  "<td>$sum<input type=\"hidden\" class=\"ext_sum\" name=\"ext_sum[]\" value=\"$sum\" /></td>\n";
 	$text.=  "</tr>\n";
 }
 $text.=  "<tr><td colspan=\"4\">&nbsp;</td>\n";
-$text.=  "<td><input type=\"text\" name=\"ext_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
+$text.=  "<td><input type=\"text\" id=\"ext_total\" name=\"ext_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
 $text.= '</table><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td valign="top">';
 
 
@@ -444,8 +396,8 @@ global $TranType;
 $query = "SELECT * FROM $transactionstbl WHERE account='$bankacc' AND cor_num='0' AND prefix='$prefix'";	/* only unmatched transactions */
 $result = DoQuery($query, __LINE__);
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	if ($type==OPBALANCE)
-		continue;
+	//if ($type==OPBALANCE)
+	//	continue;
 	$num = $line['num'];
 	$date = FormatDate($line['date'], "mysql", "dmy");
 	$refnum = $line['refnum1'];
@@ -466,7 +418,7 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	
 }
 $text.=  "<tr><td colspan=\"5\">&nbsp;</td>\n";
-$text.=  "<td><input type=\"text\" name=\"int_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
+$text.=  "<td><input type=\"text\" id=\"int_total\" name=\"int_total\" size=\"6\" readonly value=\"0\" dir=\"ltr\"></td>\n";
 $text.= '</table></td>';
 
 $l = _("Reconciliate");

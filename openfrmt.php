@@ -455,7 +455,9 @@ else if($step == 1) {
 	//$enddate = FormatDate($e, "d-m-Y", "mysql");
 	
 	$begindate = strftime('%Y-%m-%d',strtotime($b));
-	$enddate = strftime('%Y-%m-%d',strtotime($e));
+	$a=strtotime($e);
+	if($a>strtotime(date("d-m-Y"))) $a=strtotime(date("d-m-Y"));
+	$enddate = strftime('%Y-%m-%d',$a);
 	/* The actual work begins... */
 	/* store current working directory */
 	$cwd = getcwd();

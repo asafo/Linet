@@ -50,16 +50,6 @@ function GetAcctType($acct) {
 	return $line[0];
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
-
 function GetAcctTotal($acct, $begin, $end) {
 	global $transactionstbl, $prefix;
 	
@@ -466,6 +456,7 @@ if($step >= 1) {
 			$url .= "&amp;percent=on";
 		$l = _("File export");
 		$text.= "<a class=\"btnsmall\" href=\"$url\">$l</a>\n";
+		$text.=newWindow(_("Print"),"?action=lister&form=profloss&step=1&begindate=$begindate&enddate=$enddate",'','',_("Print Window"),"btnsmall");
 		//print "</div>\n";
 	}
 	else if($step == 2) {
@@ -474,7 +465,7 @@ if($step >= 1) {
 		$haeder = _("File export");
 		//print "<h2>$l: ";
 		$url = "download.php?file=$filename&amp;name=profloss.csv";
-		$text.= "<a href=\"$filename\"><h2>profloss.csv</h2></a>\n";
+		$text.= "<a href=\"$url\"><h2>profloss.csv</h2></a>\n";
 		//$l = _("Right click and choose 'save as...'");
 		//$text.= "<h2>$l</h2>\n";
 		//$text.= "<script type=\"text/javascript\">\n";
@@ -484,6 +475,10 @@ if($step >= 1) {
 	}
 
 }
-createForm($text, $reptitle,'',750,'','',1,getHelp());
+global $smallprint;
+if(!$smallprint)
+	createForm($text, $reptitle,'',750,'','',1,getHelp());
+else 
+	print $text;
 ?>
 

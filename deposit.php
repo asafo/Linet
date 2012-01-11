@@ -109,10 +109,10 @@ if($action == 'submit') {
 	$tnum = 0;
 //	print_r($cheque);
 	foreach($cheque as $i => $ch) {
-		list($val, $sum) = split(":", $ch);
+		list($id,$val, $sum) = split(":", $ch);//$id
 	//	print "val: $val, sum: $sum<br>\n";
 		/* first check if this cheque already deposited */
-		$query = "SELECT dep_date,type,creditcompany FROM $chequestbl WHERE cheid='$val' AND prefix='$prefix'";
+		$query = "SELECT dep_date,type,creditcompany FROM $chequestbl WHERE id='$id' AND refnum='$val' AND prefix='$prefix'";
 		$result = DoQuery($query, "Check cheque");
 		if(!$result)
 			break;
@@ -125,7 +125,7 @@ if($action == 'submit') {
 			// First part ׳³ג€“׳³ג€÷׳³ג€¢׳³ֳ— ׳³ֲ§׳³ג€¢׳³ג‚×׳³ֳ— ׳³ֲ©׳³ג„¢׳³ֲ§׳³ג„¢׳³ן¿½ 
 			$total = (float)$sum;
 			if($t == 1)
-				$cheque_acct=CASH;
+				$cheque_acct=ACCTCASH;
 			else if($t==2)
 				$cheque_acct=CHEQUE;
 			else if ($t==3)
@@ -141,7 +141,7 @@ if($action == 'submit') {
 			$query = "UPDATE $chequestbl SET ";
 			$query .= "bank_refnum='$bank_refnum', \n";
 			$query .= "dep_date='$dep_date1' \n";
-			$query .= "WHERE cheid='$val' AND prefix='$prefix'";
+			$query .= "WHERE refnum='$val' AND id='$id' AND prefix='$prefix'";
 			//	print "Query: $query<br>\n";
 			$result = DoQuery($query, __LINE__);
 		}
@@ -159,8 +159,7 @@ $text.=PrintBankSelect();
 $l = _("Deposit date");
 $text.=  "</td><td>$l: \n";
 $dep_date = date("d-m-Y");
-$text.=  "<input class=\"date\" type=\"text\" id=\"dep_date\" name=\"dep_date\" value=\"$dep_date\" size=\"8\">\n";
-//$text.= '<script type="text/javascript">addDatePicker("#dep_date","'.$dep_date.'");</script>';
+$text.=  "<input class=\"date\" type=\"text\" id=\"dep_date\" name=\"dep_date\" value=\"$dep_date\" size=\"8\" />\n";
 
 $text.= "</td></tr>\n";
 $text.= "<tr><td colspan=\"2\">\n";
@@ -194,11 +193,11 @@ $query = "SELECT * FROM $chequestbl WHERE bank_refnum='' AND prefix='$prefix'";	
 $result = DoQuery($query, __LINE__);
 while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	if($line['type']!=4){//if not bank transfer display
-		$cheid=$line['cheid'];
+		$id=$line['id'];
 		$type = $line['type'];
 		$refnum = $line['refnum'];
 		$doc=selectSql(array('num'=>$refnum,'prefix'=>$prefix), $docstbl);
-		$refnum=$doc[0]['docnum'];
+		$docnum=$doc[0]['docnum'];
 		$doctype=$doc[0]['doctype'];
 		$cheque_num = $line['cheque_num'];
 		$bank = $line['bank'];
@@ -207,12 +206,12 @@ while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		$cheque_date = FormatDate($line['cheque_date'], "mysql", "dmy");
 		$sum = $line['sum'];
 		$text.= "<tr>\n";
-		$text.= "<td><input type=\"checkbox\" id=\"cheque\" name=\"cheque[]\" value=\"$cheid:$sum\" onchange=\"CalcSum()\"></td>\n";
+		$text.= "<td><input type=\"checkbox\" id=\"cheque\" name=\"cheque[]\" value=\"$id:$refnum:$sum\" onchange=\"CalcSum()\"></td>\n";
 		//$doctype = DOC_RECEIPT;
-		$url = "printdoc.php?doctype=$doctype&amp;docnum=$refnum&amp;prefix=$prefix";
+		$url = "printdoc.php?doctype=$doctype&amp;docnum=$docnum&amp;prefix=$prefix";
 		$typestr = $paymenttype[$type];
 		$text.= "<td>$typestr</td>\n";
-		$text.= "<td><a href=\"javascript:void()\" onclick=PrintDocument(\"$url\")>$refnum</A></TD>\n";
+		$text.= "<td><a href=\"javascript:void()\" onclick=PrintDocument(\"$url\")>$docnum</A></TD>\n";
 		$text.= "<td>$cheque_num</td>\n";
 		$text.= "<td>$bank</td>\n";
 		$text.= "<td>$branch</td>\n";

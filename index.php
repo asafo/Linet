@@ -8,6 +8,11 @@
  | Cookies must be sent first so check if someone wants us to send cookie...
  */
 session_start();
+if((!isset($_COOKIE['begin']))&&(!isset($_COOKIE['end']))){
+	setcookie('begin', date('1-1-Y'), time() + 24 * 3600);
+	setcookie('end', date('d-m-Y'), time() + 24 * 3600);
+}
+
 if(isset($_GET['begin']) && isset($_GET['end'])) {
 	$begindmy = $_GET['begin'];
 	$enddmy = $_GET['end'];
@@ -32,6 +37,10 @@ $loggedin=isset($_SESSION['loggedin']) ? $_SESSION['loggedin'] : false;
 //					 action
 $action = GetPoster('action');
 $module = GetPoster('module');
+$begin =GetPoster('begin');//isset($_REQUEST['begin']) ? $_REQUEST['begin'] : '';
+$end = GetPoster('end');
+if($begin=='')$begin="1-1-".date("Y");
+if($end=='')$end=date('d-m-Y');
 
 $stdheader = '';
 $abspath = GetURI();
@@ -103,8 +112,10 @@ else if($action == 'unsel') {
 	unset($action);
 	unset($_GET['action']);
 	$module = 'main';
-	print "<meta http-equiv=\"refresh\" content=\"0;url=?\" />";
-	exit;
+	//print "<meta http-equiv=\"refresh\" content=\"0;url=?\" />";
+	$curcompany->companyname='';
+	$prefix='';
+	//exit;
 }
 	
 	
@@ -139,8 +150,33 @@ if (!$cheaked){
 		setcookie('cheaked', true, time() + 24 * 3600);//die;
 		setcookie('sversion', $sVersion, time() + 24 * 3600);//die;
 	}else{
-		if($sVersion=='-1'){
-			print 'Unable To Connect Update Server';
+		if(($sVersion=='-1')&&(!isset($_SESSION['conctionerror']))){
+			//print 'Unable To Connect Update Server';
+			$_SESSION['conctionerror']=12;
+			$title1=_("The system cannot connect to Linet update server");
+			$msg=_("Israeli tax authorities must have the ability to update the system (through our Linet update server) in order to comply with new tax regulations. Avoiding access to Linet update server, undermines the status of Linet 2.0 instance of yours as a legal and approved system for computerized book keeping system in Israel.
+Kindly refer to the section at Linet manual for resolving this connectivity issue");
+			$msg1="<a href=\"http://www.linet.org.il/index.php/support/user-help-navigate?id=96\" target=\"_blank\">"._("Here")."</a>";
+			$servernotice= '
+			<div id="dialog-confirm" title="'._("Server Notice").'">
+				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span>'.$title1.'</span><br />'.$msg."&nbsp;".$msg1.'</p>
+			</div>
+			<script>
+				$(document).ready(function(){
+					$( "#dialog:ui-dialog" ).dialog( "destroy" );
+					$( "#dialog-confirm" ).dialog({
+						resizable: false,height:200,width:300,//modal: true,
+						buttons: {
+							"'._("Ok").'": function() {
+								$( this ).dialog( "close" );
+							}//,
+							//"'._("no thanks").'": function() {
+							//	$( this ).dialog( "close" );
+							//}
+						}
+					});
+				});
+			</script>';
 			//die;
 		}
 	}
@@ -185,24 +221,44 @@ function getVersion(){
 
 function browser_info($agent=null) {
   // Declare known browsers to look for
-  $known = array('msie', 'firefox', 'safari', 'webkit', 'opera', 'netscape',
-    'konqueror', 'gecko');
+ // $known = array('msie', 'firefox', 'safari', 'webkit', 'opera', 'netscape','konqueror', 'gecko');
 
-  // Clean up agent and build regex that matches phrases for known browsers
-  // (e.g. "Firefox/2.0" or "MSIE 6.0" (This only matches the major and minor
-  // version numbers.  E.g. "2.0.0.6" is parsed as simply "2.0"
-  $agent = strtolower($agent ? $agent : $_SERVER['HTTP_USER_AGENT']);
-  $pattern = '#(?<browser>' . join('|', $known) .
-    ')[/ ]+(?<version>[0-9]+(?:\.[0-9]+)?)#';
-
-  // Find all phrases (or return empty array if none found)
-  if (!preg_match_all($pattern, $agent, $matches)) return array();
-
-  // Since some UAs have more than one phrase (e.g Firefox has a Gecko phrase,
-  // Opera 7,8 have a MSIE phrase), use the last one found (the right-most one
-  // in the UA).  That's usually the most correct.
-  $i = count($matches['browser'])-1;
-  return array($matches['browser'][$i] => $matches['version'][$i]);
+  $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+	//print $agent;//,
+	//print ":".strstr ($agent,"msie").":";
+ if((strstr($agent,"msie 6.0"))||(strstr($agent,"msie 7.0"))){
+ 	if(!isset($_SESSION['wrongbrowser'])){
+ 			$_SESSION['wrongbrowser']=true;
+  			$title1=_("The system has noticed that you try to use linet accounting with unsupported browser. Kindly refer to the list of the supported browsers");
+  			$msg="<a target=\"_blank\" href=\"http://www.linet.org.il/index.php/support/user-help-navigate?id=91\">"._("Here")."</a>";
+  			$msg1=_(". and upgrade your browser accordingly.");
+			
+			print '
+			<div id="dialog-confirm" title="'._("Server Notice").'">
+				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span>'.$title1.'</span><br />'.$msg.$msg1.'</p>
+			</div>
+			<script>
+				$(function() {
+					$( "#dialog:ui-dialog" ).dialog( "destroy" );
+					$( "#dialog-confirm" ).dialog({
+						resizable: false,height:200,width:300,//modal: true,
+						buttons: {
+							"'._("Ok").'": function() {
+								$( this ).dialog( "close" );
+							},
+							"'._("no thanks").'": function() {
+								$( this ).dialog( "close" );
+							}
+						}
+					});
+				});
+			</script>';
+ 	}
+}
+  
+  
+  
+  return "";
 }
 function isMobile(){
 	$mobile_ua = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -238,7 +294,6 @@ function RunModule() {
 		return "<h1>$l</h1>\n";
 	
 }
-
 function TemplateReplace($r) {
 	global $title, $cssfile, $small_logo;
 	global $Version, $softwarenameheb;
@@ -255,18 +310,24 @@ function TemplateReplace($r) {
 
 	$p = str_replace('~', '', $r[0]);
 	if($p =='updatepop'){
+		global $servernotice;
+		print $servernotice;
 		//global 
 		//$updatepop=true;//rethink
 		if ($_SESSION['updatepop']) {
+			$title=_("Your Linet accounting version is obsolete");
+			$msg=_("Working with un updated version undermines the status of Linet 2.0 instance of yours as a legal and approved system for computerized book keeping system in Israel.
+Kindly execute Linet update wizard here in order to resolve this issue ");
+			$msg1="<a href=\"module/update\">"._("Here")."</a>";
 			print '
 			<div id="dialog-confirm" title="'._("Update Notice").'">
-				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>'._("You are working on an old Version of Linet you must update").'</p>
+				<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span>'.$title.'</span><br />'.$msg."&nbsp;".$msg1.'</p>
 			</div>
 			<script>
 				$(function() {
 					$( "#dialog:ui-dialog" ).dialog( "destroy" );
 					$( "#dialog-confirm" ).dialog({
-						resizable: false,height:140,modal: true,
+						resizable: false,height:200,width:300,modal: true,
 						buttons: {
 							"'._("Update Now").'": function() {
 								$( this ).dialog( "close" );
@@ -298,10 +359,10 @@ function TemplateReplace($r) {
 	else if($p == 'logo')
 		return $small_logo;
 	else if($p=='complogo'){
-		if(file_exists("img/logo/$logo"))
-			return '<a href="?module=main"><img src="img/logo/'.$logo.'" alt="'.$title.'" height="80" /></a>';
-		else
-			return "<a href=\"?module=main\"><img src=\"img/logo/$logo\" alt=\"\" height=\"60\" /></a><h1>$title</h1>";
+		if($logo!='')
+			if(file_exists("img/logo/$logo"))
+				return '<a href="?module=main"><img src="img/logo/'.$logo.'" alt="'.$title.'" height="80" /></a>';
+		return "<a href=\"?module=main\"><img src=\"\" alt=\"\" height=\"60\" /><h1>$title</h1></a>";
 	}else if($p == 'version') {
 		return $Version;
 	}

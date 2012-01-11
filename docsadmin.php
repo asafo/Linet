@@ -113,13 +113,14 @@ function addItem(last) {
 	var cg = document.createElement('td');
 	r.setAttribute("id",'tr'+IdName);
 	cg.setAttribute("id",'Action'+IdName);
-	ca.innerHTML = "<input type=\"text\" id=\"AC"+num+"\" class=\"number cat_num\" name=\"cat_num[]\" onblur=\"SetPartDetails("+num+")\" size=\"5\"/>\n";
+	ca.innerHTML = "<input type=\"text\" id=\"AC"+num+"\" placeholder=\"<?php print _("Fill me …"); ?>\" class=\"number cat_num\" name=\"cat_num[]\" onblur=\"SetPartDetails("+num+")\" size=\"5\"/>\n";
+	ca.innerHTML += "<input type=\"hidden\" id=\"SVAT"+num+"\" value=\"100\" name=\"svat[]\" />";
 	cb.innerHTML = "<input type=\"text\" id=\"DESC"+num+"\" class=\"description\" name=\"description[]\" size=\"20\" />";
 	cc.innerHTML ="<input type=\"text\" id=\"QTY"+num+"\" class=\"number qty\" name=\"qty[]\" size=\"3\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("QTY",num,1);
 	cd.innerHTML ="<input type=\"text\" id=\"UNT"+num+"\" class=\"number unit_price\" name=\"unit_price[]\" size=\"6\" onblur=\"CalcPrice("+num+")\" />"+createNumBox("UNT",num,10);
 	ce.innerHTML="<?php print PrintCurrencySelect(null,$CurrArray);?>";
 	cf.innerHTML ="<input type=\"text\" class=\"sum\" id=\"PRICE"+num+"\" class=\"number price\" name=\"price[]\" size=\"8\" readonly=\"yes\" />";
-	cg.innerHTML="<a href=\"javascript:addItem("+num+");\" class=\"btnadd\">Add</a>";
+	cg.innerHTML="<a href=\"javascript:addItem("+num+");\" class=\"btnadd\"><?php print _("Add"); ?></a>";
 		
 	if(last!=0){
 		var lastaction = document.getElementById('ActionMy'+last);
@@ -166,14 +167,25 @@ function CalcPrice(index) {
 }
 function CalcPriceSum() {
 	var elements = $('[id^=PRICE]');
-	var sum=0;
+	var selements = $('[id^=SVAT]');
+	var vattotal=0;
+	var subtotal=0;
+	var novat_total=0;
 	var vat=<?php print $curcompany->vat; ?>;
 	for (var i=0; i<elements.length; i++) {
-	    sum+=parseFloat($('#'+elements[i].id).val());
+		var itemtotal=parseFloat($('#'+elements[i].id).val());
+		var vatper= parseFloat($('#'+selements[i].id).val());
+		if(vatper!=0){
+			subtotal+=itemtotal;
+			vattotal+=itemtotal*(vat/100);
+		}else{
+			novat_total+=itemtotal;
+		}
 	}
-	var vatsum=Math.round((sum*(vat/100))*100)/100;
-	$('#vatsum').val(vatsum.toFixed(2));
-	$('#sum').val((sum+vatsum).toFixed(2));
+	$('#vatsum').val(vattotal.toFixed(2));
+	$('#sub_total').val(subtotal.toFixed(2));
+	$('#novat_total').val(novat_total.toFixed(2));
+	$('#total').val((subtotal+novat_total+vattotal).toFixed(2));
 }
 function CalcRcptSum(type,id){
 	var elements = $("[id^=sum]");
@@ -193,6 +205,7 @@ function SetPartDetails(index) {
 				$('#DESC'+index).val(data.name);
 				$('#CUR'+index).val(data.currency);
 				$('#UNT'+index).val(data.defprice);
+				$('#SVAT'+index).val(data.vat);
 				$('#QTY'+index).focus();
 			}, "json")
 			.error(function() { });
@@ -388,6 +401,8 @@ if($step == 3) {	/* final step, put data in tables */
 	$doc->sub_total=GetPost('total')-GetPost('vat');
 	$doc->src_tax=GetPost('src_tax');
 	$doc->vat=GetPost('vat');
+	$doc->sub_total=GetPost('sub_total');
+	$doc->novat_total=GetPost('novat_total');
 	$doc->total=GetPost('total');
 	$doc->comments=GetPost('comments');
 	$doc->owner=$curuser->id;
@@ -395,7 +410,15 @@ if($step == 3) {	/* final step, put data in tables */
 		$i=0;
 		$b=0;		
 		foreach($_POST['cat_num'] as $docdet){
+			
 			if($_POST['cat_num'][$i]!=''){
+				$acct = GetAccountFromCatNum($_POST['cat_num'][$i]);
+				if($acct == 0) {
+					$l = _("Income account not defined").", ";
+					$l .= _("for item:").$_POST['description'][$i];
+					ErrorReport("$l");
+					exit;
+				}
 				$det=new documentDetail();
 				$det->cat_num=$_POST['cat_num'][$i];
 				$det->description=$_POST['description'][$i];
@@ -633,8 +656,10 @@ if($step == 0) {	/* First step, select document type and customer */
 		$text.= "</tr>\n";
 		$l=htmlspecialchars(_("VAT"));
 		$text.= "</thead><tfoot><tr><td colspan=\"4\"></td><td>$l</td><td>".PrintInput("text",null,"vat","vatsum",0,8,"readonly")."</td><td></td></tr>\n";
+		$text.=PrintInput("hidden",null,"sub_total","sub_total");
+		$text.=PrintInput("hidden",null,"novat_total","novat_total");
 		$l=htmlspecialchars(_("Sum"));
-		$text.= "<tr><td colspan=\"4\"></td><td>$l</td><td>".PrintInput("text",null,"total","sum",0,8,"readonly")."</td><td></td></tr></tfoot><tbody id=\"docdet\"></tbody></table>\n";
+		$text.= "<tr><td colspan=\"4\"></td><td>$l</td><td>".PrintInput("text",null,"total","total",0,8,"readonly")."</td><td></td></tr></tfoot><tbody id=\"docdet\"></tbody></table>\n";
 		$text.= '<script type="text/javascript">$(document).ready(function(){addItem(0);});</script>';
 		
 	}

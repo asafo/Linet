@@ -7,10 +7,6 @@
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 global $montharr;
 
-$montharr = array(_("January"), _("February"), _("March"), _("April"),
-	_("May"), _("June"), _("July"), _("August"), _("September"), 
-	_("October"), _("November"), _("December"));
-
 if(!isset($prefix) || ($prefix == '')) {
 	ErrorReport(_("This operation can not be executed without choosing a business first"));
 	 //"<h1>$l</h1>\n";
@@ -179,7 +175,7 @@ if($step == 0) {	/* print date select form */
 	$text.= "<td> &nbsp; </td>\n";	/* just to create small space */
 	$text.= "<td>\n";
 	$text.=PrintMonthSelect($endmonth, 'endmonth');
-	$text.= "<td>\n";
+	$text.= "</td><td>\n";
 	$text.=PrintYearSelect($beginyear);
 	$text.= "</td>\n";
 	$text.= "<td>\n";
@@ -281,26 +277,23 @@ if($step == 2) {
 	list($day2, $month2, $year2) = split("[/.-]", $enddate);
 	$ref1 = "$month1$year1";
 	$ref2 = "$month2$year2";
-//	$date = date('d-m-Y');
-	$date = $enddate;	/* register transactions on last date of report */
+	$date = date('d-m-Y');
+	//$date = $enddate;	/* register transactions on last date of report */
 	/* first check if we already have transactions */
 	$t = VAT;
 	$query = "SELECT num FROM $transactionstbl WHERE type='$t' AND refnum1='$ref1' AND refnum2='$ref2' AND prefix='$prefix'";
 	$result = DoQuery($query, "vatrep.php");
 	$num = mysql_num_rows($result);
 	if($num == 0) {
-		// Transaction 1 ׳—׳•׳‘׳× ׳�׳¢"׳� ׳¢׳¡׳§׳�׳•׳× ׳–׳›׳•׳× ׳�׳¢"׳� ׳—׳•"׳–
 		$s = $sellvat * -1.0;
-		$tnum = Transaction(0, VAT, SELLVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $s);
-		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $sellvat);
-		// Transaction 2 ׳–׳›׳•׳× ׳�׳¢"׳� ׳×׳©׳•׳�׳•׳× ׳—׳•׳‘׳× ׳�׳¢"׳� ׳—׳•"׳–
+		$tnum = Transaction(0, VAT, SELLVAT, $ref1, $ref2, $date, _('VAT'), $s);
+		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, _('VAT'), $sellvat);
 		$b = $buyvat * -1.0;
-		$tnum = Transaction(0, VAT, BUYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $buyvat);
-		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $b);
-		// Transaction 3 ׳–׳›׳•׳× ׳�׳¢"׳� ׳×׳©׳•׳�׳•׳× ׳•׳ ׳›׳¡׳™׳�, ׳—׳•׳‘׳× ׳�׳¢"׳� ׳—׳•"׳–
+		$tnum = Transaction(0, VAT, BUYVAT, $ref1, $ref2, $date, _('VAT'), $buyvat);
+		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, _('VAT'), $b);
 		$a = $assetvat * -1.0;
-		$tnum = Transaction(0, VAT, ASSETVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $assetvat);
-		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, '׳�׳¢\"׳�', $a);
+		$tnum = Transaction(0, VAT, ASSETVAT, $ref1, $ref2, $date, _('VAT'), $assetvat);
+		$tnum = Transaction($tnum, VAT, PAYVAT, $ref1, $ref2, $date, _('VAT'), $a);
 	}
 
 	$text.= "<table dir=\"ltr\" class=\"formtbl\" border=\"0\"><tr>\n";
@@ -370,11 +363,11 @@ if($step == 3) {
 	$text.= "</form>\n";
 	$text.= "<br><br>\n";
 	//$text.= "<h2>";
-	$text.= "<a href=\"?module=acctdisp&account=1&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳×׳©׳•׳�׳•׳×</a>\n";
+	$text.= "<a href=\"?module=acctdisp&account=1&begin=$bdate&end=$edate\">מע\"מ תשומות</a>\n";
 	$total = GetAcctTotal(1, $begin, $end);
 	$text.= "<span dir=\"ltr\">$total</span>";
 	$text.= "&nbsp;&nbsp;&nbsp;&nbsp;\n";
-	$text.= "<a href=\"?module=acctdisp&account=3&begin=$bdate&end=$edate\">׳�׳¢\"׳� ׳¢׳¡׳§׳�׳•׳×</a>\n";
+	$text.= "<a href=\"?module=acctdisp&account=3&begin=$bdate&end=$edate\">מע\"מ עסקאות</a>\n";
 	$total = GetAcctTotal(3, $begin, $end);
 	$text.= "<span dir=\"ltr\">$total</span>";
 	//$text.= "</h2>\n";

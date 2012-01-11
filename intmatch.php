@@ -15,7 +15,7 @@ global $accountstbl, $transactionstbl;
 global $namecache;
 global $TranType;
 global $dir;
-
+global $correlationtbl,$curuser;
 function PrintAccountSelect() {
 	global $accountstbl, $prefix;
 
@@ -42,25 +42,6 @@ function PrintAccountSelect() {
 	$text.= "</select>\n";
 	return $text;
 }//*/
-
-function GetAccountName($account) {
-	global $accountstbl, $prefix;
-	global $namecache;	/* name cache for account names we already found */
-	
-	if($namecache) {
-		$name = $namecache[$account];
-		if($name) 	/* we have a cache hit */
-			return $name;
-	}
-	
-	$query = "SELECT company FROM $accountstbl WHERE num='$account' AND prefix='$prefix'";
-//	print "Query: $query<BR>\n";
-	$result = DoQuery($query, __LINE__);
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	$name = $line[0];
-	$namecache[$account] = $name;
-	return $name;
-}
 
 ?>
 <script type="text/javascript">
@@ -107,6 +88,54 @@ function CalcCreditSum() {
 	}
 	t.value = total;
 }
+
+function goForm(){
+	$(function() {
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+		$( "#dialog-confirm" ).dialog({
+			resizable: false,height:200,width:300,//modal: true,
+			buttons: {
+				"Ok": function() {
+					$( this ).dialog( "close" );
+				},
+				"no thanks": function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	});
+}
+
+function go(){
+	var bil=true;//CalcSum();
+	if(parseFloat($('#credit_total').val())!=parseFloat($('#debit_total').val())){
+		var sum=(-1)*(parseFloat($('#credit_total').val())-parseFloat($('#debit_total').val()));
+		var account =parseFloat($('#account').val());
+		//alert('we r not balanced!');
+		var dialog = $('<div dir="rtl" id="dialogdiv"></div>').appendTo('body');
+		dialog.load("?action=lister&form=voucher&sum="+sum+"&acc="+account, {}, 
+		        function (responseText, textStatus, XMLHttpRequest) {
+		        	var agreed = false; 
+		            dialog.dialog({resizable: false,height:500,width:780,hide: 'clip',title: ''});
+		            dialog.bind('dialogclose', function(event) {
+			            var acc=$('#account').val();
+		            	window.location.href='?module=intmatch&step=1&account='+acc;
+		            });
+		        }
+		    );
+		bil=false;
+	}
+	if(bil)
+		document.form1.submit();
+}
+$(document).ready(function(){
+	$("#form").validate({
+		   submitHandler: function(form) {
+			   go();
+		   }
+	   });
+});
+
 </script>
 
 <?PHP
@@ -116,9 +145,9 @@ $haeder = _("Accounts reconciliations");
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
 
 if($step == 2) {
-	$debit = $_POST['debit'];
-	$credit = $_POST['credit'];
-	$account = $_POST['account'];
+	$debit = GetPoster('debit');
+	$credit = GetPoster('credit');
+	$account = GetPoster('account');
 	
 	$debit_str = '';
 	$total = 0.0;
@@ -127,29 +156,34 @@ if($step == 2) {
 	//	$debit = array_unique($debit);
 		foreach($debit as $val) {
 			/* $val is transaction number in debit side */
-			$query = "SELECT sum FROM $transactionstbl WHERE num='$val' AND account='$account' AND prefix='$prefix'";
+			list($num,$id) = explode(":", $val);
+			$query = "SELECT sum FROM $transactionstbl WHERE num='$val' AND id='$id' AND account='$account' AND prefix='$prefix'";
 			$result = DoQuery($query,__FILE__.": ".__LINE__);
 			
 			while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 				$sum = $line[0];
 				$total += $sum;
+				//print "sum: $sum<br />\n";
 				if(!empty($debit_str))
 					$debit_str .= ',';
 				$debit_str .= $val;
 			}
 		}
 	}
+	//print "total: $total<br />\n";
 	$credit_str = '';
 	if(is_array($credit)) {
 	//	$credit = array_unique($credit);
 		foreach($credit as $val) {
 			/* $val is transaction number in debit side */
-			$query = "SELECT sum FROM $transactionstbl WHERE num='$val' AND account='$account' AND prefix='$prefix'";
+			list($num,$id) = explode(":", $val);
+			$query = "SELECT sum FROM $transactionstbl WHERE num='$val' AND id='$id' AND account='$account' AND prefix='$prefix'";
+			//print $query."<br />\n";
 			$result = DoQuery($query,__FILE__.": ".__LINE__);
 			
 			while($line = mysql_fetch_array($result, MYSQL_NUM)) {
 				$sum = $line[0];
-//				print "sum: $sum<br />\n";
+				//print "sum: $sum<br />\n";
 				$total += $sum;
 				if(!empty($credit_str))
 					$credit_str .= ',';
@@ -157,7 +191,7 @@ if($step == 2) {
 			}
 		}
 	}
-//	print "total: $total<BR>\n";
+	//print "total: $total<br />\n";
 //	print "debit_str: $debit_str<BR>\n";
 //	print "credit_str: $credit_str<BR>\n";
 	if(($total > 0.01) || ($total < -0.01)) {
@@ -169,23 +203,29 @@ if($step == 2) {
 //	print_r($credit);
 //	print_r($debit);
 //	print "<BR>debit: $debit_str<BR>credit: $credit_str<BR>\n";
+	$cor_num=maxSql(array('prefix'=>$prefix), "num", $correlationtbl);
+	$uid=$curuser->id;
+	$query = "INSERT INTO $correlationtbl VALUES ('$prefix', '$cor_num', '$debit_str', '$credit_str', '".OPEN."', '$uid');";
+	DoQuery($query, __FILE__.":".__LINE__);
 	foreach($credit as $val) {
-		$query = "UPDATE $transactionstbl SET cor_num='$debit_str' ";
-		$query .= "WHERE num='$val' AND account='$account' AND prefix='$prefix'";
+		list($num,$id) = explode(":", $val);
+		$query = "UPDATE $transactionstbl SET cor_num='$cor_num' ";
+		$query .= "WHERE num='$num' AND id='$id' AND account='$account' AND prefix='$prefix'";
 //		print "Query: $query<BR>\n";
 		$result = DoQuery($query,__FILE__.": ".__LINE__);
 		
 	}
 	foreach($debit as $val) {
-		$query = "UPDATE $transactionstbl SET cor_num='$credit_str' ";
-		$query .= "WHERE num='$val' AND account='$account' AND prefix='$prefix'";
+		list($num,$id) = explode(":", $val);
+		$query = "UPDATE $transactionstbl SET cor_num='$cor_num' ";
+		$query .= "WHERE num='$num' AND id='$id' AND account='$account' AND prefix='$prefix'";
 		$result = DoQuery($query,__FILE__.": ".__LINE__);
 		
 	}
 	$step = 1;
 }
 if($step == 1) {
-	$account = $_POST['account'];
+	$account = GetPoster('account');
 	
 	if($account == 0) {
 		$l = _("No account chosen");
@@ -201,8 +241,8 @@ if($step == 1) {
 	$text.=  GetAccountName($account);
 	$text.=  "</h2>\n";
 	
-	$text.=  "<form name=\"form1\" action=\"?module=intmatch&amp;step=2\" method=\"post\">\n";
-	$text.=  "<input type=\"hidden\" name=\"account\" value=\"$account\">\n";
+	$text.=  "<form id=\"form\" name=\"form1\" action=\"?module=intmatch&amp;step=2\" method=\"post\">\n";
+	$text.=  "<input type=\"hidden\" id=\"account\" name=\"account\" value=\"$account\" />\n";
 	$text.=  "<table><tr>\n";
 	$l = _("Debit transactions");
 	$text.=  "<td align=\"right\"><h2>$l</h2></td>\n";
@@ -230,13 +270,14 @@ if($step == 1) {
 		if(($cor != '') && ($cor != 0))
 			continue;
 		$num = $line['num'];
+		$id = $line['id'];
 		$type_str = $TranType[$line['type']];
 		$date = FormatDate($line['date'], "mysql", "dmy");
 		$refnum = $line['refnum1'];
 		$sum = $line['sum'];
 		$sum *= -1.0;
 		$text.=  "<tr>\n";
-		$text.=  "<td><input type=\"checkbox\" class=\"debit\" name=\"debit[]\" value=\"$num\" onchange=\"CalcDebitSum()\"></td>\n";
+		$text.=  "<td><input type=\"checkbox\" class=\"debit\" name=\"debit[]\" value=\"$num:$id\" onchange=\"CalcDebitSum()\"></td>\n";
 		$text.=  "<td>$type_str</td>\n";
 		$text.=  "<td>$date</td>\n";
 		$text.=  "<td>$refnum</td>\n";
@@ -244,7 +285,7 @@ if($step == 1) {
 		$text.=  "</tr>\n";
 	}
 	$text.=  "<tr><td colspan=\"4\">&nbsp;</td>\n";
-	$text.=  "<td><input type=\"text\" name=\"debit_total\" value=\"0\" size=\"5\" readonly></td></tr>\n";
+	$text.=  "<td><input type=\"text\" id=\"debit_total\" name=\"debit_total\" value=\"0\" size=\"5\" readonly></td></tr>\n";
 	$text.=  "</table>\n";
 	$text.=  "<td style=\"background:white\">&nbsp;&nbsp;</td>\n";
 	$text.=  "</td><td valign=\"top\">\n";
@@ -269,27 +310,27 @@ if($step == 1) {
 		if(($cor != '') && ($cor != 0))
 			continue;
 		$num = $line['num'];
+		$id = $line['id'];
 		$type_str = $TranType[$line['type']];
 		$date = FormatDate($line['date'], "mysql", "dmy");
 		$refnum = $line['refnum1'];
 		$sum = $line['sum'];
 		$text.=  "<tr>\n";
-		$text.=  "<td><input type=\"checkbox\" class=\"credit\" name=\"credit[]\" value=\"$num\" onchange=\"CalcCreditSum()\"></td>\n";
+		$text.=  "<td><input type=\"checkbox\" class=\"credit\" name=\"credit[]\" value=\"$num:$id\" onchange=\"CalcCreditSum()\" /></td>\n";
 		$text.=  "<td>$type_str</td>\n";
 		$text.=  "<td>$date</td>\n";
 		$text.=  "<td>$refnum</td>\n";
-		$text.=  "<td>$sum<input type=\"hidden\" class=\"credit_sum\" name=\"credit_sum[]\" value=\"$sum\"></td>\n";
+		$text.=  "<td>$sum<input type=\"hidden\" class=\"credit_sum\" name=\"credit_sum[]\" value=\"$sum\" /></td>\n";
 		$text.=  "</tr>\n";
 	}
 	$text.=  "<tr><td colspan=\"4\">&nbsp;</td>\n";
-	$text.=  "<td><input type=\"text\" name=\"credit_total\" value=\"0\" size=\"5\" readonly></td></tr>\n";
+	$text.=  "<td><input type=\"text\" id=\"credit_total\" name=\"credit_total\" value=\"0\" size=\"5\" readonly /></td></tr>\n";
 	$text.=  "</table>\n";
 	$text.=  "</td></tr>\n";
 	$l = _("Reconciliate");
 	$text.=  "<tr><td colspan=\"3\" align=\"center\"><input type=\"submit\" value=\"$l\" class='btnaction' /></td></tr>\n";
 	$text.=  "</table>\n";
 	$text.=  "</form>\n";
-	$text.=  "<br><br>\n";
 	//print "</div>\n";
 	//print "<div class=\"form righthalf1\">\n";
 }

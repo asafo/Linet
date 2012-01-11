@@ -159,7 +159,10 @@ if($action == 'doadduser') {
 			$text.= "<h1  class=\"login\">$l</H1>\n";
 			$l = _("Click here to continue");
 			$text.= "<h2  class=\"login\"><a href=index.php>$l</A></H2>\n";
-			$action='adduser';
+			if($prefix!='*')
+				$action='adduser';
+			else 
+				$action='login';
 			//return;
 		}
 	}
@@ -194,7 +197,7 @@ if($action == 'doadduser') {
 		$text.= "<h1  class=\"login\">$l</H1>\n";
 		$l = _("Click here to continue");
 		$text.= "<h2  class=\"login\"><a href=index.php>$l</a></h2>\n";
-		$action='adduser';
+		$action='login';
 		//return;
 	}
 }
@@ -251,7 +254,7 @@ if($action == 'forgot') {
 	$r = rand(0, 26);
 	$pwd = sha1(substr($str, $r, 6));
 	$query = "UPDATE $logintbl SET password='$pwd' WHERE name='$email'";
-		echo "<br />".$pwd."; <br />";
+	//	echo "<br />".$pwd."; <br />";
 	DoQuery($query, "login.php");
 	$l = _("New password for Linet accounting software");
 	$subject = "=?utf-8?B?" . base64_encode("$l") . "?=";
@@ -279,9 +282,9 @@ if($action == 'login') {
 		$l = _("You have succesfully entered the system");
 		print "<h1  class=\"login\">$l</h1>\n";
 		$url='index.php';
-		print "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"2; URL=$url\">\n";
+		print "<script type=\"text/javascript\">window.location.href='$url';</script>\n";
 		exit;
-	}else print "error repiar and try agin:$a";
+	}else $text.=  _("Password or user name is not correct");
 	
 }
 
@@ -306,7 +309,7 @@ if($action == 'edituser') {
 	$haeder=$l;
 	//adam usr list:
 	$text.= "<table class=\"tablesorter\">\n";
-	$text.= "\t<thaed><tr><th class=\"header\">"._("name")."</th><th class=\"header\">"._("Full Name")."</th><th class=\"header\">"._("Actions")."</th><tr></thaed>\n";
+	$text.= "\t<thead><tr><th class=\"header\">"._("name")."</th><th class=\"header\">"._("Full Name")."</th><th class=\"header\">"._("Actions")."</th><tr></thead>\n";
 	$text.= "\t<tfoot></tfoot>\n";
 	$text.= "\t<tbody>\n";
 	global $permissionstbl;
@@ -398,8 +401,8 @@ else {
 	$l = _("Remember me");
 	$text.=  "<tr><td>";
 	$text.=  "<input type=\"checkbox\" name=\"rememberme\" />$l\n";
-	$l = _("I forgot my password");
-	$text.='<a href="javascript:showme();">'.$l.'</a></td></tr>';
+	//$l = _("I forgot my password");
+	//$text.='<a href="javascript:showme();">'.$l.'</a></td></tr>';
 	$text.=  "<tr><td colspan=\"2\" align=\"center\">";
 	$l = _("Login");
 	$text.="<input type=\"submit\" value=\"$l\" class='btnaction' />";	
@@ -416,16 +419,16 @@ function showme(){
         $("#login").hide(1000);
        
 } 
-function hideme(){
+/*function hideme(){
         $("#login").show('slow');
         $("#forgat").hide(1000);
-    };
+    };*/
 </script>
 bla;
 	$text.=$javas;
 	//$text.="<div>";
-		$text.=  "<form class=\"login1\" id=\"forgat\" action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
-		$text.=  "<table width=\"300px\">\n";
+	/*$text.=  "<form class=\"login1\" id=\"forgat\" action=\"?module=login&amp;action=forgot\" method=\"post\">\n";
+	$text.=  "<table width=\"300px\">\n";
 	//$text.=  "<td colspan=\"2\">";
 	
 	//$text.=  "<h2>$l</h2></td></tr>\n";
@@ -438,7 +441,7 @@ bla;
 	$l = _("Cancel");
 	$text.='<tr><td><a href="javascript:hideme();">'.$l.'</a>';
 	
-	$text.=  "</td></tr></table></form>\n";
+	$text.=  "</td></tr></table></form>\n";//*/
 	
 	//$text.="</div>";
 	$haeder=_("Login");

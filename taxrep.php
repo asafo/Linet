@@ -6,9 +6,7 @@
 global $prefix, $accountstbl, $companiestbl, $transactionstbl, $tranreptbl;
 global $montharr;
 
-$montharr = array(_("January"), _("February"), _("March"), _("April"),
-	_("May"), _("June"), _("July"), _("August"), _("September"), 
-	_("October"), _("November"), _("December"));
+
 
 if(!isset($prefix) || ($prefix == '')) {
 	ErrorReport(_("This operation can not be executed without choosing a business first"));
@@ -17,9 +15,14 @@ if(!isset($prefix) || ($prefix == '')) {
 $text='';
 function GetLastDayOfMonth($month, $year) {
 	$last = 31;
-	
-	if($month == 0)
-		return $last;
+	  if (empty($month)) {
+	      $month = date('m');
+	   }
+	   if (empty($year)) {
+	      $year = date('Y');
+	   }
+	//if($month == 0)
+	//	return $last;
 	while(!checkdate($month, $last, $year)) {
 	//	print "$last-$month-$year<br>\n";
 		$last--;
@@ -76,6 +79,20 @@ function GetSumForAcctType($acct_type, $begin, $end) {
 		$sum += GetSumForAcct($num, $begin, $end);
 	}
 	return $sum;
+}
+
+function PrintYearSelect($year) {
+	$max = $year + 1;
+	
+	$str= "<select name=\"year\" >\n";
+	for($min = $year - 2; $min <= $max; $min++) {
+		$str.= "<option value=\"$min\" ";
+		if($min == $year)
+			$str.= "selected";
+		$str.= ">$min</option>\n";
+	}
+	$str.= "</select>\n";
+	return $str;
 }
 
 $step = isset($_GET['step']) ? $_GET['step'] : 0;
@@ -148,6 +165,9 @@ if($step == 0) {	/* print date select form */
 	$text.=PrintMonthSelect($endmonth, 'endmonth');
 	$text.= "</td>\n";
 	$text.= "<td>\n";
+	$text.=PrintYearSelect($beginyear);
+	$text.= "</td>\n";
+	$text.= "<td>\n";
 	$text.= "&nbsp;&nbsp;<input class=\"btnaction\" type=\"submit\" value=\"בצע\"></td></tr>\n";
 	$text.= "</table>\n";
 	$text.= "</form>\n";
@@ -158,11 +178,12 @@ if($step == 0) {	/* print date select form */
 }
 	$beginmonth = GetPost('beginmonth');
 	$endmonth = GetPost('endmonth');
-	$beginyear = GetPost('beginyear');
-	$endyear = GetPost('endyear');
-	$begindate = "1-$beginmonth-$beginyear";
-	$d = GetLastDayOfMonth($endmonth, $endyear);
-	$enddate = "$d-$endmonth-$endyear";
+	$year=GetPoster('year');
+	//$beginyear = GetPost('beginyear');
+	//$endyear = GetPost('endyear');
+	$begindate = "1-$beginmonth-$year";
+	$d = GetLastDayOfMonth($endmonth, $year);
+	$enddate = "$d-$endmonth-$year";
 //	print "$begindate - $enddate<br>\n";
 	$begin = FormatDate($begindate, "dmy", "mysql");
 	$end = FormatDate($enddate, "dmy", "mysql");
@@ -221,37 +242,46 @@ if($step == 1) {
 	$text.= "</form>\n";
 }
 if($step == 2) {
-	/*$begindate = $_POST['begindate'];
+	$begindate = $_POST['begindate'];
 	$enddate = $_POST['enddate'];
 	$beginmonth = $_POST['beginmonth'];
 	$endmonth = $_POST['endmonth'];
-	$income = $_POST['income'];
-	$taxpercent = $_POST['taxpercent'];
+	//$year = $_POST['year'];
+	//$income = $_POST['income'];
+	//$taxpercent = $_POST['taxpercent'];
 	$tax = $_POST['tax'];
 	$custtaxtotal = $_POST['custtaxtotal'];
 	$custtax = $_POST['custtax'];
 	$taxtopay = $_POST['taxtopay'];
-	
+	//print_r($_POST);
 	$bm = $montharr[$beginmonth - 1];
-	$em = $montharr[$endmonth - 1];*/
+	$em = $montharr[$endmonth - 1];
 	//$text.= "<br><h1>׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳�׳×׳§׳•׳₪׳”: $bm - $em</h1>\n";
 
 	// Now the real thing, register transactions */
-		list($day1, $month1, $year1) = split("[/.-]", $begindate);
+	list($day1, $month1, $year1) = split("[/.-]", $begindate);
 	list($day2, $month2, $year2) = split("[/.-]", $enddate);
 	$ref1 = "$month1$year1";
 	$ref2 = "$month2$year2";
-//	$date = date('d-m-Y');
-	$date = $enddate;	/* register transactions on last date of report */
+	$date = date('d-m-Y');
+	//$date = $enddate;	/* register transactions on last date of report */
 	/* first check if we already have transactions */
-	$t = TRAN_PRETAX;
-	$query = "SELECT num FROM $transactionstbl WHERE type='$t' AND refnum1='$ref1' AND refnum2='$ref2' AND prefix='$prefix'";
+	//$t = TRAN_PRETAX;
+	//$query = "SELECT num FROM $transactionstbl WHERE type='$t' AND refnum1='$ref1' AND refnum2='$ref2' AND prefix='$prefix'";
 	// Transaction 1 ׳–׳›׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳—׳•׳‘׳× ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”
-	$tnum = Transaction(0, TRAN_PRETAX, TAX, $ref1, $ref2, $date, $tax);
-	$tnum = Transaction($tnum, TRAN_PRETAX, PRETAX, $ref1, $ref2, $date, $tax * -1.0);
+	//$tnum = Transaction(0, TRAN_PRETAX, TAX, $ref1, $ref2, $date, $tax);
+	//$tnum = Transaction($tnum, TRAN_PRETAX, PRETAX, $ref1, $ref2, $date, $tax * -1.0);
 	// Transaction 2 ׳–׳›׳•׳× ׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳×, ׳—׳•׳‘׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”
-	$tnum = Transaction($tnum, TRAN_PRETAX, TAX, $ref1, $ref2, $date, $custtax);
-	$tnum = Transaction($tnum, TRAN_PRETAX, CUSTTAX, $ref1, $ref2, $date, $custtax * -1.0);
+	//$tnum = Transaction($tnum, TRAN_PRETAX, TAX, $ref1, $ref2, $date, $custtax);
+	//$tnum = Transaction($tnum, TRAN_PRETAX, CUSTTAX, $ref1, $ref2, $date, $custtax * -1.0);
+	// Transaction 1 ׳–׳›׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳” ׳—׳•׳‘׳× ׳�׳§׳“׳�׳•׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”
+	//print(";".TRAN_PRETAX.";".IRS.";".$ref1.";".$ref2.";".$date.";".$tax);
+	$tnum = Transaction(0, TRAN_PRETAX, IRS, $ref1, $ref2, $date, $details, $tax); 
+	$tnum = Transaction($tnum, TRAN_PRETAX, PRETAX, $ref1, $ref2, $date, $details, $tax * -1.0);
+	// Transaction 2 ׳–׳›׳•׳× ׳ ׳™׳›׳•׳™ ׳‘׳�׳§׳•׳¨ ׳�׳�׳§׳•׳—׳•׳×, ׳—׳•׳‘׳× ׳�׳¡ ׳”׳›׳ ׳¡׳”
+	$tnum = Transaction($tnum, TRAN_PRETAX, IRS, $ref1, $ref2, $date, $details, $custtax);
+	$tnum = Transaction($tnum, TRAN_PRETAX, CUSTTAX, $ref1, $ref2, $date, $details, $custtax * -1.0);
+	$text.=_("Done");
 }
 createForm($text, $header,'',750,'','',1,getHelp());
 ?>

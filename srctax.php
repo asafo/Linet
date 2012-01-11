@@ -45,15 +45,6 @@ function GetAcctType($acct) {
 	return $line[0];
 }
 
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
-}
 
 function PrintTitle($customer, $step, $fd) {
 	if($step < 2) {

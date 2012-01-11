@@ -32,7 +32,7 @@ class document extends fields{
 	
 	public function newDocument(){
 		global $companiestbl;
-		$newnum=maxSql(array(1=>1),'num',$this->_table);
+		$newnum=maxSql(array('prefix'=>$this->_prefix),'num',$this->_table);
 		$newdoc_num=maxSql(array('prefix'=>$this->_prefix,'doctype'=>$this->doctype),'docnum',$this->_table);
 		$minDocnum=selectSql(array('prefix'=>$this->_prefix), $companiestbl,array('num'.$this->doctype));
 		$minDocnum=$minDocnum[0]['num'.$this->doctype];

@@ -6,6 +6,7 @@
  
 global $superuser, $companiestbl, $logintbl;
 global $lang, $dir;
+require_once('class/account.php');
 $text='';
 if($action == 'defsubmit') {
 	//$email = htmlspecialchars($_POST['email'], ENT_QUOTES);
@@ -94,14 +95,17 @@ if($action == 'defsubmit') {
 	$creditallow=serialize($_POST['creditallow']);
 	//$creditallow=unserialize($line['creditallow']);
 	$vatrep = (int)$_POST['vatrep'];
-	$query = "INSERT INTO $companiestbl (companyname, prefix, manager, regnum, address, city, zip, phone, cellular, web, vat, vatrep, bidi,credit,credituser,creditpwd,creditallow)";
-	$query .= " VALUES('$companyname', '$prefix', '$manager', '$regnum', '$address', '$city', '$zip', '$phone', '$cellular', '$web', '$vat', '$vatrep', '$bidi', '$credit', '$credituser', '$creditpwd','$creditallow')";
+	$tax = (float)$_POST['tax'];
+	$taxrep = (int)$_POST['taxrep'];
+	$query = "INSERT INTO $companiestbl (companyname, prefix, manager, regnum, address, city, zip, phone, cellular, web, tax,taxrep,vat, vatrep, bidi,credit,credituser,creditpwd,creditallow)";
+	$query .= " VALUES('$companyname', '$prefix', '$manager', '$regnum', '$address', '$city', '$zip', '$phone', '$cellular', '$web', '$tax', '$taxrep','$vat', '$vatrep', '$bidi', '$credit', '$credituser', '$creditpwd','$creditallow')";
 	//print $query;
 	DoQuery($query, "defs.php");
 	global $curuser;
 	$email=$curuser->name;
 	$query = "INSERT INTO $permissionstbl VALUES ('$email', '$prefix', 0)";
 	DoQuery($query, "defs.php");
+	require('acctcreate.inc.php');	
 	$l = _("Business added succesfully");
 	$text.= "<h2>$l</h2>\n";
 	print "<meta http-equiv=\"refresh\" content=\"0;url=?action=unsel\" /> ";

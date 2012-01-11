@@ -24,10 +24,10 @@ function TypeSelChange() {
 		document.getElementById('crd').style.display = 'none';
 	}
 }
-function ochange(id) {
+function onChange(id) {
 	
-	if(id=="acc"){
-		$.post("index.php",  {"action": "lister" ,"selector" : 1, "data": "Account", "num": $("#acc").val()},
+	if(id=="account"){
+		$.post("index.php",  {"action": "lister" ,"selector" : 1, "data": "Account", "num": $("#account").val()},
 				function(data) {
 					$("#suppliername").html(data.company);
 				}, "json")
@@ -46,16 +46,6 @@ if(!isset($prefix) || ($prefix == '')) {
 	ErrorReport("$l");
 	//print "<h1>$l</h1>\n";
 	return;
-}
-
-function GetAccountName($val) {
-	global $accountstbl;
-	global $prefix;
-
-	$query = "SELECT company FROM $accountstbl WHERE num='$val' AND prefix='$prefix'";
-	$result = DoQuery($query, "GetAccountName");
-	$line = mysql_fetch_array($result, MYSQL_NUM);
-	return $line[0];
 }
 
 function PrintPaymentSelect($def) {
@@ -179,14 +169,14 @@ if($step == 2) {
 	// Transaction 2 ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳’ג‚¬ן¿½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ³ֲ·׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€� ׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ¦׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג‚¬ן¿½ײ²ֲ¢ ׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬׳�ֲ¿ֲ½׳³ֲ³ײ²ֲ³׳²ֲ³׳’ג‚¬ג€�׳³ֲ³ײ²ֲ³׳²ֲ²ײ²ֲ©׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½׳³ֲ³ײ²ֲ³׳³ג€™׳’ג€�ֲ¬ײ²ֲ¢׳³ֲ³ײ²ֲ³׳³ן¿½ײ²ֲ¿ײ²ֲ½
 	$tnum = Transaction($tnum, $t, $payment, $refnum, '', $dt, $comment, $total);
 	$step = 0;
-	if($opt) {
-		$l = _("Payment executed successfully");
-		print "<div style=\"display: inline-block;\"><H2>$l</H2>\n";
-		$l=_("Back");
-		print "<form><input type=\"button\" value=\"$l\" onclick=\"history.back()\"></form></div>\n";
+	//if($opt) {
+	$text .= '<h3>'._("Payment executed successfully").'</h3>';
+	//	print "<div style=\"display: inline-block;\"><H2>$l</H2>\n";
+	//	$l=_("Back");
+	//	print "<form><input type=\"button\" value=\"$l\" onclick=\"history.back()\"></form></div>\n";
 		//ErrorReport($l);
-		return;
-	}
+	//	return;
+	//}
 }
 
 if($step == 1) {
@@ -244,7 +234,7 @@ $haeder=$l;
 		$text.= "$str\n";
 	}
 	else
-		$text.= PrintSupplierSelect($supplier);
+		$text.= PrintAccSelect($supplier,'account',"B");//adam needs to be every account
 	$text.= "</td>\n";
 	$text.= "</tr><tr>\n";
 	$l = _("Sum");
@@ -293,10 +283,10 @@ $haeder = _("Supplier payment");
 //$text.= "<h3>$l</h3>\n";
 $text.= "<form name=\"payment\" action=\"?module=payment&amp;step=1\" method=\"post\" class=\"valform\" >\n";
 $text.= "<table border=\"0\" class=\"formtbl\" width=\"100%\"><tr>\n";
-$l = _("Choose supplier");
+$l = _("Choose account");
 $text.= "<td>$l:  <span style=\"display: inline-block;width: 150px;\" id=\"suppliername\"></td>\n";
 $text.= "<td>\n";
-$text.= PrintSupplierSelect("");
+$text.= PrintAccSelect($supplier,'account',"B");//adam:
 $text.= "</td>\n";
 $text.= "</tr><tr>\n";
 $l = _("Total payment");
