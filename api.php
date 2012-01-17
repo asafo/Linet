@@ -154,7 +154,7 @@ function SetData($data){
 			foreach ($arr as $key=>$value){
 				foreach ($tmp as $subkey=>$subvalue){
 					if ($key==$subkey)
-						$item->{$key}=$value;
+						$acc->{$key}=$value;
 				}
 			}
 			return  array("data"=>$acc->newAccount());
@@ -168,7 +168,33 @@ function SetData($data){
 						$doc->{$key}=$value;
 				}
 			}
-			return  array("data"=>$doc->newDocument());
+			if(isset($doc->docdetials)){
+				$a=unserialize($doc->docdetials);
+				$doc->docdetials=array();
+				foreach ($a as $detial){ 
+					$docdet=new documentDetail;
+					foreach ($detial as $subkey=>$subvalue){
+						$docdet->{$subkey}=$subvalue;
+					}
+					$doc->docdetials[]=$docdet;
+				}
+			}
+			if(isset($doc->rcptdetials)){
+				$a=unserialize($doc->rcptdetials);
+				$doc->rcptdetials=array();
+				foreach ($a as $detial){ 
+					$rcptdet=new receiptDetail;
+					foreach ($detial as $subkey=>$subvalue){
+						$rcptdet->{$subkey}=$subvalue;
+					}
+					$doc->rcptdetials[]=$rcptdet;
+				}
+			}
+			$b=$doc->newDocument();
+			if($b){
+				$doc->transaction();
+				return  array("data"=>$b);
+			}
 			break;
 		case "Company":
 			$newprefix=$arr['company'];
@@ -226,6 +252,28 @@ function UpdateData($data,$id){
 				foreach ($tmp as $subkey=>$subvalue){
 					if ($key==$subkey)
 						$doc->{$key}=$value;
+				}
+			}
+			if(isset($doc->docdetials)){
+				$a=unserialize($doc->docdetials);
+				$doc->docdetials=array();
+				foreach ($a as $detial){ 
+					$docdet=new documentDetail;
+					foreach ($detial as $subkey=>$subvalue){
+						$docdet->{$subkey}=$subvalue;
+					}
+					$doc->docdetials[]=$docdet;
+				}
+			}
+			if(isset($doc->rcptdetials)){
+				$a=unserialize($doc->rcptdetials);
+				$doc->rcptdetials=array();
+				foreach ($a as $detial){ 
+					$rcptdet=new receiptDetail;
+					foreach ($detial as $subkey=>$subvalue){
+						$rcptdet->{$subkey}=$subvalue;
+					}
+					$doc->rcptdetials[]=$rcptdet;
 				}
 			}
 			//if type is inv or inv recipet then return data -4

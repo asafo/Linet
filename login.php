@@ -11,11 +11,11 @@ require_once 'class/user.php';
 //global $dir;
 $text='';
 if(isset($_POST['name']))
-	$name = $_POST['name'];
+	$name = sqlText($_POST['name']);
 
 if(!isset($prefix)) {
 	if(isset($_COOKIE['company']))
-		$prefix =  $_COOKIE['company'];
+		$prefix =  sqlText($_COOKIE['company']);
 }
 
 function UpdateLevel($uname, $level) {
@@ -64,16 +64,6 @@ function AddUser() {
 	$text.= "<tr><td>$l: </td>\n";
 	$text.= "<td><input type=\"password\" name=\"verpassword\" /></td></tr>\n";
 //	print "<tr>\n";
-/*	print "<td>׳³ג€�׳³ֲ¨׳³ֲ©׳³ן¿½׳³ג€¢׳³ֳ—: </td>\n";
-	print "<td>\n";
-	print "<select name=level>\n";
-	foreach($levelsarr as $key => $val) {
-		print "<option value=$key";
-		if($key == $level)
-			print " selected";
-		print ">$val</option>\n";
-	}
-	print "</select>\n"; */
 	if($prefix == '')
 		$text.= "<input type=hidden name=prefix value=\"*\" />\n";
 //	print "</td></tr>\n";
@@ -86,36 +76,9 @@ function AddUser() {
 	createForm($text, $haeder,'',750,'','img/icon_adduser.png',1,getHelp());
 }
 
-/*if($action == 'delname') {
-	if($name == 'demo') {
-		$l = _("Demo user is not allowed to update data");
-		print "<h1>$l</h1>\n";
-		return;
-	}
 
-	$uname = $_POST['uname'];
-	$query = "DELETE FROM $logintbl WHERE name='$uname'";
-	// print "Query: $query<br>\n";
-	DoQuery($query, "Del");
-	$query = "DELETE FROM $permissionstbl WHERE name='$uname' AND company='$prefix'";
-	DoQuery($query, "Del");
-	$l = _("Name succesfully deleted");
-	print "<h1  class=\"login\">$l</h1>\n";
-	return;
-}
-if($action == 'removeperm') {
-	if($name == 'demo') {
-		$l = _("Demo user is not allowed to update data");
-		print "<h1>$l</h1>\n";
-		return;
-	}
-
-	$query = "DELETE FROM $permissionstbl WHERE name='$uname' AND prefix='$prefix'";
-	DoQuery($query, "RemovePerm");
-	return;
-}*/
 if($action == 'logout') {
-	$name = $_COOKIE['name'];
+	$name = sqlText($_COOKIE['name']);
 	$query = "UPDATE $logintbl SET cookie='' WHERE name='$name'";
 	if(!mysql_query($query)) {
 		echo mysql_error();
@@ -133,7 +96,7 @@ if($action == 'doadduser') {
 		return;
 	}
 
-	$name = $_POST['name'];
+	$name = sqlText($_POST['name']);
 	/* first check if this is a new user that does not exist */
 	$query = "SELECT name FROM $logintbl WHERE name='$name'";
 	$result = DoQuery($query, "login.php");
@@ -142,7 +105,7 @@ if($action == 'doadduser') {
 		$l = _("Email already exists"); //adam
 		print "<h1 class=login>$l</h1>\n";
 		if($prefix == '')
-			$prefix = $_POST['prefix'];
+			$prefix = sqlText($_POST['prefix']);
 //		$level = $_POST['level'];
 		$level = 0;
 		$query = "SELECT name FROM $permissionstbl WHERE name='$name'";
@@ -186,7 +149,7 @@ if($action == 'doadduser') {
 		$result= DoQuery($query, "login add");
 	
 		if($prefix == '')
-			$prefix = $_POST['prefix'];
+			$prefix = sqlText($_POST['prefix']);
 		
 //		$level = $_POST['level'];
 		$level = 0;
@@ -208,7 +171,7 @@ if($action == 'updateuser') {
 		return;
 	}
 
-	$uname = $_POST['uname'];
+	$uname = sqlText($_POST['uname']);
 	unset($password);	/* make sure $password is not set */
 	if(isset($_POST['password']) && ($_POST['password'] != '')) {
 		$password = $_POST['password'];
@@ -241,7 +204,7 @@ if($action == 'updateuser') {
 }
 
 if($action == 'forgot') {
-	$email = $_POST['email'];
+	$email = sqlText($_POST['email']);
 	$query = "SELECT * FROM $logintbl WHERE name='$email'";
 	$result = DoQuery($query, "login.php");
 	$n = mysql_num_rows($result);

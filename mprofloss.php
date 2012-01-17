@@ -540,7 +540,7 @@ if($filerep) {
 	Conv1255($filename);
 	$l = _("File export");
 	$text.= "<h2>$l: ";
-	$url = "download.php?file=$filename&amp;name=profloss.csv";
+	$url = "download.php?file=mprofloss.csv&amp;name=mprofloss.csv";
 	$text.= "<a href=\"$url\">mprofloss.csv</a></h2>\n";
 	//$l = _("Right click and choose 'save as...'");
 	//$text.= "<h2>$l</h2>\n";

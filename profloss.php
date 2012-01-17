@@ -464,7 +464,7 @@ if($step >= 1) {
 		Conv1255($filename);
 		$haeder = _("File export");
 		//print "<h2>$l: ";
-		$url = "download.php?file=$filename&amp;name=profloss.csv";
+		$url = "download.php?file=profloss.csv&amp;name=profloss.csv";
 		$text.= "<a href=\"$url\"><h2>profloss.csv</h2></a>\n";
 		//$l = _("Right click and choose 'save as...'");
 		//$text.= "<h2>$l</h2>\n";

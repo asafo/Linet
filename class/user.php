@@ -1,33 +1,24 @@
 <?php
 class user{
-	//public $arr;
 	private $_table='';
 	/**
 	//new user
 	**/
-	public function login($username='',$password=null,$data=null,$hash=null){
-		//print "bla";
-		//global $curuser;
+	public function login($username='',$password='',$data='',$hash=''){
 		if($username==''){
 			return $this->logout();
 		}else {
-			
-			
-			//$curuser=new user;
-			//print_r($curuser);
 			$this->name=$username;
-			//print_r($curuser);
-			//print $username;
-			$this->getUser();
-			//print_r($curuser);
-			//print "password1: ".sha1($password)."<br />";
-			//print "password2: ".$curuser->password."<br />";
-			if(!is_null($password)){
+			if((!$this->getUser())||(($password!='')&&($data!=''))){
+				return "wtf?";
+			}
+			
+			if($password!=''){
 				if($this->password==sha1($password))
 					return $this->dologin();
 				else
 					return "pass";
-			}else if(!is_null($data)){
+			}else if($data!=''){
 				if($_SESSION['data']==$data)
 					return $this->dologin($data);
 				else
@@ -39,7 +30,7 @@ class user{
 			//}else if(!is_null($cookie)){
 				
 				//return "cookie";
-			}else if(!is_null($hash)){
+			}else if($hash!=''){
 				if($this->hash==$hash)
 					return $this->dologin();
 				else
@@ -48,7 +39,7 @@ class user{
 		}
 	}
 	private function dologin($data=null){
-
+		session_start();
 		
 		//global $curuser;
 		$cookietime = time() + 60*60*24*30;
@@ -99,12 +90,8 @@ class user{
 		unset($array['_table']);
 		$array['password']=sha1($array['password']);
 		if (isset($array['name'])){//if not not a valid user
-			//$a=$this->getUser($array['name']);
 			$a=new user;
 			$a->name=$array['name'];
-			//print_r($a);
-			//print ':'.$a->getUser();
-			//print_r($a);
 			if (!($a->getUser()))//if user exsits
 				return inseretSql($array,$this->_table);
 			return false;	

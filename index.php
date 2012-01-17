@@ -51,7 +51,7 @@ if(($module == '') && ($action == ''))
 
 $link = mysql_connect($host, $user, $pswd) or die("Could not connect to host $host");
 mysql_query("SET NAMES 'utf8'");
-mysql_select_db($database) or include 'setup.php';//die("Could not select database: $database");
+mysql_select_db($database) or include 'setup.php';
 
 
 
@@ -68,6 +68,7 @@ $curuser->data=$data;
 $curuser->login($name,null,$data);
 
 $prefix = isset($_GET['company']) ? $prefix=$_GET['company'] : $prefix=$prefix;
+$prefix=sqlText($prefix);
 $curcompany=unserialize($_SESSION['company']);
 if(!isset($_SESSION['company'])||($prefix!=$curcompany->prefix)){
 	if($prefix!=''){
@@ -277,16 +278,13 @@ function RunModule() {
 	global $loggedin, $superuser;
 	global $ModuleAction;
 	global $menuprinted;
-	//print $module;
 	if(!$loggedin) {
 		include('login.php');
 		return '';
 	}
-	//print_r($_POST);print_r($_GET);
 	$btype = browser_info(NULL);
 		if(file_exists("$module.php")) {
 			require('shurtcut.php');
-			//print("were r we? $module");
 			require("$module.php");					
 			return "";
 		}
@@ -421,5 +419,4 @@ while(!feof($file)) {
 	print $new;
 }
 fclose($file);
-//if(!$loggedin) include('login.php');
 ?>

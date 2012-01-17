@@ -257,7 +257,7 @@ if($step >= 1) {
 		Conv1255($filename);
 		$l = _("Click here to download");
 		$text= "<h2>$l: ";
-		$url = "download.php?file=$filename&amp;name=profloss.csv";
+		$url = "download.php?file=balance.csv&amp;name=balance.csv";
 		$text.= "<a href=\"$url\">balance.csv</a></h2>\n";
 		//$l = _("Right click and choose 'save as...'");
 		//$text.= "<h2>$l</h2>\n";

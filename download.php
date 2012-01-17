@@ -1,5 +1,6 @@
 <?PHP
-$file_path = $_GET['file'];
+$file_path = str_replace('/','',$_GET['file']);
+$file_path=str_replace(".csv","",$file_path);
 $asfname = $_GET['name'];
 
 header("Pragma: public");
@@ -14,7 +15,7 @@ header("Content-Transfer-Encoding: binary");
 
 // download
 // @readfile($file_path);
-$file = @fopen($file_path,"rb");
+$file = @fopen("tmp/$file_path.csv","rb");
 if ($file) {
   while(!feof($file)) {
     print(fread($file, 1024*8));

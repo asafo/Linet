@@ -324,7 +324,7 @@ if($end != '') {
 		fclose($fd);
 		$l = _("Click here to download report");
 		$text.= "<h2>$l: ";
-		$url = "download.php?file=$filename&amp;name=acct$acct.csv";
+		$url = "download.php?file=acct$acct.csv&amp;name=acct$acct.csv";
 		$text.= "<a href=\"$url\">acct$acct.csv</a></h2>\n";
 		$l = _("Right click and choose 'save as...'");
 		//$text.= "<h2>$l</h2>\n";
