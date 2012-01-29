@@ -165,7 +165,7 @@ function CalcPrice(index) {
 	$('#PRICE'+index).val((uprice * qty).toFixed(2));
 	CalcPriceSum();
 }
-function CalcPriceSum() {
+function CalcPriceSum(round_vatsum) {
 	var elements = $('[id^=PRICE]');
 	var selements = $('[id^=SVAT]');
 	var vattotal=0;
@@ -182,6 +182,8 @@ function CalcPriceSum() {
 			novat_total+=itemtotal;
 		}
 	}
+	if (round_vatsum)
+	    vattotal = Math.round(vattotal);
 	$('#vatsum').val(vattotal.toFixed(2));
 	$('#sub_total').val(subtotal.toFixed(2));
 	$('#novat_total').val(novat_total.toFixed(2));
@@ -209,6 +211,11 @@ function SetPartDetails(index) {
 				$('#QTY'+index).focus();
 			}, "json")
 			.error(function() { });
+}
+
+function RoundVatsum()
+{
+    CalcPriceSum(true);
 }
 
 function CalcDueDate(valdate, pay_terms) {
@@ -655,7 +662,7 @@ if($step == 0) {	/* First step, select document type and customer */
 			$text.= "<th class=\"header\" width=\"36\">$l</th>\n";
 		$text.= "</tr>\n";
 		$l=htmlspecialchars(_("VAT"));
-		$text.= "</thead><tfoot><tr><td colspan=\"4\"></td><td>$l</td><td>".PrintInput("text",null,"vat","vatsum",0,8,"readonly")."</td><td></td></tr>\n";
+		$text.= "</thead><tfoot><tr><td colspan=\"4\"></td><td>$l</td><td>".PrintInput("text",null,"vat","vatsum",0,8,"readonly")."</td><td>  <a href=\"javascript:RoundVatsum();\" class=\"btnadd\">". _("Round")."</a> </td></tr>\n";
 		$text.=PrintInput("hidden",null,"sub_total","sub_total");
 		$text.=PrintInput("hidden",null,"novat_total","novat_total");
 		$l=htmlspecialchars(_("Sum"));
